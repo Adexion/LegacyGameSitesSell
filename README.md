@@ -1,10 +1,13 @@
 # Web BackEnd
 ## Versions
 ```
-# 0.15.2 - 07.08.2019
+# 0.15.4 - 07.08.2019
+    - repair username for avatar while empty 
+    - repair event listener array throwing
+# 0.15.3 - 07.08.2019
     - repair configuration of event listener on http exceptions
     - repair path acl
-# 0.15.3 - 07.08.2019
+# 0.15.2 - 07.08.2019
     - repair configuration of event listener
     - repair price for microSMS
 # 0.15.1 - 07.08.2019

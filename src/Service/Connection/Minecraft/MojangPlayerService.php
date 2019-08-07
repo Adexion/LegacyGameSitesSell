@@ -4,6 +4,7 @@ namespace ModernGame\Service\Connection\Minecraft;
 
 use DateTime;
 use GuzzleHttp\Exception\GuzzleException;
+use ModernGame\Exception\ArrayException;
 use ModernGame\Exception\ForbiddenOperationException;
 use ModernGame\Service\Connection\ApiClient\RestApiClient;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
@@ -33,9 +34,14 @@ class MojangPlayerService
 
     /**
      * @throws GuzzleException
+     * @throws ArrayException
      */
-    public function getUUID(string $userName): string
+    public function getUUID(?string $userName): string
     {
+        if (empty($userName)) {
+            throw new ArrayException(['username' => 'Pole nie może być puste.']);
+        }
+
         $user = json_decode(
             $this->client
                 ->request(RestApiClient::GET, self::MOJANG_GET_UUID_URL . $userName)
@@ -51,6 +57,7 @@ class MojangPlayerService
     /**
      * @throws ForbiddenOperationException
      * @throws GuzzleException
+     * @throws ArrayException
      */
     public function loginIn(array $loginData): array
     {
@@ -85,6 +92,7 @@ class MojangPlayerService
 
     /**
      * @throws GuzzleException
+     * @throws ArrayException
      */
     private function buildProfile(string $username): array
     {
