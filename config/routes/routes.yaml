@@ -23,7 +23,7 @@ user-update:
   controller: ModernGame\Controller\PlayerController::update
   methods:    [PUT]
 
-# ----------Player
+# ---------- Player
 player-avatar:
   path:       /user/avatar
   controller: ModernGame\Controller\PlayerController::getPlayerAvatar

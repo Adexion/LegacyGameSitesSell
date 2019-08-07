@@ -7,6 +7,7 @@ use ModernGame\Service\Mail\MailSenderService;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class ExceptionListener
 {
@@ -26,7 +27,10 @@ class ExceptionListener
         $exception = $event->getException();
         $response = new Response();
 
-        if ($exception instanceof ArrayException) {
+        if ($exception instanceof HttpExceptionInterface) {
+            $response->setStatusCode($exception->getStatusCode());
+            $response->headers->replace($exception->getHeaders());
+        } else if ($exception instanceof ArrayException) {
             $response->setContent($exception->getMessage());
             $response->setStatusCode($exception->getCode());
         } else {
