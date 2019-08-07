@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Service;
+namespace ModernGame\Service\Mail;
 
 use Swift_Mailer;
 use Swift_Message;
@@ -8,15 +8,17 @@ use Swift_Message;
 class MailSenderService
 {
     private $mailer;
+    private $provider;
 
-    public function __construct(Swift_Mailer $mailer)
+    public function __construct(Swift_Mailer $mailer, SchemaListProvider $provider)
     {
         $this->mailer = $mailer;
+        $this->provider = $provider;
     }
 
     public function sendEmail($schemaId, string $data, string $email)
     {
-        $schema = [];
+        $schema = $this->provider->provide($schemaId);
 
         $body = str_replace($schema['replace'], $data, $schema['text']);
 

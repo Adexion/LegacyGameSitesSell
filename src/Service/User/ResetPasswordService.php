@@ -8,7 +8,7 @@ use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\ResetPasswordRepository;
 use ModernGame\Exception\ArrayException;
 use ModernGame\Form\ResetPasswordType;
-use ModernGame\Service\MailSenderService;
+use ModernGame\Service\Mail\MailSenderService;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;

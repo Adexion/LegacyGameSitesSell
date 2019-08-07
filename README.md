@@ -1,6 +1,9 @@
 # Web BackEnd
 ## Versions
 ```
+# 0.15.1 - 07.08.2019
+    - add event listener 
+    - add logger of errors and sending to email while other than ArrayException
 # 0.14.2 - 07.08.2019
     - add an paymants like MicroSMS And PayPal
     - ready default configuration for locale
