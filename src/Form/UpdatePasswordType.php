@@ -2,8 +2,7 @@
 
 namespace ModernGame\Form;
 
-
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use ModernGame\Database\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -12,12 +11,11 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ResetType extends AbstractType
+class UpdatePasswordType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction('/api/user/reset')
             ->add('id', HiddenType::class, array(
                 'label' => false
             ))
@@ -35,12 +33,6 @@ class ResetType extends AbstractType
                         'placeholder' => 'Powtórz hasło',
                     ],
                 ]
-            ])
-            ->add('button', ButtonType::class, [
-                'attr' => [
-                    'class' => 'btn-secondary user m-auto d-block send-btn',
-                ],
-                'label' => 'Zapisz',
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
     }

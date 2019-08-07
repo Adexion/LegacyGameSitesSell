@@ -4,6 +4,7 @@ namespace ModernGame\Service\Content;
 
 use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Entity\User;
+use ModernGame\Exception\ArrayException;
 use ModernGame\Form\ArticleType;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -27,6 +28,9 @@ class ArticleService
         $this->user = $tokenStorage->getToken()->getUser();
     }
 
+    /**
+     * @throws ArrayException
+     */
     public function getMappedArticle(Request $request)
     {
         $article = new Article();

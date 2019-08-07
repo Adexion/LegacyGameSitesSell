@@ -15,49 +15,42 @@ class EquipmentItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction('/api/admin/item/' . $options['action'] ?? null)
-            ->add('name', TextType::class, array(
+            ->add('name', TextType::class, [
                 'label' => 'Nazwa',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => 'Nazwa'
-                ),
-            ))
-            ->add('id', HiddenType::class, array(
+                ],
+            ])
+            ->add('id', HiddenType::class, [
                 'label' => false
-            ))
-            ->add('command', TextType::class, array(
+            ])
+            ->add('command', TextType::class, [
                 'label' => 'Komenda',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => 'Komenda'
-                )
-            ))
-            ->add('iconUrl', TextType::class, array(
+                ]
+            ])
+            ->add('iconUrl', TextType::class, [
                 'label' => 'Ikona',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => 'Ikona'
-                )
-            ))
-            ->add('equipmentId', ChoiceType::class, array(
+                ]
+            ])
+            ->add('equipmentId', ChoiceType::class, [
                 'choices' => $options['equipments'],
                 'label' => 'Numer serwera',
-                'attr' => array(
-                    'placeholder' => 'Numer serwera'
-                )
-            ))
-            ->add('button', ButtonType::class, [
                 'attr' => [
-                    'class' => 'btn-secondary user m-auto d-block send-btn',
-                ],
-                'label' => 'Zapisz',
+                    'placeholder' => 'Numer serwera'
+                ]
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefaults(array('data_class' => EquipmentItem::class))
+            ->setDefaults(['data_class' => EquipmentItem::class])
             ->setDefault('equipments', null)
             ->setRequired('equipments')
-            ->setAllowedTypes('equipments', array('array'));
+            ->setAllowedTypes('equipments', ['array']);
     }
 }

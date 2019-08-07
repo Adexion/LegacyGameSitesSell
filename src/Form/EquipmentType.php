@@ -3,13 +3,11 @@
 namespace ModernGame\Form;
 
 use ModernGame\Database\Entity\Equipment;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,82 +16,64 @@ class EquipmentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction('/api/admin/equipment/' . $options['action'] ?? null)
-            ->add('name', TextType::class, array(
+            ->add('name', TextType::class, [
                 'label' => 'Nazwa',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => 'Nazwa'
-                ),
-            ))
-            ->add('id', HiddenType::class, array(
+                ],
+            ])
+            ->add('id', HiddenType::class, [
                 'label' => false
-            ))
-            ->add('howManyBuyers', HiddenType::class, array(
+            ])
+            ->add('howManyBuyers', HiddenType::class, [
                 'label' => false
-            ))
-            ->add('description', TextType::class, array(
+            ])
+            ->add('description', TextType::class, [
                 'label' => 'Opis',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => 'Opis'
-                )
-            ))
-            ->add('iconUrl', TextType::class, array(
+                ]
+            ])
+            ->add('iconUrl', TextType::class, [
                 'label' => 'Ikona',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => 'Ikona'
-                )
-            ))
-            ->add('sliderImage', TextType::class, array(
+                ]
+            ])
+            ->add('sliderImage', TextType::class, [
                 'label' => 'Slider',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => 'Slider'
-                )
-            ))
-            ->add('price', NumberType::class, array(
+                ]
+            ])
+            ->add('price', NumberType::class, [
                 'label' => 'Cena',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => 'Cena'
-                )
-            ))
-            ->add('promotion', NumberType::class, array(
+                ]
+            ])
+            ->add('promotion', NumberType::class, [
                 'label' => 'Zniżka',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => 'Zniżka'
-                )
-            ))
-            ->add('serverId', ChoiceType::class, array(
+                ]
+            ])
+            ->add('serverId', ChoiceType::class, [
                 'choices' => [
                     'Gemdust' => 1
                 ],
                 'label' => 'Numer serwera',
-                'attr' => array(
-                    'placeholder' => 'Numer serwera'
-                )
-            ))
-            ->add('button', ButtonType::class, [
                 'attr' => [
-                    'class' => 'btn-secondary user m-auto d-block send-btn',
-                ],
-                'label' => 'Zapisz',
+                    'placeholder' => 'Numer serwera'
+                ]
             ])
             ->addEventListener(FormEvents::POST_SET_DATA, [$this, 'preSetData']);
     }
 
-    public function preSetData(FormEvent $event)
-    {
-        if (empty($event->getData())) {
-            $event->getForm()
-                ->add('howManyBuyers', HiddenType::class, array(
-                    'label' => false,
-                    'data' => 0
-                ));
-        }
-    }
-
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => Equipment::class,
-        ));
+        ]);
     }
 }

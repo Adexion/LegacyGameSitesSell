@@ -1,6 +1,10 @@
 # Web BackEnd
 ## Versions
 ```
+# 0.14.2 - 07.08.2019
+    - add an paymants like MicroSMS And PayPal
+    - ready default configuration for locale
+    - code review and refactor
 # 0.13.1 - 06.08.2019
     - creating project using old gemdust
     - refactoring classes and remove unworked code

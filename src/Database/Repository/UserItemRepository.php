@@ -6,7 +6,7 @@ use ModernGame\Database\Entity\UserItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
-class UserItemRepository extends RepositoryAbstract
+class UserItemRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

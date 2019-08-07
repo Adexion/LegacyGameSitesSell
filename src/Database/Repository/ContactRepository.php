@@ -5,7 +5,7 @@ namespace ModernGame\Database\Repository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use ModernGame\Database\Entity\Contact;
 
-class ContactRepository extends RepositoryAbstract
+class ContactRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

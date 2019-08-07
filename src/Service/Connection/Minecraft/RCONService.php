@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Service\Connection;
+namespace ModernGame\Service\Connection\Minecraft;
 
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;

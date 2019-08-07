@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 
-class UserRepository extends RepositoryAbstract
+class UserRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

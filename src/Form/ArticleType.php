@@ -17,45 +17,38 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction('/api/admin/article/' . $options['action'] ?? null)
-            ->add('title', TextType::class, array(
+            ->add('title', TextType::class, [
                 'label' => 'Tytuł',
-                'attr' => array(
-                    'placeholder' => 'Tytuł'
-                ),
-            ))
-            ->add('id', HiddenType::class, array(
-                'label' => false
-            ))
-            ->add('subhead', TextType::class, array(
-                'label' => 'Podtytuł',
-                'attr' => array(
-                    'placeholder' => 'Podtytuł'
-                )
-            ))
-            ->add('image', TextType::class, array(
-                'label' => 'Obrazek',
-                'attr' => array(
-                    'placeholder' => 'Obrazek'
-                )
-            ))
-            ->add('text', TextareaType::class, array(
-                'label' => 'Opis',
-                'attr' => array(
-                    'placeholder' => 'Opis'
-                )
-            ))
-            ->add('shortText', TextareaType::class, array(
-                'label' => 'Krótki opis',
-                'attr' => array(
-                    'placeholder' => 'Krótki opis'
-                )
-            ))
-            ->add('button', ButtonType::class, [
                 'attr' => [
-                    'class' => 'btn-secondary user m-auto d-block send-btn',
+                    'placeholder' => 'Tytuł'
                 ],
-                'label' => 'Zapisz',
+            ])
+            ->add('id', HiddenType::class, [
+                'label' => false
+            ])
+            ->add('subhead', TextType::class, [
+                'label' => 'Podtytuł',
+                'attr' => [
+                    'placeholder' => 'Podtytuł'
+                ]
+            ])
+            ->add('image', TextType::class, [
+                'label' => 'Obrazek',
+                'attr' => [
+                    'placeholder' => 'Obrazek'
+                ]
+            ])
+            ->add('text', TextareaType::class, [
+                'label' => 'Opis',
+                'attr' => [
+                    'placeholder' => 'Opis'
+                ]
+            ])
+            ->add('shortText', TextareaType::class, [
+                'label' => 'Krótki opis',
+                'attr' => [
+                    'placeholder' => 'Krótki opis'
+                ]
             ])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'submit']);
     }
@@ -71,8 +64,8 @@ class ArticleType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => Article::class,
-        ));
+        ]);
     }
 }

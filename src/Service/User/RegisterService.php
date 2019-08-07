@@ -2,10 +2,12 @@
 
 namespace ModernGame\Service\User;
 
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\UserRepository;
 use ModernGame\Form\RegisterType;
-use ModernGame\Form\ResetType;
+use ModernGame\Form\UpdatePasswordType;
 use ModernGame\Form\UserType;
 use ModernGame\Exception\ArrayException;
 use ModernGame\Validator\FormErrorHandler;
@@ -35,6 +37,9 @@ class RegisterService
         $this->passwordEncoder = $passwordEncoder;
     }
 
+    /**
+     * @throws ArrayException
+     */
     public function register(Request $request)
     {
         $user = new User();
@@ -42,8 +47,6 @@ class RegisterService
 
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
-
-        $this->checkIPAddress($request->getClientIp());
 
         $user->setIpAddress($request->getClientIp());
         $user->setPassword($this->setEncodedPassword($user));
@@ -54,6 +57,11 @@ class RegisterService
         return $user->getId();
     }
 
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws ArrayException
+     */
     public function update(Request $request)
     {
         /** @var User $user */
@@ -71,11 +79,16 @@ class RegisterService
         $this->userRepository->update($user);
     }
 
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws ArrayException
+     */
     public function updatePassword(Request $request) {
         /** @var User $user */
         $user = $this->userRepository->find($request->request->get('id'));
 
-        $form = $this->form->create(ResetType::class, $user);
+        $form = $this->form->create(UpdatePasswordType::class, $user);
 
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
@@ -94,14 +107,5 @@ class RegisterService
             '\$2a$',
             $this->passwordEncoder->encodePassword($user, $user->getPassword())
         );
-    }
-
-    private function checkIPAddress(?string $clientIp)
-    {
-        $user = $this->userRepository->findOneBy(['ipAddress' => $clientIp]);
-
-        if (!empty($user)) {
-            throw new ArrayException(['ipAddress' => "Podany adres IP jest już zarejestrowany w systemie."]);
-        }
     }
 }

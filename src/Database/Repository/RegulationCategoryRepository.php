@@ -6,7 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use ModernGame\Database\Entity\RegulationCategory;
 
-class RegulationCategoryRepository extends ServiceEntityRepository
+class RegulationCategoryRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

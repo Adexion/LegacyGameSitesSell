@@ -8,6 +8,7 @@ use ModernGame\Database\Entity\UserItem;
 use ModernGame\Database\Repository\EquipmentItemRepository;
 use ModernGame\Database\Repository\EquipmentRepository;
 use ModernGame\Database\Repository\UserItemRepository;
+use ModernGame\Exception\ArrayException;
 use ModernGame\Form\EquipmentType;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -66,6 +67,9 @@ class EquipmentService
         return $equipment->getPrice() - ($equipment->getPrice() * $equipment->getPromotion());
     }
 
+    /**
+     * @throws ArrayException
+     */
     public function getMappedEquipment(Request $request)
     {
         $equipment = new Equipment();

@@ -2,8 +2,11 @@
 
 namespace ModernGame\Service\Content;
 
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use ModernGame\Database\Entity\Contact;
 use ModernGame\Database\Repository\ContactRepository;
+use ModernGame\Exception\ArrayException;
 use ModernGame\Form\ContactType;
 use ModernGame\Form\TicketType;
 use ModernGame\Validator\FormErrorHandler;
@@ -30,6 +33,11 @@ class ContactService
         $this->contactRepository = $contactRepository;
     }
 
+    /**
+     * @throws ArrayException
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
     public function setContactMessage(Request $request)
     {
         $contact = new Contact();
@@ -40,11 +48,14 @@ class ContactService
 
         $contact->setStatus(1);
         $contact->setToken(md5(uniqid() . date('Y-m-d H:i') . $contact->getMessage() . $contact->getName()));
-        $this->contactRepository->sendMessage($contact);
+        $this->contactRepository->insert($contact);
 
         return $contact->getToken();
     }
 
+    /**
+     * @throws ArrayException
+     */
     public function getMappedTicket(Request $request)
     {
         $contact = new Contact();
@@ -56,7 +67,11 @@ class ContactService
         return $contact;
     }
 
-    public function assignAsReadied(Request $request)
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function assignAsRead(Request $request)
     {
         /** @var Contact $contactEntity */
         $contactEntity = $this->contactRepository->find($request->query->get('id'));

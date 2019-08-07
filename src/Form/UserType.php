@@ -3,7 +3,7 @@
 namespace ModernGame\Form;
 
 
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use ModernGame\Database\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -15,21 +15,20 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends BaseType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction('/api/admin/user/edit')
-            ->add('username', TextType::class, array(
+            ->add('username', TextType::class, [
                 'label' => 'Nick',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => 'Nick'
-                ),
-            ))
-            ->add('id', HiddenType::class, array(
+                ],
+            ])
+            ->add('id', HiddenType::class, [
                 'label' => false
-            ))
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
@@ -45,29 +44,23 @@ class UserType extends BaseType
                     ],
                 ]
             ])
-            ->add('email', EmailType::class, array(
+            ->add('email', EmailType::class, [
                 'label' => 'E-mail',
-                'attr' => array(
+                'attr' => [
                     'placeholder' => 'E-mail'
-                )
-            ))
-            ->add('roles', ChoiceType::class, array(
+                ]
+            ])
+            ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Użytkownik' => 'ROLE_USER',
                     'Administrator' => 'ROLE_ADMIN'
                 ],
                 'multiple' => true,
                 'label' => 'Role'
-            ))
+            ])
             ->add('rules', HiddenType::class)
             ->add('reCaptcha', HiddenType::class)
             ->add('ipAddress', HiddenType::class)
-            ->add('button', ButtonType::class, [
-                'attr' => [
-                    'class' => 'btn-secondary user m-auto d-block send-btn',
-                ],
-                'label' => 'Zapisz',
-            ])
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
     }
 
@@ -80,8 +73,8 @@ class UserType extends BaseType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => User::class,
-        ));
+        ]);
     }
 }

@@ -3,8 +3,8 @@
 namespace ModernGame\Controller;
 
 use ModernGame\Exception\ArrayException;
-use ModernGame\Service\Connection\MojangPlayerService;
-use ModernGame\Service\Connection\RCONService;
+use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
+use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\User\RegisterService;
 use ModernGame\Service\User\ResetPasswordService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
@@ -38,14 +38,16 @@ class PlayerController extends Controller
 
     public function resetPassword(Request $request, ResetPasswordService $resetPassword)
     {
-        return new JsonResponse($resetPassword->reset($request), JsonResponse::HTTP_BAD_REQUEST);
+        $resetPassword->reset($request);
+
+        return new JsonResponse(null, JsonResponse::HTTP_CREATED);
     }
 
-    public function reset(Request $request, RegisterService $register)
+    public function update(Request $request, RegisterService $register)
     {
         $register->updatePassword($request);
 
-        return new JsonResponse(['redirect' => '/login']);
+        return new JsonResponse();
     }
 
     public function getPlayerList(RCONService $rcon)

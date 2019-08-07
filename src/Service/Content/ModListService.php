@@ -3,6 +3,7 @@
 namespace ModernGame\Service\Content;
 
 use ModernGame\Database\Entity\ModList;
+use ModernGame\Exception\ArrayException;
 use ModernGame\Form\ModListType;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -25,6 +26,9 @@ class ModListService
         $this->formErrorHandler = $formErrorHandler;
     }
 
+    /**
+     * @throws ArrayException
+     */
     public function getMappedMod(Request $request)
     {
         $mod = new ModList();

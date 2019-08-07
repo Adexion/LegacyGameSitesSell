@@ -2,39 +2,32 @@
 
 namespace ModernGame\Form;
 
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use ModernGame\Database\Entity\RegulationCategory;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegulationCategoryType extends BaseType
+class RegulationCategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction('/api/admin/regulation/category/' . $options['action'] ?? null)
-            ->add('id', HiddenType::class, array(
-                'label' =>false
-            ))
-            ->add('categoryName', TextType::class, array(
+            ->add('id', HiddenType::class, [
+                'label' => false
+            ])
+            ->add('categoryName', TextType::class, [
                 'label' => 'Nazwa kategorii',
-                'attr' => array(
-                    'placeholder' => 'Nazwa kategorii'
-                )
-            ))
-            ->add('button', ButtonType::class, [
                 'attr' => [
-                    'class' => 'btn-secondary user m-auto d-block send-btn',
-                ],
-                'label' => 'Zapisz',
+                    'placeholder' => 'Nazwa kategorii'
+                ]
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => RegulationCategory::class,
-        ));
+        ]);
     }
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use ModernGame\Database\Entity\ResetPassword;
 
-class ResetPasswordRepository extends RepositoryAbstract
+class ResetPasswordRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

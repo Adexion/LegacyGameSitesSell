@@ -1,0 +1,68 @@
+routes:
+  resource: 'admin.yaml'
+  prefix:   /admin
+
+# ---------- USER
+login:
+  path:       /user/login
+  controller: ModernGame\Controller\PlayerController::login
+login-launcher:
+  path:        /user/launcher/login
+  controller: ModernGame\Controller\PlayerController::loginInLauncher
+  methods:    [POST]
+register:
+  path:        /user/register
+  controller: ModernGame\Controller\PlayerController::register
+  methods:    [POST]
+reset-password:
+  path:        /user/reset-password
+  controller: ModernGame\Controller\PlayerController::resetPassword
+  methods:    [POST]
+user-update:
+  path:       /user
+  controller: ModernGame\Controller\PlayerController::update
+  methods:    [PUT]
+
+# ----------Player
+player-avatar:
+  path:       /user/avatar
+  controller: ModernGame\Controller\PlayerController::getPlayerAvatar
+  methods:    [GET]
+player-list:
+  path:       /user/list
+  controller: ModernGame\Controller\PlayerController::getPlayerList
+  methods:    [GET]
+
+# ---------- Payments
+cash:
+  path:       /payment/cash
+  controller: ModernGame\Controller\WalletController::cash
+  methods:    [GET]
+pypal-confirmation:
+  path:       /payment/paypal
+  controller: ModernGame\Controller\WalletController::paypalExecute
+  methods:    [POST]
+sms-confirmation:
+  path:       /payment/sms
+  controller: ModernGame\Controller\WalletController::microSMSExecute
+  methods:    [POST]
+
+# ---------- ItemShop
+buy-item:
+  path:       /shop/buy
+  controller: ModernGame\Controller\ItemShopController::buyEquipment
+  methods:    [POST]
+item-execute:
+  path:       /shop/item
+  controller: ModernGame\Controller\ItemShopController::itemExecute
+  methods:    [POST]
+item-list-execute:
+  path:       /shop/items
+  controller: ModernGame\Controller\ItemShopController::itemListExecute
+  methods:    [POST]
+
+# ---------- Contact
+contact:
+  path:       /contact
+  controller: ModernGame\Controller\ContactController::setMessageContact
+  methods: [POST]

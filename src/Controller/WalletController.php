@@ -2,6 +2,8 @@
 
 namespace ModernGame\Controller;
 
+use ModernGame\Service\Connection\Payment\MicroSMS\MicroSMSService;
+use ModernGame\Service\Connection\Payment\PayPal\PayPalService;
 use ModernGame\Service\User\WalletService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -9,30 +11,29 @@ use Symfony\Component\HttpFoundation\Request;
 
 class WalletController extends Controller
 {
-    public function cash(Request $request, WalletService $wallet)
+    public function cash(WalletService $wallet)
     {
         return new JsonResponse([
             "cash" => $wallet->changeCash(
                 $this->getUser()->getId(),
-                $request->request->get('load') ?? 0
+                0
             ),
         ]);
     }
 
-    public function microSMSExecute(Request $request, WalletService $wallet)
+    public function microSMSExecute(Request $request, WalletService $wallet, MicroSMSService $payment)
     {
         $code = $request->request->get('smsCode');
 
         return new JsonResponse([
             "cash" => $wallet->changeCash(
                 $this->getUser()->getId(),
-                1
-//                (float)$payment->executePayment($code) * 100
+                (float)$payment->executePayment($code) * 100
             ),
         ]);
     }
 
-    public function paypalExecute(Request $request, WalletService $wallet)
+    public function paypalExecute(Request $request, WalletService $wallet, PayPalService $payment)
     {
         $paymentId = $request->request->get('paymentID');
         $payerId = $request->request->get('payerID');
@@ -40,8 +41,7 @@ class WalletController extends Controller
         return new JsonResponse([
             "cash" => $wallet->changeCash(
                 $this->getUser()->getId(),
-                1
-//                (float)$payment->executePayment($paymentId, $payerId) * 100
+                (float)$payment->executePayment($paymentId, $payerId) * 100
             ),
         ]);
     }

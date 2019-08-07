@@ -7,7 +7,7 @@ use Doctrine\ORM\Query\Expr\Join;
 use ModernGame\Database\Entity\Regulation;
 use ModernGame\Database\Entity\RegulationCategory;
 
-class RegulationRepository extends RepositoryAbstract
+class RegulationRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

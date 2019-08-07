@@ -6,7 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 
-abstract class RepositoryAbstract extends ServiceEntityRepository
+abstract class AbstractRepository extends ServiceEntityRepository
 {
     /**
      * @param $entity

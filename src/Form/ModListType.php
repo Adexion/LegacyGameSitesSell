@@ -2,7 +2,7 @@
 
 namespace ModernGame\Form;
 
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use ModernGame\Database\Entity\ModList;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,40 +13,33 @@ class ModListType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction('/api/admin/mod/' . $options['action'] ?? null)
-            ->add('modId', HiddenType::class, array(
-                'label' =>false
-            ))
-            ->add('image', TextType::class, array(
+            ->add('modId', HiddenType::class, [
+                'label' => false
+            ])
+            ->add('image', TextType::class, [
                 'label' => 'Ikona',
-                'attr' => array(
-                    'placeholder' => 'Ikona'
-                )
-            ))
-            ->add('name', TextType::class, array(
-                'label' => 'Nazwa',
-                'attr' => array(
-                    'placeholder' => 'Nazwa'
-                )
-            ))
-            ->add('link', TextType::class, array(
-                'label' => 'Link',
-                'attr' => array(
-                    'placeholder' => 'Link'
-                )
-            ))
-            ->add('button', ButtonType::class, [
                 'attr' => [
-                    'class' => 'btn-secondary user m-auto d-block send-btn',
-                ],
-                'label' => 'Zapisz',
+                    'placeholder' => 'Ikona'
+                ]
+            ])
+            ->add('name', TextType::class, [
+                'label' => 'Nazwa',
+                'attr' => [
+                    'placeholder' => 'Nazwa'
+                ]
+            ])
+            ->add('link', TextType::class, [
+                'label' => 'Link',
+                'attr' => [
+                    'placeholder' => 'Link'
+                ]
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => ModList::class,
-        ));
+        ]);
     }
 }

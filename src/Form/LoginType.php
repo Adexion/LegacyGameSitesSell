@@ -2,8 +2,7 @@
 
 namespace ModernGame\Form;
 
-use ModernGame\Entity\User;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use ModernGame\Database\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,7 +13,6 @@ class LoginType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction('/api/login')
             ->add('_username', TextType::class, [
                 'label' => false,
                 'attr' => [
@@ -28,12 +26,6 @@ class LoginType extends AbstractType
                     'placeholder' => 'Hasło',
                 ],
                 'required' => true,
-            ])
-            ->add('button', ButtonType::class, [
-                'attr' => [
-                    'class' => 'btn-secondary user m-auto d-block send-btn',
-                ],
-                'label' => 'Zaloguj się',
             ]);
     }
 

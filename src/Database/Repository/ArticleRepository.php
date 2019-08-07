@@ -8,7 +8,7 @@ use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class ArticleRepository extends RepositoryAbstract
+class ArticleRepository extends AbstractRepository
 {
     /** @var User */
     private $user;

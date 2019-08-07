@@ -40,13 +40,12 @@ class ResetPasswordService
 
     /**
      * @param Request $request
-     * @return array
      *
      * @throws ORMException
      * @throws OptimisticLockException
      * @throws ArrayException
      */
-    public function reset(Request $request): array
+    public function reset(Request $request)
     {
         $form = $this->form->create(ResetPasswordType::class);
 
@@ -64,11 +63,6 @@ class ResetPasswordService
         );
 
         $this->mailSender->sendEmail(self::RESET_EMAIL_SCHEMA, $token, $user->getEmail());
-
-        return [
-            'message' => ['Link do resetu hasła został wysłąny na adres email podany przy rejestracji' => 'Dziękujemy Zespół Gemdust'],
-            'timeout' => 20000
-        ];
     }
 
     private function generateTokenToResetPassword(User $user): string

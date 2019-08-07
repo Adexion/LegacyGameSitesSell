@@ -3,7 +3,7 @@
 namespace ModernGame\Form;
 
 
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use ModernGame\Database\Entity\Contact;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,7 +13,7 @@ class TicketType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->setAction('/api/admin/ticket/response')
+        $builder
             ->add('name', HiddenType::class)
             ->add('contactId', HiddenType::class)
             ->add('email', HiddenType::class)
@@ -28,19 +28,13 @@ class TicketType extends AbstractType
                     'placeholder' => 'Twoja odpowiedź',
                 ],
                 'required' => true,
-            ])
-            ->add('button', ButtonType::class, [
-                'attr' => [
-                    'class' => 'btn-secondary user m-auto d-block send-btn',
-                ],
-                'label' => 'Wyślij wiadomość',
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => Contact::class,
-        ));
+        ]);
     }
 }

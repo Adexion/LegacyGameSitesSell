@@ -4,6 +4,7 @@ namespace ModernGame\Service\Content;
 
 use ModernGame\Database\Entity\Regulation;
 use ModernGame\Database\Repository\RegulationCategoryRepository;
+use ModernGame\Exception\ArrayException;
 use ModernGame\Form\RegulationType;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -29,6 +30,9 @@ class RegulationService
         $this->regulationCategoryRepository = $regulationCategoryRepository;
     }
 
+    /**
+     * @throws ArrayException
+     */
     public function getMappedRegulation(Request $request)
     {
         $regulation = new Regulation();

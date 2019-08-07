@@ -2,7 +2,7 @@
 
 namespace ModernGame\Controller;
 
-use ModernGame\Service\Connection\RCONService;
+use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\Content\EquipmentService;
 use ModernGame\Service\User\WalletService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
@@ -27,9 +27,7 @@ class ItemShopController extends Controller
 
     public function itemExecute(Request $request, RCONService $rcon)
     {
-        return new JsonResponse($rcon->executeItem(
-            $request->request->get('itemId')
-        ));
+        return new JsonResponse($rcon->executeItem($request->request->get('itemId')));
     }
 
     public function itemListExecute(RCONService $rcon)

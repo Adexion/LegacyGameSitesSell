@@ -2,7 +2,7 @@
 
 namespace ModernGame\Form;
 
-use ReCaptcha\ReCaptcha;
+use ModernGame\Validator\ReCaptchaValidator;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -10,20 +10,24 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ContactType extends AbstractType
 {
-    const RE_CAPTCHA = '6LdCkl4UAAAAAPQJo2HBxfwkp9VIgrBZDLRKrtLy';
-
     const TECHNICAL_SUPPORT = 'support';
     const MARKETING = 'marketing';
     const REPORTS = 'reports';
     const OTHER = 'other';
 
+    private $validator;
+
+    public function __construct(ReCaptchaValidator $validator)
+    {
+        $this->validator = $validator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->setAction('/api/contact')
+        $builder
             ->add('name', TextType::class, [
                 'label' => false,
                 'attr' => [
@@ -45,7 +49,8 @@ class ContactType extends AbstractType
                     'Propozycje Marketingowe' => self::MARKETING,
                     'Zgłoszenia' => self::REPORTS,
                     'Inne' => self::OTHER,
-                ]])
+                ]
+            ])
             ->add('subject', TextType::class, [
                 'label' => false,
                 'attr' => [
@@ -60,30 +65,12 @@ class ContactType extends AbstractType
                 ],
                 'required' => true,
             ])
-            ->add('button', ButtonType::class, [
-                'attr' => [
-                    'class' => 'btn-secondary user m-auto d-block send-btn',
-                ],
-                'label' => 'Wyślij wiadomość',
-            ])
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
     }
 
     public function preSubmit(FormEvent $event)
     {
-        $reCaptcha = new ReCaptcha(self::RE_CAPTCHA);
-
-        $reCaptchaCode = $event->getData()['g-recaptcha-response'] ?? $event->getData()['reCaptcha'] ?? null;
-
-        $response = $reCaptcha->verify($reCaptchaCode);
-
-        if (!$response->isSuccess()) {
-            $event->getForm()->add('reCaptcha', TextType::class, [
-                'required' => true,
-                'constraints' => [
-                    new NotBlank(['message' => 'Potwierdź, że nie jesteś robotem.'])
-                ]
-            ]);
-        }
+        $event->getForm()
+            ->add('reCaptcha', TextType::class, $this->validator->validate($event->getData()['reCaptcha']));
     }
 }

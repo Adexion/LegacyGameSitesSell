@@ -5,7 +5,7 @@ namespace ModernGame\Database\Repository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use ModernGame\Database\Entity\ModList;
 
-class ModListRepository extends RepositoryAbstract
+class ModListRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

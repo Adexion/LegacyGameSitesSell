@@ -4,6 +4,7 @@ namespace ModernGame\Service\Content;
 
 use ModernGame\Database\Entity\EquipmentItem;
 use ModernGame\Database\Repository\EquipmentRepository;
+use ModernGame\Exception\ArrayException;
 use ModernGame\Form\EquipmentItemType;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -29,6 +30,10 @@ class EquipmentItemService
         $this->equipmentRepository = $equipmentRepository;
     }
 
+    /**
+
+     * @throws ArrayException
+     */
     public function getMappedEquipmentItem(Request $request)
     {
         $equipmentItem = new EquipmentItem();

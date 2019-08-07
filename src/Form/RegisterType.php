@@ -2,8 +2,9 @@
 
 namespace ModernGame\Form;
 
+use ModernGame\Database\Entity\User;
+use ModernGame\Validator\ReCaptchaValidator;
 use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -14,16 +15,19 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\EqualTo;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegisterType extends AbstractType
 {
-    const RE_CAPTCHA = '6LdCkl4UAAAAAPQJo2HBxfwkp9VIgrBZDLRKrtLy';
+    private $validator;
+
+    public function __construct(ReCaptchaValidator $validator)
+    {
+        $this->validator = $validator;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction('/api/register')
             ->add('username', TextType::class, [
                 'label' => false,
                 'attr' => [
@@ -68,12 +72,7 @@ class RegisterType extends AbstractType
                     ])
                 ]
             ])
-            ->add('button', ButtonType::class, [
-                'attr' => [
-                    'class' => 'btn-secondary user m-auto d-block send-btn',
-                ],
-                'label' => 'Zarejestruj się',
-            ])->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
+            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
 
         $builder
             ->get('email')
@@ -83,20 +82,13 @@ class RegisterType extends AbstractType
 
     public function preSubmit(FormEvent $event)
     {
-        $reCaptcha = new ReCaptcha(self::RE_CAPTCHA);
-
-        $reCaptchaCode = $event->getData()['g-recaptcha-response'] ?? $event->getData()['reCaptcha'] ?? null;
-
-        $response = $reCaptcha->verify($reCaptchaCode);
-
-        if (!$response->isSuccess()) {
-            $event->getForm()->add('reCaptcha', TextType::class, [
-                'required' => true,
-                'constraints' => [
-                    new NotBlank(['message' => 'Potwierdź, że nie jesteś robotem.'])
-                ]
-            ]);
-        }
+        $event
+            ->getForm()
+            ->add(
+                'reCaptcha',
+                TextType::class,
+                $this->validator->validate($event->getData()['reCaptcha'])
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

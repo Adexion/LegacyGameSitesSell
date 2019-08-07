@@ -1,11 +1,12 @@
 <?php
 
-namespace ModernGame\Service\Connection;
+namespace ModernGame\Service\Connection\Minecraft;
 
 use DateTime;
+use GuzzleHttp\Exception\GuzzleException;
 use ModernGame\Exception\ForbiddenOperationException;
+use ModernGame\Service\Connection\ApiClient\RestApiClient;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -16,20 +17,29 @@ class MojangPlayerService
 
     private $userProvider;
     private $encoderFactory;
+    /**
+     * @var RestApiClient
+     */
     private $client;
 
     public function __construct(
         UserProviderInterface $userProvider,
         EncoderFactoryInterface $encoderFactory
     ) {
-        $this->client = new ClientFactory();
         $this->userProvider = $userProvider;
         $this->encoderFactory = $encoderFactory;
+        $this->client = new RestApiClient();
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function getUUID(string $userName): string
     {
-        $user = json_decode(file_get_contents(self::MOJANG_GET_UUID_URL . $userName), true);
+        $user = json_decode(
+            $this->client
+                ->request(RestApiClient::GET, self::MOJANG_GET_UUID_URL . $userName)
+        );
 
         if (empty($user)) {
             return self::STEVE_USER_UUID;
@@ -39,14 +49,12 @@ class MojangPlayerService
     }
 
     /**
-     * @param array $loginData
-     * 
-     * @return array
      * @throws ForbiddenOperationException
+     * @throws GuzzleException
      */
     public function loginIn(array $loginData): array
     {
-        $user = $this->getUserByUsername($loginData['username'] ?? null);
+        $user = $this->userProvider->loadUserByUsername($username['username'] ?? null);
 
         $this->isUserLoggedRegistered($user, $loginData);
 
@@ -63,6 +71,9 @@ class MojangPlayerService
         ];
     }
 
+    /**
+     * @throws ForbiddenOperationException
+     */
     private function isUserLoggedRegistered(UserInterface $user, array $loginData)
     {
         $encoder = $this->encoderFactory->getEncoder($user);
@@ -72,15 +83,9 @@ class MojangPlayerService
         }
     }
 
-    private function getUserByUsername(string $username): UserInterface
-    {
-        try {
-            return $this->userProvider->loadUserByUsername($username);
-        } catch (UsernameNotFoundException $exception) {
-            throw new ForbiddenOperationException();
-        }
-    }
-
+    /**
+     * @throws GuzzleException
+     */
     private function buildProfile(string $username): array
     {
         $uuid = $this->getUUID($username);

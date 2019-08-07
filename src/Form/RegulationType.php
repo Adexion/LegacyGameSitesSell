@@ -2,7 +2,7 @@
 
 namespace ModernGame\Form;
 
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use ModernGame\Database\Entity\Regulation;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -14,37 +14,30 @@ class RegulationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAction('/api/admin/regulation/' . $options['action'] ?? null)
-            ->add('regulationId', HiddenType::class, array(
+            ->add('regulationId', HiddenType::class, [
                 'label' => false
-            ))
-            ->add('categoryId', ChoiceType::class, array(
+            ])
+            ->add('categoryId', ChoiceType::class, [
                 'choices' => $options['categories'],
                 'label' => 'ID Kategorii',
-                'attr' => array(
-                    'placeholder' => 'ID Kategorii'
-                )
-            ))
-            ->add('description', TextareaType::class, array(
-                'label' => 'Opis',
-                'attr' => array(
-                    'placeholder' => 'Opis'
-                )
-            ))
-            ->add('button', ButtonType::class, [
                 'attr' => [
-                    'class' => 'btn-secondary user m-auto d-block send-btn',
-                ],
-                'label' => 'Zapisz',
+                    'placeholder' => 'ID Kategorii'
+                ]
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Opis',
+                'attr' => [
+                    'placeholder' => 'Opis'
+                ]
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefaults(array('data_class' => Regulation::class))
+            ->setDefaults(['data_class' => Regulation::class])
             ->setDefault('categories', null)
             ->setRequired('categories')
-            ->setAllowedTypes('categories', array('array'));
+            ->setAllowedTypes('categories', ['array']);
     }
 }
