@@ -42,10 +42,9 @@ class MojangPlayerService
             throw new ArrayException(['username' => 'Pole nie może być puste.']);
         }
 
-        $user = json_decode(
-            $this->client
-                ->request(RestApiClient::GET, self::MOJANG_GET_UUID_URL . $userName)
-        );
+        $user = json_decode($this->client
+                ->request(RestApiClient::GET, self::MOJANG_GET_UUID_URL . $userName),
+            true);
 
         if (empty($user)) {
             return self::STEVE_USER_UUID;

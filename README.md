@@ -1,6 +1,8 @@
 # Web BackEnd
 ## Versions
 ```
+# 0.15.5 - 07.08.2019
+    - repair username return for avatar
 # 0.15.4 - 07.08.2019
     - repair username for avatar while empty 
     - repair event listener array throwing
