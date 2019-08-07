@@ -11,12 +11,15 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+
     ModernGame\:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
     ModernGame\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
     ModernGame\EventListener\ExceptionListener:
+        arguments: ['@logger', '@ModernGame\Service\Mail\MailSenderService']
         tags:
             - { name: kernel.event_listener, event: kernel.exception }

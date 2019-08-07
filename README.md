@@ -1,6 +1,9 @@
 # Web BackEnd
 ## Versions
 ```
+# 0.15.2 - 07.08.2019
+    - repair configuration of event listener
+    - repair repair price for microSMS
 # 0.15.1 - 07.08.2019
     - add event listener 
     - add logger of errors and sending to email while other than ArrayException

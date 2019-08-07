@@ -10,10 +10,10 @@ class MailSenderService
     private $mailer;
     private $provider;
 
-    public function __construct(Swift_Mailer $mailer, SchemaListProvider $provider)
+    public function __construct(Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;
-        $this->provider = $provider;
+        $this->provider = new SchemaListProvider();
     }
 
     public function sendEmail($schemaId, string $data, string $email)
