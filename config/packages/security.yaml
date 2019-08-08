@@ -1,24 +1,24 @@
 security:
     providers:
-        GemDust:
+        ModernGame:
             entity:
-                class: App\General\Entity\User
+                class: ModernGame\Database\Entity\User
                 property: username
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: ~
-            form_login:
-                login_path: /v1/user/login
+            json_login:
                 check_path: /v1/user/login
             logout:
-                path:   /user/logout
+                path:   /v1//user/logout
                 target: /
 
     encoders:
-        App\General\Entity\User: bcrypt
+        ModernGame\Database\Entity\User: bcrypt
 
     access_control:
         - { path: ^/v1/user/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

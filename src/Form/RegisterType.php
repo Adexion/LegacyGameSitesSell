@@ -87,7 +87,7 @@ class RegisterType extends AbstractType
             ->add(
                 'reCaptcha',
                 TextType::class,
-                $this->validator->validate($event->getData()['reCaptcha'])
+                $this->validator->validate($event->getData()['reCaptcha'] ?? '')
             );
     }
 

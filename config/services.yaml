@@ -6,6 +6,7 @@ parameters:
     paypal:
         client: 'AcshzYPPq0YGpv0Trz5aysOQ-hx0jxNzMbjHZrSYYw6teXfAaScSde4XGaTuc5d3XTwJEtDqEozwRbFC'
         secrret: 'EKphnn0pTtiyegluAPXfuuk4pQW9dBB4SVLnF0a85LKpWhSyogY49b32gFxYvpC4Qdto9uIZrYFA0tpO'
+    recaptcha: ''
 
 services:
     _defaults:
@@ -15,6 +16,9 @@ services:
     ModernGame\:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+    ModernGame\Tests\:
+        resource: '../tests/*'
+
     ModernGame\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
@@ -23,3 +27,5 @@ services:
         arguments: ['@logger', '@ModernGame\Service\Mail\MailSenderService']
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+    ModernGame\Service\EnvironmentService:
+        arguments: ['%kernel.environment%']

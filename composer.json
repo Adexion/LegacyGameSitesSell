@@ -23,6 +23,9 @@
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
+        "behat/behat": "^3.5",
+        "friends-of-behat/symfony-extension": "^2.0",
+        "imbo/behat-api-extension": "^2.1"
     },
     "config": {
         "preferred-install": {

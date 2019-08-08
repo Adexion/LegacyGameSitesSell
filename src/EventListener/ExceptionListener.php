@@ -3,6 +3,7 @@
 namespace ModernGame\EventListener;
 
 use ModernGame\Exception\ArrayException;
+use ModernGame\Service\EnvironmentService;
 use ModernGame\Service\Mail\MailSenderService;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,11 +17,13 @@ class ExceptionListener
 
     private $logger;
     private $service;
+    private $env;
 
-    public function __construct(LoggerInterface $logger, MailSenderService $service)
+    public function __construct(LoggerInterface $logger, MailSenderService $service, EnvironmentService $env)
     {
         $this->logger = $logger;
         $this->service = $service;
+        $this->env = $env;
     }
 
     public function onKernelException(ExceptionEvent $event)
@@ -36,11 +39,16 @@ class ExceptionListener
             $response->setStatusCode($exception->getCode());
         } else {
             $this->logger->critical($exception);
-            $this->service->sendEmail(
-                self::ERROR,
-                $exception->getMessage() . ' ' . date('Y-m-d H:i:s'),
-                'moderngameservice@gmail.com'
-            );
+
+            if ($this->env->isProd()) {
+                $this->service->sendEmail(
+                    self::ERROR,
+                    $exception->getMessage() . ' ' . date('Y-m-d H:i:s'),
+                    'moderngameservice@gmail.com'
+                );
+            } else if ($this->env->isTest()) {
+                $response->setContent($exception->getMessage());
+            }
 
             $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }

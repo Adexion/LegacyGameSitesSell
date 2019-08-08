@@ -11,6 +11,6 @@ class ContactController extends Controller
 {
     public function setMessageContact(Request $request, ContactService $contact)
     {
-        return new JsonResponse(['ticket' => $contact->setContactMessage($request)], JsonResponse::HTTP_BAD_REQUEST);
+        return new JsonResponse(['ticket' => $contact->setContactMessage($request)]);
     }
 }

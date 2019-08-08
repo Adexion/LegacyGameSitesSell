@@ -71,6 +71,6 @@ class ContactType extends AbstractType
     public function preSubmit(FormEvent $event)
     {
         $event->getForm()
-            ->add('reCaptcha', TextType::class, $this->validator->validate($event->getData()['reCaptcha']));
+            ->add('reCaptcha', TextType::class, $this->validator->validate($event->getData()['reCaptcha'] ?? ''));
     }
 }

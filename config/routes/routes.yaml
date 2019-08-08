@@ -65,4 +65,4 @@ item-list-execute:
 contact:
   path:       /contact
   controller: ModernGame\Controller\ContactController::setMessageContact
-  methods: [POST]
+  methods:    [POST]

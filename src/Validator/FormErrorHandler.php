@@ -20,6 +20,10 @@ class FormErrorHandler
     {
         $exception = new FormErrors();
 
+        if (!$form->isSubmitted()) {
+            $form->submit([]);
+        }
+
         if ($form->isSubmitted() && !$form->isValid()) {
             foreach ($form->getErrors(true) as $error) {
                 $fields = $this->getFieldPath($error->getOrigin());
