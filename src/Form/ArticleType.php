@@ -17,39 +17,12 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, [
-                'label' => 'Tytuł',
-                'attr' => [
-                    'placeholder' => 'Tytuł'
-                ],
-            ])
-            ->add('id', HiddenType::class, [
-                'label' => false
-            ])
-            ->add('subhead', TextType::class, [
-                'label' => 'Podtytuł',
-                'attr' => [
-                    'placeholder' => 'Podtytuł'
-                ]
-            ])
-            ->add('image', TextType::class, [
-                'label' => 'Obrazek',
-                'attr' => [
-                    'placeholder' => 'Obrazek'
-                ]
-            ])
-            ->add('text', TextareaType::class, [
-                'label' => 'Opis',
-                'attr' => [
-                    'placeholder' => 'Opis'
-                ]
-            ])
-            ->add('shortText', TextareaType::class, [
-                'label' => 'Krótki opis',
-                'attr' => [
-                    'placeholder' => 'Krótki opis'
-                ]
-            ])
+            ->add('title', TextType::class)
+            ->add('id', HiddenType::class)
+            ->add('subhead', TextType::class)
+            ->add('image', TextType::class)
+            ->add('text', TextareaType::class)
+            ->add('shortText', TextareaType::class)
             ->addEventListener(FormEvents::SUBMIT, [$this, 'submit']);
     }
 

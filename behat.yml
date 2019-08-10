@@ -3,6 +3,11 @@ default:
     default:
       contexts:
         - ModernGame\Tests\Behat\UserApiContext
+    dev:
+      contexts:
+        - ModernGame\Tests\Behat\UserApiContext
+      filters:
+        tags: '@dev'
 
   extensions:
     Imbo\BehatApiExtension:

@@ -2,8 +2,7 @@ Feature:
   As logged user
   I should be able to send contact message
 
-  Scenario:
-    Given As logged user
+  Scenario: Send valid contact message
     And the request body is:
     """
     {
@@ -20,5 +19,43 @@ Feature:
     """
     {
         "ticket": "@variableType(string)"
+    }
+    """
+
+  Scenario: Send contact with empty fields
+    When I request "/v1/contact" using HTTP "POST"
+    Then the response code is 400
+    And the response body contains JSON:
+    """
+    {
+        "name": "Ta wartość nie powinna być pusta.",
+        "email": "Ta wartość nie powinna być pusta.",
+        "type": "Ta wartość nie powinna być pusta.",
+        "subject": "Ta wartość nie powinna być pusta.",
+        "message": "Ta wartość nie powinna być pusta."
+    }
+    """
+
+  Scenario: Send contact with no valid data
+    And the request body is:
+    """
+    {
+      "name": "",
+      "email": "test",
+      "type": "invalid",
+      "subject": "",
+      "message": ""
+    }
+    """
+    When I request "/v1/contact" using HTTP "POST"
+    Then the response code is 400
+    And the response body contains JSON:
+    """
+    {
+        "name": "Ta wartość nie powinna być pusta.",
+        "email": "Ta wartość nie jest prawidłowym adresem email.",
+        "type": "Ta wartość jest nieprawidłowa.",
+        "subject": "Ta wartość nie powinna być pusta.",
+        "message": "Ta wartość nie powinna być pusta."
     }
     """

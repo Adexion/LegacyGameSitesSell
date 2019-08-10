@@ -14,40 +14,23 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, [
-                'label' => 'Nick',
-                'attr' => [
-                    'placeholder' => 'Nick'
-                ],
-            ])
-            ->add('id', HiddenType::class, [
-                'label' => false
-            ])
+            ->add('username', TextType::class)
+            ->add('id', HiddenType::class)
             ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options' => [
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Hasło',
-                    ],
-                ],
-                'second_options' => [
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Powtórz hasło',
-                    ],
-                ]
+                'type' => PasswordType::class
             ])
             ->add('email', EmailType::class, [
-                'label' => 'E-mail',
-                'attr' => [
-                    'placeholder' => 'E-mail'
+                'constraints' => [
+                    new NotBlank(),
+                    new Email(['strict' => true])
                 ]
             ])
             ->add('roles', ChoiceType::class, [
@@ -55,8 +38,7 @@ class UserType extends AbstractType
                     'Użytkownik' => 'ROLE_USER',
                     'Administrator' => 'ROLE_ADMIN'
                 ],
-                'multiple' => true,
-                'label' => 'Role'
+                'multiple' => true
             ])
             ->add('rules', HiddenType::class)
             ->add('reCaptcha', HiddenType::class)

@@ -14,22 +14,9 @@ class RegulationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('regulationId', HiddenType::class, [
-                'label' => false
-            ])
-            ->add('categoryId', ChoiceType::class, [
-                'choices' => $options['categories'],
-                'label' => 'ID Kategorii',
-                'attr' => [
-                    'placeholder' => 'ID Kategorii'
-                ]
-            ])
-            ->add('description', TextareaType::class, [
-                'label' => 'Opis',
-                'attr' => [
-                    'placeholder' => 'Opis'
-                ]
-            ]);
+            ->add('regulationId', HiddenType::class)
+            ->add('categoryId', ChoiceType::class)
+            ->add('description', TextareaType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

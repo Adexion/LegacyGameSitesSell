@@ -27,6 +27,6 @@ class MailSenderService
             ->setTo($email)
             ->setBody($body,'text/html');
 
-        $this->mailer->send($message);
+        return $this->mailer->send($message);
     }
 }

@@ -5,10 +5,10 @@ namespace ModernGame\Service\Connection\Minecraft;
 use DateTime;
 use GuzzleHttp\Exception\GuzzleException;
 use ModernGame\Exception\ArrayException;
-use ModernGame\Exception\ForbiddenOperationException;
 use ModernGame\Service\Connection\ApiClient\RestApiClient;
+use ModernGame\Service\User\LoginUserService;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class MojangPlayerService
@@ -18,54 +18,32 @@ class MojangPlayerService
 
     private $userProvider;
     private $encoderFactory;
-    /**
-     * @var RestApiClient
-     */
     private $client;
+    private $loginUserService;
 
     public function __construct(
         UserProviderInterface $userProvider,
-        EncoderFactoryInterface $encoderFactory
+        EncoderFactoryInterface $encoderFactory,
+        LoginUserService $loginUserService,
+        RestApiClient $client
     ) {
         $this->userProvider = $userProvider;
         $this->encoderFactory = $encoderFactory;
-        $this->client = new RestApiClient();
+        $this->loginUserService = $loginUserService;
+        $this->client = $client;
     }
 
     /**
      * @throws GuzzleException
      * @throws ArrayException
      */
-    public function getUUID(?string $userName): string
+    public function loginIn(Request $request): array
     {
-        if (empty($userName)) {
-            throw new ArrayException(['username' => 'Pole nie może być puste.']);
-        }
-
-        $user = json_decode($this->client
-                ->request(RestApiClient::GET, self::MOJANG_GET_UUID_URL . $userName),
-            true);
-
-        if (empty($user)) {
-            return self::STEVE_USER_UUID;
-        }
-
-        return $user['id'];
-    }
-
-    /**
-     * @throws ForbiddenOperationException
-     * @throws GuzzleException
-     * @throws ArrayException
-     */
-    public function loginIn(array $loginData): array
-    {
-        $user = $this->userProvider->loadUserByUsername($username['username'] ?? null);
-
-        $this->isUserLoggedRegistered($user, $loginData);
+        $user = $this->loginUserService->getUser($request);
 
         $profile = $this->buildProfile(
-            $loginData['username']
+            $user->getUsername(),
+            $this->getUUID($user->getUsername())
         );
 
         return [
@@ -78,25 +56,25 @@ class MojangPlayerService
     }
 
     /**
-     * @throws ForbiddenOperationException
-     */
-    private function isUserLoggedRegistered(UserInterface $user, array $loginData)
-    {
-        $encoder = $this->encoderFactory->getEncoder($user);
-
-        if (!$encoder->isPasswordValid($user->getPassword(), $loginData['password'] ?? null, $user->getSalt())) {
-            throw new ForbiddenOperationException();
-        }
-    }
-
-    /**
      * @throws GuzzleException
      * @throws ArrayException
      */
-    private function buildProfile(string $username): array
+    public function getUUID(?string $userName): string
     {
-        $uuid = $this->getUUID($username);
+        if (empty($userName)) {
+            throw new ArrayException(['username' => 'Pole nie może być puste.']);
+        }
 
+        $mojangPlayer = json_decode($this->client->request(
+            RestApiClient::GET,
+            self::MOJANG_GET_UUID_URL . $userName
+        ), true);
+
+        return empty($mojangPlayer) ? self::STEVE_USER_UUID : $mojangPlayer['id'];
+    }
+
+    private function buildProfile(string $username, string $uuid): array
+    {
         return [
             'agent' => 'minecraft',
             'id' => $uuid,

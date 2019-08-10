@@ -16,23 +16,9 @@ class UpdatePasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', HiddenType::class, array(
-                'label' => false
-            ))
+            ->add('id', HiddenType::class)
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => [
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Hasło',
-                    ],
-                ],
-                'second_options' => [
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Powtórz hasło',
-                    ],
-                ]
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
     }

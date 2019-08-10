@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 class ExceptionListener
 {
@@ -34,23 +35,28 @@ class ExceptionListener
         if ($exception instanceof HttpExceptionInterface) {
             $response->setStatusCode($exception->getStatusCode());
             $response->headers->replace($exception->getHeaders());
-        } else if ($exception instanceof ArrayException) {
-            $response->setContent($exception->getMessage());
-            $response->setStatusCode($exception->getCode());
+            $response->setContent(json_encode(['error' => $exception->getMessage()]));
         } else {
-            $this->logger->critical($exception);
-
-            if ($this->env->isProd()) {
-                $this->service->sendEmail(
-                    self::ERROR,
-                    $exception->getMessage() . ' ' . date('Y-m-d H:i:s'),
-                    'moderngameservice@gmail.com'
-                );
-            } else if ($this->env->isTest()) {
+            if ($exception instanceof ArrayException || $exception instanceof BadCredentialsException) {
                 $response->setContent($exception->getMessage());
-            }
+                $response->setStatusCode($exception->getCode());
+            } else {
+                $this->logger->critical($exception);
 
-            $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+                if ($this->env->isProd()) {
+                    $this->service->sendEmail(
+                        self::ERROR,
+                        $exception->getMessage() . ' ' . date('Y-m-d H:i:s'),
+                        'moderngameservice@gmail.com'
+                    );
+                } else {
+                    if ($this->env->isTest()) {
+                        throw $exception;
+                    }
+                }
+
+                $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
         }
 
         $event->setResponse($response);

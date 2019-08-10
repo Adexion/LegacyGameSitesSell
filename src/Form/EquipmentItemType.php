@@ -15,34 +15,11 @@ class EquipmentItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'Nazwa',
-                'attr' => [
-                    'placeholder' => 'Nazwa'
-                ],
-            ])
-            ->add('id', HiddenType::class, [
-                'label' => false
-            ])
-            ->add('command', TextType::class, [
-                'label' => 'Komenda',
-                'attr' => [
-                    'placeholder' => 'Komenda'
-                ]
-            ])
-            ->add('iconUrl', TextType::class, [
-                'label' => 'Ikona',
-                'attr' => [
-                    'placeholder' => 'Ikona'
-                ]
-            ])
-            ->add('equipmentId', ChoiceType::class, [
-                'choices' => $options['equipments'],
-                'label' => 'Numer serwera',
-                'attr' => [
-                    'placeholder' => 'Numer serwera'
-                ]
-            ]);
+            ->add('name', TextType::class)
+            ->add('id', HiddenType::class)
+            ->add('command', TextType::class)
+            ->add('iconUrl', TextType::class)
+            ->add('equipmentId', ChoiceType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

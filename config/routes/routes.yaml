@@ -6,17 +6,22 @@ routes:
 login:
   path:       /user/login
   controller: ModernGame\Controller\PlayerController::login
+  methods:    [POST]
 login-launcher:
-  path:        /user/launcher/login
+  path:       /user/launcher/login
   controller: ModernGame\Controller\PlayerController::loginInLauncher
   methods:    [POST]
 register:
-  path:        /user/register
+  path:       /user/register
   controller: ModernGame\Controller\PlayerController::register
   methods:    [POST]
 reset-password:
-  path:        /user/reset-password
+  path:       /user/reset
   controller: ModernGame\Controller\PlayerController::resetPassword
+  methods:    [POST]
+reset-from-token:
+  path:       /user/reset/{token}
+  controller: ModernGame\Controller\PlayerController::resetFromToken
   methods:    [POST]
 user-update:
   path:       /user
@@ -35,7 +40,7 @@ player-list:
 
 # ---------- Payments
 cash:
-  path:       /payment/cash
+  path:       /cash
   controller: ModernGame\Controller\WalletController::cash
   methods:    [GET]
 pypal-confirmation:

@@ -5,7 +5,9 @@ namespace ModernGame\Tests\Behat;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\DBAL\Connection;
+use Doctrine\ORM\EntityManager;
 use Exception;
 use Imbo\BehatApiExtension\Context\ApiContext;
 use ModernGame\Service\EnvironmentService;
@@ -31,22 +33,21 @@ abstract class AbstractContext extends ApiContext implements Context
         if ($env->isProd() || $env->isDev()) {
             throw new Exception('Can\'t run tests on this env');
         }
-    }
 
-    /**
-     * @AfterScenario
-     */
-    public function clearData(AfterScenarioScope $scope)
-    {
         /** @var Connection $connection */
         $connection = $this->kernel->getContainer()->get('doctrine')->getConnection();
 
         foreach ($connection->fetchAll('SHOW TABLES') as $table) {
             $connection->createQueryBuilder()
                 ->delete($table['Tables_in_test'])
-                ->where('true')
+                ->where('1')
                 ->execute();
         }
+    }
+
+    protected function getmanager(): ObjectManager
+    {
+        return $this->kernel->getContainer()->get('doctrine')->getManager();
     }
 
     /**
@@ -56,6 +57,7 @@ abstract class AbstractContext extends ApiContext implements Context
     {
         $this->requireResponse();
 
-        print_r((string)$this->response->getBody() . ' Code: ' . $this->response->getStatusCode());
+        echo (string)$this->response->getBody() . ' Code: ' . $this->response->getStatusCode();
+        die;
     }
 }

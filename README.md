@@ -1,6 +1,11 @@
 # Web BackEnd
 ## Versions
 ```
+# 0.19.3 - 10.08.2019
+    - add next test
+    - add function for restet password from email token
+    - repair bugs founded by tests
+    - code refator
 # 0.17.0 - 08.08.2019
     - add tests possibility and write one
 # 0.15.5 - 07.08.2019

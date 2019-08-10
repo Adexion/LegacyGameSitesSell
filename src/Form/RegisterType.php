@@ -14,7 +14,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\EqualTo;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegisterType extends AbstractType
 {
@@ -28,43 +30,17 @@ class RegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Nick',
-                ],
-                'required' => true,
-            ])
+            ->add('username', TextType::class)
             ->add('email', EmailType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'E-Mail',
-                ],
-                'required' => true,
+                'constraints' => [
+                    new NotBlank(),
+                    new Email(['strict' => true])
+                ]
             ])
             ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options' => [
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Hasło',
-                    ],
-                ],
-                'second_options' => [
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Powtórz hasło',
-                    ],
-                ],
-                'required' => true,
+                'type' => PasswordType::class
             ])
             ->add('rules', CheckboxType::class, [
-                'label' => 'Wyrażam zgodę na przetwarzanie moich danych osobowych zawartych w formularzu w celu rejestracji w
-                    systemie, aby móc korzystać z usług serwerów będących wpółpartnerami na mocy słownych umów zawartych między
-                    administracją systemu, a administracją serwerów. Akceptuję także regulamin serwisu, oraz zobowiązuję się do
-                    przestrzegania go.',
-                'required' => true,
-                'attr' => [],
                 'constraints' => [
                     new EqualTo([
                         'value' => true,
@@ -108,7 +84,8 @@ class RegisterType extends AbstractType
             }
 
             $value = explode('@', $value);
-            return str_replace('.', '', $value[0]) . '@' . $value[1];
+
+            return isset($value[1]) ? str_replace('.', '', $value[0]) . '@' . $value[1] : $value[0];
         });
     }
 }

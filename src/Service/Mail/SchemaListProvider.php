@@ -19,12 +19,13 @@ class SchemaListProvider
         ]
     ];
 
-    public function provide($schemaId)
+    public function provide($schemaId): array
     {
         if (!isset($this->schemaList[$schemaId])) {
             throw new RuntimeException('Email schema not set.');
         }
 
-        return $schemaId[$schemaId];
+
+        return $this->schemaList[$schemaId];
     }
 }

@@ -2,9 +2,13 @@
 
 namespace ModernGame\Controller;
 
+use App\General\Form\ResetType;
+use ModernGame\Database\Entity\ResetPassword;
+use ModernGame\Database\Entity\User;
 use ModernGame\Exception\ArrayException;
 use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
 use ModernGame\Service\Connection\Minecraft\RCONService;
+use ModernGame\Service\User\LoginUserService;
 use ModernGame\Service\User\RegisterService;
 use ModernGame\Service\User\ResetPasswordService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
@@ -22,25 +26,14 @@ class PlayerController extends Controller
         return new JsonResponse(null, JsonResponse::HTTP_CREATED);
     }
 
-    public function login(Request $request)
+    public function login(Request $request, LoginUserService $login)
     {
-        if (empty($this->getUser())) {
-            throw new ArrayException(['Błąd walidacji' => 'Nieprawidłowe dane.']);
-        }
-
-        $user = $this->getUser();
-
-        return new JsonResponse([
-            'username' => $user->getUsername(),
-            'roles' => $user->getRoles(),
-        ]);
+        return new JsonResponse(['token' =>  $login->getToken($request)]);
     }
 
     public function resetPassword(Request $request, ResetPasswordService $resetPassword)
     {
-        $resetPassword->reset($request);
-
-        return new JsonResponse(null, JsonResponse::HTTP_CREATED);
+        return new JsonResponse(['status' => $resetPassword->sendResetEmail($request)]);
     }
 
     public function update(Request $request, RegisterService $register)
@@ -55,6 +48,13 @@ class PlayerController extends Controller
         return new JsonResponse($rcon->getPlayerList());
     }
 
+    public function resetFromToken(Request $request, ResetPasswordService $resetPassword, string $token)
+    {
+        $resetPassword->resetPassword($request, $token);
+
+        return new JsonResponse();
+    }
+
     public function getPlayerAvatar(Request $request, MojangPlayerService $player)
     {
         $link = self::PLAYER_AVATAR . $player->getUUID($request->query->get('username'));
@@ -64,6 +64,6 @@ class PlayerController extends Controller
 
     public function loginInLauncher(Request $request, MojangPlayerService $player)
     {
-        return new JsonResponse($player->loginIn($request->request->all()));
+        return new JsonResponse($player->loginIn($request));
     }
 }

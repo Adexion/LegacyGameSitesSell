@@ -22,13 +22,7 @@ class TicketType extends AbstractType
             ->add('reCaptcha', HiddenType::class)
             ->add('token', HiddenType::class)
             ->add('status', HiddenType::class)
-            ->add('message', TextareaType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Twoja odpowiedź',
-                ],
-                'required' => true,
-            ]);
+            ->add('message', TextareaType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

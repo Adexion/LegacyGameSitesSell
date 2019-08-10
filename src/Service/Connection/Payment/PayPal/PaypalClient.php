@@ -3,6 +3,7 @@
 namespace ModernGame\Service\Connection\Payment\PayPal;
 
 use GuzzleHttp\Exception\GuzzleException;
+use ModernGame\Exception\ArrayException;
 use ModernGame\Service\Connection\ApiClient\RestApiClient;
 
 class PaypalClient extends RestApiClient
@@ -14,27 +15,29 @@ class PaypalClient extends RestApiClient
 
     /**
      * @throws GuzzleException
+     * @throws ArrayException
      */
     public function tokenRequest(string $client, string $secret): array
     {
         $request['headers'] = [
-            'Content-Type' => 'application/json',
+            'Content-Type' => 'application/x-www-form-urlencoded',
             'Accept' => 'application/json',
             'Accept-Language' => 'en_US',
             'Authorization' => 'Basic ' . base64_encode($client . ':' . $secret)
         ];
 
-        $request['body'] = json_encode([
+        $request['body'] = [
             'grant_type' => 'client_credentials'
-        ]);
+        ];
 
         return json_decode($this->request(self::POST, self::PAYPAL_API . self::API_TOKEN, $request), true);
     }
 
     /**
      * @throws GuzzleException
+     * @throws ArrayException
      */
-    public function executeRequest($token, $payerId, $paymentId): array
+    public function executeRequest($token, $paymentId, $payerId): array
     {
         $request['headers'] = [
             'Content-Type' => 'application/json',

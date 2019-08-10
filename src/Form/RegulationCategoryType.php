@@ -13,15 +13,8 @@ class RegulationCategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', HiddenType::class, [
-                'label' => false
-            ])
-            ->add('categoryName', TextType::class, [
-                'label' => 'Nazwa kategorii',
-                'attr' => [
-                    'placeholder' => 'Nazwa kategorii'
-                ]
-            ]);
+            ->add('id', HiddenType::class)
+            ->add('categoryName', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

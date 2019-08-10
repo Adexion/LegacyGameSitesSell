@@ -11,18 +11,17 @@ security:
             security: false
         main:
             anonymous: ~
-            json_login:
-                check_path: /v1/user/login
-            logout:
-                path:   /v1//user/logout
-                target: /
+            logout: ~
+            guard:
+                authenticators:
+                    - ModernGame\Security\TokenAuthenticator
 
     encoders:
         ModernGame\Database\Entity\User: bcrypt
 
     access_control:
-        - { path: ^/v1/user/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/contact, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/v1/user/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/user, roles: ROLE_USER }
         - { path: ^/v1/, roles: ROLE_USER }
         - { path: ^/v1/admin/, roles: ROLE_ADMIN }

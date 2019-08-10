@@ -22,7 +22,7 @@ class Price
     private $phoneNumber;
 
     /**
-     * @ORM\Column(type="integer", length=3)
+     * @ORM\Column(type="float")
      */
     private $amount;
 
@@ -41,12 +41,12 @@ class Price
         $this->phoneNumber = $phoneNumber;
     }
 
-    public function getAmount(): int
+    public function getAmount(): float
     {
         return $this->amount;
     }
 
-    public function setAmount(int $amount)
+    public function setAmount(float $amount)
     {
         $this->amount = $amount;
     }

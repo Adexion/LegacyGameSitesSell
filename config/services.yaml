@@ -5,7 +5,7 @@ parameters:
         serviceId: 3235
     paypal:
         client: 'AcshzYPPq0YGpv0Trz5aysOQ-hx0jxNzMbjHZrSYYw6teXfAaScSde4XGaTuc5d3XTwJEtDqEozwRbFC'
-        secrret: 'EKphnn0pTtiyegluAPXfuuk4pQW9dBB4SVLnF0a85LKpWhSyogY49b32gFxYvpC4Qdto9uIZrYFA0tpO'
+        secret: 'EKphnn0pTtiyegluAPXfuuk4pQW9dBB4SVLnF0a85LKpWhSyogY49b32gFxYvpC4Qdto9uIZrYFA0tpO'
     recaptcha: ''
 
 services:
