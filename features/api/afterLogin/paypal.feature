@@ -3,7 +3,7 @@ Feature:
   If I send request by Paypal
   I should be able to add money to my wallet
 
-  Scenario: I try to add money to my wallet
+  Scenario: I try to add money to my wallet after paypal execution
     Given As logged user
     And I store token to request
     And the request body is:

@@ -82,7 +82,7 @@ class ResetPasswordService
         $reset = $this->repository->findOneBy(['token' => $token]);
 
         if (empty($reset)) {
-            throw new ArrayException(['token' => 'Nieprawidłowa wartość.']);
+            throw new ArrayException(['token' => 'Ta wartość jest nieprawidłowa.']);
         }
 
         /** @var User $user */

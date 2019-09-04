@@ -2,7 +2,7 @@
 
 namespace ModernGame\Form;
 
-use ModernGame\Database\Entity\Equipment;
+use ModernGame\Database\Entity\ItemList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EquipmentType extends AbstractType
+class ItemListType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -31,7 +31,7 @@ class EquipmentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Equipment::class,
+            'data_class' => ItemList::class,
         ]);
     }
 }

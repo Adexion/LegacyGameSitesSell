@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Controller;
+namespace ModernGame\Controller\AfterLogin;
 
 use ModernGame\Service\Connection\Payment\MicroSMS\MicroSMSService;
 use ModernGame\Service\Connection\Payment\PayPal\PayPalService;

@@ -37,10 +37,9 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
     public function delete(int $id)
     {
-        $this->createQueryBuilder($this->getEntityName())
-            ->delete()
-            ->where('id = :id')
-            ->setParameter(':id', $id)
-            ->getQuery()->execute();
+        $entity = $this->find($id);
+
+        $this->_em->remove($entity);
+        $this->_em->flush();
     }
 }

@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\EquipmentRepository")
+ * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\ItemListRepository")
  */
-class Equipment
+class ItemList
 {
     /**
      * @ORM\Id

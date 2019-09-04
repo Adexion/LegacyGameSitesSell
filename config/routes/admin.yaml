@@ -1,0 +1,14 @@
+# ---------- Article
+admin-article-post:
+  path:       /article
+  controller: ModernGame\Controller\Admin\ArticleController::postArticle
+  methods:    [POST]
+admin-article-put:
+  path:       /article
+  controller: ModernGame\Controller\Admin\ArticleController::putArticle
+  methods:    [PUT]
+admin-article-delete:
+  path:       /article
+  controller: ModernGame\Controller\Admin\ArticleController::deleteArticle
+  methods:    [DELETE]
+# ---------- Equipment

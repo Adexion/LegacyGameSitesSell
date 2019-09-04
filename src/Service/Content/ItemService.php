@@ -2,48 +2,47 @@
 
 namespace ModernGame\Service\Content;
 
-use ModernGame\Database\Entity\EquipmentItem;
-use ModernGame\Database\Repository\EquipmentRepository;
+use ModernGame\Database\Entity\Item;
+use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Exception\ArrayException;
-use ModernGame\Form\EquipmentItemType;
+use ModernGame\Form\ItemType;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class EquipmentItemService
+class ItemService
 {
     private $form;
     private $formErrorHandler;
     private $user;
-    private $equipmentRepository;
+    private $itemListRepository;
 
     public function __construct(
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,
         TokenStorageInterface $tokenStorage,
-        EquipmentRepository $equipmentRepository
+        ItemListRepository $itemListRepository
     ) {
         $this->form = $form;
         $this->formErrorHandler = $formErrorHandler;
         $this->user = $tokenStorage->getToken()->getUser();
-        $this->equipmentRepository = $equipmentRepository;
+        $this->itemListRepository = $itemListRepository;
     }
 
     /**
-
      * @throws ArrayException
      */
-    public function getMappedEquipmentItem(Request $request)
+    public function getMappedItem(Request $request)
     {
-        $equipmentItem = new EquipmentItem();
-        $form = $this->form->create(EquipmentItemType::class, $equipmentItem, [
-            'equipments' => $this->equipmentRepository->getEquipmentList()
+        $item = new Item();
+        $form = $this->form->create(ItemType::class, $item, [
+            'itemLists' => $this->itemListRepository->getAllList()
         ]);
 
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
 
-        return $equipmentItem;
+        return $item;
     }
 }

@@ -1,9 +1,8 @@
 Feature:
-  As logged user
   I should be able to send contact message
 
   Scenario: Send valid contact message
-    And the request body is:
+    Given the request body is:
     """
     {
       "name": "testowe",
@@ -37,7 +36,7 @@ Feature:
     """
 
   Scenario: Send contact with no valid data
-    And the request body is:
+    Given the request body is:
     """
     {
       "name": "",

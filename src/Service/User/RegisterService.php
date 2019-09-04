@@ -72,9 +72,7 @@ class RegisterService
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
 
-        if (strpos($user->getPassword(), '$2a$') === false) {
-            $user->setPassword($this->setEncodedPassword($user));
-        }
+        $user->setPassword($this->setEncodedPassword($user));
 
         $this->userRepository->update($user);
     }
@@ -84,18 +82,15 @@ class RegisterService
      * @throws OptimisticLockException
      * @throws ArrayException
      */
-    public function updatePassword(Request $request) {
-        /** @var User $user */
-        $user = $this->userRepository->find($request->request->get('id'));
-
-        $form = $this->form->create(UpdatePasswordType::class, $user);
+    public function updatePassword(Request $request, User $user)
+    {
+        $form = $this->form->create(UpdatePasswordType::class, null, ['method' => 'PUT']);
 
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
 
-        if (strpos($user->getPassword(), '$2a$') === false) {
-            $user->setPassword($this->setEncodedPassword($user));
-        }
+        $user->setPassword($request->request->get('password')['first']);
+        $user->setPassword($this->setEncodedPassword($user));
 
         $this->userRepository->update($user);
     }

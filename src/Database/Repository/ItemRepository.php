@@ -3,12 +3,12 @@
 namespace ModernGame\Database\Repository;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use ModernGame\Database\Entity\EquipmentItem;
+use ModernGame\Database\Entity\Item;
 
-class EquipmentItemRepository extends AbstractRepository
+class ItemRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, EquipmentItem::class);
+        parent::__construct($registry, Item::class);
     }
 }

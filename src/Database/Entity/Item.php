@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\EquipmentItemRepository")
+ * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\ItemRepository")
  */
-class EquipmentItem
+class Item
 {
     /**
      * @ORM\Id
@@ -39,7 +39,7 @@ class EquipmentItem
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $equipmentId;
+    private $listIdz;
 
     public function setId($id)
     {
@@ -81,13 +81,13 @@ class EquipmentItem
         $this->command = $command;
     }
 
-    public function getEquipmentId()
+    public function getListId()
     {
-        return $this->equipmentId;
+        return $this->listId;
     }
 
-    public function setEquipmentId($equipmentId)
+    public function setListId($listId)
     {
-        $this->equipmentId = $equipmentId;
+        $this->listId = $listId;
     }
 }

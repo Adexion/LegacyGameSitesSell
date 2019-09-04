@@ -42,10 +42,12 @@ abstract class AbstractContext extends ApiContext implements Context
                 ->delete($table['Tables_in_test'])
                 ->where('1')
                 ->execute();
+
+            $connection->exec('ALTER TABLE '. $table['Tables_in_test'] .' AUTO_INCREMENT = 1');
         }
     }
 
-    protected function getmanager(): ObjectManager
+    protected function getManager(): ObjectManager
     {
         return $this->kernel->getContainer()->get('doctrine')->getManager();
     }

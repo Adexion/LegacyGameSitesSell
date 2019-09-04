@@ -22,6 +22,8 @@ class MockProvider
                 return '{"connect": false,"data": {"errorCode": 1,"message": "Code does not exist"}}';
             case 'http://microsms.pl/api/v2/multi.php?userid=2003&serviceid=3235&code=INVALID_VALUE: null':
                 return '{ "connect": true,"data": {"status": 0,"used": "0","service": 0,"number": 0, "phone": 0,"reply": ""}}';
+            case 'https://api.mojang.com/users/profiles/minecraft/adexion: null':
+                return '{"id":"48fbb5a077394d8da623ecff6f87ad79","name":"Adexion"}';
         }
 
         throw new ArrayException(['error' =>'Mock not found', 'mock' => $url . ': ' . $request]);

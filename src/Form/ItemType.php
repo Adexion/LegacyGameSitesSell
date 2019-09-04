@@ -2,15 +2,15 @@
 
 namespace ModernGame\Form;
 
-use ModernGame\Database\Entity\EquipmentItem;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use ModernGame\Database\Entity\Item;
+use ModernGame\Database\Entity\ItemList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EquipmentItemType extends AbstractType
+class ItemType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,15 +19,17 @@ class EquipmentItemType extends AbstractType
             ->add('id', HiddenType::class)
             ->add('command', TextType::class)
             ->add('iconUrl', TextType::class)
-            ->add('equipmentId', ChoiceType::class);
+            ->add('itemListId', ChoiceType::class, [
+                'choices' => $options['itemList']
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefaults(['data_class' => EquipmentItem::class])
-            ->setDefault('equipments', null)
-            ->setRequired('equipments')
-            ->setAllowedTypes('equipments', ['array']);
+            ->setDefaults(['data_class' => ItemList::class])
+            ->setDefault('itemList', null)
+            ->setRequired('itemList')
+            ->setAllowedTypes('itemList', ['array']);
     }
 }

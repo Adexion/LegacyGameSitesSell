@@ -2,9 +2,9 @@
 
 namespace ModernGame\Controller\Admin;
 
-use ModernGame\Database\Entity\EquipmentItem;
-use ModernGame\Database\Repository\EquipmentItemRepository;
-use ModernGame\Service\Content\EquipmentItemService;
+use ModernGame\Database\Entity\Item;
+use ModernGame\Database\Repository\ItemRepository;
+use ModernGame\Service\Content\ItemService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,32 +14,32 @@ class ItemController extends AbstractController
 {
     public function deleteItem(Request $request)
     {
-        /** @var EquipmentItemRepository $equipmentItemRepository */
-        $equipmentItemRepository = $this->getDoctrine()->getRepository(EquipmentItem::class);
+        /** @var ItemRepository $itemRepository */
+        $itemRepository = $this->getDoctrine()->getRepository(Item::class);
 
-        $equipmentItemRepository->delete($request->request->getInt('id'));
-
-        return new JsonResponse(null, Response::HTTP_OK);
-    }
-
-    public function putItem(Request $request, EquipmentItemService $equipmentItemService)
-    {
-        $equipmentItem = $equipmentItemService->getMappedEquipmentItem($request);
-
-        /** @var EquipmentItemRepository $equipmentItemRepository */
-        $equipmentItemRepository = $this->getDoctrine()->getRepository(EquipmentItem::class);
-        $equipmentItemRepository->update($equipmentItem);
+        $itemRepository->delete($request->request->getInt('id'));
 
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
-    public function postItem(Request $request, EquipmentItemService $equipmentItemService)
+    public function putItem(Request $request, ItemService $itemService)
     {
-        $equipmentItem = $equipmentItemService->getMappedEquipmentItem($request);
+        $item = $itemService->getMappedItem($request);
 
-        /** @var EquipmentItemRepository $equipmentItemRepository */
-        $equipmentItemRepository = $this->getDoctrine()->getRepository(EquipmentItem::class);
-        $equipmentItemRepository->insert($equipmentItem);
+        /** @var ItemRepository $itemRepository */
+        $itemRepository = $this->getDoctrine()->getRepository(Item::class);
+        $itemRepository->update($item);
+
+        return new JsonResponse(null, Response::HTTP_OK);
+    }
+
+    public function postItem(Request $request, ItemService $itemService)
+    {
+        $item = $itemService->getMappedItem($request);
+
+        /** @var ItemRepository $itemRepository */
+        $itemRepository = $this->getDoctrine()->getRepository(Item::class);
+        $itemRepository->insert($item);
 
         return new JsonResponse(null, Response::HTTP_OK);
     }

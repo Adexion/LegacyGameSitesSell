@@ -19,17 +19,17 @@ class UserItemRepository extends AbstractRepository
         $this->getEntityManager()->flush();
     }
 
-    public function deleteItem(UserItem $equipment)
+    public function deleteItem(UserItem $item)
     {
-        if ($equipment->getQuantity() > 1) {
-            $equipment->setQuantity($equipment->getQuantity() - 1);
-            $this->getEntityManager()->persist($equipment);
+        if ($item->getQuantity() > 1) {
+            $item->setQuantity($item->getQuantity() - 1);
+            $this->getEntityManager()->persist($item);
             $this->getEntityManager()->flush();
 
             return;
         }
 
-        $this->getEntityManager()->remove($equipment);
+        $this->getEntityManager()->remove($item);
         $this->getEntityManager()->flush();
     }
 }

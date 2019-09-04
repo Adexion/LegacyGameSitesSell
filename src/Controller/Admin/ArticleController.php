@@ -4,6 +4,7 @@ namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Repository\ArticleRepository;
+use ModernGame\Exception\ArrayException;
 use ModernGame\Service\Content\ArticleService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,10 +15,13 @@ class ArticleController extends AbstractController
 {
     public function deleteArticle(Request $request)
     {
+        if (empty($request->query->getInt('id'))) {
+            throw new ArrayException(['id' => 'Ta wartość nie może być pusta.']);
+        }
+
         /** @var ArticleRepository $articleRepository */
         $articleRepository = $this->getDoctrine()->getRepository(Article::class);
-
-        $articleRepository->delete($request->request->getInt('id'));
+        $articleRepository->delete($request->query->getInt('id'));
 
         return new JsonResponse(null, Response::HTTP_OK);
     }
@@ -25,7 +29,7 @@ class ArticleController extends AbstractController
     public function putArticle(Request $request, ArticleService $articleService)
     {
         /** @var Article $article */
-        $article = $articleService->getMappedArticle($request);
+        $article = $articleService->mapArticleById($request);
 
         /** @var ArticleRepository $articleRepository */
         $articleRepository = $this->getDoctrine()->getRepository(Article::class);
@@ -37,7 +41,7 @@ class ArticleController extends AbstractController
     public function postArticle(Request $request, ArticleService $articleService)
     {
         /** @var Article $article */
-        $article = $articleService->getMappedArticle($request);
+        $article = $articleService->mapArticle($request);
 
         /** @var ArticleRepository $articleRepository */
         $articleRepository = $this->getDoctrine()->getRepository(Article::class);
