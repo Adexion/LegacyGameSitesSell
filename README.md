@@ -1,6 +1,9 @@
 # Web BackEnd
 ## Versions
 ```
+# 0.21.0 - 04.09.2019
+    - add tests for ItemList
+    - refator for PUT method for ItemList
 # 0.20.0 - 04.09.2019
     - refactors
 # 0.19.3 - 10.08.2019
