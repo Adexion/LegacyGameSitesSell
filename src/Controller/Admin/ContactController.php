@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class TicketController extends AbstractController
+class ContactController extends AbstractController
 {
     public function deleteTicket(Request $request)
     {

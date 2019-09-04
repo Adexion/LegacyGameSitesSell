@@ -10,6 +10,7 @@ use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Database\Repository\UserItemRepository;
 use ModernGame\Exception\ArrayException;
 use ModernGame\Form\ItemListType;
+use ModernGame\Service\Serializer;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,19 +22,22 @@ class ItemListService
     private $itemListRepository;
     private $form;
     private $formErrorHandler;
+    private $serializer;
 
     public function __construct(
         UserItemRepository $userItemRepository,
         ItemRepository $itemRepository,
         ItemListRepository $itemListRepository,
         FormFactoryInterface $form,
-        FormErrorHandler $formErrorHandler
+        FormErrorHandler $formErrorHandler,
+        Serializer $serializer
     ) {
         $this->userItemRepository = $userItemRepository;
         $this->itemShopItemRepository = $itemRepository;
         $this->itemListRepository = $itemListRepository;
         $this->form = $form;
         $this->formErrorHandler = $formErrorHandler;
+        $this->serializer = $serializer;
     }
 
     public function assignListToUser(int $id, int $userId)
@@ -79,5 +83,28 @@ class ItemListService
         $this->formErrorHandler->handle($form);
 
         return $itemList;
+    }
+
+    /**
+     * @throws ArrayException
+     */
+    public function mapItemListById(Request $request)
+    {
+        $list = $this->itemListRepository->find($request->request->getInt('id'));
+
+        if (empty($list)) {
+            throw new ArrayException(['id' => 'Ta wartość jest nieprawidłowa.']);
+        }
+
+        $form = $this->form->create(ItemListType::class, $list, ['method' => 'PUT']);
+
+        $request->request->replace(
+            $this->serializer->mergeDataWithEntity($list, $request->request->all())
+        );
+
+        $form->handleRequest($request);
+        $this->formErrorHandler->handle($form);
+
+        return $list;
     }
 }

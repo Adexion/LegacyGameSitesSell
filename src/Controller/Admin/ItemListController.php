@@ -24,7 +24,7 @@ class ItemListController extends AbstractController
 
     public function putItemList(Request $request, ItemListService $itemListService)
     {
-        $itemList = $itemListService->mapItemList($request);
+        $itemList = $itemListService->mapItemListById($request);
 
         /** @var ItemListRepository $itemListRepository */
         $itemListRepository = $this->getDoctrine()->getRepository(ItemList::class);

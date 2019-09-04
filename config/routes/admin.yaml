@@ -11,4 +11,16 @@ admin-article-delete:
   path:       /article
   controller: ModernGame\Controller\Admin\ArticleController::deleteArticle
   methods:    [DELETE]
-# ---------- Equipment
+# ---------- ItemList
+admin-item-list-post:
+  path:       /item/list
+  controller: ModernGame\Controller\Admin\ItemListController::postItemList
+  methods:    [POST]
+admin-item-list-put:
+  path:       /item/list
+  controller: ModernGame\Controller\Admin\ItemListController::putItemList
+  methods:    [PUT]
+admin-item-list-delete:
+  path:       /item/list
+  controller: ModernGame\Controller\Admin\ItemListController::deleteItemList
+  methods:    [DELETE]

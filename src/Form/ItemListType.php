@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,14 +19,14 @@ class ItemListType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('id', HiddenType::class)
-            ->add('howManyBuyers', HiddenType::class)
+            ->add('howManyBuyers', HiddenType::class, [
+                'empty_data' => 0
+            ])
             ->add('description', TextType::class)
             ->add('iconUrl', TextType::class)
             ->add('sliderImage', TextType::class)
             ->add('price', NumberType::class)
-            ->add('promotion', NumberType::class)
-            ->add('serverId', ChoiceType::class)
-            ->addEventListener(FormEvents::POST_SET_DATA, [$this, 'preSetData']);
+            ->add('promotion', NumberType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

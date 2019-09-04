@@ -20,9 +20,9 @@ security:
         ModernGame\Database\Entity\User: bcrypt
 
     access_control:
-        - { path: ^/v1/contact, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/v1/admin/, roles: ROLE_ADMIN }
         - { path: ^/v1/player/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/user/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/v1/contact, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/user, roles: ROLE_USER }
         - { path: ^/v1/, roles: ROLE_USER }
-        - { path: ^/v1/admin/, roles: ROLE_ADMIN }

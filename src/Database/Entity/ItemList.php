@@ -59,12 +59,6 @@ class ItemList
      */
     private $promotion;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\NotBlank()
-     */
-    private $serverId;
-
     public function setId($id)
     {
         $this->id = $id;
@@ -123,16 +117,6 @@ class ItemList
     public function setPromotion($promotion)
     {
         $this->promotion = $promotion;
-    }
-
-    public function getServerId()
-    {
-        return $this->serverId;
-    }
-
-    public function setServerId($serverId)
-    {
-        $this->serverId = $serverId;
     }
 
     public function getSliderImage()
