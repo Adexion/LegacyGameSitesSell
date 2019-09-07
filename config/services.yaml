@@ -16,8 +16,6 @@ services:
     ModernGame\:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
-    ModernGame\Tests\:
-        resource: '../tests/*'
 
     ModernGame\Controller\:
         resource: '../src/Controller'
