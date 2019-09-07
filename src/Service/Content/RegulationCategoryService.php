@@ -3,41 +3,40 @@
 namespace ModernGame\Service\Content;
 
 use ModernGame\Database\Entity\RegulationCategory;
+use ModernGame\Database\Repository\RegulationCategoryRepository;
 use ModernGame\Exception\ArrayException;
 use ModernGame\Form\RegulationCategoryType;
+use ModernGame\Service\AbstractService;
+use ModernGame\Service\Serializer;
+use ModernGame\Service\ServiceInterface;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class RegulationCategoryService
+class RegulationCategoryService extends AbstractService implements ServiceInterface
 {
-    private $form;
-    private $validator;
-    private $formErrorHandler;
-
     public function __construct(
         FormFactoryInterface $form,
-        ValidatorInterface $validator,
-        FormErrorHandler $formErrorHandler
+        FormErrorHandler $formErrorHandler,
+        RegulationCategoryRepository $repository,
+        Serializer $serializer
     ) {
-        $this->form = $form;
-        $this->validator = $validator;
-        $this->formErrorHandler = $formErrorHandler;
+        parent::__construct($form, $formErrorHandler, $repository, $serializer);
     }
 
     /**
      * @throws ArrayException
      */
-    public function getMappedRegulationCategory(Request $request)
+    public function mapEntity(Request $request)
     {
-        $regulationCategory = new RegulationCategory();
+        return $this->map($request, new RegulationCategory(), RegulationCategoryType::class);
+    }
 
-        $formRegulationCategory = $this->form->create(RegulationCategoryType::class, $regulationCategory);
-        $this->formErrorHandler->handle($formRegulationCategory);
-
-        $formRegulationCategory->handleRequest($request);
-
-        return $regulationCategory;
+    /**
+     * @throws ArrayException
+     */
+    public function mapEntityById(Request $request)
+    {
+        return $this->mapById($request, RegulationCategoryType::class);
     }
 }

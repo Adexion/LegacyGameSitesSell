@@ -3,13 +3,13 @@
 namespace ModernGame\Database\Repository;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use ModernGame\Database\Entity\Contact;
+use ModernGame\Database\Entity\Ticket;
 
-class ContactRepository extends AbstractRepository
+class TicketRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Contact::class);
+        parent::__construct($registry, Ticket::class);
     }
 
     public function getListGroup()

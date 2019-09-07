@@ -27,6 +27,10 @@ user-update:
   path:       /user
   controller: ModernGame\Controller\UserController::update
   methods:    [PUT]
+item-list:
+  path:       /user/item/list
+  controller: ModernGame\Controller\UserController::getItemList
+  method:     [GET]
 
 # ---------- Player
 player-avatar:
@@ -45,14 +49,18 @@ cash:
   methods:    [GET]
 pypal-confirmation:
   path:       /payment/paypal
-  controller: ModernGame\Controller\AfterLoginWalletController::paypalExecute
+  controller: ModernGame\Controller\AfterLogin\WalletController::paypalExecute
   methods:    [POST]
 sms-confirmation:
   path:       /payment/sms
-  controller: ModernGame\Controller\AfterLoginWalletController::microSMSExecute
+  controller: ModernGame\Controller\AfterLogin\WalletController::microSMSExecute
   methods:    [POST]
 
 # ---------- ItemShop
+get-items:
+  path:       /shop/list
+  controller: ModernGame\Controller\AfterLogin\ItemShopController::getItemList
+  methods:    [GET]
 buy-item:
   path:       /shop/buy
   controller: ModernGame\Controller\AfterLogin\ItemShopController::buyItemList
@@ -74,4 +82,10 @@ contact:
 contact-ticket:
   path:       /contact/{ticket}
   controller: ModernGame\Controller\ContactController::getMessagesTicket
+  methods:    [GET]
+
+# ---------- Article
+article:
+  path:       /article
+  controller: ModernGame\Controller\Content\ArticleController::getArticleList
   methods:    [GET]

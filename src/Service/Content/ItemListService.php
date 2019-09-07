@@ -2,42 +2,38 @@
 
 namespace ModernGame\Service\Content;
 
-use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\Item;
+use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\UserItem;
-use ModernGame\Database\Repository\ItemRepository;
 use ModernGame\Database\Repository\ItemListRepository;
+use ModernGame\Database\Repository\ItemRepository;
 use ModernGame\Database\Repository\UserItemRepository;
 use ModernGame\Exception\ArrayException;
 use ModernGame\Form\ItemListType;
+use ModernGame\Service\AbstractService;
 use ModernGame\Service\Serializer;
+use ModernGame\Service\ServiceInterface;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class ItemListService
+class ItemListService extends AbstractService implements ServiceInterface
 {
     private $userItemRepository;
     private $itemShopItemRepository;
-    private $itemListRepository;
-    private $form;
-    private $formErrorHandler;
-    private $serializer;
 
     public function __construct(
         UserItemRepository $userItemRepository,
         ItemRepository $itemRepository,
-        ItemListRepository $itemListRepository,
+        ItemListRepository $repository,
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,
         Serializer $serializer
     ) {
         $this->userItemRepository = $userItemRepository;
         $this->itemShopItemRepository = $itemRepository;
-        $this->itemListRepository = $itemListRepository;
-        $this->form = $form;
-        $this->formErrorHandler = $formErrorHandler;
-        $this->serializer = $serializer;
+
+        parent::__construct($form, $formErrorHandler, $repository, $serializer);
     }
 
     public function assignListToUser(int $id, int $userId)
@@ -60,13 +56,15 @@ class ItemListService
             $this->userItemRepository->addItem($userItem);
         }
 
-        $this->itemListRepository->increaseCounterOfBuying($id);
+        /** @var ItemListRepository $repository */
+        $repository = $this->repository;
+        $repository->increaseCounterOfBuying($id);
     }
 
     public function getItemListPrice(int $equipmentId): float
     {
         /** @var ItemList $itemList */
-        $itemList = $this->itemListRepository->find($equipmentId);
+        $itemList = $this->repository->find($equipmentId);
 
         return $itemList->getPrice() - ($itemList->getPrice() * $itemList->getPromotion());
     }
@@ -74,37 +72,16 @@ class ItemListService
     /**
      * @throws ArrayException
      */
-    public function mapItemList(Request $request)
+    public function mapEntity(Request $request)
     {
-        $itemList = new ItemList();
-        $form = $this->form->create(ItemListType::class, $itemList);
-
-        $form->handleRequest($request);
-        $this->formErrorHandler->handle($form);
-
-        return $itemList;
+        $this->map($request, new ItemList(), ItemListType::class);
     }
 
     /**
      * @throws ArrayException
      */
-    public function mapItemListById(Request $request)
+    public function mapEntityById(Request $request)
     {
-        $list = $this->itemListRepository->find($request->request->getInt('id'));
-
-        if (empty($list)) {
-            throw new ArrayException(['id' => 'Ta wartość jest nieprawidłowa.']);
-        }
-
-        $form = $this->form->create(ItemListType::class, $list, ['method' => 'PUT']);
-
-        $request->request->replace(
-            $this->serializer->mergeDataWithEntity($list, $request->request->all())
-        );
-
-        $form->handleRequest($request);
-        $this->formErrorHandler->handle($form);
-
-        return $list;
+        return $this->mapById($request, ItemListType::class);
     }
 }

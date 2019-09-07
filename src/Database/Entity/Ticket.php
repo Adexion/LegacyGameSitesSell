@@ -8,9 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\ContactRepository")
+ * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\TicketRepository")
  */
-class Contact
+class Ticket
 {
     /**
      * @ORM\Id

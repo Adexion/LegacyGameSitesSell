@@ -11,6 +11,7 @@ admin-article-delete:
   path:       /article
   controller: ModernGame\Controller\Admin\ArticleController::deleteArticle
   methods:    [DELETE]
+
 # ---------- ItemList
 admin-item-list-post:
   path:       /item/list
@@ -23,4 +24,70 @@ admin-item-list-put:
 admin-item-list-delete:
   path:       /item/list
   controller: ModernGame\Controller\Admin\ItemListController::deleteItemList
+  methods:    [DELETE]
+
+# ---------- Item
+admin-item-post:
+  path:       /item
+  controller: ModernGame\Controller\Admin\ItemController::postItem
+  methods:    [POST]
+admin-item-put:
+  path:       /item
+  controller: ModernGame\Controller\Admin\ItemController::putItem
+  methods:    [PUT]
+admin-item-delete:
+  path:       /item
+  controller: ModernGame\Controller\Admin\ItemController::deleteItem
+  methods:    [DELETE]
+
+# ---------- Mod
+admin-mod-post:
+  path:       /mod
+  controller: ModernGame\Controller\Admin\ModController::postMod
+  methods:    [POST]
+admin-mod-put:
+  path:       /mod
+  controller: ModernGame\Controller\Admin\ModController::putMod
+  methods:    [PUT]
+admin-mod-delete:
+  path:       /mod
+  controller: ModernGame\Controller\Admin\ModController::deleteMod
+  methods:    [DELETE]
+
+# ---------- Regulation Category
+admin-regulation-category-post:
+  path:       /regulation/category
+  controller: ModernGame\Controller\Admin\RegulationCategoryController::postRegulationCategory
+  methods:    [POST]
+admin-regulation-category-put:
+  path:       /regulation/category
+  controller: ModernGame\Controller\Admin\RegulationCategoryController::putRegulationCategory
+  methods:    [PUT]
+admin-regulation-category-delete:
+  path:       /regulation/category
+  controller: ModernGame\Controller\Admin\RegulationCategoryController::deleteRegulationCategory
+  methods:    [DELETE]
+
+# ---------- Regulation
+admin-regulation-post:
+  path:       /regulation
+  controller: ModernGame\Controller\Admin\RegulationController::postRegulation
+  methods:    [POST]
+admin-regulation-put:
+  path:       /regulation
+  controller: ModernGame\Controller\Admin\RegulationController::putRegulation
+  methods:    [PUT]
+admin-regulation-delete:
+  path:       /regulation
+  controller: ModernGame\Controller\Admin\RegulationController::deleteRegulation
+  methods:    [DELETE]
+
+# ---------- Contact
+admin-contact-put:
+  path:       /contact
+  controller: ModernGame\Controller\Admin\ContactController::putTicket
+  methods:    [PUT]
+admin-contact-delete:
+  path:       /contact
+  controller: ModernGame\Controller\Admin\ContactController::deleteTicket
   methods:    [DELETE]

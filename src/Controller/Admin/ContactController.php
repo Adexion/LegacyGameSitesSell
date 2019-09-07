@@ -2,9 +2,9 @@
 
 namespace ModernGame\Controller\Admin;
 
-use ModernGame\Database\Entity\Contact;
-use ModernGame\Database\Repository\ContactRepository;
-use ModernGame\Service\Content\ContactService;
+use ModernGame\Database\Entity\Ticket;
+use ModernGame\Database\Repository\TicketRepository;
+use ModernGame\Service\Content\TicketService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,17 +14,18 @@ class ContactController extends AbstractController
 {
     public function deleteTicket(Request $request)
     {
-        /** @var ContactRepository $contactRepository */
-        $contactRepository = $this->getDoctrine()->getRepository(Contact::class);
+        /** @var TicketRepository $contactRepository */
+        $contactRepository = $this->getDoctrine()->getRepository(Ticket::class);
         $contactRepository->delete($request->request->getInt('id'));
 
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
-    public function putTicket(Request $request, ContactService $contact)
+    public function putTicket(Request $request, TicketService $contact)
     {
-        $contactEntity = $contact->getMappedTicket($request);
-        $this->getDoctrine()->getRepository(Contact::class)->insert($contactEntity);
+        $contactEntity = $contact->mapEntity($request);
+
+        $this->getDoctrine()->getRepository(Ticket::class)->insert($contactEntity);
 
         return new JsonResponse(null, Response::HTTP_OK);
     }

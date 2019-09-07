@@ -29,7 +29,7 @@ class ArticleController extends AbstractController
     public function putArticle(Request $request, ArticleService $articleService)
     {
         /** @var Article $article */
-        $article = $articleService->mapArticleById($request);
+        $article = $articleService->mapEntityById($request);
 
         /** @var ArticleRepository $articleRepository */
         $articleRepository = $this->getDoctrine()->getRepository(Article::class);
@@ -41,7 +41,7 @@ class ArticleController extends AbstractController
     public function postArticle(Request $request, ArticleService $articleService)
     {
         /** @var Article $article */
-        $article = $articleService->mapArticle($request);
+        $article = $articleService->mapEntity($request);
 
         /** @var ArticleRepository $articleRepository */
         $articleRepository = $this->getDoctrine()->getRepository(Article::class);

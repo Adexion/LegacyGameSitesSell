@@ -2,6 +2,7 @@
 
 namespace ModernGame\Controller\AfterLogin;
 
+use ModernGame\Database\Entity\ItemList;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\Content\ItemListService;
 use ModernGame\Service\User\WalletService;
@@ -11,6 +12,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ItemShopController extends Controller
 {
+    public function getItemList()
+    {
+        return new JsonResponse($this->getDoctrine()->getRepository(ItemList::class)->findAll());
+    }
+
     public function buyItemList(Request $request, WalletService $wallet, ItemListService $itemListService)
     {
         $cash = $wallet->changeCash(

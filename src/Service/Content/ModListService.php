@@ -3,41 +3,40 @@
 namespace ModernGame\Service\Content;
 
 use ModernGame\Database\Entity\ModList;
+use ModernGame\Database\Repository\ModListRepository;
 use ModernGame\Exception\ArrayException;
 use ModernGame\Form\ModListType;
+use ModernGame\Service\AbstractService;
+use ModernGame\Service\Serializer;
+use ModernGame\Service\ServiceInterface;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ModListService
+class ModListService extends AbstractService implements ServiceInterface
 {
-    private $form;
-    private $validator;
-    private $formErrorHandler;
-
     public function __construct(
         FormFactoryInterface $form,
-        ValidatorInterface $validator,
-        FormErrorHandler $formErrorHandler
+        FormErrorHandler $formErrorHandler,
+        ModListRepository $repository,
+        Serializer $serializer
     ) {
-        $this->form = $form;
-        $this->validator = $validator;
-        $this->formErrorHandler = $formErrorHandler;
+        parent::__construct($form, $formErrorHandler, $repository, $serializer);
     }
 
     /**
      * @throws ArrayException
      */
-    public function getMappedMod(Request $request)
+    public function mapEntity(Request $request)
     {
-        $mod = new ModList();
+        return $this->map($request, new ModList(), ModListType::class);
+    }
 
-        $form = $this->form->create(ModListType::class, $mod);
-
-        $form->handleRequest($request);
-        $this->formErrorHandler->handle($form);
-
-        return $mod;
+    /**
+     * @throws ArrayException
+     */
+    public function mapEntityById(Request $request)
+    {
+        return $this->mapById($request, ModListType::class);
     }
 }

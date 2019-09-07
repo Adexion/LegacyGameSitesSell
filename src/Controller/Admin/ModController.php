@@ -23,7 +23,7 @@ class ModController extends AbstractController
 
     public function putMod(Request $request, ModListService $modListService)
     {
-        $modList = $modListService->getMappedMod($request);
+        $modList = $modListService->mapEntityById($request);
 
         /** @var ModListRepository $modListRepository */
         $modListRepository = $this->getDoctrine()->getRepository(ModList::class);
@@ -34,7 +34,7 @@ class ModController extends AbstractController
 
     public function postMod(Request $request, ModListService $modListService)
     {
-        $modList = $modListService->getMappedMod($request);
+        $modList = $modListService->mapEntity($request);
 
         /** @var ModListRepository $modListRepository */
         $modListRepository = $this->getDoctrine()->getRepository(ModList::class);

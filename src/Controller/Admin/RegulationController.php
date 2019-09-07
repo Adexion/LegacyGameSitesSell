@@ -14,7 +14,7 @@ class RegulationController extends AbstractController
 {
     public function postRegulation(Request $request, RegulationService $regulationService)
     {
-        $regulation = $regulationService->getMappedRegulation($request);
+        $regulation = $regulationService->mapEntity($request);
 
         /** @var RegulationRepository $regulationCategoryRepository */
         $regulationCategoryRepository = $this->getDoctrine()->getRepository(Regulation::class);
@@ -25,7 +25,7 @@ class RegulationController extends AbstractController
 
     public function putRegulation(Request $request, RegulationService $regulationService)
     {
-        $regulation = $regulationService->getMappedRegulation($request);
+        $regulation = $regulationService->mapEntityById($request);
 
         /** @var RegulationRepository $regulationCategoryRepository */
         $regulationCategoryRepository = $this->getDoctrine()->getRepository(Regulation::class);

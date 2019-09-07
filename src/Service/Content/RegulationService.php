@@ -4,46 +4,49 @@ namespace ModernGame\Service\Content;
 
 use ModernGame\Database\Entity\Regulation;
 use ModernGame\Database\Repository\RegulationCategoryRepository;
+use ModernGame\Database\Repository\RegulationRepository;
 use ModernGame\Exception\ArrayException;
 use ModernGame\Form\RegulationType;
+use ModernGame\Service\AbstractService;
+use ModernGame\Service\Serializer;
+use ModernGame\Service\ServiceInterface;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class RegulationService
+class RegulationService extends AbstractService implements ServiceInterface
 {
-    private $form;
-    private $validator;
-    private $formErrorHandler;
     private $regulationCategoryRepository;
 
     public function __construct(
         FormFactoryInterface $form,
-        ValidatorInterface $validator,
         FormErrorHandler $formErrorHandler,
-        RegulationCategoryRepository $regulationCategoryRepository
+        RegulationCategoryRepository $regulationCategoryRepository,
+        RegulationRepository $repository,
+        Serializer $serializer
     ) {
-        $this->form = $form;
-        $this->validator = $validator;
-        $this->formErrorHandler = $formErrorHandler;
         $this->regulationCategoryRepository = $regulationCategoryRepository;
+
+        parent::__construct($form, $formErrorHandler, $repository, $serializer);
     }
 
     /**
      * @throws ArrayException
      */
-    public function getMappedRegulation(Request $request)
+    public function mapEntity(Request $request)
     {
-        $regulation = new Regulation();
-
-        $formRegulation = $this->form->create(RegulationType::class, $regulation, [
+        return $this->map($request, new Regulation(), RegulationType::class, [
             'categories' => $this->regulationCategoryRepository->getCategoryList()
         ]);
-        $this->formErrorHandler->handle($formRegulation);
+    }
 
-        $formRegulation->handleRequest($request);
-
-        return $regulation;
+    /**
+     * @throws ArrayException
+     */
+    public function mapEntityById(Request $request)
+    {
+        return $this->mapById($request, RegulationType::class, [
+            'categories' => $this->regulationCategoryRepository->getCategoryList()
+        ]);
     }
 }

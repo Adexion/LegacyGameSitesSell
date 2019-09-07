@@ -24,7 +24,7 @@ class ItemController extends AbstractController
 
     public function putItem(Request $request, ItemService $itemService)
     {
-        $item = $itemService->getMappedItem($request);
+        $item = $itemService->mapEntityById($request);
 
         /** @var ItemRepository $itemRepository */
         $itemRepository = $this->getDoctrine()->getRepository(Item::class);
@@ -35,7 +35,7 @@ class ItemController extends AbstractController
 
     public function postItem(Request $request, ItemService $itemService)
     {
-        $item = $itemService->getMappedItem($request);
+        $item = $itemService->mapEntity($request);
 
         /** @var ItemRepository $itemRepository */
         $itemRepository = $this->getDoctrine()->getRepository(Item::class);

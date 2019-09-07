@@ -6,43 +6,37 @@ use ModernGame\Database\Entity\Item;
 use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Exception\ArrayException;
 use ModernGame\Form\ItemType;
+use ModernGame\Service\AbstractService;
+use ModernGame\Service\Serializer;
+use ModernGame\Service\ServiceInterface;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class ItemService
+class ItemService extends AbstractService implements ServiceInterface
 {
-    private $form;
-    private $formErrorHandler;
-    private $user;
-    private $itemListRepository;
-
     public function __construct(
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,
-        TokenStorageInterface $tokenStorage,
-        ItemListRepository $itemListRepository
+        ItemListRepository $itemListRepository,
+        Serializer $serializer
     ) {
-        $this->form = $form;
-        $this->formErrorHandler = $formErrorHandler;
-        $this->user = $tokenStorage->getToken()->getUser();
-        $this->itemListRepository = $itemListRepository;
+        parent::__construct($form, $formErrorHandler, $itemListRepository, $serializer);
     }
 
     /**
      * @throws ArrayException
      */
-    public function getMappedItem(Request $request)
+    public function mapEntity(Request $request)
     {
-        $item = new Item();
-        $form = $this->form->create(ItemType::class, $item, [
-            'itemLists' => $this->itemListRepository->getAllList()
-        ]);
+        return $this->map($request, new Item(), ItemType::class);
+    }
 
-        $form->handleRequest($request);
-        $this->formErrorHandler->handle($form);
-
-        return $item;
+    /**
+     * @throws ArrayException
+     */
+    public function mapEntityById(Request $request)
+    {
+        return $this->mapById($request, ItemType::class);
     }
 }

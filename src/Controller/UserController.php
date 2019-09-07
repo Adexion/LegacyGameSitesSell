@@ -2,6 +2,7 @@
 
 namespace ModernGame\Controller;
 
+use ModernGame\Database\Entity\UserItem;
 use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
 use ModernGame\Service\User\LoginUserService;
 use ModernGame\Service\User\RegisterService;
@@ -41,6 +42,14 @@ class UserController extends Controller
         $resetPassword->resetPassword($request, $token);
 
         return new JsonResponse();
+    }
+
+    public function getItemList()
+    {
+        return new JsonResponse([
+            'itemList' => $this->getDoctrine()
+                ->getRepository(UserItem::class)->findBy(['userId' => $this->getUser()->getId()])
+        ]);
     }
 
     public function loginInLauncher(Request $request, MojangPlayerService $player)
