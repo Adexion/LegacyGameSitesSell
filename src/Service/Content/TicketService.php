@@ -2,6 +2,8 @@
 
 namespace ModernGame\Service\Content;
 
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException as ORMExceptionAlias;
 use ModernGame\Database\Entity\Ticket;
 use ModernGame\Database\Repository\TicketRepository;
 use ModernGame\Exception\ArrayException;
@@ -44,22 +46,27 @@ class TicketService extends AbstractService implements ServiceInterface
 
     /**
      * @throws ArrayException
+     * @throws ORMExceptionAlias
+     * @throws OptimisticLockException
      */
     public function mapEntityById(Request $request)
     {
-        return $this->mapById($request, TicketType::class);
+        $ticket =  $this->mapById($request, TicketType::class);
+        $this->assignAsRead($request->request->getInt('id'));
+
+        return $ticket;
     }
 
-// ToDo: use when admin ready
-//    /**
-//     * @throws ORMException
-//     * @throws OptimisticLockException
-//     */
-//    public function assignAsRead(Request $request)
-//    {
-//        /** @var Ticket $contactEntity */
-//        $contactEntity = $this->repository->find($request->query->get('id'));
-//        $contactEntity->setStatus(2);
-//        $this->repository->update($contactEntity);
-//    }
+    /**
+     * @throws ORMExceptionAlias
+     * @throws OptimisticLockException
+     */
+    private function assignAsRead(int $id)
+    {
+        /** @var Ticket $contactEntity */
+        $contactEntity = $this->repository->find($id);
+        $contactEntity->setStatus(2);
+
+        $this->repository->update($contactEntity);
+    }
 }
