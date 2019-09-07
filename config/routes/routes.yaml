@@ -3,6 +3,10 @@ routes:
   prefix:   /admin
 
 # ---------- USER
+user-item-list:
+  path:       /user/item/list
+  controller: ModernGame\Controller\UserController::getItemList
+  methods:     [GET]
 login:
   path:       /user/login
   controller: ModernGame\Controller\UserController::login
@@ -27,10 +31,6 @@ user-update:
   path:       /user
   controller: ModernGame\Controller\UserController::update
   methods:    [PUT]
-item-list:
-  path:       /user/item/list
-  controller: ModernGame\Controller\UserController::getItemList
-  method:     [GET]
 
 # ---------- Player
 player-avatar:
