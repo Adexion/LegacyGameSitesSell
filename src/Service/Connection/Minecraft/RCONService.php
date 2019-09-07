@@ -9,9 +9,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class RCONService
 {
-//    private $client;
+    private $client;
     private $userItemRepository;
-
     private $user;
     private $container;
 
@@ -22,9 +21,9 @@ class RCONService
     ) {
         $this->container = $container;
 
-//        $serverData = $container->getParameter('server');
-//        $this->client = new RconConnection($serverData['host'], $serverData['port'], $serverData['password']);
-//        $this->client->connect();
+        $serverData = $container->getParameter('minecraft');
+        $this->client = new RconConnection($serverData['host'], $serverData['port'], $serverData['password']);
+        $this->client->connect();
 
         $this->userItemRepository = $userItemRepository;
         $this->user = $tokenStorage->getToken()->getUser();
@@ -32,9 +31,7 @@ class RCONService
 
     public function getPlayerList()
     {
-//        return $this->client->sendCommand($this->container->getParameter('command')['list']);
-
-        return null;
+        return $this->client->sendCommand($this->container->getParameter('command')['list']);
     }
 
     public function executeItem(string $itemId = null)
@@ -45,9 +42,9 @@ class RCONService
             : [$this->userItemRepository->find($itemId)];
 
         foreach ($userItems as $item) {
-//            $this->client->sendCommand(sprintf($item->getCommand(), $this->user->getUsername()));
+            $this->client->sendCommand(sprintf($item->getCommand(), $this->user->getUsername()));
 
-//            $response[] = $this->client->getResponse();
+            $response[] = $this->client->getResponse();
 
             $this->userItemRepository->deleteItem($item);
         }

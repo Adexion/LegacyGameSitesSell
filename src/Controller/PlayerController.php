@@ -20,6 +20,6 @@ class PlayerController
 
     public function getPlayerList(RCONService $rcon)
     {
-        return new JsonResponse($rcon->getPlayerList());
+        return new JsonResponse(['list' => $rcon->getPlayerList()]);
     }
 }

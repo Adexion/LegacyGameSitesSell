@@ -8,11 +8,11 @@ parameters:
         secret: 'EKphnn0pTtiyegluAPXfuuk4pQW9dBB4SVLnF0a85LKpWhSyogY49b32gFxYvpC4Qdto9uIZrYFA0tpO'
     recaptcha: ''
     minecraft:
-        host: ''
-        port: ''
-        password: null
+        host: '83.25.13.28'
+        port: '25575'
+        password: 'qwerty'
     command:
-        list: ''
+        list: 'list'
 
 services:
     _defaults:

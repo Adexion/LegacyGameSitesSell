@@ -3,11 +3,9 @@ default:
     default:
       contexts:
         - ModernGame\Tests\Behat\UserApiContext
-        - ModernGame\Tests\Behat\ItemApiContext
     dev:
       contexts:
         - ModernGame\Tests\Behat\UserApiContext
-        - ModernGame\Tests\Behat\ItemApiContext
       filters:
         tags: '@dev'
 

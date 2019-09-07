@@ -11,7 +11,6 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Http\AccessMap;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
@@ -76,7 +75,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     private function getUsernameByToken($token)
     {
-        if (null === $token) {
+        if (empty($token)) {
             return null;
         }
 
