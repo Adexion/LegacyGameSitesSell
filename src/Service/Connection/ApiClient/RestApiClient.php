@@ -5,7 +5,7 @@ namespace ModernGame\Service\Connection\ApiClient;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Service\EnvironmentService;
 
 class RestApiClient
@@ -24,7 +24,7 @@ class RestApiClient
 
     /**
      * @throws GuzzleException
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function request(string $method, string $url, $data = null): string
     {

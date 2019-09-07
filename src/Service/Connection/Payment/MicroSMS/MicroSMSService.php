@@ -5,7 +5,7 @@ namespace ModernGame\Service\Connection\Payment\MicroSMS;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use ModernGame\Database\Repository\PriceRepository;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\ApiClient\RestApiClient;
 use ModernGame\Service\Connection\Payment\PaymentInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -51,19 +51,19 @@ class MicroSMSService implements PaymentInterface
     private function handleError($response)
     {
         if (empty($response)) {
-            throw new ArrayException(['error' => 'Nie można nawiązać połączenia z serwerem płatności.']);
+            throw new ContentException(['error' => 'Nie można nawiązać połączenia z serwerem płatności.']);
         }
         if (!is_object($response)) {
-            throw new ArrayException(['error' => 'Nie można odczytać informacji o płatności.']);
+            throw new ContentException(['error' => 'Nie można odczytać informacji o płatności.']);
         }
         if (isset($response->error) && $response->error) {
-            throw new ArrayException(['error' => 'Kod błędu: ' . $response->error->errorCode . ' - ' . $response->error->message]);
+            throw new ContentException(['error' => 'Kod błędu: ' . $response->error->errorCode . ' - ' . $response->error->message]);
         }
         if ((bool)$response->connect === false) {
-            throw new ArrayException(['smsCode' => 'Nieprawidłowy format kodu sms.']);
+            throw new ContentException(['smsCode' => 'Nieprawidłowy format kodu sms.']);
         }
         if (MicroSMSPredicate::isResponseValid($response)) {
-            throw new ArrayException(['smsCode' => 'Przesłany kod jest nieprawidłowy.']);
+            throw new ContentException(['smsCode' => 'Przesłany kod jest nieprawidłowy.']);
         }
     }
 }

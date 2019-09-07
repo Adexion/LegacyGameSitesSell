@@ -8,7 +8,7 @@ use ModernGame\Database\Entity\ResetPassword;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\ResetPasswordRepository;
 use ModernGame\Database\Repository\UserRepository;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Form\ResetPasswordType;
 use ModernGame\Form\ResetType;
 use ModernGame\Service\Mail\MailSenderService;
@@ -51,7 +51,7 @@ class ResetPasswordService
     /**
      * @throws ORMException
      * @throws OptimisticLockException
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function sendResetEmail(Request $request): int
     {
@@ -74,7 +74,7 @@ class ResetPasswordService
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function resetPassword(Request $request, $token)
     {
@@ -82,7 +82,7 @@ class ResetPasswordService
         $reset = $this->repository->findOneBy(['token' => $token]);
 
         if (empty($reset)) {
-            throw new ArrayException(['token' => 'Ta wartość jest nieprawidłowa.']);
+            throw new ContentException(['token' => 'Ta wartość jest nieprawidłowa.']);
         }
 
         /** @var User $user */

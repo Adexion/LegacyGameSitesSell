@@ -4,7 +4,7 @@ namespace ModernGame\Service\User;
 
 use Doctrine\ORM\EntityManagerInterface;
 use ModernGame\Database\Entity\Wallet;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 
 class WalletService
 {
@@ -26,7 +26,7 @@ class WalletService
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function changeCash(int $userId, float $cash): float
     {
@@ -34,7 +34,7 @@ class WalletService
         $wallet->increaseCash($cash);
 
         if ($wallet->getCash() < 0) {
-            throw new ArrayException(['wallet' => 'Nie można wykonać operacji. Brak środkow na koncie.']);
+            throw new ContentException(['wallet' => 'Nie można wykonać operacji. Brak środkow na koncie.']);
         }
 
         $this->em->persist($wallet);

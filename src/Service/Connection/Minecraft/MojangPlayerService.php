@@ -4,7 +4,7 @@ namespace ModernGame\Service\Connection\Minecraft;
 
 use DateTime;
 use GuzzleHttp\Exception\GuzzleException;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\ApiClient\RestApiClient;
 use ModernGame\Service\User\LoginUserService;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ class MojangPlayerService
 
     /**
      * @throws GuzzleException
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function loginIn(Request $request): array
     {
@@ -57,12 +57,12 @@ class MojangPlayerService
 
     /**
      * @throws GuzzleException
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function getUUID(?string $userName): string
     {
         if (empty($userName)) {
-            throw new ArrayException(['username' => 'Pole nie może być puste.']);
+            throw new ContentException(['username' => 'Pole nie może być puste.']);
         }
 
         $mojangPlayer = json_decode($this->client->request(

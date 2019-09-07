@@ -8,7 +8,7 @@ use ModernGame\Database\Entity\UserItem;
 use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Database\Repository\ItemRepository;
 use ModernGame\Database\Repository\UserItemRepository;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Form\ItemListType;
 use ModernGame\Service\AbstractService;
 use ModernGame\Service\Serializer;
@@ -70,7 +70,7 @@ class ItemListService extends AbstractService implements ServiceInterface
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function mapEntity(Request $request)
     {
@@ -78,7 +78,7 @@ class ItemListService extends AbstractService implements ServiceInterface
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function mapEntityById(Request $request)
     {

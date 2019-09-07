@@ -4,7 +4,7 @@ namespace ModernGame\Service\Content;
 
 use ModernGame\Database\Entity\ModList;
 use ModernGame\Database\Repository\ModListRepository;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Form\ModListType;
 use ModernGame\Service\AbstractService;
 use ModernGame\Service\Serializer;
@@ -25,7 +25,7 @@ class ModListService extends AbstractService implements ServiceInterface
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function mapEntity(Request $request)
     {
@@ -33,7 +33,7 @@ class ModListService extends AbstractService implements ServiceInterface
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function mapEntityById(Request $request)
     {

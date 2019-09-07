@@ -3,7 +3,7 @@
 namespace ModernGame\Validator;
 
 use ModernGame\Dto\FormErrors;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -35,7 +35,7 @@ class FormErrorHandler
         }
 
         if (!empty($exception->getErrors())) {
-            throw new ArrayException($exception->getErrors());
+            throw new ContentException($exception->getErrors());
         }
     }
 

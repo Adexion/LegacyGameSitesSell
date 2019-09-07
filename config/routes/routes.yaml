@@ -13,7 +13,7 @@ login:
   methods:    [POST]
 login-launcher:
   path:       /user/launcher/login
-  controller: ModernGame\Controller\UserController::loginInLauncher
+  controller: ModernGame\Controller\UserController::loginMinecraft
   methods:    [POST]
 register:
   path:       /user/register
@@ -35,7 +35,7 @@ user-update:
 # ---------- Player
 player-avatar:
   path:       /player/avatar
-  controller: ModernGame\Controller\PlayerController::getPlayerAvatar
+  controller: ModernGame\Controller\PlayerController::getMinecraftAvatar
   methods:    [GET]
 player-list:
   path:       /player/list

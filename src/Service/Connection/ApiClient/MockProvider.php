@@ -2,7 +2,7 @@
 
 namespace ModernGame\Service\Connection\ApiClient;
 
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 
 class MockProvider
 {
@@ -26,6 +26,6 @@ class MockProvider
                 return '{"id":"48fbb5a077394d8da623ecff6f87ad79","name":"Adexion"}';
         }
 
-        throw new ArrayException(['error' =>'Mock not found', 'mock' => $url . ': ' . $request]);
+        throw new ContentException(['error' =>'Mock not found', 'mock' => $url . ': ' . $request]);
     }
 }

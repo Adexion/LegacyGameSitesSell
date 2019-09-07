@@ -3,7 +3,7 @@
 namespace ModernGame\Service;
 
 use ModernGame\Database\Repository\AbstractRepository;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +28,7 @@ abstract class AbstractService
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     protected function map(Request $request, $entity, string $formType, array $option = []) {
         $form = $this->form->create($formType, $entity, $option);
@@ -40,14 +40,14 @@ abstract class AbstractService
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     protected function mapById(Request $request, string $formType, array $options = [])
     {
         $entity = $this->repository->find($request->request->getInt('id'));
 
         if (empty($list)) {
-            throw new ArrayException(['id' => 'Ta wartość jest nieprawidłowa.']);
+            throw new ContentException(['id' => 'Ta wartość jest nieprawidłowa.']);
         }
 
         $form = $this->form->create($formType, $list, array_merge(['method' => 'PUT'], $options));

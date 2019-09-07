@@ -2,27 +2,29 @@
 
 namespace ModernGame\Service\Connection\Minecraft;
 
-use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
 use ModernGame\Database\Repository\UserItemRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class RCONService
 {
-    private const HOST = 's625567.csrv.pl';
-    private const PORT = 9928;
-    private const PASSWORD = '8da33335f300ab1d16a6';
-
-    private $client;
+//    private $client;
     private $userItemRepository;
 
-    /** @var User */
     private $user;
+    private $container;
 
-    public function __construct(UserItemRepository $userItemRepository, TokenStorageInterface $tokenStorage)
-    {
-        $this->client = new RconConnection(self::HOST, self::PORT, self::PASSWORD, 3);
-        $this->client->connect();
+    public function __construct(
+        UserItemRepository $userItemRepository,
+        TokenStorageInterface $tokenStorage,
+        ContainerInterface $container
+    ) {
+        $this->container = $container;
+
+//        $serverData = $container->getParameter('server');
+//        $this->client = new RconConnection($serverData['host'], $serverData['port'], $serverData['password']);
+//        $this->client->connect();
 
         $this->userItemRepository = $userItemRepository;
         $this->user = $tokenStorage->getToken()->getUser();
@@ -30,11 +32,9 @@ class RCONService
 
     public function getPlayerList()
     {
-        $this->client->sendCommand('list');
+//        return $this->client->sendCommand($this->container->getParameter('command')['list']);
 
-        return (new PlayerListResponseMapper())->getResponse(
-            $this->client->getResponse()
-        );
+        return null;
     }
 
     public function executeItem(string $itemId = null)
@@ -45,12 +45,9 @@ class RCONService
             : [$this->userItemRepository->find($itemId)];
 
         foreach ($userItems as $item) {
-            $this->client->sendCommand(sprintf($item->getCommand(), $this->user->getUsername()));
+//            $this->client->sendCommand(sprintf($item->getCommand(), $this->user->getUsername()));
 
-            $responseBuilder = new EquipmentCommandResponseMapper($this->user->getUsername());
-            $response = $responseBuilder->getResponse(
-                $this->client->getResponse()
-            );
+//            $response[] = $this->client->getResponse();
 
             $this->userItemRepository->deleteItem($item);
         }

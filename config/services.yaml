@@ -7,6 +7,12 @@ parameters:
         client: 'AcshzYPPq0YGpv0Trz5aysOQ-hx0jxNzMbjHZrSYYw6teXfAaScSde4XGaTuc5d3XTwJEtDqEozwRbFC'
         secret: 'EKphnn0pTtiyegluAPXfuuk4pQW9dBB4SVLnF0a85LKpWhSyogY49b32gFxYvpC4Qdto9uIZrYFA0tpO'
     recaptcha: ''
+    minecraft:
+        host: ''
+        port: ''
+        password: null
+    command:
+        list: ''
 
 services:
     _defaults:

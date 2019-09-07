@@ -3,7 +3,7 @@
 namespace ModernGame\Service\Connection\Payment\PayPal;
 
 use GuzzleHttp\Exception\GuzzleException;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\Payment\PaymentInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -20,7 +20,7 @@ class PayPalService implements PaymentInterface
 
     /**
      * @throws GuzzleException
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function executePayment(string $id, string $payer = null): string
     {
@@ -30,7 +30,7 @@ class PayPalService implements PaymentInterface
         $response = $this->client->executeRequest($token, $id, $payer);
 
         if (!($response['transactions'][0]['amount']['total'] ?? false)) {
-            throw new ArrayException(['paymentID' => 'Podana płatność nie istnieje lub wystąpił problem po stronie serwera.']);
+            throw new ContentException(['paymentID' => 'Podana płatność nie istnieje lub wystąpił problem po stronie serwera.']);
         }
 
         return $response['transactions'][0]['amount']['total'];

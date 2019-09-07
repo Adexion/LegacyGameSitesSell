@@ -6,7 +6,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException as ORMExceptionAlias;
 use ModernGame\Database\Entity\Ticket;
 use ModernGame\Database\Repository\TicketRepository;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Form\ContactType;
 use ModernGame\Form\TicketType;
 use ModernGame\Service\AbstractService;
@@ -32,7 +32,7 @@ class TicketService extends AbstractService implements ServiceInterface
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function mapEntity(Request $request)
     {
@@ -45,7 +45,7 @@ class TicketService extends AbstractService implements ServiceInterface
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      * @throws ORMExceptionAlias
      * @throws OptimisticLockException
      */

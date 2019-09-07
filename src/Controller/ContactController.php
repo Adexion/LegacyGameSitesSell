@@ -3,7 +3,7 @@
 namespace ModernGame\Controller;
 
 use ModernGame\Database\Entity\Ticket;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Service\Content\TicketService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,7 +22,7 @@ class ContactController extends AbstractController
             ->findBy(['token' => $ticket]);
 
         if (empty($messages)) {
-            throw new ArrayException(['ticket' => 'Ta wartość jest nieprawidłowa.']);
+            throw new ContentException(['ticket' => 'Ta wartość jest nieprawidłowa.']);
         }
 
         return new JsonResponse(['messages' => $messages]);

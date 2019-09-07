@@ -5,7 +5,7 @@ namespace ModernGame\Exception;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
-class ArrayException extends Exception
+class ContentException extends Exception
 {
     public function __construct(array $data = [])
     {

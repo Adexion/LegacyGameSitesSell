@@ -4,7 +4,7 @@ namespace ModernGame\Service\Content;
 
 use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Repository\ArticleRepository;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Form\ArticleType;
 use ModernGame\Service\AbstractService;
 use ModernGame\Service\Serializer;
@@ -31,7 +31,7 @@ class ArticleService extends AbstractService implements ServiceInterface
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function mapEntity(Request $request)
     {
@@ -42,7 +42,7 @@ class ArticleService extends AbstractService implements ServiceInterface
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function mapEntityById(Request $request)
     {

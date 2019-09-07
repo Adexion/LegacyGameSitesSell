@@ -4,7 +4,7 @@ namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Repository\ArticleRepository;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Service\Content\ArticleService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,7 +16,7 @@ class ArticleController extends AbstractController
     public function deleteArticle(Request $request)
     {
         if (empty($request->query->getInt('id'))) {
-            throw new ArrayException(['id' => 'Ta wartość nie może być pusta.']);
+            throw new ContentException(['id' => 'Ta wartość nie może być pusta.']);
         }
 
         /** @var ArticleRepository $articleRepository */

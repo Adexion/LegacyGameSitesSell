@@ -5,7 +5,7 @@ namespace ModernGame\Service\Content;
 use ModernGame\Database\Entity\Regulation;
 use ModernGame\Database\Repository\RegulationCategoryRepository;
 use ModernGame\Database\Repository\RegulationRepository;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Form\RegulationType;
 use ModernGame\Service\AbstractService;
 use ModernGame\Service\Serializer;
@@ -31,7 +31,7 @@ class RegulationService extends AbstractService implements ServiceInterface
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function mapEntity(Request $request)
     {
@@ -41,7 +41,7 @@ class RegulationService extends AbstractService implements ServiceInterface
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function mapEntityById(Request $request)
     {

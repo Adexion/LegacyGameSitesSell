@@ -2,7 +2,7 @@
 
 namespace ModernGame\EventListener;
 
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Service\EnvironmentService;
 use ModernGame\Service\Mail\MailSenderService;
 use Psr\Log\LoggerInterface;
@@ -37,7 +37,7 @@ class ExceptionListener
             $response->headers->replace($exception->getHeaders());
             $response->setContent(json_encode(['error' => $exception->getMessage()]));
         } else {
-            if ($exception instanceof ArrayException || $exception instanceof BadCredentialsException) {
+            if ($exception instanceof ContentException || $exception instanceof BadCredentialsException) {
                 $response->setContent($exception->getMessage());
                 $response->setStatusCode($exception->getCode());
             } else {

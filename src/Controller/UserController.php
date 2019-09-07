@@ -52,7 +52,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function loginInLauncher(Request $request, MojangPlayerService $player)
+    public function loginMinecraft(Request $request, MojangPlayerService $player)
     {
         return new JsonResponse($player->loginIn($request));
     }

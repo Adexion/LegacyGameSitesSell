@@ -9,7 +9,7 @@ use ModernGame\Database\Repository\UserRepository;
 use ModernGame\Form\RegisterType;
 use ModernGame\Form\UpdatePasswordType;
 use ModernGame\Form\UserType;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +38,7 @@ class RegisterService
     }
 
     /**
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function register(Request $request)
     {
@@ -60,7 +60,7 @@ class RegisterService
     /**
      * @throws ORMException
      * @throws OptimisticLockException
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function update(Request $request)
     {
@@ -80,7 +80,7 @@ class RegisterService
     /**
      * @throws ORMException
      * @throws OptimisticLockException
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function updatePassword(Request $request, User $user)
     {

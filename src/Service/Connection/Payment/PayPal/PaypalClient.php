@@ -3,7 +3,7 @@
 namespace ModernGame\Service\Connection\Payment\PayPal;
 
 use GuzzleHttp\Exception\GuzzleException;
-use ModernGame\Exception\ArrayException;
+use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\ApiClient\RestApiClient;
 
 class PaypalClient extends RestApiClient
@@ -15,7 +15,7 @@ class PaypalClient extends RestApiClient
 
     /**
      * @throws GuzzleException
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function tokenRequest(string $client, string $secret): array
     {
@@ -35,7 +35,7 @@ class PaypalClient extends RestApiClient
 
     /**
      * @throws GuzzleException
-     * @throws ArrayException
+     * @throws ContentException
      */
     public function executeRequest($token, $paymentId, $payerId): array
     {
