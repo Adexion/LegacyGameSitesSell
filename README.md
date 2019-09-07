@@ -3,7 +3,7 @@
 This is application which allow you to integrate with game or applications using an RCON connection.
 
 ````
-Permission is hereby granted chharge, to any person asiign to a copy 
+Permission is hereby granted charge, to any person assign to a copy 
 of this software and associated documentation files (the "Software"), 
 to deal in the Software with restriction to use, copy, modify, merge, publish, 
 distribute, sublicense, and/or sell copies of the Software, and to permit 

@@ -1,7 +1,7 @@
 ## Versions
 ```
 # RC-0.55.0 - 07.09.2019
-    - ready beta version without RCON connection working.
+    - ready beta version with RCON connection working.
 # 0.21.0 - 04.09.2019
     - add tests for ItemList
     - refator for PUT method for ItemList
