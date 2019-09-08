@@ -10,6 +10,7 @@ use ModernGame\Service\User\ResetPasswordService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Swagger\Annotations as SWG;
 
 class UserController extends Controller
 {
@@ -20,9 +21,38 @@ class UserController extends Controller
         return new JsonResponse(null, JsonResponse::HTTP_CREATED);
     }
 
+    /**
+     * @SWG\Tag(name="User")
+     * @SWG\Parameter(
+     *     name="content",
+     *     in="body",
+     *     type="array",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="username", type="string"),
+     *          @SWG\Property(property="password", type="string")
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns user token",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="token", type="string")
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Bad credentials",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="error", type="string")
+     *     )
+     * )
+     */
     public function login(Request $request, LoginUserService $login)
     {
-        return new JsonResponse(['token' =>  $login->getToken($request)]);
+        return new JsonResponse(['token' => $login->getToken($request)]);
     }
 
     public function resetPassword(Request $request, ResetPasswordService $resetPassword)
