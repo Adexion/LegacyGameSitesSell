@@ -6,6 +6,7 @@
     - remove not needed flags
     - change exception listener for better developing
     - reapir exception on not sending payment number
+    - add first version of API
 # RC-0.55.0 - 07.09.2019
     - ready beta version with RCON connection working.
 # 0.21.0 - 04.09.2019
