@@ -50,7 +50,7 @@ class ExceptionListener
                         'moderngameservice@gmail.com'
                     );
                 } else {
-                    if ($this->env->isTest()) {
+                    if ($this->env->isTest() || $this->env->isDev()) {
                         throw $exception;
                     }
                 }

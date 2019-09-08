@@ -3,27 +3,23 @@ routes:
   prefix:   /admin
 
 # ---------- USER
-user-item-list:
-  path:       /user/item/list
-  controller: ModernGame\Controller\UserController::getItemList
-  methods:     [GET]
-login:
+user-login:
   path:       /user/login
   controller: ModernGame\Controller\UserController::login
   methods:    [POST]
-login-launcher:
+user-login-launcher:
   path:       /user/launcher/login
   controller: ModernGame\Controller\UserController::loginMinecraft
   methods:    [POST]
-register:
+user-register:
   path:       /user/register
   controller: ModernGame\Controller\UserController::register
   methods:    [POST]
-reset-password:
+user-reset-password:
   path:       /user/reset
   controller: ModernGame\Controller\UserController::resetPassword
   methods:    [POST]
-reset-from-token:
+user-reset-from-token:
   path:       /user/reset/{token}
   controller: ModernGame\Controller\UserController::resetFromToken
   methods:    [POST]
@@ -31,6 +27,18 @@ user-update:
   path:       /user
   controller: ModernGame\Controller\UserController::update
   methods:    [PUT]
+user-item-execute:
+  path:       /user/item
+  controller: ModernGame\Controller\AfterLogin\ItemShopController::itemExecute
+  methods:    [POST]
+user-item-list-execute:
+  path:       /user/item/list
+  controller: ModernGame\Controller\AfterLogin\ItemShopController::itemListExecute
+  methods:    [POST]
+user-item-list:
+  path:       /user/items
+  controller: ModernGame\Controller\UserController::getItemList
+  methods:     [GET]
 
 # ---------- Player
 player-avatar:
@@ -43,35 +51,27 @@ player-list:
   methods:    [GET]
 
 # ---------- Payments
-cash:
-  path:       /cash
+user-cash:
+  path:       /user/cash
   controller: ModernGame\Controller\AfterLogin\WalletController::cash
   methods:    [GET]
-pypal-confirmation:
+payment-pypal-confirmation:
   path:       /payment/paypal
   controller: ModernGame\Controller\AfterLogin\WalletController::paypalExecute
   methods:    [POST]
-sms-confirmation:
+payment-sms-confirmation:
   path:       /payment/sms
   controller: ModernGame\Controller\AfterLogin\WalletController::microSMSExecute
   methods:    [POST]
 
 # ---------- ItemShop
-get-items:
+shop-get-items:
   path:       /shop/list
   controller: ModernGame\Controller\AfterLogin\ItemShopController::getItemList
   methods:    [GET]
-buy-item:
+shop-buy-item:
   path:       /shop/buy
   controller: ModernGame\Controller\AfterLogin\ItemShopController::buyItemList
-  methods:    [POST]
-item-execute:
-  path:       /shop/item
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::itemExecute
-  methods:    [POST]
-item-list-execute:
-  path:       /shop/items
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::itemListExecute
   methods:    [POST]
 
 # ---------- Contact

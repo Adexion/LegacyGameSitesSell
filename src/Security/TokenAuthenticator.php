@@ -6,6 +6,8 @@ use ModernGame\Database\Repository\TokenRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -61,11 +63,11 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        $data = [
-            'message' => 'Authentication Required'
-        ];
+        if ($authException instanceof UsernameNotFoundException || $authException instanceof BadCredentialsException) {
+            return new JsonResponse(['error' => $authException->getMessageKey()], Response::HTTP_BAD_REQUEST);
+        }
 
-        return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
+        return new JsonResponse(['message' => 'Authentication Required'], Response::HTTP_UNAUTHORIZED);
     }
 
     public function supportsRememberMe()

@@ -1,4 +1,3 @@
-@dev
 Feature:
   As logged user
   I should be able to register account

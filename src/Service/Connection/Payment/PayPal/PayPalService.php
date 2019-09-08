@@ -22,7 +22,7 @@ class PayPalService implements PaymentInterface
      * @throws GuzzleException
      * @throws ContentException
      */
-    public function executePayment(string $id, string $payer = null): string
+    public function executePayment($id, string $payer = null): string
     {
         $configuration = $this->container->getParameter('paypal');
 

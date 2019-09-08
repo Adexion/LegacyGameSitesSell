@@ -1,5 +1,11 @@
 ## Versions
 ```
+# 0.63.0 - 08.09.2019
+    - change errors of user login
+    - add simple Documentation wrom routing DUMPing 
+    - remove not needed flags
+    - change exception listener for better developing
+    - reapir exception on not sending payment number
 # RC-0.55.0 - 07.09.2019
     - ready beta version with RCON connection working.
 # 0.21.0 - 04.09.2019
