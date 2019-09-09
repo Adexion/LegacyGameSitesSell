@@ -14,6 +14,43 @@ use Swagger\Annotations as SWG;
 
 class UserController extends Controller
 {
+    /**
+     * @SWG\Tag(name="User")
+     * @SWG\Parameter(
+     *     name="JSON",
+     *     in="body",
+     *     type="object",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="username", type="string"),
+     *          @SWG\Property(property="email", type="string"),
+     *          @SWG\Property(
+     *              property="password",
+     *              type="object",
+     *              @SWG\Property(property="first", type="string"),
+     *              @SWG\Property(property="second", type="string"),
+     *          ),
+     *          @SWG\Property(property="rules", type="string"),
+     *          @SWG\Property(property="reCaptcha", type="string")
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Bad credentials",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="username", type="string"),
+     *          @SWG\Property(property="email", type="string"),
+     *          @SWG\Property(property="password", type="string"),
+     *          @SWG\Property(property="rules", type="string"),
+     *          @SWG\Property(property="reCaptcha", type="string")
+     *     )
+     * )
+     */
     public function register(Request $request, RegisterService $register)
     {
         $register->register($request);
@@ -24,9 +61,9 @@ class UserController extends Controller
     /**
      * @SWG\Tag(name="User")
      * @SWG\Parameter(
-     *     name="content",
+     *     name="JSON",
      *     in="body",
-     *     type="array",
+     *     type="object",
      *     @SWG\Schema(
      *          type="object",
      *          @SWG\Property(property="username", type="string"),
@@ -55,11 +92,68 @@ class UserController extends Controller
         return new JsonResponse(['token' => $login->getToken($request)]);
     }
 
+    /**
+     * @SWG\Tag(name="User")
+     * @SWG\Parameter(
+     *     name="JSON",
+     *     in="body",
+     *     type="obect",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="username", type="string"),
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="status", type="integer")
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Bad credentials",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="username", type="string")
+     *     )
+     * )
+     */
     public function resetPassword(Request $request, ResetPasswordService $resetPassword)
     {
         return new JsonResponse(['status' => $resetPassword->sendResetEmail($request)]);
     }
 
+    /**
+     * @SWG\Tag(name="User")
+     * @SWG\Parameter(
+     *     name="JSON",
+     *     in="body",
+     *     type="object",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(
+     *              property="password",
+     *              type="object",
+     *              @SWG\Property(property="first", type="string"),
+     *              @SWG\Property(property="second", type="string"),
+     *          ),
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works"
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Bad credentials",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="password", type="string")
+     *     )
+     * )
+     */
     public function update(Request $request, RegisterService $register)
     {
         $register->updatePassword($request, $this->getUser());
