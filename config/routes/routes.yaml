@@ -7,6 +7,7 @@ user-login:
   path:       /user/login
   controller: ModernGame\Controller\UserController::login
   methods:    [POST]
+
 user-login-launcher:
   path:       /user/launcher/login
   controller: ModernGame\Controller\UserController::loginMinecraft

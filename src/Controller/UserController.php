@@ -15,6 +15,12 @@ use Swagger\Annotations as SWG;
 class UserController extends Controller
 {
     /**
+     * Registration of user in system without possibility to use admin endpoints
+     *
+     * This call a request to register a new user witch can use all available for him endpoints, with 0 coins on account
+     * but with stored all needed data to give him possibility to buy an items, play'n on server or easy way to have secure
+     * an account password.
+     *
      * @SWG\Tag(name="User")
      * @SWG\Parameter(
      *     name="JSON",
@@ -59,6 +65,10 @@ class UserController extends Controller
     }
 
     /**
+     * Login into application
+     *
+     * Way to login in to website and get permission to all of functionality what user have.
+     *
      * @SWG\Tag(name="User")
      * @SWG\Parameter(
      *     name="JSON",
@@ -93,6 +103,10 @@ class UserController extends Controller
     }
 
     /**
+     * Sending e-mail for reset password
+     *
+     * If it is possible, an email will be sent to user email given on registration.
+     *
      * @SWG\Tag(name="User")
      * @SWG\Parameter(
      *     name="JSON",
@@ -126,6 +140,10 @@ class UserController extends Controller
     }
 
     /**
+     * Update user data.
+     *
+     * Updating user password after login to an account
+     *
      * @SWG\Tag(name="User")
      * @SWG\Parameter(
      *     name="JSON",
