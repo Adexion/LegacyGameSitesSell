@@ -8,29 +8,48 @@
   admin-article-post                 POST     /v1/admin/article              
   admin-article-put                  PUT      /v1/admin/article              
   admin-article-delete               DELETE   /v1/admin/article   
+  admin-article-get                  GET      /v1/admin/article   
+  admin-articles-get                 GET      /v1/admin/articles   
            
   admin-item-list-post               POST     /v1/admin/item/list            
   admin-item-list-put                PUT      /v1/admin/item/list            
   admin-item-list-delete             DELETE   /v1/admin/item/list   
+  admin-item-list-get                GET      /v1/admin/item/list
+  admin-item-lists-get               GET      /v1/admin/item/lists
          
   admin-mod-post                     POST     /v1/admin/mod                  
   admin-mod-put                      PUT      /v1/admin/mod                  
   admin-mod-delete                   DELETE   /v1/admin/mod       
+  admin-mod-get                      GET      /v1/admin/mod       
+  admin-mods-get                     GET      /v1/admin/mods       
            
   admin-item-post                    POST     /v1/admin/item                 
   admin-item-put                     PUT      /v1/admin/item                 
   admin-item-delete                  DELETE   /v1/admin/item       
+  admin-item-get                     GET      /v1/admin/item      
+  admin-items-get                    GET      /v1/admin/items      
           
   admin-regulation-category-post     POST     /v1/admin/regulation/category  
   admin-regulation-category-put      PUT      /v1/admin/regulation/category  
   admin-regulation-category-delete   DELETE   /v1/admin/regulation/category
+  admin-regulation-category-get      GET      /v1/admin/regulation/category
+  admin-regulation-categories-get    GET      /v1/admin/regulation/categories
   
   admin-regulation-post              POST     /v1/admin/regulation           
   admin-regulation-put               PUT      /v1/admin/regulation           
   admin-regulation-delete            DELETE   /v1/admin/regulation        
+  admin-regulation-get               GET      /v1/admin/regulation       
+  admin-regulations-get              GET      /v1/admin/regulations        
    
   admin-contact-put                  PUT      /v1/admin/contact              
   admin-contact-delete               DELETE   /v1/admin/contact    
+  admin-contact-get                  GET      /v1/admin/contact
+  admin-contacts-get                 GET      /v1/admin/contacts   
+  
+  admin-user-put                     PUT      /v1/admin/user              
+  admin-user-delete                  DELETE   /v1/admin/user    
+  admin-user-get                     GET      /v1/admin/user
+  admin-users-get                    GET      /v1/admin/users  
 ```
 #### 1. User section
 ```

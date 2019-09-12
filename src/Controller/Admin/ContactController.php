@@ -29,4 +29,18 @@ class ContactController extends AbstractController
 
         return new JsonResponse(null, Response::HTTP_OK);
     }
+
+    public function getTicket(Request $request)
+    {
+        return new JsonResponse(
+            $this->getDoctrine()->getRepository(Ticket::class)->find($request->query->getInt('id'))
+        );
+    }
+
+    public function getTickets()
+    {
+        return new JsonResponse(
+            $this->getDoctrine()->getRepository(Ticket::class)->findAll()
+        );
+    }
 }

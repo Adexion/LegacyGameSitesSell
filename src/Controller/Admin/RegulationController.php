@@ -42,4 +42,18 @@ class RegulationController extends AbstractController
 
         return new JsonResponse(null, Response::HTTP_OK);
     }
+
+    public function getRegulation(Request $request)
+    {
+        return new JsonResponse(
+            $this->getDoctrine()->getRepository(Regulation::class)->find($request->query->getInt('id'))
+        );
+    }
+
+    public function getRegulations()
+    {
+        return new JsonResponse(
+            $this->getDoctrine()->getRepository(Regulation::class)->findAll()
+        );
+    }
 }

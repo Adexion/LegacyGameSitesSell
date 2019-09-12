@@ -140,9 +140,9 @@ class UserController extends Controller
     }
 
     /**
-     * Update user data.
+     * Update user data
      *
-     * Updating user password after login to an account
+     * Updating user password after login to an account.
      *
      * @SWG\Tag(name="User")
      * @SWG\Parameter(
@@ -179,6 +179,45 @@ class UserController extends Controller
         return new JsonResponse();
     }
 
+    /**
+     * Set new password after reset
+     *
+     * Updating user password after give a token.
+     *
+     * @SWG\Tag(name="User")
+     * @SWG\Parameter(
+     *     name="JSON",
+     *     in="body",
+     *     type="object",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(
+     *              property="password",
+     *              type="object",
+     *              @SWG\Property(property="first", type="string"),
+     *              @SWG\Property(property="second", type="string"),
+     *          ),
+     *     )
+     * ),
+     * @SWG\Parameter(
+     *     name="token",
+     *     in="path",
+     *     type="string"
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works"
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Bad credentials",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="password", type="string"),
+     *          @SWG\Property(property="token", type="string"),
+     *     )
+     * )
+     */
     public function resetFromToken(Request $request, ResetPasswordService $resetPassword, string $token)
     {
         $resetPassword->resetPassword($request, $token);
@@ -186,6 +225,17 @@ class UserController extends Controller
         return new JsonResponse();
     }
 
+    /**
+     * Get an user bought items
+     *
+     * After bought item list by user, items form list goes to user. This endpoint sgive you possibility to get that items.
+     *
+     * @SWG\Tag(name="User")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works"
+     * )
+     */
     public function getItemList()
     {
         return new JsonResponse([
@@ -194,6 +244,50 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Login into launcher
+     *
+     * Way to login in to for check is user registered for servers or launcher.
+     * Gives you more information eg.: is premium user or user uuid
+     * Can not be use. Normally login can be use instead.
+     *
+     * @SWG\Tag(name="User")
+     * @SWG\Parameter(
+     *     name="JSON",
+     *     in="body",
+     *     type="object",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="username", type="string"),
+     *          @SWG\Property(property="password", type="string")
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="return structure like mojang endpoint for premium but with fake data for non-premium user",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="agent", type="string"),
+     *          @SWG\Property(property="id", type="string"),
+     *          @SWG\Property(property="userId", type="string"),
+     *          @SWG\Property(property="name", type="string"),
+     *          @SWG\Property(property="createdAt", type="string"),
+     *          @SWG\Property(property="legacyProfile", type="boolean"),
+     *          @SWG\Property(property="suspended", type="boolean"),
+     *          @SWG\Property(property="tokenId", type="integer"),
+     *          @SWG\Property(property="paid", type="boolean"),
+     *          @SWG\Property(property="migrated", type="boolean")
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Bad credentials",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="error", type="string")
+     *     )
+     * )
+     */
     public function loginMinecraft(Request $request, MojangPlayerService $player)
     {
         return new JsonResponse($player->loginIn($request));

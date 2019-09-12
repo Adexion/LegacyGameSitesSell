@@ -11,6 +11,14 @@ admin-article-delete:
   path:       /article
   controller: ModernGame\Controller\Admin\ArticleController::deleteArticle
   methods:    [DELETE]
+admin-article-get:
+  path:       /article
+  controller: ModernGame\Controller\Admin\ArticleController::getArticle
+  methods:    [GET]
+admin-articles-get:
+  path:       /articles
+  controller: ModernGame\Controller\Admin\ArticleController::getArticles
+  methods:    [GET]
 
 # ---------- ItemList
 admin-item-list-post:
@@ -25,6 +33,14 @@ admin-item-list-delete:
   path:       /item/list
   controller: ModernGame\Controller\Admin\ItemListController::deleteItemList
   methods:    [DELETE]
+admin-item-list-get:
+  path:       /item/list
+  controller: ModernGame\Controller\Admin\ItemListController::getItemList
+  methods:    [GET]
+admin-item-lists-get:
+  path:       /item/lists
+  controller: ModernGame\Controller\Admin\ItemListController::getItemLists
+  methods:    [GET]
 
 # ---------- Item
 admin-item-post:
@@ -39,6 +55,14 @@ admin-item-delete:
   path:       /item
   controller: ModernGame\Controller\Admin\ItemController::deleteItem
   methods:    [DELETE]
+admin-item-get:
+  path:       /item
+  controller: ModernGame\Controller\Admin\ItemController::getItem
+  methods:    [GET]
+admin-items-get:
+  path:       /items
+  controller: ModernGame\Controller\Admin\ItemController::getItems
+  methods:    [GET]
 
 # ---------- Mod
 admin-mod-post:
@@ -52,6 +76,14 @@ admin-mod-put:
 admin-mod-delete:
   path:       /mod
   controller: ModernGame\Controller\Admin\ModController::deleteMod
+  methods:    [DELETE]
+admin-mod-get:
+  path:       /mod
+  controller: ModernGame\Controller\Admin\ModController::getMod
+  methods:    [DELETE]
+admin-mods-get:
+  path:       /mods
+  controller: ModernGame\Controller\Admin\ModController::getMods
   methods:    [DELETE]
 
 # ---------- Regulation Category
@@ -67,6 +99,14 @@ admin-regulation-category-delete:
   path:       /regulation/category
   controller: ModernGame\Controller\Admin\RegulationCategoryController::deleteRegulationCategory
   methods:    [DELETE]
+admin-regulation-category-get:
+  path:       /regulation/category
+  controller: ModernGame\Controller\Admin\RegulationCategoryController::getRegulationCategory
+  methods:    [GET]
+admin-regulation-categorys-get:
+  path:       /regulation/categories
+  controller: ModernGame\Controller\Admin\RegulationCategoryController::getRegulationCategories
+  methods:    [GET]
 
 # ---------- Regulation
 admin-regulation-post:
@@ -81,6 +121,14 @@ admin-regulation-delete:
   path:       /regulation
   controller: ModernGame\Controller\Admin\RegulationController::deleteRegulation
   methods:    [DELETE]
+admin-regulation-get:
+  path:       /regulation
+  controller: ModernGame\Controller\Admin\RegulationController::getRegulation
+  methods:    [GET]
+admin-regulations-get:
+  path:       /regulations
+  controller: ModernGame\Controller\Admin\RegulationController::getRegulations
+  methods:    [GET]
 
 # ---------- Contact
 admin-contact-put:
@@ -91,3 +139,29 @@ admin-contact-delete:
   path:       /contact
   controller: ModernGame\Controller\Admin\ContactController::deleteTicket
   methods:    [DELETE]
+admin-contact-get:
+  path:       /contact
+  controller: ModernGame\Controller\Admin\ContactController::getTicket
+  methods:    [GET]
+admin-contacts-get:
+  path:       /contacts
+  controller: ModernGame\Controller\Admin\ContactController::getTickets
+  methods:    [GET]
+
+# ---------- User
+admin-user-put:
+  path:       /user
+  controller: ModernGame\Controller\Admin\UserController::putUser
+  methods:    [PUT]
+admin-user-delete:
+  path:       /user
+  controller: ModernGame\Controller\Admin\UserController::deleteUser
+  methods:    [DELETE]
+admin-user-get:
+  path:       /user
+  controller: ModernGame\Controller\Admin\UserController::getUserById
+  methods:    [GET]
+admin-users-get:
+  path:       /users
+  controller: ModernGame\Controller\Admin\UserController::getUsers
+  methods:    [GET]

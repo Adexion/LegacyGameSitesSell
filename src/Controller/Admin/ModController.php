@@ -42,4 +42,18 @@ class ModController extends AbstractController
 
         return new JsonResponse(null, Response::HTTP_OK);
     }
+
+    public function getMod(Request $request)
+    {
+        return new JsonResponse(
+            $this->getDoctrine()->getRepository(ModList::class)->find($request->query->getInt('id'))
+        );
+    }
+
+    public function getMods()
+    {
+        return new JsonResponse(
+            $this->getDoctrine()->getRepository(ModList::class)->findAll()
+        );
+    }
 }

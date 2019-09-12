@@ -49,4 +49,18 @@ class ArticleController extends AbstractController
 
         return new JsonResponse(null, Response::HTTP_OK);
     }
+
+    public function getArticle(Request $request)
+    {
+        return new JsonResponse(
+            $this->getDoctrine()->getRepository(Article::class)->find($request->query->getInt('id'))
+        );
+    }
+
+    public function getArticles()
+    {
+        return new JsonResponse(
+            $this->getDoctrine()->getRepository(Article::class)->findAll()
+        );
+    }
 }

@@ -2,8 +2,10 @@
 
 namespace ModernGame\Service\Connection\Minecraft;
 
+use ErrorException;
 use ModernGame\Database\Entity\UserItem;
 use ModernGame\Database\Repository\UserItemRepository;
+use ModernGame\Exception\ContentException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -21,9 +23,13 @@ class RCONService
     ) {
         $this->container = $container;
 
-        $serverData = $container->getParameter('minecraft');
-        $this->client = new RconConnection($serverData['host'], $serverData['port'], $serverData['password']);
-        $this->client->connect();
+        try {
+            $serverData = $container->getParameter('minecraft');
+            $this->client = new RconConnection($serverData['host'], $serverData['port'], $serverData['password'], 5);
+            $this->client->connect();
+        } catch (ErrorException $exception) {
+            throw new ContentException(['error' => 'Nie udało się połączyć z serwerem.']);
+        }
 
         $this->userItemRepository = $userItemRepository;
         $this->user = $tokenStorage->getToken()->getUser();

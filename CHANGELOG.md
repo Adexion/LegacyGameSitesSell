@@ -1,5 +1,13 @@
 ## Versions
 ```
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! next relese should be stable version. This is last BETA update !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# RC-0.88.1 - 12.09.2019
+    - api with working articles
+    - endpoints for get admin data 
+    - routing for admin - user editing section
+    - new documentation for user class
 # 0.63.0 - 08.09.2019
     - change errors of user login
     - add simple Documentation wrom routing DUMPing 

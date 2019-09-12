@@ -43,4 +43,18 @@ class ItemController extends AbstractController
 
         return new JsonResponse(null, Response::HTTP_OK);
     }
+
+    public function getItem(Request $request)
+    {
+        return new JsonResponse(
+            $this->getDoctrine()->getRepository(Item::class)->find($request->query->getInt('id'))
+        );
+    }
+
+    public function getItems()
+    {
+        return new JsonResponse(
+            $this->getDoctrine()->getRepository(Item::class)->findAll()
+        );
+    }
 }
