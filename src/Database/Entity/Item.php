@@ -80,4 +80,57 @@ class Item
     {
         $this->command = $command;
     }
+
+    public function getItemList()
+    {
+        return $this->itemList;
+    }
+
+    public function setItemList($itemList)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {
+        $this->itemList = $itemList;
+    }
 }
