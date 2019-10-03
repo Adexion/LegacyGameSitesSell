@@ -18,10 +18,10 @@ class Regulation
     private $regulationId;
 
     /**
-     * @ORM\Column(type="string", length=512)
-     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="RegulationCategory")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private $categoryId;
+    private $category;
 
     /**
      * @ORM\Column(type="string", length=512)
@@ -39,16 +39,6 @@ class Regulation
         $this->description = $description;
     }
 
-    public function getCategoryId()
-    {
-        return $this->categoryId;
-    }
-
-    public function setCategoryId($categoryId)
-    {
-        $this->categoryId = $categoryId;
-    }
-
     public function getRegulationId()
     {
         return $this->regulationId;
@@ -59,4 +49,13 @@ class Regulation
         $this->regulationId = $regulationId;
     }
 
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
 }

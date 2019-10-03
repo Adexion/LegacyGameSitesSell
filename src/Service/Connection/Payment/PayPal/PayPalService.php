@@ -3,19 +3,28 @@
 namespace ModernGame\Service\Connection\Payment\PayPal;
 
 use GuzzleHttp\Exception\GuzzleException;
+use ModernGame\Database\Repository\PaymentHistoryRepository;
 use ModernGame\Exception\ContentException;
+use ModernGame\Service\Connection\Payment\AbstractPayment;
 use ModernGame\Service\Connection\Payment\PaymentInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class PayPalService implements PaymentInterface
+class PayPalService extends AbstractPayment implements PaymentInterface
 {
     private $client;
     private $container;
 
-    public function __construct(ContainerInterface $container, PaypalClient $client)
-    {
+    public function __construct(
+        PaymentHistoryRepository $repository,
+        TokenStorageInterface $tokenStorage,
+        ContainerInterface $container,
+        PaypalClient $client
+    ) {
         $this->client = $client;
         $this->container = $container;
+
+        parent::__construct($repository, $tokenStorage);
     }
 
     /**
@@ -33,6 +42,9 @@ class PayPalService implements PaymentInterface
             throw new ContentException(['paymentID' => 'Podana płatność nie istnieje lub wystąpił problem po stronie serwera.']);
         }
 
-        return $response['transactions'][0]['amount']['total'];
+        $amount = $response['transactions'][0]['amount']['total'];
+        $this->notePayment($amount);
+
+        return $amount;
     }
 }

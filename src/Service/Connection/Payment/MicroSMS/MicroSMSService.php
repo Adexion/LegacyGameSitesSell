@@ -4,25 +4,36 @@ namespace ModernGame\Service\Connection\Payment\MicroSMS;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
+use ModernGame\Database\Repository\PaymentHistoryRepository;
 use ModernGame\Database\Repository\PriceRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\ApiClient\RestApiClient;
+use ModernGame\Service\Connection\Payment\AbstractPayment;
 use ModernGame\Service\Connection\Payment\PaymentInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class MicroSMSService implements PaymentInterface
+class MicroSMSService extends AbstractPayment implements PaymentInterface
 {
+
     const URL = 'http://microsms.pl/api/v2/multi.php?';
 
     private $client;
     private $container;
     private $price;
 
-    public function __construct(ContainerInterface $container, PriceRepository $price, RestApiClient $client)
-    {
+    public function __construct(
+        PaymentHistoryRepository $repository,
+        TokenStorageInterface $tokenStorage,
+        ContainerInterface $container,
+        PriceRepository $price,
+        RestApiClient $client
+    ) {
         $this->client = $client;
         $this->container = $container;
         $this->price = $price;
+
+        parent::__construct($repository, $tokenStorage);
     }
 
     /**
@@ -42,7 +53,10 @@ class MicroSMSService implements PaymentInterface
         $response = json_decode($this->client->request(RestApiClient::GET, self::URL . http_build_query($request)));
         $this->handleError($response);
 
-        return $this->price->findOneBy(['phoneNumber' => $response->data->number])->getAmount();
+        $amount = $this->price->findOneBy(['phoneNumber' => $response->data->number])->getAmount();
+        $this->notePayment($amount);
+
+        return $amount;
     }
 
     /**

@@ -6,6 +6,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use ModernGame\Database\Entity\ResetPassword;
+use ModernGame\Database\Entity\User;
 
 class ResetPasswordRepository extends AbstractRepository
 {
@@ -15,18 +16,18 @@ class ResetPasswordRepository extends AbstractRepository
     }
 
     /**
-     * @param $id
+     * @param User $user
      * @param string $token
      *
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function addNewToken($id, string $token)
+    public function addNewToken($user, string $token)
     {
         $resetPassword = new ResetPassword();
 
         $resetPassword->setToken($token);
-        $resetPassword->setUserId($id);
+        $resetPassword->setUser($user);
 
         $this->_em->persist($resetPassword);
         $this->_em->flush();

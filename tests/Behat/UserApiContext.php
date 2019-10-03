@@ -89,10 +89,12 @@ class UserApiContext extends AbstractContext
      */
     public function setPasswordResetToken(string $token)
     {
+        $user = $this->getManager()->getRepository(User::class)->find(1);
+
         $resetPassword = new ResetPassword();
 
         $resetPassword->setToken($token);
-        $resetPassword->setUserId(1);
+        $resetPassword->setUser($user);
 
         $this->getManager()->getRepository(ResetPassword::class)->insert($resetPassword);
     }

@@ -3,7 +3,6 @@
 namespace ModernGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OneToOne;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -43,16 +42,18 @@ class UserItem
     private $quantity;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="Item")
+     * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotBlank()
      */
-    private $itemId;
+    private $item;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotBlank()
      */
-    private $userId;
+    private $user;
 
     public function getId()
     {
@@ -99,23 +100,23 @@ class UserItem
         $this->quantity = $quantity;
     }
 
-    public function getItemId()
+    public function getItem()
     {
-        return $this->itemId;
+        return $this->item;
     }
 
-    public function setItemId($itemId): void
+    public function setItem(Item $item)
     {
-        $this->itemId = $itemId;
+        $this->item = $item;
     }
 
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId($userId): void
+    public function setUser(User $user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
     }
 }

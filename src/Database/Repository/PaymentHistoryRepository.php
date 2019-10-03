@@ -3,12 +3,12 @@
 namespace ModernGame\Database\Repository;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use ModernGame\Database\Entity\Customer;
+use ModernGame\Database\Entity\PaymentHistory;
 
-class CustomerRepository extends AbstractRepository
+class PaymentHistoryRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Customer::class);
+        parent::__construct($registry, PaymentHistory::class);
     }
 }

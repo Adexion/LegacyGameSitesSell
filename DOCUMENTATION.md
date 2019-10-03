@@ -79,7 +79,7 @@
   contact                            POST     /v1/contact          
   contact-ticket                     GET      /v1/contact/{ticket}           
   
+  article-list                       GET      /v1/article/list            
   article                            GET      /v1/article            
  ---------------------------------- -------- -------------------------------  
 ```
-

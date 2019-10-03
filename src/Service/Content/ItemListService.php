@@ -4,8 +4,11 @@ namespace ModernGame\Service\Content;
 
 use ModernGame\Database\Entity\Item;
 use ModernGame\Database\Entity\ItemList;
+use ModernGame\Database\Entity\ItemListStatistic;
+use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
 use ModernGame\Database\Repository\ItemListRepository;
+use ModernGame\Database\Repository\ItemListStatisticRepository;
 use ModernGame\Database\Repository\ItemRepository;
 use ModernGame\Database\Repository\UserItemRepository;
 use ModernGame\Exception\ContentException;
@@ -16,44 +19,48 @@ use ModernGame\Service\ServiceInterface;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ItemListService extends AbstractService implements ServiceInterface
 {
     private $userItemRepository;
-    private $itemShopItemRepository;
+    private $itemRepository;
+    private $statisticRepository;
+
+    /**
+     * @var User user
+     */
+    private $user;
 
     public function __construct(
         UserItemRepository $userItemRepository,
         ItemRepository $itemRepository,
         ItemListRepository $repository,
+        ItemListStatisticRepository $statisticRepository,
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,
+        TokenStorageInterface $tokenStorage,
         Serializer $serializer
     ) {
         $this->userItemRepository = $userItemRepository;
-        $this->itemShopItemRepository = $itemRepository;
+        $this->itemRepository = $itemRepository;
+        $this->statisticRepository = $statisticRepository;
+        $this->user = $tokenStorage->getToken()->getUser();
 
         parent::__construct($form, $formErrorHandler, $repository, $serializer);
     }
 
-    public function assignListToUser(int $id, int $userId)
+    public function assignListToUser(int $id)
     {
-        $itemList = $this->itemShopItemRepository->findBy(['equipmentId' => $id]);
+        /** @var ItemList $itemList */
+        $itemList = $this->repository->find($id);
 
+        $this->setStatistic($itemList);
+
+        $items = $this->itemRepository->findBy(['itemList' => $itemList]);
         /** @var Item $item */
-        foreach ($itemList as $item) {
-            $userItem = $this->userItemRepository->findBy(['itemId' => $item->getId(), 'userId' => $userId]);
-
-            $userItem = empty($userItem) ? new UserItem() : $userItem[0];
-
-            $userItem->setName($item->getName());
-            $userItem->setIconUrl($item->getIconUrl());
-            $userItem->setCommand($item->getCommand());
-            $userItem->setQuantity($userItem->getQuantity() + 1);
-            $userItem->setItemId($item->getId());
-            $userItem->setUserId($userId);
-
-            $this->userItemRepository->addItem($userItem);
+        foreach ($items as $item) {
+            $this->assignToUser($item);
         }
 
         /** @var ItemListRepository $repository */
@@ -74,7 +81,7 @@ class ItemListService extends AbstractService implements ServiceInterface
      */
     public function mapEntity(Request $request)
     {
-        $this->map($request, new ItemList(), ItemListType::class);
+        return $this->map($request, new ItemList(), ItemListType::class);
     }
 
     /**
@@ -83,5 +90,30 @@ class ItemListService extends AbstractService implements ServiceInterface
     public function mapEntityById(Request $request)
     {
         return $this->mapById($request, ItemListType::class);
+    }
+
+    private function assignToUser(Item $item)
+    {
+        $userItem = $this->userItemRepository->findBy(['item' => $item, 'user' => $this->user]);
+
+        $userItem = empty($userItem) ? new UserItem() : $userItem[0];
+
+        $userItem->setName($item->getName());
+        $userItem->setIconUrl($item->getIconUrl());
+        $userItem->setCommand($item->getCommand());
+        $userItem->setQuantity($userItem->getQuantity() + 1);
+        $userItem->setItem($item);
+        $userItem->setUser($this->user);
+
+        $this->userItemRepository->insert($userItem);
+    }
+
+    private function setStatistic(ItemList $itemList)
+    {
+        $itemListStatistic = new ItemListStatistic();
+        $itemListStatistic->setItemList($itemList);
+        $itemListStatistic->setUser($this->user);
+
+        $this->statisticRepository->insert($itemListStatistic);
     }
 }

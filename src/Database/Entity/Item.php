@@ -36,10 +36,10 @@ class Item
     private $command;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\ManyToOne(targetEntity="ItemList")
+     * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private $listIdz;
+    private $itemList;
 
     public function setId($id)
     {
@@ -79,15 +79,5 @@ class Item
     public function setCommand($command)
     {
         $this->command = $command;
-    }
-
-    public function getListId()
-    {
-        return $this->listId;
-    }
-
-    public function setListId($listId)
-    {
-        $this->listId = $listId;
     }
 }

@@ -3,23 +3,27 @@
 namespace ModernGame\Service\User;
 
 use Doctrine\ORM\EntityManagerInterface;
+use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\Wallet;
 use ModernGame\Exception\ContentException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class WalletService
 {
     private $em;
+    private $user;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, TokenStorageInterface $token)
     {
         $this->em = $em;
+        $this->user = $token->getToken()->getUser();
     }
 
-    public function create(int $userId): void
+    public function create(User $user): void
     {
         $wallet = new Wallet();
 
-        $wallet->setUserId($userId);
+        $wallet->setUser($user);
 
         $this->em->persist($wallet);
         $this->em->flush();
@@ -28,9 +32,9 @@ class WalletService
     /**
      * @throws ContentException
      */
-    public function changeCash(int $userId, float $cash): float
+    public function changeCash(float $cash): float
     {
-        $wallet = $this->em->getRepository(Wallet::class)->findOneBy(['userId' => $userId]);
+        $wallet = $this->em->getRepository(Wallet::class)->findOneBy(['user' => $this->user]);
         $wallet->increaseCash($cash);
 
         if ($wallet->getCash() < 0) {

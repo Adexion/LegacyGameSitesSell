@@ -13,7 +13,10 @@ class ContactController extends AbstractController
 {
     public function setMessageContact(Request $request, TicketService $contact)
     {
-        return new JsonResponse(['ticket' => $contact->setContactMessage($request)]);
+        $contact = $contact->mapEntity($request);
+        $this->getDoctrine()->getRepository(Ticket::class)->insert($contact);
+
+        return new JsonResponse(['ticket' => $contact->getToken()]);
     }
 
     function getMessagesTicket(string $ticket)

@@ -68,12 +68,12 @@ class Article
         $this->id = $id;
     }
 
-    public function gettitle()
+    public function getTitle()
     {
         return $this->title;
     }
 
-    public function settitle($title)
+    public function setTitle($title)
     {
         $this->title = $title;
     }

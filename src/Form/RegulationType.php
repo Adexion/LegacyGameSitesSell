@@ -3,6 +3,8 @@
 namespace ModernGame\Form;
 
 use ModernGame\Database\Entity\Regulation;
+use ModernGame\Database\Entity\RegulationCategory;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -15,16 +17,10 @@ class RegulationType extends AbstractType
     {
         $builder
             ->add('regulationId', HiddenType::class)
-            ->add('categoryId', ChoiceType::class)
+            ->add('category', EntityType::class, [
+                'class' => RegulationCategory::class,
+                'choice_label' => 'id'
+            ])
             ->add('description', TextareaType::class);
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver
-            ->setDefaults(['data_class' => Regulation::class])
-            ->setDefault('categories', null)
-            ->setRequired('categories')
-            ->setAllowedTypes('categories', ['array']);
     }
 }

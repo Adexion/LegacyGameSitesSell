@@ -65,10 +65,7 @@ class ResetPasswordService
 
         $token = $this->generateTokenToResetPassword($user);
 
-        $this->repository->addNewToken(
-            $user->getId(),
-            $token
-        );
+        $this->repository->addNewToken($user, $token);
 
         return $this->mailSender->sendEmail(self::RESET_EMAIL_SCHEMA, $token, $user->getEmail());
     }
@@ -86,7 +83,7 @@ class ResetPasswordService
         }
 
         /** @var User $user */
-        $user = $this->userRepository->find($reset->getUserId());
+        $user =  $reset->getUser();
 
         $form = $this->form->create(ResetType::class, $user);
         $form->handleRequest($request);

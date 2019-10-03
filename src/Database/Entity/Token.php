@@ -19,11 +19,11 @@ class Token
     private $token;
 
     /**
-     * @ORM\Column(type="integer")
      * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotBlank()
      */
-    private $userId;
+    private $user;
 
     /**
      * @ORM\Column(type="datetime")
@@ -45,14 +45,14 @@ class Token
         $this->token = $token;
     }
 
-    public function getUserId(): int
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(int $userId)
+    public function setUser($user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
     }
 
     public function getDate(): DateTime

@@ -52,7 +52,7 @@ class RegisterService
         $user->setPassword($this->setEncodedPassword($user));
 
         $this->userRepository->registerUser($user);
-        $this->walletService->create($user->getId());
+        $this->walletService->create($user);
 
         return $user->getId();
     }

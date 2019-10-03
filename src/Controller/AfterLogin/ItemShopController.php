@@ -3,6 +3,7 @@
 namespace ModernGame\Controller\AfterLogin;
 
 use ModernGame\Database\Entity\ItemList;
+use ModernGame\Database\Entity\ItemListStatistic;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\Content\ItemListService;
 use ModernGame\Service\User\WalletService;
@@ -20,11 +21,10 @@ class ItemShopController extends Controller
     public function buyItemList(Request $request, WalletService $wallet, ItemListService $itemListService)
     {
         $cash = $wallet->changeCash(
-            $this->getUser()->getId(),
             -$itemListService->getItemListPrice($request->request->getInt('id'))
         );
 
-        $itemListService->assignListToUser($request->request->getInt('id'), $this->getUser()->getId());
+        $itemListService->assignListToUser($request->request->getInt('id'));
 
         return new JsonResponse([
             "cash" => $cash

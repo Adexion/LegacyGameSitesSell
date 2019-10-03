@@ -3,6 +3,11 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! next relese should be stable version. This is last BETA update !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# RC-0.97.0 - 03.10.2019
+    - repair tests
+    - add relations to DB
+    - add saveing statistics
+    - add saveing payment story
 # RC-0.88.1 - 12.09.2019
     - api with working articles
     - endpoints for get admin data 

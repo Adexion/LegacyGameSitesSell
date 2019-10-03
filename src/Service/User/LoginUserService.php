@@ -63,7 +63,7 @@ class LoginUserService
         $token = new Token();
 
         $token->setToken(hash('sha256', uniqid('', md5(date('Y-m-d H:i:s'), $user->getUsername()))));
-        $token->setUserId($user->getId());
+        $token->setUser($user);
 
         $this->repository->insert($token);
 

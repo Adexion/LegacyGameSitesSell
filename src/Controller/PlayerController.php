@@ -4,10 +4,11 @@ namespace ModernGame\Controller;
 
 use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
 use ModernGame\Service\Connection\Minecraft\RCONService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class PlayerController
+class PlayerController extends AbstractController
 {
     const PLAYER_AVATAR = 'https://crafatar.com/avatars/';
 

@@ -20,24 +20,15 @@ class ResetPassword
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private $userId;
+    private $user;
 
     /**
      * @ORM\Column(type="string", length=32)
      */
     private $token;
-
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-    }
 
     public function getToken()
     {
@@ -47,5 +38,15 @@ class ResetPassword
     public function setToken($token)
     {
         $this->token = $token;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 }

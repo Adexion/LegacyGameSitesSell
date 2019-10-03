@@ -18,7 +18,7 @@ class TokenRepository extends AbstractRepository
     {
         $qb = $this->createQueryBuilder('t')
             ->select('u.username')
-            ->innerJoin(User::class, 'u', Join::WITH,'u.id = t.userId')
+            ->innerJoin(User::class, 'u', Join::WITH,'u.id = t.user')
             ->where('t.token = :token')
             ->andWhere('t.date > :currentDate')
             ->setParameters([

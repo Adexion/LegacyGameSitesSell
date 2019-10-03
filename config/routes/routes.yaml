@@ -86,7 +86,11 @@ contact-ticket:
   methods:    [GET]
 
 # ---------- Article
+article-list:
+  path:       /article/list
+  controller: ModernGame\Controller\Content\ArticleController::getArticleList
+  methods:    [GET]
 article:
   path:       /article
-  controller: ModernGame\Controller\Content\ArticleController::getArticleList
+  controller: ModernGame\Controller\Content\ArticleController::getArticle
   methods:    [GET]

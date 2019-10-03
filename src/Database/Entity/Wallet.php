@@ -3,7 +3,6 @@
 namespace ModernGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OneToOne;
 
 /**
  * @ORM\Entity()
@@ -24,10 +23,10 @@ class Wallet
     private $cash;
 
     /**
-     * @ORM\Column(type="integer")
-     * @OneToOne(targetEntity="User")
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private $userId;
+    private $user;
 
     public function __construct()
     {
@@ -53,16 +52,16 @@ class Wallet
     }
 
     /**
-     * @return integer|null
+     * @return User|null
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId($userId)
+    public function setUser(User $user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
     }
 
     /**

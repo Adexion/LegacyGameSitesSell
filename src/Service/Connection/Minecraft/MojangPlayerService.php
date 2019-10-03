@@ -16,19 +16,13 @@ class MojangPlayerService
     const MOJANG_GET_UUID_URL = 'https://api.mojang.com/users/profiles/minecraft/';
     const STEVE_USER_UUID = '8667ba71b85a4004af54457a9734eed7';
 
-    private $userProvider;
-    private $encoderFactory;
     private $client;
     private $loginUserService;
 
     public function __construct(
-        UserProviderInterface $userProvider,
-        EncoderFactoryInterface $encoderFactory,
         LoginUserService $loginUserService,
         RestApiClient $client
     ) {
-        $this->userProvider = $userProvider;
-        $this->encoderFactory = $encoderFactory;
         $this->loginUserService = $loginUserService;
         $this->client = $client;
     }

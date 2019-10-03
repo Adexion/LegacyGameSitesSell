@@ -14,10 +14,7 @@ class WalletController extends Controller
     public function cash(WalletService $wallet)
     {
         return new JsonResponse([
-            "cash" => $wallet->changeCash(
-                $this->getUser()->getId(),
-                0
-            ),
+            "cash" => $wallet->changeCash(0),
         ]);
     }
 
@@ -27,7 +24,6 @@ class WalletController extends Controller
 
         return new JsonResponse([
             "cash" => $wallet->changeCash(
-                $this->getUser()->getId(),
                 (float)$payment->executePayment($code) * 100
             ),
         ]);
@@ -40,7 +36,6 @@ class WalletController extends Controller
 
         return new JsonResponse([
             "cash" => $wallet->changeCash(
-                $this->getUser()->getId(),
                 (float)$payment->executePayment($paymentId, $payerId) * 100
             ),
         ]);

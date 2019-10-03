@@ -13,12 +13,6 @@ class UserItemRepository extends AbstractRepository
         parent::__construct($registry, UserItem::class);
     }
 
-    public function addItem($item)
-    {
-        $this->getEntityManager()->persist($item);
-        $this->getEntityManager()->flush();
-    }
-
     public function deleteItem(UserItem $item)
     {
         if ($item->getQuantity() > 1) {

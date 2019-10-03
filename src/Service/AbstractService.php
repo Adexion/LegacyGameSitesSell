@@ -46,14 +46,14 @@ abstract class AbstractService
     {
         $entity = $this->repository->find($request->request->getInt('id'));
 
-        if (empty($list)) {
+        if (empty($entity)) {
             throw new ContentException(['id' => 'Ta wartość jest nieprawidłowa.']);
         }
 
-        $form = $this->form->create($formType, $list, array_merge(['method' => 'PUT'], $options));
+        $form = $this->form->create($formType, $entity, array_merge(['method' => 'PUT'], $options));
 
         $request->request->replace(
-            $this->serializer->mergeDataWithEntity($list, $request->request->all())
+            $this->serializer->mergeDataWithEntity($entity, $request->request->all())
         );
 
         $form->handleRequest($request);
