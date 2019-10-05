@@ -6,6 +6,7 @@ use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\ItemListStatistic;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\Content\ItemListService;
+use ModernGame\Service\Serializer;
 use ModernGame\Service\User\WalletService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,9 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ItemShopController extends Controller
 {
-    public function getItemList()
+    public function getItemList(Serializer $serializer)
     {
-        return new JsonResponse($this->getDoctrine()->getRepository(ItemList::class)->findAll());
+        return new JsonResponse(
+            $serializer->toArray($this->getDoctrine()->getRepository(ItemList::class)->findAll())
+        );
     }
 
     public function buyItemList(Request $request, WalletService $wallet, ItemListService $itemListService)

@@ -43,17 +43,13 @@ class RegulationCategoryController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
-    public function getRegulationCategory(Request $request)
+    public function getRegulationCategory(Request $request, Serializer $serializer)
     {
-        return new JsonResponse(
-            $this->getDoctrine()->getRepository(RegulationCategory::class)->find($request->query->getInt('id'))
-        );
-    }
+        $repository = $this->getDoctrine()->getRepository(RegulationCategory::class);
+        $id = $request->query->getInt('id');
 
-    public function getRegulationCategories()
-    {
         return new JsonResponse(
-            $this->getDoctrine()->getRepository(RegulationCategory::class)->findAll()
+            $serializer->toArray(empty($id) ? $repository->findAll() : $repository->find($id))
         );
     }
 }

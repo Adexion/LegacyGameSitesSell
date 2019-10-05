@@ -3,8 +3,10 @@
 namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Item;
+use ModernGame\Database\Entity\Ticket;
 use ModernGame\Database\Repository\ItemRepository;
 use ModernGame\Service\Content\ItemService;
+use ModernGame\Service\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,17 +46,13 @@ class ItemController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
-    public function getItem(Request $request)
+    public function getItem(Request $request, Serializer $serializer)
     {
-        return new JsonResponse(
-            $this->getDoctrine()->getRepository(Item::class)->find($request->query->getInt('id'))
-        );
-    }
+        $repository = $this->getDoctrine()->getRepository(Item::class);
+        $id = $request->query->getInt('id');
 
-    public function getItems()
-    {
         return new JsonResponse(
-            $this->getDoctrine()->getRepository(Item::class)->findAll()
+            $serializer->toArray(empty($id) ? $repository->findAll() : $repository->find($id))
         );
     }
 }

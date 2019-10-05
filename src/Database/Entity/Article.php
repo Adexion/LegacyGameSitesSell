@@ -3,6 +3,7 @@
 namespace ModernGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use stdClass;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
