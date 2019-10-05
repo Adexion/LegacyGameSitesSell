@@ -131,5 +131,5 @@ admin-user-delete:
   methods:    [DELETE]
 admin-user-get:
   path:       /user
-  controller: ModernGame\Controller\Admin\UserController::getUser
+  controller: ModernGame\Controller\Admin\UserController::getUserData
   methods:    [GET]
