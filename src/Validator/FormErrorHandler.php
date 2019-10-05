@@ -30,6 +30,8 @@ class FormErrorHandler
 
                 if (!empty($fields)) {
                     $exception->addError($fields, $error->getMessage());
+                } elseif (isset($fields)) {
+                    $exception->addError('general', $error->getMessage());
                 }
             }
         }

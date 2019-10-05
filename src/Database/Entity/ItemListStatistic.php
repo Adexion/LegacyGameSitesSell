@@ -4,6 +4,7 @@ namespace ModernGame\Database\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\ItemListStatisticRepository")
@@ -11,24 +12,28 @@ use Doctrine\ORM\Mapping as ORM;
 class ItemListStatistic
 {
     /**
+     * @Groups({"statistic"})
      * @ORM\Id
      * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
+     * @Groups({"statistic"})
      * @ORM\ManyToOne(targetEntity="ItemList")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $itemList;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Groups({"statistic"})
+     * @ORM\Column(type="integer")
      */
-    private $user;
+    private $userId;
 
     /**
+     * @Groups({"statistic"})
      * @ORM\Column(type="datetime")
      */
     private $boughtAt;
@@ -58,13 +63,13 @@ class ItemListStatistic
         $this->itemList = $itemList;
     }
 
-    public function getUser()
+    public function getUserId()
     {
-        return $this->user;
+        return $this->userId;
     }
 
-    public function setUser($user)
+    public function setUserId($userId): void
     {
-        $this->user = $user;
+        $this->userId = $userId;
     }
 }

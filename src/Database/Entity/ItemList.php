@@ -3,6 +3,7 @@
 namespace ModernGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -11,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ItemList
 {
     /**
+     * @Groups({"statistic", "history"})
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -18,42 +20,49 @@ class ItemList
     private $id;
 
     /**
+     * @Groups({"statistic", "history"})
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
     private $name;
 
     /**
+     * @Groups({"statistic", "history"})
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
     private $description;
 
     /**
+     * @Groups({"statistic", "history"})
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
     private $iconUrl = 'https://www.freeiconspng.com/uploads/error-icon-4.png';
 
     /**
+     * @Groups({"statistic", "history"})
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
     private $sliderImage = 'https://www.freeiconspng.com/uploads/error-icon-4.png';
 
     /**
+     * @Groups({"statistic", "history"})
      * @ORM\Column(type="integer")
      * @Assert\NotBlank()
      */
     private $howManyBuyers = 0;
 
     /**
+     * @Groups({"statistic", "history"})
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
      */
     private $price;
 
     /**
+     * @Groups({"statistic", "history"})
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
      */

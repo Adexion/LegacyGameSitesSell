@@ -25,7 +25,7 @@ abstract class AbstractPayment
     protected function notePayment($amount) {
         $paymentHistory = new PaymentHistory();
 
-        $paymentHistory->setUser($this->user);
+        $paymentHistory->setUserId($this->user->getId());
         $paymentHistory->setAmount($amount);
 
         $this->repository->insert($paymentHistory);

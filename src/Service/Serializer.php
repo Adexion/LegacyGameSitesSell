@@ -13,14 +13,14 @@ class Serializer
         $this->serializer = $serializer;
     }
 
-    public function serialize($data, $format, array $context = null): string
+    public function serialize($data, $format, array $context = []): string
     {
         return $this->serializer->serialize($data, $format, $context);
     }
 
-    public function toArray($data): array
+    public function toArray($data, $context = []): array
     {
-        return json_decode($this->serializer->serialize($data, 'json'), true);
+        return json_decode($this->serializer->serialize($data, 'json', $context), true);
     }
 
     public function mergeDataWithEntity($entity, $data): array

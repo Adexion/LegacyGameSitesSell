@@ -112,7 +112,7 @@ class ItemListService extends AbstractService implements ServiceInterface
     {
         $itemListStatistic = new ItemListStatistic();
         $itemListStatistic->setItemList($itemList);
-        $itemListStatistic->setUser($this->user);
+        $itemListStatistic->setUserId($this->user->getId());
 
         $this->statisticRepository->insert($itemListStatistic);
     }

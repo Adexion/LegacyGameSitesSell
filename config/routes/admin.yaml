@@ -34,6 +34,15 @@ admin-item-list-get:
   controller: ModernGame\Controller\Admin\ItemListController::getItemList
   methods:    [GET]
 
+# ---------- Statistic
+admin-item-list-statistic-get:
+  path:       /item/list/statistic
+  controller: ModernGame\Controller\Admin\StatisticController::getItemListStatistic
+  methods:    [GET]
+admin-payment-history-get:
+  path:       /payment/history
+  controller: ModernGame\Controller\Admin\StatisticController::getPaymentHistory
+  methods:    [GET]
 # ---------- Item
 admin-item-post:
   path:       /item

@@ -4,6 +4,7 @@ namespace ModernGame\Database\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\PaymentHistoryRepository")
@@ -11,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class PaymentHistory
 {
     /**
+     * @Groups({"history"})
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -18,17 +20,19 @@ class PaymentHistory
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Groups({"history"})
+     * @ORM\Column(type="integer")
      */
-    private $user;
+    private $userId;
 
     /**
+     * @Groups({"history"})
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $date;
 
     /**
+     * @Groups({"history"})
      * @ORM\Column(type="float")
      */
     private $amount;
@@ -41,16 +45,6 @@ class PaymentHistory
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    public function setUser($user)
-    {
-        $this->user = $user;
     }
 
     public function getDate()
@@ -71,5 +65,15 @@ class PaymentHistory
     public function setAmount($amount)
     {
         $this->amount = $amount;
+    }
+
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
     }
 }
