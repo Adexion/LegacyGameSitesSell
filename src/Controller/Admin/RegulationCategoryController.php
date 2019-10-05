@@ -5,6 +5,7 @@ namespace ModernGame\Controller\Admin;
 use ModernGame\Database\Entity\RegulationCategory;
 use ModernGame\Database\Repository\RegulationCategoryRepository;
 use ModernGame\Service\Content\RegulationCategoryService;
+use ModernGame\Service\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
