@@ -34,7 +34,7 @@ class ContactType extends AbstractType
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank(),
-                    new Email(['strict' => true])
+                    new Email(['mode' => 'strict'])
                 ]
             ])
             ->add('type', ChoiceType::class, [
