@@ -14,19 +14,19 @@ class Wallet
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="float")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $cash;
+    public $cash;
 
     /**
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private $user;
+    public $user;
 
     public function __construct()
     {

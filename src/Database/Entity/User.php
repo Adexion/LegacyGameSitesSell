@@ -20,47 +20,47 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-    private $email;
+    public $email;
 
     /**
      * @ORM\Column(type="string", length=16, unique=true)
      * @Assert\NotBlank()
      * @Assert\Length(min="3", max="16")
      */
-    private $username;
+    public $username;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
-    private $password;
+    public $password;
 
     /**
      * @ORM\Column(type="array")
      */
-    private $roles;
+    public $roles;
 
     /**
      * @ORM\Column(type="boolean")
      * @Assert\EqualTo(true)
      */
-    private $rules;
+    public $rules;
 
     /**
      * @ORM\Column(type="string", unique=true)
      * @Assert\NotBlank()
      */
-    private $ipAddress;
+    public $ipAddress;
 
-    private $reCaptcha;
+    public $reCaptcha;
 
     public function __construct()
     {

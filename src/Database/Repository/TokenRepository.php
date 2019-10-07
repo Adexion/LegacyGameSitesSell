@@ -27,6 +27,6 @@ class TokenRepository extends AbstractRepository
             ])
             ->setMaxResults(1);
 
-        return $qb->getQuery()->execute()[0];
+        return $qb->getQuery()->getArrayResult()[0] ?? null;
     }
 }

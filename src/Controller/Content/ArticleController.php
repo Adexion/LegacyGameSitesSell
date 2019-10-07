@@ -3,14 +3,14 @@
 namespace ModernGame\Controller\Content;
 
 use ModernGame\Database\Entity\Article;
-use ModernGame\Service\Serializer;
+use ModernGame\Serializer\CustomSerializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class ArticleController extends AbstractController
 {
-    public function getArticle(Request $request, Serializer $serializer)
+    public function getArticle(Request $request, CustomSerializer $serializer)
     {
         $repository = $this->getDoctrine()->getRepository(Article::class);
         $id = $request->query->getInt('id');

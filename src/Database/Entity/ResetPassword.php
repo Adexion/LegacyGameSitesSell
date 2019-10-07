@@ -17,18 +17,18 @@ class ResetPassword
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private $user;
+    public $user;
 
     /**
      * @ORM\Column(type="string", length=32)
      */
-    private $token;
+    public $token;
 
     public function getToken()
     {

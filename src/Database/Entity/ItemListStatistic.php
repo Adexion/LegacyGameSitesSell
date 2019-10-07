@@ -4,7 +4,6 @@ namespace ModernGame\Database\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\ItemListStatisticRepository")
@@ -12,31 +11,27 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class ItemListStatistic
 {
     /**
-     * @Groups({"statistic"})
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
-     * @Groups({"statistic"})
-     * @ORM\ManyToOne(targetEntity="ItemList")
+     * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private $itemList;
+    public $itemList;
 
     /**
-     * @Groups({"statistic"})
      * @ORM\Column(type="integer")
      */
-    private $userId;
+    public $userId;
 
     /**
-     * @Groups({"statistic"})
      * @ORM\Column(type="datetime")
      */
-    private $boughtAt;
+    public $boughtAt;
 
     public function __construct()
     {

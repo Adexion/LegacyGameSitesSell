@@ -15,13 +15,13 @@ class RegulationCategory
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    private $categoryName;
+    public $categoryName;
 
     public function getId()
     {

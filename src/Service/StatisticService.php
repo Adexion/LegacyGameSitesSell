@@ -2,10 +2,12 @@
 
 namespace ModernGame\Service;
 
+use Doctrine\ORM\QueryBuilder;
+use ModernGame\Database\Repository\AbstractRepository;
 use ModernGame\Database\Repository\ItemListStatisticRepository;
 use ModernGame\Database\Repository\PaymentHistoryRepository;
-use ModernGame\Form\HistoryFilterType;
-use ModernGame\Form\StatisticFilterType;
+use ModernGame\Exception\ContentException;
+use ModernGame\Form\FilterType;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,24 +31,36 @@ class StatisticService
         $this->formErrorHandler = $formErrorHandler;
     }
 
+    /**
+     * @throws ContentException
+     */
     public function findStatistic(Request $request)
     {
-        return $this->getEntities($request, StatisticFilterType::class);
+        return $this->getEntities($request, FilterType::class, $this->statisticRepository);
     }
 
+    /**
+     * @throws ContentException
+     */
     public function findHistory(Request $request)
     {
-        return $this->getEntities($request, HistoryFilterType::class);
+        return $this->getEntities($request, FilterType::class, $this->historyRepository);
     }
 
-    private function getEntities(Request $request, $class)
+    /**
+     * @throws ContentException
+     */
+    private function getEntities(Request $request, $class, AbstractRepository $repository)
     {
-        $data = [];
-
-        $form = $this->form->create($class, $data, ['method' => 'get']);
+        $form = $this->form->create($class, $request->query->all(), ['method' => 'get']);
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
 
-        return $this->statisticRepository->findBy($data);
+        return $repository->findAll();
+    }
+
+    private function setFilters(QueryBuilder $qb, array $data)
+    {
+
     }
 }

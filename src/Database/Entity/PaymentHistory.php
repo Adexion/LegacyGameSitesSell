@@ -4,7 +4,6 @@ namespace ModernGame\Database\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\PaymentHistoryRepository")
@@ -12,30 +11,26 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class PaymentHistory
 {
     /**
-     * @Groups({"history"})
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
-     * @Groups({"history"})
      * @ORM\Column(type="integer")
      */
-    private $userId;
+    public $userId;
 
     /**
-     * @Groups({"history"})
      * @ORM\Column(type="datetime", nullable=false)
      */
-    private $date;
+    public $date;
 
     /**
-     * @Groups({"history"})
      * @ORM\Column(type="float")
      */
-    private $amount;
+    public $amount;
 
     public function __construct()
     {

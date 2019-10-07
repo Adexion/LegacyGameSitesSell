@@ -6,7 +6,7 @@ use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\Regulation;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\UserRepository;
-use ModernGame\Service\Serializer;
+use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\User\RegisterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -31,7 +31,7 @@ class UserController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
-    public function getUserData(Request $request, Serializer $serializer)
+    public function getUserData(Request $request, CustomSerializer $serializer)
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
         $id = $request->query->getInt('id');

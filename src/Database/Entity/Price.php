@@ -14,17 +14,17 @@ class Price
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="integer", unique=true, length=5)
      */
-    private $phoneNumber;
+    public $phoneNumber;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $amount;
+    public $amount;
 
     public function getId(): int
     {

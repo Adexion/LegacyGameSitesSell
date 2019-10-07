@@ -12,61 +12,54 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ItemList
 {
     /**
-     * @Groups({"statistic", "history"})
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
-     * @Groups({"statistic", "history"})
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $name;
+    public $name;
 
     /**
-     * @Groups({"statistic", "history"})
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $description;
+    public $description;
 
     /**
-     * @Groups({"statistic", "history"})
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $iconUrl = 'https://www.freeiconspng.com/uploads/error-icon-4.png';
+    public $iconUrl = 'https://www.freeiconspng.com/uploads/error-icon-4.png';
 
     /**
-     * @Groups({"statistic", "history"})
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $sliderImage = 'https://www.freeiconspng.com/uploads/error-icon-4.png';
+    public $sliderImage = 'https://www.freeiconspng.com/uploads/error-icon-4.png';
 
     /**
-     * @Groups({"statistic", "history"})
      * @ORM\Column(type="integer")
      * @Assert\NotBlank()
      */
-    private $howManyBuyers = 0;
+    public $howManyBuyers = 0;
+
+    /**
+     * @ORM\Column(type="float")
+     * @Assert\NotBlank()
+     */
+    public $price;
 
     /**
      * @Groups({"statistic", "history"})
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
      */
-    private $price;
-
-    /**
-     * @Groups({"statistic", "history"})
-     * @ORM\Column(type="float")
-     * @Assert\NotBlank()
-     */
-    private $promotion;
+    public $promotion;
 
     public function setId($id)
     {

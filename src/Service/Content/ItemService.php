@@ -7,7 +7,7 @@ use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Form\ItemType;
 use ModernGame\Service\AbstractService;
-use ModernGame\Service\Serializer;
+use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\ServiceInterface;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;

@@ -6,7 +6,7 @@ use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\ModList;
 use ModernGame\Database\Repository\ModListRepository;
 use ModernGame\Service\Content\ModListService;
-use ModernGame\Service\Serializer;
+use ModernGame\Serializer\CustomSerializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,7 +45,7 @@ class ModController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
-    public function getMod(Request $request, Serializer $serializer)
+    public function getMod(Request $request, CustomSerializer $serializer)
     {
         $repository = $this->getDoctrine()->getRepository(ModList::class);
         $id = $request->query->getInt('id');

@@ -6,7 +6,7 @@ use ModernGame\Database\Entity\Item;
 use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Service\Content\ItemListService;
-use ModernGame\Service\Serializer;
+use ModernGame\Serializer\CustomSerializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +46,7 @@ class ItemListController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
-    public function getItemList(Request $request, Serializer $serializer)
+    public function getItemList(Request $request, CustomSerializer $serializer)
     {
         $repository = $this->getDoctrine()->getRepository(ItemList::class);
         $id = $request->query->getInt('id');

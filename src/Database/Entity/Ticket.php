@@ -17,51 +17,51 @@ class Ticket
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $contactId;
+    public $contactId;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    private $name;
+    public $name;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    private $email;
+    public $email;
 
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    private $type;
+    public $type;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    private $subject;
+    public $subject;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    private $message;
+    public $message;
 
     /**
      * @ORM\Column(type="string", length=128)
      * @Assert\NotBlank()
      */
-    private $token;
+    public $token;
 
     /**
      * @ORM\Column(type="string", length=512)
      */
-    private $status;
+    public $status;
 
-    private $reCaptcha;
+    public $reCaptcha;
 
     public function getContactId()
     {

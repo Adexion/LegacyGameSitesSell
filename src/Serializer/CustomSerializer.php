@@ -1,10 +1,10 @@
 <?php
 
-namespace ModernGame\Service;
+namespace ModernGame\Serializer;
 
 use Symfony\Component\Serializer\SerializerInterface;
 
-class Serializer
+class CustomSerializer
 {
     private $serializer;
 

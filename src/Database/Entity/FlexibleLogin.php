@@ -14,49 +14,49 @@ class FlexibleLogin
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $UserID;
+    public $UserID;
 
     /**
      * @ORM\Column(type="binary", length=16)
      * @Assert\NotBlank()
      */
-    private $UUID;
+    public $UUID;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $Username;
+    public $Username;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $Password;
+    public $Password;
 
     /**
      * @ORM\Column(type="binary", length=32)
      * @Assert\NotBlank()
      */
-    private $IP;
+    public $IP;
 
     /**
      * @ORM\Column(type="date")
      * @Assert\NotBlank()
      */
-    private $LastLogin;
+    public $LastLogin;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $Email;
+    public $Email;
 
     /**
      * @ORM\Column(type="boolean")
      * @Assert\NotBlank()
      */
-    private $LoggedIn = 0;
+    public $LoggedIn = 0;
 
     /**
      * @param mixed $UserID

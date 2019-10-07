@@ -15,31 +15,31 @@ class Item
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $name;
+    public $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $iconUrl = 'https://www.freeiconspng.com/uploads/error-icon-4.png';
+    public $iconUrl = 'https://www.freeiconspng.com/uploads/error-icon-4.png';
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $command;
+    public $command;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ItemList")
+     * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private $itemList;
+    public $itemList;
 
     public function setId($id)
     {

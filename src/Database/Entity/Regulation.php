@@ -15,19 +15,19 @@ class Regulation
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $regulationId;
+    public $regulationId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="RegulationCategory")
+     * @ORM\ManyToOne(targetEntity="RegulationCategory", fetch="EAGER")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private $category;
+    public $category;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    private $description;
+    public $description;
 
     public function getDescription()
     {

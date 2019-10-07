@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Type;
 
-class HistoryFilterType extends AbstractType
+class FilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -21,11 +21,6 @@ class HistoryFilterType extends AbstractType
             ->add('dateTo', TextType::class, [
                 'constraints' => [
                     new Date()
-                ]
-            ])
-            ->add('amount', NumberType::class, [
-                'constraints' => [
-                    new Type('integer')
                 ]
             ])
             ->add('userId', NumberType::class, [
