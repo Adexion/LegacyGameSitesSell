@@ -23,6 +23,7 @@ class ModListType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ModList::class,
+            'csrf_protection' => false
         ]);
     }
 }

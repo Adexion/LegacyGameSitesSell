@@ -13,6 +13,7 @@ parameters:
         password: 'qwerty'
     command:
         list: 'list'
+    multiplier: 1
 
 services:
     _defaults:

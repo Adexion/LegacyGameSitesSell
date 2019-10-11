@@ -3,6 +3,8 @@
 namespace ModernGame\Form;
 
 use ModernGame\Database\Entity\ItemList;
+use ModernGame\Database\Entity\Price;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -26,13 +28,18 @@ class ItemListType extends AbstractType
             ->add('iconUrl', TextType::class)
             ->add('sliderImage', TextType::class)
             ->add('price', NumberType::class)
-            ->add('promotion', NumberType::class);
+            ->add('promotion', NumberType::class)
+            ->add('smsPrice', EntityType::class, [
+                'class' => Price::class,
+                'choice_label' => 'id'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => ItemList::class,
+            'csrf_protection' => false
         ]);
     }
 }

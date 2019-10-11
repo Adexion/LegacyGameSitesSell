@@ -3,7 +3,6 @@
 namespace ModernGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -55,11 +54,16 @@ class ItemList
     public $price;
 
     /**
-     * @Groups({"statistic", "history"})
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
      */
     public $promotion;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Price", fetch="EAGER")
+     * @ORM\JoinColumn(name="sms_price_id", referencedColumnName="id")
+     */
+    public $smsPrice;
 
     public function setId($id)
     {
@@ -144,5 +148,15 @@ class ItemList
     public function setHowManyBuyers($howManyBuyers)
     {
         $this->howManyBuyers = $howManyBuyers;
+    }
+
+    public function getSmsPrice()
+    {
+        return $this->smsPrice;
+    }
+
+    public function setSmsPrice($smsPrice): void
+    {
+        $this->smsPrice = $smsPrice;
     }
 }

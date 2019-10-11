@@ -5,7 +5,6 @@ namespace ModernGame\Controller\Admin;
 use ModernGame\Database\Entity\RegulationCategory;
 use ModernGame\Database\Repository\RegulationCategoryRepository;
 use ModernGame\Service\Content\RegulationCategoryService;
-use ModernGame\Serializer\CustomSerializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,13 +43,11 @@ class RegulationCategoryController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
-    public function getRegulationCategory(Request $request, CustomSerializer $serializer)
+    public function getRegulationCategory(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(RegulationCategory::class);
         $id = $request->query->getInt('id');
 
-        return new JsonResponse(
-            $serializer->toArray(empty($id) ? $repository->findAll() : $repository->find($id))
-        );
+        return new JsonResponse(empty($id) ? $repository->findAll() : $repository->find($id));
     }
 }

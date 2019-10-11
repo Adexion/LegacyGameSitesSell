@@ -44,7 +44,7 @@ class PaymentHistory
 
     public function getDate()
     {
-        return $this->date;
+        return $this->date->format('Y-m-d H:i:s');
     }
 
     public function setDate($date)

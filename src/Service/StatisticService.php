@@ -8,6 +8,7 @@ use ModernGame\Database\Repository\ItemListStatisticRepository;
 use ModernGame\Database\Repository\PaymentHistoryRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Form\FilterType;
+use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,17 +19,20 @@ class StatisticService
     private $historyRepository;
     private $form;
     private $formErrorHandler;
+    private $serializer;
 
     public function __construct(
         ItemListStatisticRepository $statisticRepository,
         PaymentHistoryRepository $historyRepository,
         FormFactoryInterface $form,
-        FormErrorHandler $formErrorHandler
+        FormErrorHandler $formErrorHandler,
+        CustomSerializer $serializer
     ) {
         $this->statisticRepository = $statisticRepository;
         $this->historyRepository = $historyRepository;
         $this->form = $form;
         $this->formErrorHandler = $formErrorHandler;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -56,11 +60,33 @@ class StatisticService
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
 
-        return $repository->findAll();
+        $qb = $repository
+            ->createQueryBuilder('s')
+            ->select('s');
+
+        $this->setFilters($qb, $request->query->all());
+
+        return $this->serializer->toArray($qb->getQuery()->execute());
     }
 
-    private function setFilters(QueryBuilder $qb, array $data)
+    private function setFilters(QueryBuilder $qb, array $filter)
     {
+        if (isset($filter['dataFrom'])) {
+            $qb
+                ->andWhere('s.date >= :date')
+                ->setParameter(':date', $filter['dataFrom']);
+        }
 
+        if (isset($filter['dataTo'])) {
+            $qb
+                ->andWhere('s.date <= :date')
+                ->setParameter(':date', $filter['dataTo']);
+        }
+
+        if (isset($filter['userId'])) {
+            $qb
+                ->andWhere('s.userId = :user')
+                ->setParameter(':user', $filter['userId']);
+        }
     }
 }

@@ -240,7 +240,7 @@ class UserController extends Controller
     {
         return new JsonResponse([
             'itemList' => $this->getDoctrine()
-                ->getRepository(UserItem::class)->findBy(['userId' => $this->getUser()->getId()])
+                ->getRepository(UserItem::class)->findBy(['user' => $this->getUser()->getId()])
         ]);
     }
 

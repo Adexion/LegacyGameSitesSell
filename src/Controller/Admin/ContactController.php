@@ -5,7 +5,6 @@ namespace ModernGame\Controller\Admin;
 use ModernGame\Database\Entity\Ticket;
 use ModernGame\Database\Repository\TicketRepository;
 use ModernGame\Service\Content\TicketService;
-use ModernGame\Serializer\CustomSerializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,13 +30,11 @@ class ContactController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
-    public function getTicket(Request $request, CustomSerializer $serializer)
+    public function getTicket(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Ticket::class);
         $id = $request->query->getInt('id');
 
-        return new JsonResponse(
-            $serializer->toArray(empty($id) ? $repository->findAll() : $repository->find($id))
-        );
+        return new JsonResponse(empty($id) ? $repository->findAll() : $repository->find($id));
     }
 }

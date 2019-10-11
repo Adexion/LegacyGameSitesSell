@@ -23,7 +23,7 @@ class RegulationService extends AbstractService implements ServiceInterface
         FormErrorHandler $formErrorHandler,
         RegulationCategoryRepository $regulationCategoryRepository,
         RegulationRepository $repository,
-        Serializer $serializer
+        CustomSerializer $serializer
     ) {
         $this->regulationCategoryRepository = $regulationCategoryRepository;
 

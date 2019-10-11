@@ -2,11 +2,9 @@
 
 namespace ModernGame\Controller\Admin;
 
-use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\Regulation;
 use ModernGame\Database\Repository\RegulationRepository;
 use ModernGame\Service\Content\RegulationService;
-use ModernGame\Serializer\CustomSerializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,13 +43,11 @@ class RegulationController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
-    public function getRegulation(Request $request, CustomSerializer $serializer)
+    public function getRegulation(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Regulation::class);
         $id = $request->query->getInt('id');
 
-        return new JsonResponse(
-            $serializer->toArray(empty($id) ? $repository->findAll() : $repository->find($id))
-        );
+        return new JsonResponse(empty($id) ? $repository->findAll() : $repository->find($id));
     }
 }

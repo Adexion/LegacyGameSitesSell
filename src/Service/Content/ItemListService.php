@@ -40,7 +40,7 @@ class ItemListService extends AbstractService implements ServiceInterface
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,
         TokenStorageInterface $tokenStorage,
-        Serializer $serializer
+        CustomSerializer $serializer
     ) {
         $this->userItemRepository = $userItemRepository;
         $this->itemRepository = $itemRepository;

@@ -6,7 +6,6 @@ use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Repository\ArticleRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\Content\ArticleService;
-use ModernGame\Serializer\CustomSerializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,13 +50,11 @@ class ArticleController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
-    public function getArticle(Request $request, CustomSerializer $serializer)
+    public function getArticle(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Article::class);
         $id = $request->query->getInt('id');
 
-        return new JsonResponse(
-            $serializer->toArray(empty($id) ? $repository->findAll() : $repository->find($id))
-        );
+        return new JsonResponse(empty($id) ? $repository->findAll() : $repository->find($id));
     }
 }

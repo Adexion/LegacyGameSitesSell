@@ -24,7 +24,7 @@ class WalletController extends Controller
 
         return new JsonResponse([
             "cash" => $wallet->changeCash(
-                (float)$payment->executePayment($code) * 100
+                (float)$payment->executePayment($code) * ($this->getParameter('multiplier') ?? 1)
             ),
         ]);
     }
@@ -36,7 +36,7 @@ class WalletController extends Controller
 
         return new JsonResponse([
             "cash" => $wallet->changeCash(
-                (float)$payment->executePayment($paymentId, $payerId) * 100
+                (float)$payment->executePayment($paymentId, $payerId) * ($this->getParameter('multiplier') ?? 1)
             ),
         ]);
     }

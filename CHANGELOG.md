@@ -3,6 +3,11 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! next relese should be stable version. This is last BETA update !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# 0.98.0 - 11.10.2019
+    - repair some problems
+    - add sms price for an item for buying without logging in
+    - add prices endpoint for get sms prices
+    - refactors for serializer
 # RC-0.97.2 - 03.10.2019
     - repair tests
     - add relations to DB

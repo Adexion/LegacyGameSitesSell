@@ -66,6 +66,10 @@ payment-sms-confirmation:
   methods:    [POST]
 
 # ---------- ItemShop
+shop-get-prices:
+  path:       /shop/sms/prices
+  controller: ModernGame\Controller\AfterLogin\ItemShopController::getSMSPrices
+  methods:    [GET]
 shop-get-items:
   path:       /shop/list
   controller: ModernGame\Controller\AfterLogin\ItemShopController::getItemList

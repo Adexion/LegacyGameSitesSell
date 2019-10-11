@@ -19,7 +19,7 @@ class RegulationCategoryService extends AbstractService implements ServiceInterf
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,
         RegulationCategoryRepository $repository,
-        Serializer $serializer
+        CustomSerializer $serializer
     ) {
         parent::__construct($form, $formErrorHandler, $repository, $serializer);
     }

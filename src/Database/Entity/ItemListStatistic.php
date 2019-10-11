@@ -18,29 +18,29 @@ class ItemListStatistic
     public $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER")
-     * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     */
-    public $itemList;
-
-    /**
      * @ORM\Column(type="integer")
      */
     public $userId;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=false)
      */
-    public $boughtAt;
+    public $date;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER")
+     * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     */
+    public $itemList;
 
     public function __construct()
     {
-        $this->boughtAt = new DateTime();
+        $this->date = new DateTime();
     }
 
-    public function getBoughtAt()
+    public function getDate()
     {
-        return $this->boughtAt->format('Y-m-d H:i:s');
+        return $this->date->format('Y-m-d H:i:s');
     }
 
     public function getId()

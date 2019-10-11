@@ -19,7 +19,7 @@ class ModListService extends AbstractService implements ServiceInterface
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,
         ModListRepository $repository,
-        Serializer $serializer
+        CustomSerializer $serializer
     ) {
         parent::__construct($form, $formErrorHandler, $repository, $serializer);
     }

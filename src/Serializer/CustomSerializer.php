@@ -6,6 +6,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class CustomSerializer
 {
+    const CONTEXT = ['ignored_attributes' => ["__initializer__", "__cloner__","__isInitialized__"]];
+
     private $serializer;
 
     public function __construct(SerializerInterface $serializer)
@@ -13,14 +15,14 @@ class CustomSerializer
         $this->serializer = $serializer;
     }
 
-    public function serialize($data, $format, array $context = []): string
+    public function serialize($data, $format): string
     {
-        return $this->serializer->serialize($data, $format, $context);
+        return $this->serializer->serialize($data, $format);
     }
 
-    public function toArray($data, $context = []): array
+    public function toArray($data): array
     {
-        return json_decode($this->serializer->serialize($data, 'json', $context), true);
+        return json_decode($this->serializer->serialize($data, 'json', self::CONTEXT), true);
     }
 
     public function mergeDataWithEntity($entity, $data): array

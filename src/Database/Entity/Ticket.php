@@ -31,7 +31,6 @@ class Ticket
      */
     public $email;
 
-
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
@@ -66,11 +65,6 @@ class Ticket
     public function getContactId()
     {
         return $this->contactId;
-    }
-
-    public function setContactId($contactId)
-    {
-        $this->contactId = $contactId;
     }
 
     public function getName()
@@ -131,11 +125,6 @@ class Ticket
     public function setStatus($status)
     {
         $this->status = $status;
-    }
-
-    public function setContactMessage(Request $request)
-    {
-
     }
 
     public function getReCaptcha()

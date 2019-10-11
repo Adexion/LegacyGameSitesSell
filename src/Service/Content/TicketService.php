@@ -22,7 +22,7 @@ class TicketService extends AbstractService implements ServiceInterface
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,
         TicketRepository $contactRepository,
-        Serializer $serializer
+        CustomSerializer $serializer
     ) {
         $this->form = $form;
         $this->formErrorHandler = $formErrorHandler;

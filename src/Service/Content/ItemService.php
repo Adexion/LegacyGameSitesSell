@@ -19,7 +19,7 @@ class ItemService extends AbstractService implements ServiceInterface
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,
         ItemListRepository $itemListRepository,
-        Serializer $serializer
+        CustomSerializer $serializer
     ) {
         parent::__construct($form, $formErrorHandler, $itemListRepository, $serializer);
     }

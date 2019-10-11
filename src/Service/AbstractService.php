@@ -4,6 +4,7 @@ namespace ModernGame\Service;
 
 use ModernGame\Database\Repository\AbstractRepository;
 use ModernGame\Exception\ContentException;
+use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +20,7 @@ abstract class AbstractService
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,
         AbstractRepository $repository,
-        Serializer $serializer
+        CustomSerializer $serializer
     ) {
         $this->form = $form;
         $this->formErrorHandler = $formErrorHandler;

@@ -21,6 +21,7 @@ class RegulationCategoryType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => RegulationCategory::class,
+            'csrf_protection' => false
         ]);
     }
 }

@@ -26,6 +26,11 @@ class Price
      */
     public $amount;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    public $price;
+
     public function getId(): int
     {
         return $this->id;
@@ -49,5 +54,15 @@ class Price
     public function setAmount(float $amount)
     {
         $this->amount = $amount;
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function setPrice($price): void
+    {
+        $this->price = $price;
     }
 }

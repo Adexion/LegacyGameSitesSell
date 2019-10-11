@@ -4,6 +4,7 @@ namespace ModernGame\Controller\AfterLogin;
 
 use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\ItemListStatistic;
+use ModernGame\Database\Entity\Price;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\Content\ItemListService;
 use ModernGame\Serializer\CustomSerializer;
@@ -17,7 +18,7 @@ class ItemShopController extends Controller
     public function getItemList(CustomSerializer $serializer)
     {
         return new JsonResponse(
-            $serializer->toArray($this->getDoctrine()->getRepository(ItemList::class)->findAll())
+            $this->getDoctrine()->getRepository(ItemList::class)->findAll()
         );
     }
 
@@ -34,13 +35,18 @@ class ItemShopController extends Controller
         ]);
     }
 
-    //ToDo: add test after add a rcon service
+    public function getSMSPrices()
+    {
+        return new JsonResponse(
+            $this->getDoctrine()->getRepository(Price::class)->findAll()
+        );
+    }
+
     public function itemExecute(Request $request, RCONService $rcon)
     {
         return new JsonResponse($rcon->executeItem($request->request->get('itemId')));
     }
 
-    //ToDo: add test after add a rcon service
     public function itemListExecute(RCONService $rcon)
     {
         return new JsonResponse($rcon->executeItem());

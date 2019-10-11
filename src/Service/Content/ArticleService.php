@@ -23,7 +23,7 @@ class ArticleService extends AbstractService implements ServiceInterface
         FormErrorHandler $formErrorHandler,
         TokenStorageInterface $tokenStorage,
         ArticleRepository $repository,
-        Serializer $serializer
+        CustomSerializer $serializer
     ) {
         $this->user = $tokenStorage->getToken()->getUser();
 
