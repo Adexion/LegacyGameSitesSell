@@ -3,7 +3,11 @@
 namespace ModernGame\Service\Connection\Minecraft;
 
 use ErrorException;
+use ModernGame\Database\Entity\Item;
+use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\UserItem;
+use ModernGame\Database\Repository\ItemListRepository;
+use ModernGame\Database\Repository\ItemRepository;
 use ModernGame\Database\Repository\UserItemRepository;
 use ModernGame\Exception\ContentException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -12,12 +16,16 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class RCONService
 {
     private $client;
-    private $userItemRepository;
     private $user;
+    private $userItemRepository;
+    private $itemRepository;
+    private $itemListRepository;
     private $container;
 
     public function __construct(
         UserItemRepository $userItemRepository,
+        ItemRepository $itemRepository,
+        ItemListRepository $itemListRepository,
         TokenStorageInterface $tokenStorage,
         ContainerInterface $container
     ) {
@@ -32,6 +40,8 @@ class RCONService
         }
 
         $this->userItemRepository = $userItemRepository;
+        $this->itemRepository =  $itemRepository;
+        $this->itemListRepository =  $itemListRepository;
         $this->user = $tokenStorage->getToken()->getUser();
     }
 
@@ -40,7 +50,7 @@ class RCONService
         return $this->client->sendCommand($this->container->getParameter('command')['list']);
     }
 
-    public function executeItem(string $itemId = null)
+    public function executeItem(int $itemId = null): array
     {
         /** @var UserItem[] $userItems */
         $userItems = empty($itemList)
@@ -55,6 +65,27 @@ class RCONService
             $this->userItemRepository->deleteItem($item);
         }
 
-        return $response ?? 'Nothing to execute';
+        return $response ?? [];
+    }
+
+    public function executeItemList(float $amount, int $itemListId, string $username): array
+    {
+        /** @var ItemList $itemList */
+        $itemList = $this->itemListRepository->find($itemListId);
+
+        if ($itemList->getPrice() < $amount) {
+            throw new ContentException(['error' => 'Kwota zakupu jest mniejsza niż kwota opłacenia']);
+        }
+
+        /** @var Item[] $items */
+        $items = $this->itemRepository->findBy(['itemList' => $itemList]);
+
+        foreach ($items as $item) {
+            $this->client->sendCommand(sprintf($item->getCommand(), $username));
+
+            $response[] = $this->client->getResponse();
+        }
+
+        return $response ?? [];
     }
 }

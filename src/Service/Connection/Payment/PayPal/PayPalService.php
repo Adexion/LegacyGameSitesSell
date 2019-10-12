@@ -31,7 +31,7 @@ class PayPalService extends AbstractPayment implements PaymentInterface
      * @throws GuzzleException
      * @throws ContentException
      */
-    public function executePayment($id, string $payer = null): string
+    public function executePayment($id, int $payer = null, bool $notePayment = true): float
     {
         $configuration = $this->container->getParameter('paypal');
 
@@ -43,8 +43,11 @@ class PayPalService extends AbstractPayment implements PaymentInterface
         }
 
         $amount = $response['transactions'][0]['amount']['total'];
-        $this->notePayment($amount);
 
-        return $amount;
+        if ($notePayment) {
+            $this->notePayment($amount);
+        }
+
+        return (float)$amount;
     }
 }

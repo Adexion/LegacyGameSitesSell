@@ -50,13 +50,17 @@ player-list:
   path:       /player/list
   controller: ModernGame\Controller\PlayerController::getPlayerList
   methods:    [GET]
+player:
+  path:       /player
+  controller: ModernGame\Controller\PlayerController::getPlayer
+  methods:    [GET]
 
 # ---------- Payments
 user-cash:
   path:       /user/cash
   controller: ModernGame\Controller\AfterLogin\WalletController::cash
   methods:    [GET]
-payment-pypal-confirmation:
+payment-paypal-confirmation:
   path:       /payment/paypal
   controller: ModernGame\Controller\AfterLogin\WalletController::paypalExecute
   methods:    [POST]
@@ -77,6 +81,10 @@ shop-get-items:
 shop-buy-item:
   path:       /shop/buy
   controller: ModernGame\Controller\AfterLogin\ItemShopController::buyItemList
+  methods:    [POST]
+shop-paypal-execute-item-list:
+  path:       /shop/paypal/execute
+  controller: ModernGame\Controller\AfterLogin\ItemShopController::payPalExecute
   methods:    [POST]
 
 # ---------- Contact

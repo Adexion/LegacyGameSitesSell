@@ -3,6 +3,8 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! next relese should be stable version. This is last BETA update !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# 0.99.0 - 12.10.2019
+    - buy and execute without login by PayPal
 # 0.98.0 - 11.10.2019
     - repair some problems
     - add sms price for an item for buying without logging in

@@ -23,4 +23,11 @@ class PlayerController extends AbstractController
     {
         return new JsonResponse(['list' => $rcon->getPlayerList()]);
     }
+
+    public function getPlayer(Request $request, RCONService $rcon)
+    {
+        return new JsonResponse([
+            'online' => strstr($rcon->getPlayerList(), $request->query->get('username')) !== false
+        ]);
+    }
 }
