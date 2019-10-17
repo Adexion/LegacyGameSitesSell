@@ -49,7 +49,9 @@ class RCONService
 
     public function getPlayerList()
     {
-        return $this->client->sendCommand($this->container->getParameter('command')['list']);
+        $this->client->sendCommand($this->container->getParameter('command')['list']);
+
+        return $this->client->getResponse();
     }
 
     public function executeItem(int $itemId = null): array

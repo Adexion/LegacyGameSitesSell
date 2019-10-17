@@ -1,6 +1,6 @@
 nelmio_api_doc:
   documentation:
-    schemes: [https]
+    schemes: [http, https]
     info:
       title: ModernGame OpenAPI
       description: Api of a Moderngame server group

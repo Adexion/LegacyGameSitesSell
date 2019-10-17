@@ -22,7 +22,7 @@ security:
     access_control:
         - { path: ^/v1/admin/, roles: ROLE_ADMIN }
         - { path: ^/v1/article, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/v1/player/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/v1/player, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/documentation, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/user/items, roles: ROLE_USER }
         - { path: ^/v1/user/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
