@@ -40,13 +40,13 @@ class Article
     public $image;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      * @Assert\Length(min="6")
      */
     public $text;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      * @Assert\NotBlank()
      * @Assert\Length(min="6", max="256")
      */
