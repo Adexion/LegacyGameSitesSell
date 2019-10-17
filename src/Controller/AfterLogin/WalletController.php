@@ -31,8 +31,8 @@ class WalletController extends Controller
 
     public function paypalExecute(Request $request, WalletService $wallet, PayPalService $payment)
     {
-        $paymentId = $request->request->get('paymentID');
-        $payerId = $request->request->get('payerID');
+        $paymentId = $request->request->get('paymentId');
+        $payerId = $request->request->get('payerId');
 
         return new JsonResponse([
             "cash" => $wallet->changeCash(

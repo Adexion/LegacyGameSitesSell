@@ -30,7 +30,7 @@ class PaypalClient extends RestApiClient
             'grant_type' => 'client_credentials'
         ];
 
-        return json_decode($this->request(self::POST, self::PAYPAL_API . self::API_TOKEN, $request), true);
+        return json_decode($this->request(self::POST, self::PAYPAL_API . self::API_TOKEN, $request), true) ?? [];
     }
 
     /**
@@ -52,6 +52,6 @@ class PaypalClient extends RestApiClient
             self::POST,
             self::PAYPAL_API . sprintf(self::API_EXECUTE, $paymentId),
             $request
-        ), true);
+        ), true) ?? [];
     }
 }

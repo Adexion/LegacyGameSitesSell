@@ -29,4 +29,25 @@ class TokenRepository extends AbstractRepository
 
         return $qb->getQuery()->getArrayResult()[0] ?? null;
     }
+
+    public function insert($entity)
+    {
+        $tokens = $this->findBy(['user' => $entity->getUser()]);
+
+        if (count($tokens) > 3) {
+            $this->clearTokensInstances($tokens);
+        }
+
+        return parent::insert($entity);
+    }
+
+    private function clearTokensInstances($tokens)
+    {
+        /** @var Token $token */
+        foreach ($tokens as $token) {
+            if ($token->getDate()->format('Y-m-d H:i:s') < date('Y-m-d H:i:s')) {
+                $this->delete($token->getToken());
+            }
+        }
+    }
 }

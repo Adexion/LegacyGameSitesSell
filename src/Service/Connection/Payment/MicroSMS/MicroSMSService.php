@@ -40,7 +40,7 @@ class MicroSMSService extends AbstractPayment implements PaymentInterface
      * @throws GuzzleException
      * @throws Exception
      */
-    public function executePayment($id, int $payer = null): float
+    public function executePayment($id, $payer = null): float
     {
         $configuration = $this->container->getParameter('microSMS');
 

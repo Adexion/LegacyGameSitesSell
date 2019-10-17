@@ -5,6 +5,7 @@ namespace ModernGame\Service\Connection\Payment;
 use ModernGame\Database\Entity\PaymentHistory;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\PaymentHistoryRepository;
+use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 abstract class AbstractPayment
@@ -25,7 +26,11 @@ abstract class AbstractPayment
     protected function notePayment($amount) {
         $paymentHistory = new PaymentHistory();
 
-        $paymentHistory->setUserId($this->user->getId());
+        if (!is_string($this->user)) {
+            $userId = $this->user->getId();
+        }
+
+        $paymentHistory->setUserId($userId ?? 0);
         $paymentHistory->setAmount($amount);
 
         $this->repository->insert($paymentHistory);

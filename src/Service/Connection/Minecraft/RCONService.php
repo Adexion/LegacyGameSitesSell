@@ -10,6 +10,7 @@ use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Database\Repository\ItemRepository;
 use ModernGame\Database\Repository\UserItemRepository;
 use ModernGame\Exception\ContentException;
+use ModernGame\Service\EnvironmentService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -27,13 +28,14 @@ class RCONService
         ItemRepository $itemRepository,
         ItemListRepository $itemListRepository,
         TokenStorageInterface $tokenStorage,
-        ContainerInterface $container
+        ContainerInterface $container,
+        EnvironmentService $environmentService
     ) {
         $this->container = $container;
 
         try {
             $serverData = $container->getParameter('minecraft');
-            $this->client = new RconConnection($serverData['host'], $serverData['port'], $serverData['password'], 5);
+            $this->client = new RconConnection($serverData['host'], $serverData['port'], $serverData['password'], $environmentService->isProd(), 5);
             $this->client->connect();
         } catch (ErrorException $exception) {
             throw new ContentException(['error' => 'Nie udało się połączyć z serwerem.']);
@@ -68,24 +70,26 @@ class RCONService
         return $response ?? [];
     }
 
-    public function executeItemList(float $amount, int $itemListId, string $username): array
+    public function executeItemListForDonation(float $amount, int $itemListId = null, string $username = null): array
     {
         /** @var ItemList $itemList */
-        $itemList = $this->itemListRepository->find($itemListId);
+        $itemList = $this->itemListRepository->find($itemListId) ?? new ItemList();
 
-        if ($itemList->getPrice() < $amount) {
+        if (!empty($itemList->getId()) && $itemList->getPrice() > $amount) {
             throw new ContentException(['error' => 'Kwota zakupu jest mniejsza niż kwota opłacenia']);
         }
 
         /** @var Item[] $items */
-        $items = $this->itemRepository->findBy(['itemList' => $itemList]);
+        $items = $this->itemRepository->findBy(['itemList' => $itemList]) ?? [];
 
-        foreach ($items as $item) {
+        foreach ($items ?? [] as $item) {
             $this->client->sendCommand(sprintf($item->getCommand(), $username));
 
             $response[] = $this->client->getResponse();
         }
 
-        return $response ?? [];
+        $response[] = 'Dziękujemy za wsparcie serwera!';
+
+        return $response;
     }
 }

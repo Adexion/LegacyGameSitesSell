@@ -10,7 +10,9 @@ class RconConnection
     private $timeout;
     private $socket;
     private $authorized = false;
-    private $lastResponse = '';
+    private $lastResponse;
+    private $isProd;
+
     const PACKET_AUTHORIZE = 5;
     const PACKET_COMMAND = 6;
     const SERVERDATA_AUTH = 3;
@@ -18,21 +20,30 @@ class RconConnection
     const SERVERDATA_EXECCOMMAND = 2;
     const SERVERDATA_RESPONSE_VALUE = 0;
 
-    public function __construct($host, $port, $password, $timeout = 10)
+    public function __construct(string $host, string $port, string $password, bool $isProd, int $timeout = 10)
     {
         $this->host = $host;
         $this->port = $port;
         $this->password = $password;
         $this->timeout = $timeout;
+        $this->isProd = $isProd;
     }
 
     public function getResponse()
     {
+        if (!$this->isProd) {
+            return 'Execution mockup done!';
+        }
+
         return $this->lastResponse;
     }
 
     public function connect()
     {
+        if (!$this->isProd) {
+            return false;
+        }
+
         $this->socket = fsockopen($this->host, $this->port, $errno, $errstr, $this->timeout);
         if (!$this->socket) {
             $this->lastResponse = $errstr;

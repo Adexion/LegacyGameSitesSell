@@ -3,12 +3,10 @@
 namespace ModernGame\Controller\AfterLogin;
 
 use ModernGame\Database\Entity\ItemList;
-use ModernGame\Database\Entity\ItemListStatistic;
 use ModernGame\Database\Entity\Price;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\Connection\Payment\PayPal\PayPalService;
 use ModernGame\Service\Content\ItemListService;
-use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\User\WalletService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ItemShopController extends Controller
 {
-    public function getItemList(CustomSerializer $serializer)
+    public function getItemList()
     {
         return new JsonResponse(
             $this->getDoctrine()->getRepository(ItemList::class)->findAll()
@@ -25,16 +23,16 @@ class ItemShopController extends Controller
 
     public function payPalExecute(Request $request, PayPalService $payPal, RCONService $rcon)
     {
-        $paymentId = $request->request->getInt('paymentID');
-        $payerId = $request->request->getInt('payerID');
+        $paymentId = $request->request->get('paymentId') ?? 0;
+        $payerId = $request->request->get('payerId') ?? 0;
 
         $amount = $payPal->executePayment($paymentId, $payerId, false);
 
         return new JsonResponse(
-            $rcon->executeItemList(
+            $rcon->executeItemListForDonation(
                 $amount,
-                $request->request->getInt('itemListId'),
-                $request->request->get('username')
+                $request->request->getInt('itemListId') ?? 0,
+                $request->request->get('username') ?? 'Steve'
             )
         );
     }

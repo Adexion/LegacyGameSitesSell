@@ -2,6 +2,7 @@
 
 namespace ModernGame\Service\Connection\Payment\PayPal;
 
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use ModernGame\Database\Repository\PaymentHistoryRepository;
 use ModernGame\Exception\ContentException;
@@ -31,22 +32,20 @@ class PayPalService extends AbstractPayment implements PaymentInterface
      * @throws GuzzleException
      * @throws ContentException
      */
-    public function executePayment($id, int $payer = null, bool $notePayment = true): float
+    public function executePayment($id, $payer = null, bool $notePayment = true): float
     {
         $configuration = $this->container->getParameter('paypal');
 
-        $token = $this->client->tokenRequest($configuration['client'], $configuration['secret'])['access_token'];
+
+        $token = $this->client->tokenRequest($configuration['client'], $configuration['secret'])['access_token'] ?? '';
         $response = $this->client->executeRequest($token, $id, $payer);
 
         if (!($response['transactions'][0]['amount']['total'] ?? false)) {
-            throw new ContentException(['paymentID' => 'Podana płatność nie istnieje lub wystąpił problem po stronie serwera.']);
+            throw new ContentException(['paymentId' => 'Podana płatność nie istnieje lub wystąpił problem po stronie serwera.']);
         }
 
         $amount = $response['transactions'][0]['amount']['total'];
-
-        if ($notePayment) {
-            $this->notePayment($amount);
-        }
+        $this->notePayment($amount);
 
         return (float)$amount;
     }

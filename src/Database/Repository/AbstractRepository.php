@@ -9,7 +9,7 @@ use Doctrine\ORM\ORMException;
 abstract class AbstractRepository extends ServiceEntityRepository
 {
     /**
-     * @param $entity
+     * @param object $entity
      *
      * @throws ORMException
      * @throws OptimisticLockException
@@ -21,9 +21,9 @@ abstract class AbstractRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $entity
-     *
+     * @param object $entity
      * @return object
+     *
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -35,7 +35,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         return $entity;
     }
 
-    public function delete(int $id)
+    public function delete($id)
     {
         $entity = $this->find($id);
 
