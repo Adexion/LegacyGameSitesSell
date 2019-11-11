@@ -6,6 +6,9 @@ use ModernGame\Exception\ContentException;
 
 class MockProvider
 {
+    /**
+     * @throws ContentException
+     */
     public static function getMock(string $url, string $request): string
     {
         switch ($url . ': ' . $request) {

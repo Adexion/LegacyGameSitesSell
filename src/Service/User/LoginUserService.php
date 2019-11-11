@@ -2,16 +2,18 @@
 
 namespace ModernGame\Service\User;
 
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use ModernGame\Database\Entity\Token;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\TokenRepository;
+use ModernGame\Exception\ContentException;
 use ModernGame\Form\LoginType;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class LoginUserService
@@ -36,6 +38,9 @@ class LoginUserService
         $this->repository = $repository;
     }
 
+    /**
+     * @throws ContentException
+     */
     public function getUser(Request $request): User
     {
         $form = $this->form->create(LoginType::class);
@@ -53,11 +58,21 @@ class LoginUserService
         return $user;
     }
 
+    /**
+     * @throws ContentException
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
     public function getToken(Request $request): string
     {
         return $this->generateToken($this->getUser($request));
     }
 
+    /**
+
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
     private function generateToken(User $user): string
     {
         $token = new Token();

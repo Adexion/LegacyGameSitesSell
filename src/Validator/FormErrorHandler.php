@@ -16,6 +16,9 @@ class FormErrorHandler
         $this->translator = $translator;
     }
 
+    /**
+     * @throws ContentException
+     */
     public function handle(FormInterface $form)
     {
         $exception = new FormErrors();

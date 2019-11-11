@@ -26,7 +26,7 @@ abstract class AbstractPayment
     protected function notePayment($amount) {
         $paymentHistory = new PaymentHistory();
 
-        if (!is_string($this->user)) {
+        if ($this->user instanceof User) {
             $userId = $this->user->getId();
         }
 

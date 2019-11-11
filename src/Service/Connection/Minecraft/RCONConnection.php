@@ -2,7 +2,7 @@
 
 namespace ModernGame\Service\Connection\Minecraft;
 
-class RconConnection
+class RCONConnection
 {
     private $host;
     private $port;

@@ -2,7 +2,6 @@
 
 namespace ModernGame\Service\Connection\Payment\PayPal;
 
-use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use ModernGame\Database\Repository\PaymentHistoryRepository;
 use ModernGame\Exception\ContentException;

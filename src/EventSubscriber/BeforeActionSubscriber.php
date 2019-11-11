@@ -4,7 +4,7 @@ namespace ModernGame\EventSubscriber;
 
 use function json_last_error;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -17,7 +17,7 @@ class BeforeActionSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function convertJsonStringToArray(FilterControllerEvent $event)
+    public function convertJsonStringToArray(ControllerEvent $event)
     {
         $request = $event->getRequest();
 

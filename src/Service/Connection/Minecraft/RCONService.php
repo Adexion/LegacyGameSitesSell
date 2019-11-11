@@ -23,6 +23,9 @@ class RCONService
     private $itemListRepository;
     private $container;
 
+    /**
+     * @throws ContentException
+     */
     public function __construct(
         UserItemRepository $userItemRepository,
         ItemRepository $itemRepository,
@@ -35,7 +38,7 @@ class RCONService
 
         try {
             $serverData = $container->getParameter('minecraft');
-            $this->client = new RconConnection($serverData['host'], $serverData['port'], $serverData['password'], $environmentService->isProd(), 5);
+            $this->client = new RCONConnection($serverData['host'], $serverData['port'], $serverData['password'], $environmentService->isProd(), 5);
             $this->client->connect();
         } catch (ErrorException $exception) {
             throw new ContentException(['error' => 'Nie udało się połączyć z serwerem.']);
@@ -72,6 +75,9 @@ class RCONService
         return $response ?? [];
     }
 
+    /**
+     * @throws ContentException
+     */
     public function executeItemListForDonation(float $amount, int $itemListId = null, string $username = null): array
     {
         /** @var ItemList $itemList */

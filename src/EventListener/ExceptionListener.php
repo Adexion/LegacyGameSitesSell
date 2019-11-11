@@ -2,6 +2,7 @@
 
 namespace ModernGame\EventListener;
 
+use Exception;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\EnvironmentService;
 use ModernGame\Service\Mail\MailSenderService;
@@ -27,6 +28,9 @@ class ExceptionListener
         $this->env = $env;
     }
 
+    /**
+     * @throws Exception
+     */
     public function onKernelException(ExceptionEvent $event)
     {
         $exception = $event->getException();
