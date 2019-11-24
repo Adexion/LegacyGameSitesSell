@@ -6,99 +6,98 @@ routes:
 user-login:
   path:       /user/login
   controller: ModernGame\Controller\UserController::login
-  methods:    [POST]
-
+  methods:    [POST, OPTIONS]
 user-login-launcher:
   path:       /user/launcher/login
   controller: ModernGame\Controller\UserController::loginMinecraft
-  methods:    [POST]
+  methods:    [POST, OPTIONS]
 user-register:
   path:       /user/register
   controller: ModernGame\Controller\UserController::register
-  methods:    [POST]
+  methods:    [POST, OPTIONS]
 user-reset-password:
   path:       /user/reset
   controller: ModernGame\Controller\UserController::resetPassword
-  methods:    [POST]
+  methods:    [POST, OPTIONS]
 user-reset-from-token:
   path:       /user/reset/{token}
   controller: ModernGame\Controller\UserController::resetFromToken
-  methods:    [POST]
+  methods:    [POST, OPTIONS]
 user-update:
   path:       /user
   controller: ModernGame\Controller\UserController::update
-  methods:    [PUT]
+  methods:    [PUT, OPTIONS]
 user-item-execute:
   path:       /user/item
   controller: ModernGame\Controller\AfterLogin\ItemShopController::itemExecute
-  methods:    [POST]
+  methods:    [POST, OPTIONS]
 user-item-list-execute:
   path:       /user/item/list
   controller: ModernGame\Controller\AfterLogin\ItemShopController::itemListExecute
-  methods:    [POST]
+  methods:    [POST, OPTIONS]
 user-item-list:
   path:       /user/items
   controller: ModernGame\Controller\UserController::getItemList
-  methods:     [GET]
+  methods:    [GET, OPTIONS]
 
 # ---------- Player
 player-avatar:
   path:       /player/avatar
   controller: ModernGame\Controller\PlayerController::getMinecraftAvatar
-  methods:    [GET]
+  methods:    [GET, OPTIONS]
 player-list:
   path:       /player/list
   controller: ModernGame\Controller\PlayerController::getPlayerList
-  methods:    [GET]
+  methods:    [GET, OPTIONS]
 player:
   path:       /player
   controller: ModernGame\Controller\PlayerController::getPlayer
-  methods:    [GET]
+  methods:    [GET, OPTIONS]
 
 # ---------- Payments
 user-cash:
   path:       /user/cash
   controller: ModernGame\Controller\AfterLogin\WalletController::cash
-  methods:    [GET]
+  methods:    [GET, OPTIONS]
 payment-paypal-confirmation:
   path:       /payment/paypal
   controller: ModernGame\Controller\AfterLogin\WalletController::paypalExecute
-  methods:    [POST]
+  methods:    [POST, OPTIONS]
 payment-sms-confirmation:
   path:       /payment/sms
   controller: ModernGame\Controller\AfterLogin\WalletController::microSMSExecute
-  methods:    [POST]
+  methods:    [POST, OPTIONS]
 
 # ---------- ItemShop
 shop-get-prices:
   path:       /shop/sms/prices
   controller: ModernGame\Controller\AfterLogin\ItemShopController::getSMSPrices
-  methods:    [GET]
+  methods:    [GET, OPTIONS]
 shop-get-items:
   path:       /shop/list
   controller: ModernGame\Controller\AfterLogin\ItemShopController::getItemList
-  methods:    [GET]
+  methods:    [GET, OPTIONS]
 shop-buy-item:
   path:       /shop/buy
   controller: ModernGame\Controller\AfterLogin\ItemShopController::buyItemList
-  methods:    [POST]
+  methods:    [POST, OPTIONS]
 shop-paypal-execute-item-list:
   path:       /shop/paypal/execute
   controller: ModernGame\Controller\AfterLogin\ItemShopController::payPalExecute
-  methods:    [POST]
+  methods:    [POST, OPTIONS]
 
 # ---------- Contact
 contact:
   path:       /contact
   controller: ModernGame\Controller\ContactController::setMessageContact
-  methods:    [POST]
+  methods:    [POST, OPTIONS]
 contact-ticket:
   path:       /contact/{ticket}
   controller: ModernGame\Controller\ContactController::getMessagesTicket
-  methods:    [GET]
+  methods:    [GET, OPTIONS]
 
 # ---------- Article
 article:
   path:       /article
   controller: ModernGame\Controller\Content\ArticleController::getArticle
-  methods:    [GET]
+  methods:    [GET, OPTIONS]
