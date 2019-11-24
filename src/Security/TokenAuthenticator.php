@@ -25,6 +25,10 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function supports(Request $request)
     {
+        if ($request->getRealMethod() === Request::METHOD_OPTIONS) {
+            return false;
+        }
+
         return $request->headers->has('X-AUTH-TOKEN');
     }
 
@@ -65,6 +69,10 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     {
         if ($authException instanceof UsernameNotFoundException || $authException instanceof BadCredentialsException) {
             return new JsonResponse(['error' => $authException->getMessageKey()], Response::HTTP_BAD_REQUEST);
+        }
+
+        if  ($request->getRealMethod() === Request::METHOD_OPTIONS) {
+            return new Response();
         }
 
         return new JsonResponse(['message' => 'Authentication Required'], Response::HTTP_UNAUTHORIZED);

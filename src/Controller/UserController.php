@@ -4,7 +4,6 @@ namespace ModernGame\Controller;
 
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
-use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
 use ModernGame\Service\User\LoginUserService;
 use ModernGame\Service\User\RegisterService;
