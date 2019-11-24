@@ -2,22 +2,23 @@
 
 namespace ModernGame\EventSubscriber;
 
-use function json_last_error;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class BeforeActionSubscriber implements EventSubscriberInterface
+class ActionSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
-        return array(
-            KernelEvents::CONTROLLER => 'convertJsonStringToArray',
-        );
+        return [
+            KernelEvents::CONTROLLER => 'onKernelController',
+            KernelEvents::RESPONSE => 'onKernelResponse'
+        ];
     }
 
-    public function convertJsonStringToArray(ControllerEvent $event)
+    public function onKernelController(ControllerEvent $event)
     {
         $request = $event->getRequest();
 
@@ -30,6 +31,11 @@ class BeforeActionSubscriber implements EventSubscriberInterface
             throw new BadRequestHttpException('Request is not valid JSON');
         }
 
-        $request->request->replace(is_array($data) ? $data : array());
+        $request->request->replace(is_array($data) ? $data : []);
+    }
+
+    public function onKernelResponse(ResponseEvent $event)
+    {
+        $event->getResponse()->headers->set('Access-Control-Allow-Origin', '*');
     }
 }
