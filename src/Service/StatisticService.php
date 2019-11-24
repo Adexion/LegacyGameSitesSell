@@ -38,7 +38,7 @@ class StatisticService
     /**
      * @throws ContentException
      */
-    public function findStatistic(Request $request)
+    public function findStatistic(Request $request): array
     {
         return $this->getEntities($request, FilterType::class, $this->statisticRepository);
     }
@@ -46,7 +46,7 @@ class StatisticService
     /**
      * @throws ContentException
      */
-    public function findHistory(Request $request)
+    public function findHistory(Request $request): array
     {
         return $this->getEntities($request, FilterType::class, $this->historyRepository);
     }
@@ -54,7 +54,7 @@ class StatisticService
     /**
      * @throws ContentException
      */
-    private function getEntities(Request $request, $class, AbstractRepository $repository)
+    private function getEntities(Request $request, $class, AbstractRepository $repository): array
     {
         $form = $this->form->create($class, $request->query->all(), ['method' => 'get']);
         $form->handleRequest($request);
@@ -66,7 +66,7 @@ class StatisticService
 
         $this->setFilters($qb, $request->query->all());
 
-        return $this->serializer->toArray($qb->getQuery()->execute());
+        return $this->serializer->serialize($qb->getQuery()->execute())->getArray();
     }
 
     private function setFilters(QueryBuilder $qb, array $filter)

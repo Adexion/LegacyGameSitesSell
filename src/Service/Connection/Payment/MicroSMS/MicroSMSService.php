@@ -76,7 +76,7 @@ class MicroSMSService extends AbstractPayment implements PaymentInterface
         if ((bool)$response->connect === false) {
             throw new ContentException(['smsCode' => 'Nieprawidłowy format kodu sms.']);
         }
-        if (MicroSMSPredicate::isResponseValid($response)) {
+        if (MicroSMSPredicate::isResponseInvalid($response)) {
             throw new ContentException(['smsCode' => 'Przesłany kod jest nieprawidłowy.']);
         }
     }

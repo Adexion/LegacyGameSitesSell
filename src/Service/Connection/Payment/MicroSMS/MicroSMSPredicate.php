@@ -6,7 +6,7 @@ use stdClass;
 
 class MicroSMSPredicate
 {
-    public static function isResponseValid(stdClass $response)
+    public static function isResponseInvalid(stdClass $response)
     {
         return isset($errormsg)
             || !isset($response->connect)

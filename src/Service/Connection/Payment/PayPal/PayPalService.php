@@ -35,7 +35,6 @@ class PayPalService extends AbstractPayment implements PaymentInterface
     {
         $configuration = $this->container->getParameter('paypal');
 
-
         $token = $this->client->tokenRequest($configuration['client'], $configuration['secret'])['access_token'] ?? '';
         $response = $this->client->executeRequest($token, $id, $payer);
 

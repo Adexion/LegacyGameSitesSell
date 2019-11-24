@@ -15,20 +15,17 @@ class CustomSerializer
         $this->serializer = $serializer;
     }
 
-    public function serialize($data, $format): string
+    public function serialize($data, $format = 'json', $context = null): SerializedDto
     {
-        return $this->serializer->serialize($data, $format);
-    }
-
-    public function toArray($data): array
-    {
-        return json_decode($this->serializer->serialize($data, 'json', self::CONTEXT), true);
+        return new SerializedDto(
+            $this->serializer->serialize($data, $format, $context ?? self::CONTEXT)
+        );
     }
 
     public function mergeDataWithEntity($entity, $data): array
     {
         return array_filter(
-            array_merge($this->toArray($entity), $data)
+            array_merge($this->serialize($entity)->getArray(), $data)
         );
     }
 }

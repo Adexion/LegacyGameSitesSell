@@ -3,6 +3,9 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! next relese should be stable version. This is last BETA update !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# 0.99.8 - 24.11.2019
+    - redefining serializer
+    - clear code
 # 0.99.7 - 17.10.2019
     - reapairing some bugs
 # 0.99.4 - 17.10.2019

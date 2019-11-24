@@ -25,7 +25,6 @@ class SchemaListProvider
             throw new RuntimeException('Email schema not set.');
         }
 
-
         return $this->schemaList[$schemaId];
     }
 }
