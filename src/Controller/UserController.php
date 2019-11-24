@@ -2,7 +2,9 @@
 
 namespace ModernGame\Controller;
 
+use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
+use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
 use ModernGame\Service\User\LoginUserService;
 use ModernGame\Service\User\RegisterService;
@@ -100,6 +102,17 @@ class UserController extends Controller
     public function login(Request $request, LoginUserService $login)
     {
         return new JsonResponse(['token' => $login->getToken($request)]);
+    }
+
+    public function getUserData(Request $request) {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        return new JsonResponse([
+            'username' => $user->getUsername(),
+            'email' => $user->getEmail(),
+            'roles' => $user->getRoles()
+        ]);
     }
 
     /**

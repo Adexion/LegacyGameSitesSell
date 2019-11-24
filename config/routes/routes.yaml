@@ -39,6 +39,10 @@ user-item-list:
   path:       /user/items
   controller: ModernGame\Controller\UserController::getItemList
   methods:    [GET, OPTIONS]
+user-data:
+  path:       /user
+  controller: ModernGame\Controller\UserController::getUserData
+  methods:    [GET, OPTIONS]
 
 # ---------- Player
 player-avatar:

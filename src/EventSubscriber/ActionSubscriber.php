@@ -27,11 +27,9 @@ class ActionSubscriber implements EventSubscriberInterface
         if (!$event->isMasterRequest()) {
             return;
         }
-        $request = $event->getRequest();
-        $method  = $request->getRealMethod();
-        if ('OPTIONS' == $method) {
-            $response = new Response();
-            $event->setResponse($response);
+
+        if (Request::METHOD_OPTIONS === $event->getRequest()->getRealMethod()) {
+            $event->setResponse(new Response());
         }
     }
 
@@ -53,6 +51,10 @@ class ActionSubscriber implements EventSubscriberInterface
 
     public function onKernelResponse(ResponseEvent $event)
     {
+        if (!$event->isMasterRequest()) {
+            return;
+        }
+
         $event->getResponse()->headers->set('Access-Control-Allow-Origin', '*');
     }
 }
