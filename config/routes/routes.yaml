@@ -2,106 +2,118 @@ routes:
   resource: 'admin.yaml'
   prefix:   /admin
 
+options:
+  path: /{any}
+  methods: [OPTIONS]
+  requirements:
+    any: .*
+
 # ---------- USER
 user-login:
   path:       /user/login
   controller: ModernGame\Controller\UserController::login
-  methods:    [POST, OPTIONS]
+  methods:    [POST]
 user-login-launcher:
   path:       /user/launcher/login
   controller: ModernGame\Controller\UserController::loginMinecraft
-  methods:    [POST, OPTIONS]
+  methods:    [POST]
 user-register:
   path:       /user/register
   controller: ModernGame\Controller\UserController::register
-  methods:    [POST, OPTIONS]
+  methods:    [POST]
 user-reset-password:
   path:       /user/reset
   controller: ModernGame\Controller\UserController::resetPassword
-  methods:    [POST, OPTIONS]
+  methods:    [POST]
 user-reset-from-token:
   path:       /user/reset/{token}
   controller: ModernGame\Controller\UserController::resetFromToken
-  methods:    [POST, OPTIONS]
+  methods:    [POST]
 user-update:
   path:       /user
   controller: ModernGame\Controller\UserController::update
-  methods:    [PUT, OPTIONS]
+  methods:    [PUT]
 user-item-execute:
   path:       /user/item
   controller: ModernGame\Controller\AfterLogin\ItemShopController::itemExecute
-  methods:    [POST, OPTIONS]
+  methods:    [POST]
 user-item-list-execute:
   path:       /user/item/list
   controller: ModernGame\Controller\AfterLogin\ItemShopController::itemListExecute
-  methods:    [POST, OPTIONS]
+  methods:    [POST]
 user-item-list:
   path:       /user/items
   controller: ModernGame\Controller\UserController::getItemList
-  methods:    [GET, OPTIONS]
+  methods:    [GET]
 user-data:
   path:       /user
   controller: ModernGame\Controller\UserController::getUserData
-  methods:    [GET, OPTIONS]
+  methods:    [GET]
 
 # ---------- Player
 player-avatar:
   path:       /player/avatar
   controller: ModernGame\Controller\PlayerController::getMinecraftAvatar
-  methods:    [GET, OPTIONS]
+  methods:    [GET]
 player-list:
   path:       /player/list
   controller: ModernGame\Controller\PlayerController::getPlayerList
-  methods:    [GET, OPTIONS]
+  methods:    [GET]
 player:
   path:       /player
   controller: ModernGame\Controller\PlayerController::getPlayer
-  methods:    [GET, OPTIONS]
+  methods:    [GET]
 
 # ---------- Payments
 user-cash:
   path:       /user/cash
   controller: ModernGame\Controller\AfterLogin\WalletController::cash
-  methods:    [GET, OPTIONS]
+  methods:    [GET]
 payment-paypal-confirmation:
   path:       /payment/paypal
   controller: ModernGame\Controller\AfterLogin\WalletController::paypalExecute
-  methods:    [POST, OPTIONS]
+  methods:    [POST]
 payment-sms-confirmation:
   path:       /payment/sms
   controller: ModernGame\Controller\AfterLogin\WalletController::microSMSExecute
-  methods:    [POST, OPTIONS]
+  methods:    [POST]
 
 # ---------- ItemShop
 shop-get-prices:
   path:       /shop/sms/prices
   controller: ModernGame\Controller\AfterLogin\ItemShopController::getSMSPrices
-  methods:    [GET, OPTIONS]
+  methods:    [GET]
 shop-get-items:
   path:       /shop/list
   controller: ModernGame\Controller\AfterLogin\ItemShopController::getItemList
-  methods:    [GET, OPTIONS]
+  methods:    [GET]
 shop-buy-item:
   path:       /shop/buy
   controller: ModernGame\Controller\AfterLogin\ItemShopController::buyItemList
-  methods:    [POST, OPTIONS]
+  methods:    [POST]
 shop-paypal-execute-item-list:
   path:       /shop/paypal/execute
   controller: ModernGame\Controller\AfterLogin\ItemShopController::payPalExecute
-  methods:    [POST, OPTIONS]
+  methods:    [POST]
 
 # ---------- Contact
 contact:
   path:       /contact
   controller: ModernGame\Controller\ContactController::setMessageContact
-  methods:    [POST, OPTIONS]
+  methods:    [POST]
 contact-ticket:
   path:       /contact/{ticket}
   controller: ModernGame\Controller\ContactController::getMessagesTicket
-  methods:    [GET, OPTIONS]
+  methods:    [GET]
 
 # ---------- Article
 article:
   path:       /article
   controller: ModernGame\Controller\Content\ArticleController::getArticle
-  methods:    [GET, OPTIONS]
+  methods:    [GET]
+
+# ---------- Regulation
+rules:
+  path:       /rules
+  controller: ModernGame\Controller\Content\RegulationController::getRules
+  methods:    [GET]

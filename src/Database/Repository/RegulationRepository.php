@@ -13,17 +13,4 @@ class RegulationRepository extends AbstractRepository
     {
         parent::__construct($registry, Regulation::class);
     }
-
-    public function getRegulation()
-    {
-       $builder = $this->_em->createQueryBuilder();
-
-        $builder
-           ->select('reg.description, cat.categoryName as category')
-           ->from(Regulation::class, 'reg')
-           ->innerJoin(RegulationCategory::class, 'cat',Join::WITH, 'cat.id = reg.categoryId')
-           ->orderBy('cat.id','ASC');
-
-       return $builder->getQuery()->execute();
-    }
 }
