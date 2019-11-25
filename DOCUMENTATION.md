@@ -65,6 +65,7 @@
   user-item-execute                  POST     /v1/user/item   
   user-item-list                     GET      /v1/user/items   
   user-cash                          GET      /v1/user/cash                       
+  user                               GET      /v1/user                   
   user-update                        PUT      /v1/user 
          
   payment-pypal-confirmation         POST     /v1/payment/paypal             
@@ -81,5 +82,6 @@
   
   article-list                       GET      /v1/article/list            
   article                            GET      /v1/article            
- ---------------------------------- -------- -------------------------------  
+
+  rules                              GET      /v1/rules            
 ```

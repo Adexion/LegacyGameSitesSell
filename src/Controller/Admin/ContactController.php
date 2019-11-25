@@ -9,9 +9,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Swagger\Annotations as SWG;
 
 class ContactController extends AbstractController
 {
+    /**
+     * @SWG\Tag(name="Contact")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function deleteTicket(Request $request)
     {
         /** @var TicketRepository $contactRepository */
@@ -21,6 +29,13 @@ class ContactController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
+    /**
+     * @SWG\Tag(name="Contact")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function putTicket(Request $request, TicketService $contact)
     {
         $contactEntity = $contact->mapEntity($request);
@@ -30,6 +45,13 @@ class ContactController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
+    /**
+     * @SWG\Tag(name="Contact")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function getTicket(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Ticket::class);

@@ -9,9 +9,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Swagger\Annotations as SWG;
 
 class ItemController extends AbstractController
 {
+    /**
+     * @SWG\Tag(name="Item")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function deleteItem(Request $request)
     {
         /** @var ItemRepository $itemRepository */
@@ -22,6 +30,13 @@ class ItemController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
+    /**
+     * @SWG\Tag(name="Item")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function putItem(Request $request, ItemService $itemService)
     {
         $item = $itemService->mapEntityById($request);
@@ -33,6 +48,13 @@ class ItemController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
+    /**
+     * @SWG\Tag(name="Item")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function postItem(Request $request, ItemService $itemService)
     {
         $item = $itemService->mapEntity($request);
@@ -44,6 +66,13 @@ class ItemController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
+    /**
+     * @SWG\Tag(name="Item")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function getItem(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Item::class);

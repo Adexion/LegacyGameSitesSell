@@ -3,6 +3,8 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! next relese should be stable version. This is last BETA update !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# 0.101.0 - 25.11.2019
+    - start working on documentation
 # 0.100.0 - 25.11.2019
     - add regulation endpoint
     - some refactors

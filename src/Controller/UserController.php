@@ -103,6 +103,23 @@ class UserController extends Controller
         return new JsonResponse(['token' => $login->getToken($request)]);
     }
 
+    /**
+     * Get user
+     *
+     * Way to get user information like eg.: roles, login and e-mail address
+     *
+     * @SWG\Tag(name="User")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns user",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="login", type="string"),
+     *          @SWG\Property(property="email", type="string"),
+     *          @SWG\Property(property="roles", type="object")
+     *     )
+     * )
+     */
     public function getUserData(Request $request) {
         /** @var User $user */
         $user = $this->getUser();
