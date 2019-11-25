@@ -5,6 +5,7 @@ namespace ModernGame\Service\Content;
 use ModernGame\Database\Entity\Regulation;
 use ModernGame\Database\Repository\RegulationCategoryRepository;
 use ModernGame\Database\Repository\RegulationRepository;
+use ModernGame\Dto\RuleDto;
 use ModernGame\Exception\ContentException;
 use ModernGame\Form\RegulationType;
 use ModernGame\Service\AbstractService;
@@ -40,13 +41,21 @@ class RegulationService extends AbstractService implements ServiceInterface
         /** @var array $rule */
         foreach ($regulation as $rule) {
             if ($category !== $rule['category']) {
-                $category = $rule['category'];
+                if (isset($ruleDto)) {
+                    $ruleList[] = $ruleDto;
+                }
+
+                $ruleDto = new RuleDto($category = $rule['category']);
             }
 
-            $ruleList[$category][] = $rule['description'];
+            $ruleDto->addRules($rule['description']);
         }
 
-        return $ruleList;
+        if (isset($ruleDto)) {
+            $ruleList[] = $ruleDto;
+        }
+
+        return $this->serializer->serialize($ruleList)->getArray();
     }
 
     /**
