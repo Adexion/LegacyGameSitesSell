@@ -16,7 +16,7 @@ use Swagger\Annotations as SWG;
 class ArticleController extends AbstractController
 {
     /**
-     * @SWG\Tag(name="Article")
+     * @SWG\Tag(name="Admin/Article")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -36,7 +36,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @SWG\Tag(name="Article")
+     * @SWG\Tag(name="Admin/Article")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -55,7 +55,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @SWG\Tag(name="Article")
+     * @SWG\Tag(name="Admin/Article")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -74,7 +74,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @SWG\Tag(name="Article")
+     * @SWG\Tag(name="Admin/Article")
      * @SWG\Parameter(
      *     name="id",
      *     in="query",

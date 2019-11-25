@@ -11,9 +11,17 @@ use ModernGame\Service\User\WalletService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Swagger\Annotations as SWG;
 
 class ItemShopController extends Controller
 {
+    /**
+     * @SWG\Tag(name="Shop")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function getItemList()
     {
         return new JsonResponse(
@@ -21,6 +29,13 @@ class ItemShopController extends Controller
         );
     }
 
+    /**
+     * @SWG\Tag(name="Shop")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function payPalExecute(Request $request, PayPalService $payPal, RCONService $rcon)
     {
         $paymentId = $request->request->get('paymentId') ?? 0;
@@ -37,6 +52,13 @@ class ItemShopController extends Controller
         );
     }
 
+    /**
+     * @SWG\Tag(name="Shop")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function buyItemList(Request $request, WalletService $wallet, ItemListService $itemListService)
     {
         $cash = $wallet->changeCash(
@@ -50,20 +72,17 @@ class ItemShopController extends Controller
         ]);
     }
 
+    /**
+     * @SWG\Tag(name="Shop")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function getSMSPrices()
     {
         return new JsonResponse(
             $this->getDoctrine()->getRepository(Price::class)->findAll()
         );
-    }
-
-    public function itemExecute(Request $request, RCONService $rcon)
-    {
-        return new JsonResponse($rcon->executeItem($request->request->getInt('itemId')));
-    }
-
-    public function itemListExecute(RCONService $rcon)
-    {
-        return new JsonResponse($rcon->executeItem());
     }
 }

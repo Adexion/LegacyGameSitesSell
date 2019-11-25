@@ -14,7 +14,7 @@ use Swagger\Annotations as SWG;
 class ItemController extends AbstractController
 {
     /**
-     * @SWG\Tag(name="Item")
+     * @SWG\Tag(name="Admin/Item")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -31,7 +31,7 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @SWG\Tag(name="Item")
+     * @SWG\Tag(name="Admin/Item")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -49,7 +49,7 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @SWG\Tag(name="Item")
+     * @SWG\Tag(name="Admin/Item")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -67,7 +67,7 @@ class ItemController extends AbstractController
     }
 
     /**
-     * @SWG\Tag(name="Item")
+     * @SWG\Tag(name="Admin/Item")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",

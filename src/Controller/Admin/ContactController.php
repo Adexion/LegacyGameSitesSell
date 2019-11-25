@@ -14,7 +14,7 @@ use Swagger\Annotations as SWG;
 class ContactController extends AbstractController
 {
     /**
-     * @SWG\Tag(name="Contact")
+     * @SWG\Tag(name="Admin/Contact")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -30,7 +30,7 @@ class ContactController extends AbstractController
     }
 
     /**
-     * @SWG\Tag(name="Contact")
+     * @SWG\Tag(name="Admin/Contact")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -46,7 +46,7 @@ class ContactController extends AbstractController
     }
 
     /**
-     * @SWG\Tag(name="Contact")
+     * @SWG\Tag(name="Admin/Contact")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",

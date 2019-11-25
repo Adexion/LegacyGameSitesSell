@@ -9,9 +9,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Swagger\Annotations as SWG;
 
 class ItemListController extends AbstractController
 {
+    /**
+     * @SWG\Tag(name="Admin/ItemList")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function deleteItemList(Request $request)
     {
         /** @var ItemListRepository $listRepository */
@@ -22,6 +30,13 @@ class ItemListController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
+    /**
+     * @SWG\Tag(name="Admin/ItemList")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function putItemList(Request $request, ItemListService $itemListService)
     {
         $itemList = $itemListService->mapEntityById($request);
@@ -33,6 +48,13 @@ class ItemListController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
+    /**
+     * @SWG\Tag(name="Admin/ItemList")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function postItemList(Request $request, ItemListService $itemListService)
     {
         $mapItemList = $itemListService->mapEntity($request);
@@ -44,6 +66,13 @@ class ItemListController extends AbstractController
         return new JsonResponse(null, Response::HTTP_OK);
     }
 
+    /**
+     * @SWG\Tag(name="Admin/ItemList")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
     public function getItemList(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(ItemList::class);

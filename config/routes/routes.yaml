@@ -29,11 +29,11 @@ user-update:
   methods:    [PUT]
 user-item-execute:
   path:       /user/item
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::itemExecute
+  controller: ModernGame\Controller\UserController::itemExecute
   methods:    [POST]
 user-item-list-execute:
   path:       /user/item/list
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::itemListExecute
+  controller: ModernGame\Controller\UserController::itemListExecute
   methods:    [POST]
 user-item-list:
   path:       /user/items
@@ -59,8 +59,8 @@ player:
   methods:    [GET]
 
 # ---------- Payments
-user-cash:
-  path:       /user/cash
+wallet-cash:
+  path:       /payment/cash
   controller: ModernGame\Controller\AfterLogin\WalletController::cash
   methods:    [GET]
 payment-paypal-confirmation:

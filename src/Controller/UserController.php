@@ -5,6 +5,7 @@ namespace ModernGame\Controller;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
 use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
+use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\User\LoginUserService;
 use ModernGame\Service\User\RegisterService;
 use ModernGame\Service\User\ResetPasswordService;
@@ -320,5 +321,29 @@ class UserController extends Controller
     public function loginMinecraft(Request $request, MojangPlayerService $player)
     {
         return new JsonResponse($player->loginIn($request));
+    }
+
+    /**
+     * @SWG\Tag(name="User")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
+    public function itemExecute(Request $request, RCONService $rcon)
+    {
+        return new JsonResponse($rcon->executeItem($request->request->getInt('itemId')));
+    }
+
+    /**
+     * @SWG\Tag(name="User")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
+    public function itemListExecute(RCONService $rcon)
+    {
+        return new JsonResponse($rcon->executeItem());
     }
 }

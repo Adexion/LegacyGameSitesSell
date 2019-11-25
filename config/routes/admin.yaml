@@ -77,7 +77,7 @@ admin-mod-delete:
 admin-mod-get:
   path:       /mod
   controller: ModernGame\Controller\Admin\ModController::getMod
-  methods:    [DELETE]
+  methods:    [GET]
 
 # ---------- Regulation Category
 admin-regulation-category-post:
