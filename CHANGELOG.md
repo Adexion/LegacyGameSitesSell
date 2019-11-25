@@ -3,6 +3,10 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! next relese should be stable version. This is last BETA update !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# 0.99.10 - 25.11.2019
+    - cross platfomr adding headers and origin 
+    - add usage options on server like athentication or possibility to access
+    - 
 # 0.99.9 - 24.11.2019
     - cross platfomr adding 
 # 0.99.8 - 24.11.2019
