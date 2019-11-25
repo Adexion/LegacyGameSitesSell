@@ -21,21 +21,21 @@ class RegulationCategory
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public $categoryName;
+    public $name;
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getCategoryName()
+    public function getName()
     {
-        return $this->categoryName;
+        return $this->name;
     }
 
-    public function setCategoryName($categoryName)
+    public function setName($name)
     {
-        $this->categoryName = $categoryName;
+        $this->name = $name;
     }
 
     public function setId($id)

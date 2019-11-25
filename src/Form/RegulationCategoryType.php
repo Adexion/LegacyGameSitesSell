@@ -14,7 +14,7 @@ class RegulationCategoryType extends AbstractType
     {
         $builder
             ->add('id', HiddenType::class)
-            ->add('categoryName', TextType::class);
+            ->add('name', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
