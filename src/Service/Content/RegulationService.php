@@ -30,6 +30,25 @@ class RegulationService extends AbstractService implements ServiceInterface
         parent::__construct($form, $formErrorHandler, $repository, $serializer);
     }
 
+    public function getRules(): array
+    {
+        $regulation = $this->repository->getRegulation();
+
+        $ruleList = [];
+        $category = '';
+
+        /** @var array $rule */
+        foreach ($regulation as $rule) {
+            if ($category !== $rule['category']) {
+                $category = $rule['category'];
+            }
+
+            $ruleList[$category][] = $rule['description'];
+        }
+
+        return $ruleList;
+    }
+
     /**
      * @throws ContentException
      */

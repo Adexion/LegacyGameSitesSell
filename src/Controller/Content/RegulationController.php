@@ -2,7 +2,7 @@
 
 namespace ModernGame\Controller\Content;
 
-use ModernGame\Database\Repository\RegulationRepository;
+use ModernGame\Service\Content\RegulationService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Swagger\Annotations as SWG;
 
@@ -15,8 +15,8 @@ class RegulationController
      *     description="Evertythig works",
      * )
      */
-    public function getRules(RegulationRepository $repository)
+    public function getRules(RegulationService $service)
     {
-        return new JsonResponse($repository->findBy([], ['category' => 'ASC']));
+        return new JsonResponse($service->getRules());
     }
 }
