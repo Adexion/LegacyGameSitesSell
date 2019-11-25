@@ -1,6 +1,11 @@
 routes:
   resource: 'routes/routes.yaml'
   prefix:   /v1
+options:
+  path: /{any}
+  methods: [OPTIONS]
+  requirements:
+    any: .*
 app.swagger_ui:
   path:     /v1/documentation
   methods:  GET

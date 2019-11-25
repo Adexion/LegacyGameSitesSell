@@ -2,12 +2,6 @@ routes:
   resource: 'admin.yaml'
   prefix:   /admin
 
-options:
-  path: /{any}
-  methods: [OPTIONS]
-  requirements:
-    any: .*
-
 # ---------- USER
 user-login:
   path:       /user/login
