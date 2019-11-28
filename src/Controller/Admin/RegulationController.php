@@ -4,7 +4,7 @@ namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Regulation;
 use ModernGame\Database\Repository\RegulationRepository;
-use ModernGame\Service\Content\RegulationService;
+use ModernGame\Service\Content\Regulation\RegulationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

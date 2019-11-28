@@ -27,7 +27,7 @@ security:
         - { path: ^/v1/player, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/documentation, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/v1/user/items, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
-        - { path: ^/v1/user, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
         - { path: ^/v1/user/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/v1/user, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
         - { path: ^/v1/admin/, roles: ROLE_ADMIN, method: [POST, GET, PUT, DELETE]}
         - { path: ^/v1/, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }

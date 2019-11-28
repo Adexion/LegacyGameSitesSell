@@ -1,11 +1,10 @@
 <?php
 
-namespace ModernGame\Service\Content;
+namespace ModernGame\Service\Content\Regulation;
 
 use ModernGame\Database\Entity\Regulation;
 use ModernGame\Database\Repository\RegulationCategoryRepository;
 use ModernGame\Database\Repository\RegulationRepository;
-use ModernGame\Dto\RuleDto;
 use ModernGame\Exception\ContentException;
 use ModernGame\Form\RegulationType;
 use ModernGame\Service\AbstractService;
@@ -18,44 +17,32 @@ use Symfony\Component\HttpFoundation\Request;
 class RegulationService extends AbstractService implements ServiceInterface
 {
     private $regulationCategoryRepository;
+    private $mapper;
+
+    /** @var RegulationRepository */
+    protected $repository;
 
     public function __construct(
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,
         RegulationCategoryRepository $regulationCategoryRepository,
         RegulationRepository $repository,
+        RegulationMapper $mapper,
         CustomSerializer $serializer
     ) {
         $this->regulationCategoryRepository = $regulationCategoryRepository;
+        $this->mapper = $mapper;
 
         parent::__construct($form, $formErrorHandler, $repository, $serializer);
     }
 
     public function getRules(): array
     {
-        $regulation = $this->repository->getRegulation();
-
-        $ruleList = [];
-        $category = '';
-
-        /** @var array $rule */
-        foreach ($regulation as $rule) {
-            if ($category !== $rule['category']) {
-                if (isset($ruleDto)) {
-                    $ruleList[] = $ruleDto;
-                }
-
-                $ruleDto = new RuleDto($category = $rule['category']);
-            }
-
-            $ruleDto->addRules($rule['description']);
-        }
-
-        if (isset($ruleDto)) {
-            $ruleList[] = $ruleDto;
-        }
-
-        return $this->serializer->serialize($ruleList)->getArray();
+        return $this->serializer->serialize(
+            $this->mapper->mapRules(
+                $this->repository->getRegulation()
+            )
+        )->getArray();
     }
 
     /**

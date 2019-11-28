@@ -2,7 +2,7 @@
 
 namespace ModernGame\Controller\Content;
 
-use ModernGame\Service\Content\RegulationService;
+use ModernGame\Service\Content\Regulation\RegulationService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Swagger\Annotations as SWG;
 
