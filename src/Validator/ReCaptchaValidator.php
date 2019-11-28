@@ -21,7 +21,7 @@ class ReCaptchaValidator
 
     public function validate(string $reCaptcha)
     {
-        if ($this->env->isProd() || $this->env->isDev()) {
+        if ($this->env->isTest() || $this->env->isDev()) {
             return [];
         }
 
