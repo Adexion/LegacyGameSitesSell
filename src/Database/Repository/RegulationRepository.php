@@ -19,7 +19,7 @@ class RegulationRepository extends AbstractRepository
        $builder = $this->_em->createQueryBuilder();
 
         $builder
-           ->select('reg.description, cat.name as category')
+           ->select('reg.description, cat.name as categoryName, cat.id as categoryId' )
            ->from(Regulation::class, 'reg')
            ->innerJoin(RegulationCategory::class, 'cat',Join::WITH, 'cat.id = reg.category')
            ->orderBy('cat.id','ASC');

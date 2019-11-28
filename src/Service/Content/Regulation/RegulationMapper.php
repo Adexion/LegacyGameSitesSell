@@ -3,39 +3,36 @@
 namespace ModernGame\Service\Content\Regulation;
 
 use ModernGame\Dto\RuleDto;
+use ModernGame\Dto\RuleListDto;
 
 class RegulationMapper
 {
-    private $ruleList = [];
-    private $category = '';
+    private $ruleListDto;
 
-    /** @var RuleDto */
-    private $ruleDto;
+    public function __construct()
+    {
+        $this->ruleListDto = new RuleListDto();
+    }
 
     public function mapRules(array $regulation): array
     {
         /** @var array $rule */
         foreach ($regulation as $rule) {
-            $this->setRuleDto($rule);
-
-            $this->ruleDto->addRules($rule['description']);
+            $this->getRuleDto($rule)->addRules($rule['description']);
         }
 
-        if (isset($this->ruleDto)) {
-            $this->ruleList[] = $this->ruleDto;
-        }
-
-        return $this->ruleList;
+        return $this->ruleListDto->toArray();
     }
 
-    private function setRuleDto(array $rule)
+    private function getRuleDto(array $rule): RuleDto
     {
-        if ($this->category !== $rule['category']) {
-            if (isset($this->ruleDto)) {
-                $this->ruleList[] = $this->ruleDto;
-            }
-
-            $this->ruleDto = new RuleDto($this->category = $rule['category']);
+        if ($this->ruleListDto->isRuleWithCategoryExist($rule['categoryId'])) {
+            return $this->ruleListDto->getRule($rule['categoryId']);
         }
+
+        $ruleDto = new RuleDto($rule['categoryName']);
+        $this->ruleListDto->setRule($rule['categoryId'], $ruleDto);
+
+        return $ruleDto;
     }
 }
