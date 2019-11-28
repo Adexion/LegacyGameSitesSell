@@ -26,9 +26,9 @@ class ReCaptchaValidator
         }
 
         try {
-            $reCaptcha = new ReCaptcha($this->container->getParameter('recaptcha'));
+            $reCaptchaValidator = new ReCaptcha($this->container->getParameter('recaptcha'));
 
-            $response = $reCaptcha->verify($reCaptcha);
+            $response = $reCaptchaValidator->verify($reCaptcha);
 
             if ($response->isSuccess()) {
                 return [];
