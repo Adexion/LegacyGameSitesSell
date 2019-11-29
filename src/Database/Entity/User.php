@@ -56,7 +56,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", unique=true)
-     * @Assert\NotBlank()
      */
     public $ipAddress;
 
