@@ -73,10 +73,10 @@ class ResetPasswordService
     /**
      * @throws ContentException
      */
-    public function resetPassword(Request $request, $token)
+    public function resetPassword(Request $request)
     {
         /** @var ResetPassword $reset */
-        $reset = $this->repository->findOneBy(['token' => $token]);
+        $reset = $this->repository->findOneBy(['token' => $request->request->get('token')]);
 
         if (empty($reset)) {
             throw new ContentException(['token' => 'Ta wartość jest nieprawidłowa.']);

@@ -132,6 +132,26 @@ class UserController extends Controller
         ]);
     }
 
+
+    /**
+     * Get an user bought items
+     *
+     * After bought item list by user, items form list goes to user. This endpoint sgive you possibility to get that items.
+     *
+     * @SWG\Tag(name="User")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works"
+     * )
+     */
+    public function getItemList()
+    {
+        return new JsonResponse([
+            'itemList' => $this->getDoctrine()
+                ->getRepository(UserItem::class)->findBy(['user' => $this->getUser()->getId()])
+        ]);
+    }
+
     /**
      * Sending e-mail for reset password
      *
@@ -172,7 +192,7 @@ class UserController extends Controller
     /**
      * Update user data
      *
-     * Updating user password after login to an account.
+     * Updating user password after login to an account for now.
      *
      * @SWG\Tag(name="User")
      * @SWG\Parameter(
@@ -208,7 +228,6 @@ class UserController extends Controller
 
         return new JsonResponse();
     }
-
     /**
      * Set new password after reset
      *
@@ -221,6 +240,7 @@ class UserController extends Controller
      *     type="object",
      *     @SWG\Schema(
      *          type="object",
+     *          @SWG\Property(property="token",type="string"),
      *          @SWG\Property(
      *              property="password",
      *              type="object",
@@ -228,11 +248,6 @@ class UserController extends Controller
      *              @SWG\Property(property="second", type="string"),
      *          ),
      *     )
-     * ),
-     * @SWG\Parameter(
-     *     name="token",
-     *     in="path",
-     *     type="string"
      * )
      * @SWG\Response(
      *     response=200,
@@ -248,30 +263,11 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function resetFromToken(Request $request, ResetPasswordService $resetPassword, string $token)
+    public function resetFromToken(Request $request, ResetPasswordService $resetPassword)
     {
-        $resetPassword->resetPassword($request, $token);
+        $resetPassword->resetPassword($request);
 
         return new JsonResponse();
-    }
-
-    /**
-     * Get an user bought items
-     *
-     * After bought item list by user, items form list goes to user. This endpoint sgive you possibility to get that items.
-     *
-     * @SWG\Tag(name="User")
-     * @SWG\Response(
-     *     response=200,
-     *     description="Evertythig works"
-     * )
-     */
-    public function getItemList()
-    {
-        return new JsonResponse([
-            'itemList' => $this->getDoctrine()
-                ->getRepository(UserItem::class)->findBy(['user' => $this->getUser()->getId()])
-        ]);
     }
 
     /**

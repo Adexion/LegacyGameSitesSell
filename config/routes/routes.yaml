@@ -19,14 +19,6 @@ user-reset-password:
   path:       /user/reset
   controller: ModernGame\Controller\UserController::resetPassword
   methods:    [POST]
-user-reset-from-token:
-  path:       /user/reset/{token}
-  controller: ModernGame\Controller\UserController::resetFromToken
-  methods:    [POST]
-user-update:
-  path:       /user
-  controller: ModernGame\Controller\UserController::update
-  methods:    [PUT]
 user-item-execute:
   path:       /user/item
   controller: ModernGame\Controller\UserController::itemExecute
@@ -43,6 +35,14 @@ user-data:
   path:       /user
   controller: ModernGame\Controller\UserController::getUserData
   methods:    [GET]
+user-reset-from-token:
+  path:       /user/password
+  controller: ModernGame\Controller\UserController::resetFromToken
+  methods:    [PUT]
+user-update:
+  path:       /user
+  controller: ModernGame\Controller\UserController::update
+  methods:    [PUT]
 
 # ---------- Player
 player-avatar:
@@ -96,7 +96,7 @@ contact:
   controller: ModernGame\Controller\ContactController::setMessageContact
   methods:    [POST]
 contact-ticket:
-  path:       /contact/{ticket}
+  path:       /contact
   controller: ModernGame\Controller\ContactController::getMessagesTicket
   methods:    [GET]
 
