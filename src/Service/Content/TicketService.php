@@ -8,8 +8,8 @@ use ModernGame\Database\Entity\Ticket;
 use ModernGame\Database\Repository\TicketRepository;
 use ModernGame\Enum\TicketStatusEnum;
 use ModernGame\Exception\ContentException;
-use ModernGame\Form\ContactType;
 use ModernGame\Form\TicketType;
+use ModernGame\Form\ResponseTicketType;
 use ModernGame\Service\AbstractService;
 use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\ServiceInterface;
@@ -43,7 +43,7 @@ class TicketService extends AbstractService implements ServiceInterface
         $request->request->set('status', TicketStatusEnum::NOT_READ);
         $request->request->set('token', md5(uniqid() . date('Y-m-d H:i') . $message .$name));
 
-        $contact = $this->map($request, new Ticket(), ContactType::class);
+        $contact = $this->map($request, new Ticket(), TicketType::class);
 
         return $contact;
     }
@@ -55,7 +55,7 @@ class TicketService extends AbstractService implements ServiceInterface
      */
     public function mapEntityById(Request $request)
     {
-        $ticket =  $this->mapById($request, TicketType::class);
+        $ticket =  $this->mapById($request, ResponseTicketType::class);
         $this->assignAsRead($request->request->getInt('id'));
 
         return $ticket;

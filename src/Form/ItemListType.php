@@ -38,8 +38,9 @@ class ItemListType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ItemList::class,
-            'csrf_protection' => false
+            'data_class' => ItemList::class
         ]);
+
+        parent::configureOptions($resolver);
     }
 }

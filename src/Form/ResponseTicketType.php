@@ -2,27 +2,26 @@
 
 namespace ModernGame\Form;
 
-use ModernGame\Database\Entity\ModList;
+use ModernGame\Database\Entity\Ticket;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Tests\Fixtures\Type;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ModListType extends AbstractType
+class ResponseTicketType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('modId', HiddenType::class)
-            ->add('image', TextType::class)
-            ->add('name', TextType::class)
-            ->add('link', TextType::class);
+            ->add('message', TextareaType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ModList::class
+            'data_class' => Ticket::class,
         ]);
 
         parent::configureOptions($resolver);

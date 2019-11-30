@@ -31,8 +31,9 @@ class FilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'allow_extra_fields' => true,
-            'csrf_protection' => false
+            'allow_extra_fields' => true
         ]);
+
+        parent::configureOptions($resolver);
     }
 }

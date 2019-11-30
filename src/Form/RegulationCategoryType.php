@@ -20,8 +20,9 @@ class RegulationCategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => RegulationCategory::class,
-            'csrf_protection' => false
+            'data_class' => RegulationCategory::class
         ]);
+
+        parent::configureOptions($resolver);
     }
 }
