@@ -35,10 +35,9 @@ class ArticleService extends AbstractService implements ServiceInterface
      */
     public function mapEntity(Request $request)
     {
-        $article = new Article();
-        $article->setAuthor($this->user->getId());
+        $request->request->set('author', $this->user->getUsername());
 
-        return $this->map($request, $article, ArticleType::class);
+        return $this->map($request, new Article(), ArticleType::class);
     }
 
     /**

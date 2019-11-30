@@ -9,8 +9,8 @@ Feature:
     And the request body is:
     """
     {
-      "paymentID": "VALID_PAYMENT_ID",
-      "payerID": "VALID_PAYER_ID"
+      "paymentId": "VALID_PAYMENT_ID",
+      "payerId": "VALID_PAYER_ID"
     }
     """
     When I request "/v1/payment/paypal" using HTTP "POST"
@@ -18,7 +18,7 @@ Feature:
     And the response body contains JSON:
     """
     {
-        "cash": "@variableType(integer)"
+        "cash": "@variableType(double)"
     }
     """
 
@@ -28,8 +28,8 @@ Feature:
     And the request body is:
     """
     {
-        "paymentID": "INVALID_PAYMENT_ID",
-        "payerID": "INVALID_PAYER_ID"
+        "paymentId": "INVALID_PAYMENT_ID",
+        "payerId": "INVALID_PAYER_ID"
     }
     """
     When I request "/v1/payment/paypal" using HTTP "POST"
@@ -37,7 +37,7 @@ Feature:
     And the response body contains JSON:
     """
     {
-        "paymentID": "Podana płatność nie istnieje lub wystąpił problem po stronie serwera."
+        "paymentId": "Podana płatność nie istnieje lub wystąpił problem po stronie serwera."
     }
     """
 

@@ -17,8 +17,7 @@ Feature:
     }
     """
     When I request "/v1/admin/item/list" using HTTP "POST"
-    Then the response code is 200
-    And the response body is an empty JSON object
+    Then the response code is 204
     Given I store token to request
     And the request body is:
     """
@@ -28,9 +27,7 @@ Feature:
     }
     """
     When I request "/v1/admin/item/list" using HTTP "PUT"
-    Then the response code is 200
-    And the response body is an empty JSON object
+    Then the response code is 204
     Given I store token to request
     When I request "/v1/admin/item/list?id=1" using HTTP "DELETE"
-    Then the response code is 200
-    And the response body is an empty JSON object
+    Then the response code is 204

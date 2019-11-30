@@ -19,7 +19,7 @@ class MockProvider
             case 'https://api.mojang.com/users/profiles/minecraft/test: null':
             case 'https://api.paypal.com/v1/payments/payment/INVALID_PAYMENT_ID/execute: {"headers":{"Content-Type":"application\/json","Authorization":"Bearer VALID_ACCESS_TOKEN"},"body":"{\"payer_id\":\"INVALID_PAYER_ID\"}"}':
                 return '{}';
-            case 'http://microsms.pl/api/v2/multi.php?userid=2003&serviceid=3235&code=l9j0l3g8: null':
+            case 'http://microsms.pl/api/v2/multi.php?userid=2003&serviceid=3235&code=VALID_CODE: null':
                 return '{"connect": true,"data": {"status": 1,"used": null,"service": "3235","number": "71480","phone": "48123456789","reply": "Twoj kod to: l9j0l3g8. Dziekujemy za zakupy. Nie zapomnij kupic przedmiotu!!"}}';
             case 'http://microsms.pl/api/v2/multi.php?userid=2003&serviceid=3235&code=INVALID_FORMAT_VALUE: null':
                 return '{"connect": false,"data": {"errorCode": 1,"message": "Code does not exist"}}';

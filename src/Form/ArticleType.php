@@ -22,6 +22,7 @@ class ArticleType extends AbstractType
             ->add('image', TextType::class)
             ->add('text', TextareaType::class)
             ->add('shortText', TextareaType::class)
+            ->add('author')
             ->addEventListener(FormEvents::SUBMIT, [$this, 'submit']);
     }
 
@@ -38,6 +39,9 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
+            'allow_extra_fields' => true
         ]);
+
+        parent::configureOptions($resolver);
     }
 }

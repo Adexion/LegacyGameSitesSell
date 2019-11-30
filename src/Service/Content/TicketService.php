@@ -6,6 +6,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException as ORMExceptionAlias;
 use ModernGame\Database\Entity\Ticket;
 use ModernGame\Database\Repository\TicketRepository;
+use ModernGame\Enum\TicketStatusEnum;
 use ModernGame\Exception\ContentException;
 use ModernGame\Form\ContactType;
 use ModernGame\Form\TicketType;
@@ -36,10 +37,13 @@ class TicketService extends AbstractService implements ServiceInterface
      */
     public function mapEntity(Request $request)
     {
-        $contact = $this->map($request, new Ticket(), ContactType::class);
+        $message = $request->request->get('message');
+        $name = $request->request->get('name');
 
-        $contact->setStatus(1);
-        $contact->setToken(md5(uniqid() . date('Y-m-d H:i') . $contact->getMessage() . $contact->getName()));
+        $request->request->set('status', TicketStatusEnum::NOT_READ);
+        $request->request->set('token', md5(uniqid() . date('Y-m-d H:i') . $message .$name));
+
+        $contact = $this->map($request, new Ticket(), ContactType::class);
 
         return $contact;
     }
@@ -65,7 +69,7 @@ class TicketService extends AbstractService implements ServiceInterface
     {
         /** @var Ticket $contactEntity */
         $contactEntity = $this->repository->find($id);
-        $contactEntity->setStatus(2);
+        $contactEntity->setStatus(TicketStatusEnum::ASSIGN_AS_READ);
 
         $this->repository->update($contactEntity);
     }

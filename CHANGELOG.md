@@ -3,6 +3,8 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! next relese should be stable version. This is last BETA update !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# 0.101.3 - 30.11.2019
+    - refactor and test repair
 # 0.101.2 - 30.11.2019
     - refactor code duplication in admin section
 # 0.101.1 - 25.11.2019

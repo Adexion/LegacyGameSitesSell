@@ -73,15 +73,17 @@ class UserApiContext extends AbstractContext
 
     /**
      * @Given set pirce :price for phone number :number
+     * @Given set pirce :price for phone number :number and amount :amount
      */
-    public function setPriceForPhoneNumber(float $amount, int $number)
+    public function setPriceForPhoneNumber(float $price, int $number, float $amount = 1)
     {
-        $price = new Price();
+        $entity = new Price();
 
-        $price->setAmount($amount);
-        $price->setPhoneNumber($number);
+        $entity->setAmount($amount);
+        $entity->setPhoneNumber($number);
+        $entity->setPrice($price);
 
-        $this->getManager()->getRepository(Price::class)->insert($price);
+        $this->getManager()->getRepository(Price::class)->insert($entity);
     }
 
     /**

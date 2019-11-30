@@ -6,11 +6,11 @@ Feature:
   Scenario: I try to add money to my wallet
     Given As logged user
     And I store token to request
-    And set pirce 1.23 for phone number 71480
+    And set pirce 1.23 for phone number 71480 and amount 1.23
     And the request body is:
     """
     {
-      "smsCode": "l9j0l3g8"
+      "smsCode": "VALID_CODE"
     }
     """
     When I request "/v1/payment/sms" using HTTP "POST"
@@ -18,7 +18,7 @@ Feature:
     And the response body contains JSON:
     """
     {
-        "cash": 123
+        "cash": 1.23
     }
     """
 
