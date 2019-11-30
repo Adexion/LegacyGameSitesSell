@@ -11,8 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Swagger\Annotations as SWG;
 
-class UserController extends AbstractController
+class UserController extends AbstractAdminController
 {
+    protected const REPOSITORY_CLASS = User::class;
+
     /**
      * @SWG\Tag(name="Admin/User")
      * @SWG\Response(
@@ -20,13 +22,9 @@ class UserController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function deleteUser(Request $request)
+    public function getEntity(Request $request): JsonResponse
     {
-        /** @var UserRepository $userRepository */
-        $userRepository = $this->getDoctrine()->getRepository(User::class);
-        $userRepository->delete($request->request->getInt('id'));
-
-        return new JsonResponse(null, Response::HTTP_OK);
+        return parent::getEntity($request);
     }
 
     /**
@@ -50,11 +48,8 @@ class UserController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function getUserData(Request $request)
+    public function deleteEntity(Request $request): JsonResponse
     {
-        $repository = $this->getDoctrine()->getRepository(User::class);
-        $id = $request->query->getInt('id');
-
-        return new JsonResponse(empty($id) ? $repository->findAll() : $repository->find($id));
+        return parent::deleteEntity($request);
     }
 }

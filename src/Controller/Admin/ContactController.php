@@ -3,16 +3,15 @@
 namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Ticket;
-use ModernGame\Database\Repository\TicketRepository;
 use ModernGame\Service\Content\TicketService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Swagger\Annotations as SWG;
 
-class ContactController extends AbstractController
+class ContactController extends AbstractAdminController
 {
+    protected const REPOSITORY_CLASS = Ticket::class;
+
     /**
      * @SWG\Tag(name="Admin/Contact")
      * @SWG\Response(
@@ -20,13 +19,9 @@ class ContactController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function deleteTicket(Request $request)
+    public function postTicket(Request $request, TicketService $contact): JsonResponse
     {
-        /** @var TicketRepository $contactRepository */
-        $contactRepository = $this->getDoctrine()->getRepository(Ticket::class);
-        $contactRepository->delete($request->request->getInt('id'));
-
-        return new JsonResponse(null, Response::HTTP_OK);
+        return $this->postEntity($request, $contact);
     }
 
     /**
@@ -36,13 +31,9 @@ class ContactController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function putTicket(Request $request, TicketService $contact)
+    public function getEntity(Request $request): JsonResponse
     {
-        $contactEntity = $contact->mapEntity($request);
-
-        $this->getDoctrine()->getRepository(Ticket::class)->insert($contactEntity);
-
-        return new JsonResponse(null, Response::HTTP_OK);
+        return parent::getEntity($request);
     }
 
     /**
@@ -52,11 +43,8 @@ class ContactController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function getTicket(Request $request)
+    public function deleteEntity(Request $request): JsonResponse
     {
-        $repository = $this->getDoctrine()->getRepository(Ticket::class);
-        $id = $request->query->getInt('id');
-
-        return new JsonResponse(empty($id) ? $repository->findAll() : $repository->find($id));
+        return parent::deleteEntity($request);
     }
 }

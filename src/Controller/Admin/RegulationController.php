@@ -3,16 +3,15 @@
 namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Regulation;
-use ModernGame\Database\Repository\RegulationRepository;
 use ModernGame\Service\Content\Regulation\RegulationService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Swagger\Annotations as SWG;
 
-class RegulationController extends AbstractController
+class RegulationController extends AbstractAdminController
 {
+    protected const REPOSITORY_CLASS = Regulation::class;
+
     /**
      * @SWG\Tag(name="Admin/Regulation")
      * @SWG\Response(
@@ -20,15 +19,9 @@ class RegulationController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function postRegulation(Request $request, RegulationService $regulationService)
+    public function postRegulation(Request $request, RegulationService $regulationService): JsonResponse
     {
-        $regulation = $regulationService->mapEntity($request);
-
-        /** @var RegulationRepository $regulationCategoryRepository */
-        $regulationCategoryRepository = $this->getDoctrine()->getRepository(Regulation::class);
-        $regulationCategoryRepository->insert($regulation);
-
-        return new JsonResponse(null, Response::HTTP_OK);
+        return $this->postEntity($request, $regulationService);
     }
 
     /**
@@ -38,15 +31,9 @@ class RegulationController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function putRegulation(Request $request, RegulationService $regulationService)
+    public function getEntity(Request $request): JsonResponse
     {
-        $regulation = $regulationService->mapEntityById($request);
-
-        /** @var RegulationRepository $regulationCategoryRepository */
-        $regulationCategoryRepository = $this->getDoctrine()->getRepository(Regulation::class);
-        $regulationCategoryRepository->update($regulation);
-
-        return new JsonResponse(null, Response::HTTP_OK);
+        return parent::getEntity($request);
     }
 
     /**
@@ -56,13 +43,9 @@ class RegulationController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function deleteRegulation(Request $request)
+    public function putRegulation(Request $request, RegulationService $regulationService): JsonResponse
     {
-        /** @var RegulationRepository $regulationCategoryRepository */
-        $regulationCategoryRepository = $this->getDoctrine()->getRepository(Regulation::class);
-        $regulationCategoryRepository->delete($request->request->getInt('id'));
-
-        return new JsonResponse(null, Response::HTTP_OK);
+        return $this->putEntity($request, $regulationService);
     }
 
     /**
@@ -72,11 +55,8 @@ class RegulationController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function getRegulation(Request $request)
+    public function deleteEntity(Request $request): JsonResponse
     {
-        $repository = $this->getDoctrine()->getRepository(Regulation::class);
-        $id = $request->query->getInt('id');
-
-        return new JsonResponse(empty($id) ? $repository->findAll() : $repository->find($id));
+        return parent::deleteEntity($request);
     }
 }

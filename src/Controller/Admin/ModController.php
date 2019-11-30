@@ -3,16 +3,15 @@
 namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\ModList;
-use ModernGame\Database\Repository\ModListRepository;
 use ModernGame\Service\Content\ModListService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Swagger\Annotations as SWG;
 
-class ModController extends AbstractController
+class ModController extends AbstractAdminController
 {
+    protected const REPOSITORY_CLASS = ModList::class;
+
     /**
      * @SWG\Tag(name="Admin/Mod")
      * @SWG\Response(
@@ -20,13 +19,9 @@ class ModController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function deleteMod(Request $request)
+    public function postMod(Request $request, ModListService $modListService): JsonResponse
     {
-        /** @var ModListRepository $modListRepository */
-        $modListRepository = $this->getDoctrine()->getRepository(ModList::class);
-        $modListRepository->delete($request->request->getInt('id'));
-
-        return new JsonResponse(null, Response::HTTP_OK);
+        return $this->postEntity($request, $modListService);
     }
 
     /**
@@ -36,15 +31,9 @@ class ModController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function putMod(Request $request, ModListService $modListService)
+    public function getEntity(Request $request): JsonResponse
     {
-        $modList = $modListService->mapEntityById($request);
-
-        /** @var ModListRepository $modListRepository */
-        $modListRepository = $this->getDoctrine()->getRepository(ModList::class);
-        $modListRepository->update($modList);
-
-        return new JsonResponse(null, Response::HTTP_OK);
+        return parent::getEntity($request);
     }
 
     /**
@@ -54,15 +43,9 @@ class ModController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function postMod(Request $request, ModListService $modListService)
+    public function putMod(Request $request, ModListService $modListService): JsonResponse
     {
-        $modList = $modListService->mapEntity($request);
-
-        /** @var ModListRepository $modListRepository */
-        $modListRepository = $this->getDoctrine()->getRepository(ModList::class);
-        $modListRepository->insert($modList);
-
-        return new JsonResponse(null, Response::HTTP_OK);
+        return $this->putEntity($request, $modListService);
     }
 
     /**
@@ -72,11 +55,8 @@ class ModController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function getMod(Request $request)
+    public function deleteEntity(Request $request): JsonResponse
     {
-        $repository = $this->getDoctrine()->getRepository(ModList::class);
-        $id = $request->query->getInt('id');
-
-        return new JsonResponse(empty($id) ? $repository->findAll() : $repository->find($id));
+        return parent::deleteEntity($request);
     }
 }

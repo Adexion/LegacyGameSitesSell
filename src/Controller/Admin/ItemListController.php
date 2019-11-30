@@ -3,16 +3,15 @@
 namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\ItemList;
-use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Service\Content\ItemListService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Swagger\Annotations as SWG;
 
-class ItemListController extends AbstractController
+class ItemListController extends AbstractAdminController
 {
+    protected const REPOSITORY_CLASS = ItemList::class;
+
     /**
      * @SWG\Tag(name="Admin/ItemList")
      * @SWG\Response(
@@ -20,14 +19,9 @@ class ItemListController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function deleteItemList(Request $request)
+    public function postItemList(Request $request, ItemListService $itemListService): JsonResponse
     {
-        /** @var ItemListRepository $listRepository */
-        $listRepository = $this->getDoctrine()->getRepository(ItemList::class);
-
-        $listRepository->delete($request->request->getInt('id'));
-
-        return new JsonResponse(null, Response::HTTP_OK);
+        return $this->postEntity($request, $itemListService);
     }
 
     /**
@@ -37,15 +31,9 @@ class ItemListController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function putItemList(Request $request, ItemListService $itemListService)
+    public function getEntity(Request $request): JsonResponse
     {
-        $itemList = $itemListService->mapEntityById($request);
-
-        /** @var ItemListRepository $itemListRepository */
-        $itemListRepository = $this->getDoctrine()->getRepository(ItemList::class);
-        $itemListRepository->update($itemList);
-
-        return new JsonResponse(null, Response::HTTP_OK);
+        return parent::getEntity($request);
     }
 
     /**
@@ -55,15 +43,9 @@ class ItemListController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function postItemList(Request $request, ItemListService $itemListService)
+    public function putItemList(Request $request, ItemListService $itemListService): JsonResponse
     {
-        $mapItemList = $itemListService->mapEntity($request);
-
-        /** @var ItemListRepository $itemListRepository */
-        $itemListRepository = $this->getDoctrine()->getRepository(ItemList::class);
-        $itemListRepository->insert($mapItemList);
-
-        return new JsonResponse(null, Response::HTTP_OK);
+        return $this->putEntity($request, $itemListService);
     }
 
     /**
@@ -73,11 +55,8 @@ class ItemListController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function getItemList(Request $request)
+    public function deleteEntity(Request $request): JsonResponse
     {
-        $repository = $this->getDoctrine()->getRepository(ItemList::class);
-        $id = $request->query->getInt('id');
-
-        return new JsonResponse(empty($id) ? $repository->findAll() : $repository->find($id));
+        return parent::deleteEntity($request);
     }
 }

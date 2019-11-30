@@ -22,6 +22,6 @@ class ArticleController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Article::class);
         $id = $request->query->getInt('id');
 
-        return new JsonResponse(empty($id) ? $repository->findAll() : $repository->find($id));
+        return new JsonResponse(empty($id) ? $repository->findAll() : [$repository->find($id)]);
     }
 }
