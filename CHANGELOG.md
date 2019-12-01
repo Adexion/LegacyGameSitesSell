@@ -3,6 +3,8 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! next relese should be stable version. This is last BETA update !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# 0.101.5 - 01.12.2019
+    - repair test after refactor
 # 0.101.4 - 30.11.2019
     - api refactor for clear documentation
 # 0.101.3 - 30.11.2019
