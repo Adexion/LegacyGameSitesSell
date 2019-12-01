@@ -85,7 +85,7 @@ class ResetPasswordService
         /** @var User $user */
         $user = $reset->getUser();
 
-        $form = $this->form->create(ResetType::class, $user);
+        $form = $this->form->create(ResetType::class, null, ['method'  => 'PUT']);
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
 

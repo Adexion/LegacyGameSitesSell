@@ -2,9 +2,7 @@
 
 namespace ModernGame\Enum;
 
-use SplEnum;
-
-class TicketStatusEnum extends SplEnum
+class TicketStatusEnum
 {
     const NOT_READ = 1;
     const ASSIGN_AS_READ = 2;

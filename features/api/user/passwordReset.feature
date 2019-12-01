@@ -1,3 +1,4 @@
+@dev
 Feature:
   I should be able to get email with reset token
 
@@ -25,13 +26,14 @@ Feature:
     And the request body is:
     """
     {
+        "token": "testTest123",
         "password": {
             "first": "test123",
             "second": "test123"
         }
     }
     """
-    When I request "/v1/user/reset/testTest123" using HTTP "POST"
+    When I request "/v1/user/password" using HTTP "PUT"
     Then the response code is 200
     And the response body is an empty JSON object
 
@@ -40,13 +42,14 @@ Feature:
     And the request body is:
     """
     {
+        "token": "testTest123",
         "password": {
             "first": "test123",
             "second": "test"
         }
     }
     """
-    When I request "/v1/user/reset/testTest123" using HTTP "POST"
+    When I request "/v1/user/password" using HTTP "PUT"
     Then the response code is 400
     Then the response body contains JSON:
     """
@@ -60,13 +63,14 @@ Feature:
     And the request body is:
     """
     {
+        "token": "test",
         "password": {
             "first": "test123",
             "second": "test"
         }
     }
     """
-    When I request "/v1/user/reset/testTest" using HTTP "POST"
+    When I request "/v1/user/password" using HTTP "PUT"
     Then the response code is 400
     Then the response body contains JSON:
     """
@@ -75,8 +79,8 @@ Feature:
     }
     """
 
-  Scenario: try to as without token
-    When I request "/v1/user/reset/a" using HTTP "POST"
+  Scenario: try to without data
+    When I request "/v1/user/password" using HTTP "PUT"
     Then the response code is 400
     Then the response body contains JSON:
     """
