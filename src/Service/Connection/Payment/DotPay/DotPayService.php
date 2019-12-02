@@ -63,8 +63,7 @@ class DotPayService extends AbstractPayment implements PaymentInterface
             throw new ContentException(['error' => 'Podana płatność nie istnieje']);
         }
 
-        if($response['status'] === self::PAYMENT_REJECTED)
-        {
+        if ($response['status'] === self::PAYMENT_REJECTED) {
             throw new ContentException(['error' => 'Twoja płatność została odrzucona']);
         }
 
