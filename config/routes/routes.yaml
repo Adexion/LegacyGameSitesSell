@@ -58,9 +58,9 @@ player:
   controller: ModernGame\Controller\PlayerController::getPlayer
   methods:    [GET]
 
-# ---------- Payments
+# ---------- Prepaid
 wallet-cash:
-  path:       /payment/cash
+  path:       /prepaid/status
   controller: ModernGame\Controller\AfterLogin\WalletController::cash
   methods:    [GET]
 payment-paypal-confirmation:
