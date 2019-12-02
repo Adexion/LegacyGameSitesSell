@@ -41,4 +41,8 @@ class RestApiClient
             return $e->getMessage();
         }
     }
+
+    protected function handleError(array $response)
+    {
+    }
 }

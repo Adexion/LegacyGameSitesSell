@@ -15,8 +15,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class MicroSMSService extends AbstractPayment implements PaymentInterface
 {
-    const URL = 'http://microsms.pl/api/v2/multi.php?';
-
     private $client;
     private $container;
     private $price;
@@ -26,7 +24,7 @@ class MicroSMSService extends AbstractPayment implements PaymentInterface
         TokenStorageInterface $tokenStorage,
         ContainerInterface $container,
         PriceRepository $price,
-        RestApiClient $client
+        MicroSMSClient $client
     ) {
         $this->client = $client;
         $this->container = $container;
@@ -43,40 +41,11 @@ class MicroSMSService extends AbstractPayment implements PaymentInterface
     {
         $configuration = $this->container->getParameter('microSMS');
 
-        $request = [
-            'userid' => $configuration['userId'],
-            'serviceid' => $configuration['serviceId'],
-            'code' => $id
-        ];
+        $response = $this->client->executeRequest($configuration['userId'], $configuration['serviceId'], $id);
 
-        $response = json_decode($this->client->request(RestApiClient::GET, self::URL . http_build_query($request)));
-        $this->handleError($response);
-
-        $amount = $this->price->findOneBy(['phoneNumber' => $response->data->number])->getAmount();
+        $amount = $this->price->findOneBy(['phoneNumber' => $response['data-']['number']])->getAmount();
         $this->notePayment($amount);
 
         return (float)$amount;
-    }
-
-    /**
-     * @throws Exception
-     */
-    private function handleError($response)
-    {
-        if (empty($response)) {
-            throw new ContentException(['error' => 'Nie można nawiązać połączenia z serwerem płatności.']);
-        }
-        if (!is_object($response)) {
-            throw new ContentException(['error' => 'Nie można odczytać informacji o płatności.']);
-        }
-        if (isset($response->error) && $response->error) {
-            throw new ContentException(['error' => 'Kod błędu: ' . $response->error->errorCode . ' - ' . $response->error->message]);
-        }
-        if ((bool)$response->connect === false) {
-            throw new ContentException(['smsCode' => 'Nieprawidłowy format kodu sms.']);
-        }
-        if (MicroSMSPredicate::isResponseInvalid($response)) {
-            throw new ContentException(['smsCode' => 'Przesłany kod jest nieprawidłowy.']);
-        }
     }
 }

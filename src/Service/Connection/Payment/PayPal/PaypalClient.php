@@ -8,10 +8,10 @@ use ModernGame\Service\Connection\ApiClient\RestApiClient;
 
 class PaypalClient extends RestApiClient
 {
-    const API_EXECUTE = '/v1/payments/payment/%s/execute';
-    const API_TOKEN = '/v1/oauth2/token';
+    private const API_EXECUTE = '/v1/payments/payment/%s/execute';
+    private const API_TOKEN = '/v1/oauth2/token';
 
-    const PAYPAL_API = 'https://api.paypal.com';
+    private const PAYPAL_API = 'https://api.paypal.com';
 
     /**
      * @throws GuzzleException
@@ -48,10 +48,24 @@ class PaypalClient extends RestApiClient
             'payer_id' => $payerId
         ]);
 
-        return json_decode($this->request(
-            self::POST,
-            self::PAYPAL_API . sprintf(self::API_EXECUTE, $paymentId),
-            $request
-        ), true) ?? [];
+        $response = json_decode($this->request(
+                self::POST,
+                self::PAYPAL_API . sprintf(self::API_EXECUTE, $paymentId),
+                $request
+            ), true) ?? [];
+
+        $this->handleError($response);
+
+        return $response;
+    }
+
+    /**
+     * @throws ContentException
+     */
+    protected function handleError(array $response)
+    {
+        if (!($response['transactions'][0]['amount']['total'] ?? false)) {
+            throw new ContentException(['paymentId' => 'Podana płatność nie istnieje lub wystąpił problem po stronie serwera.']);
+        }
     }
 }

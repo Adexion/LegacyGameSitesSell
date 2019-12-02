@@ -38,10 +38,6 @@ class PayPalService extends AbstractPayment implements PaymentInterface
         $token = $this->client->tokenRequest($configuration['client'], $configuration['secret'])['access_token'] ?? '';
         $response = $this->client->executeRequest($token, $id, $payer);
 
-        if (!($response['transactions'][0]['amount']['total'] ?? false)) {
-            throw new ContentException(['paymentId' => 'Podana płatność nie istnieje lub wystąpił problem po stronie serwera.']);
-        }
-
         $amount = $response['transactions'][0]['amount']['total'];
         $this->notePayment($amount);
 
