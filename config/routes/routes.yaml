@@ -67,6 +67,10 @@ payment-paypal-confirmation:
   path:       /payment/paypal
   controller: ModernGame\Controller\AfterLogin\WalletController::paypalExecute
   methods:    [POST]
+payment-dotpay-confirmation:
+  path:       /payment/dotpay
+  controller: ModernGame\Controller\AfterLogin\WalletController::dotPayExecute
+  methods:    [POST]
 payment-sms-confirmation:
   path:       /payment/sms
   controller: ModernGame\Controller\AfterLogin\WalletController::microSMSExecute
@@ -88,6 +92,10 @@ shop-buy-item:
 shop-paypal-execute-item-list:
   path:       /shop/paypal/execute
   controller: ModernGame\Controller\AfterLogin\ItemShopController::payPalExecute
+  methods:    [POST]
+shop-dotpay-execute-item-list:
+  path:       /shop/dotpay/execute
+  controller: ModernGame\Controller\AfterLogin\ItemShopController::dotPayExecute
   methods:    [POST]
 
 # ---------- Contact
