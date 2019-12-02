@@ -90,11 +90,11 @@ shop-buy-item:
   controller: ModernGame\Controller\AfterLogin\ItemShopController::buyItemList
   methods:    [POST]
 shop-paypal-execute-item-list:
-  path:       /shop/paypal/execute
+  path:       /shop/execute/paypal
   controller: ModernGame\Controller\AfterLogin\ItemShopController::payPalExecute
   methods:    [POST]
 shop-dotpay-execute-item-list:
-  path:       /shop/dotpay/execute
+  path:       /shop/execute/dotpay
   controller: ModernGame\Controller\AfterLogin\ItemShopController::dotPayExecute
   methods:    [POST]
 
