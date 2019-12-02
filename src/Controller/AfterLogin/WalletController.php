@@ -2,6 +2,7 @@
 
 namespace ModernGame\Controller\AfterLogin;
 
+use ModernGame\Service\Connection\Payment\DotPay\DotPayService;
 use ModernGame\Service\Connection\Payment\MicroSMS\MicroSMSService;
 use ModernGame\Service\Connection\Payment\PayPal\PayPalService;
 use ModernGame\Service\User\WalletService;
@@ -59,6 +60,24 @@ class WalletController extends Controller
         return new JsonResponse([
             "cash" => $wallet->changeCash(
                 $payment->executePayment($paymentId, $payerId) * ($this->getParameter('multiplier') ?? 1)
+            ),
+        ]);
+    }
+
+    /**
+     * @SWG\Tag(name="Payment")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
+    public function dotPayExecute(Request $request, WalletService $wallet, DotPayService $payment)
+    {
+        $paymentId = $request->request->get('paymentId');
+
+        return new JsonResponse([
+            "cash" => $wallet->changeCash(
+                $payment->executePayment($paymentId) * ($this->getParameter('multiplier') ?? 1)
             ),
         ]);
     }

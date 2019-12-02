@@ -15,7 +15,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class MicroSMSService extends AbstractPayment implements PaymentInterface
 {
-
     const URL = 'http://microsms.pl/api/v2/multi.php?';
 
     private $client;
