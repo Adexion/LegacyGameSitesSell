@@ -14,7 +14,7 @@ use Swagger\Annotations as SWG;
 class WalletController extends Controller
 {
     /**
-     * @SWG\Tag(name="Payment")
+     * @SWG\Tag(name="Prepaid")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -28,7 +28,7 @@ class WalletController extends Controller
     }
 
     /**
-     * @SWG\Tag(name="Payment")
+     * @SWG\Tag(name="Prepaid")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -46,7 +46,7 @@ class WalletController extends Controller
     }
 
     /**
-     * @SWG\Tag(name="Payment")
+     * @SWG\Tag(name="Prepaid")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -65,7 +65,7 @@ class WalletController extends Controller
     }
 
     /**
-     * @SWG\Tag(name="Payment")
+     * @SWG\Tag(name="Prepaid")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
