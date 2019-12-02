@@ -48,12 +48,12 @@ class PaypalClient extends RestApiClient
             'payer_id' => $payerId
         ]);
 
-        $response = json_decode($this->request(
-                self::POST,
-                self::PAYPAL_API . sprintf(self::API_EXECUTE, $paymentId),
-                $request
-            ), true) ?? [];
+        $rawResponse = $this->request(
+            self::POST,
+            self::PAYPAL_API . sprintf(self::API_EXECUTE, $paymentId), $request
+        );
 
+        $response = json_decode($rawResponse, true) ?? [];
         $this->handleError($response);
 
         return $response;

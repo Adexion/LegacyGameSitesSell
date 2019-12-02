@@ -28,12 +28,13 @@ class DotPayClient extends RestApiClient
             'Authorization' => 'Basic ' . base64_encode($username . ':' . $password)
         ];
 
-        $response = json_decode($this->request(
-                self::GET,
-                self::API_URI . sprintf(self::API_OPERATION, $operationName),
-                $request
-            ), true) ?? [];
+        $rawResponse = $this->request(
+            self::GET,
+            self::API_URI . sprintf(self::API_OPERATION, $operationName),
+            $request
+        );
 
+        $response = json_decode($rawResponse, true) ?? [];
         $this->handleException($response);
 
         return $response;
@@ -48,15 +49,12 @@ class DotPayClient extends RestApiClient
         if (empty($response)) {
             throw new ContentException(['error' => 'Nie można nawiązać połączenia z serwerem płatności.']);
         }
-
         if (isset($response['details'])) {
             throw new ContentException(['error' => 'Podana płatność nie istnieje']);
         }
-
         if ($response['status'] === self::PAYMENT_REJECTED) {
             throw new ContentException(['error' => 'Twoja płatność została odrzucona']);
         }
-
         if ($response['status'] !== self::PAYMENT_COMPLETED) {
             throw new PaymentProcessingException('Płatność oczekuje na potwierzenie wykonania');
         }
