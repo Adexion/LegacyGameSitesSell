@@ -64,15 +64,15 @@ wallet-cash:
   controller: ModernGame\Controller\AfterLogin\WalletController::cash
   methods:    [GET]
 payment-paypal-confirmation:
-  path:       /payment/paypal
+  path:       /prepaid/paypal
   controller: ModernGame\Controller\AfterLogin\WalletController::paypalExecute
   methods:    [POST]
 payment-dotpay-confirmation:
-  path:       /payment/dotpay
+  path:       /prepaid/dotpay
   controller: ModernGame\Controller\AfterLogin\WalletController::dotPayExecute
   methods:    [POST]
 payment-sms-confirmation:
-  path:       /payment/sms
+  path:       /prepaid/sms
   controller: ModernGame\Controller\AfterLogin\WalletController::microSMSExecute
   methods:    [POST]
 
