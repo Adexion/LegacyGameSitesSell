@@ -2,8 +2,8 @@
 
 namespace ModernGame\EventListener;
 
-use Exception;
 use ModernGame\Exception\ContentException;
+use ModernGame\Exception\PaymentProcessingException;
 use ModernGame\Service\EnvironmentService;
 use ModernGame\Service\Mail\MailSenderService;
 use Psr\Log\LoggerInterface;
@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Throwable;
 
 class ExceptionListener
 {
@@ -29,11 +30,11 @@ class ExceptionListener
     }
 
     /**
-     * @throws Exception
+     * @throws Throwable
      */
     public function onKernelException(ExceptionEvent $event)
     {
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
         $response = new JsonResponse();
 
         if ($exception instanceof HttpExceptionInterface) {
@@ -41,7 +42,7 @@ class ExceptionListener
             $response->headers->replace($exception->getHeaders());
             $response->setContent(json_encode(['error' => $exception->getMessage()]));
         } else {
-            if ($exception instanceof ContentException || $exception instanceof BadCredentialsException) {
+            if ($this->isClientSideError($exception)) {
                 $response->setContent($exception->getMessage());
                 $response->setStatusCode($exception->getCode());
             } else {
@@ -64,5 +65,12 @@ class ExceptionListener
         }
 
         $event->setResponse($response);
+    }
+
+    private function isClientSideError(Throwable $e)
+    {
+        return $e instanceof ContentException
+            || $e instanceof BadCredentialsException
+            || $e instanceof PaymentProcessingException;
     }
 }
