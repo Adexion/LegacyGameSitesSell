@@ -57,7 +57,7 @@ class AbstractAdminController extends AbstractController
         try {
             $repository->delete($request->query->getInt('id'));
         } catch (\Exception $e) {
-            throw new ContentException(['error' => 'Nie znaleziono artykułu.']);
+            throw new ContentException(['error' => 'Nic nie znaleziono.']);
         }
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
