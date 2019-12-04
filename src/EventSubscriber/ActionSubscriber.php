@@ -51,10 +51,6 @@ class ActionSubscriber implements EventSubscriberInterface
 
     public function onKernelResponse(ResponseEvent $event)
     {
-        if (!$event->isMasterRequest()) {
-            return;
-        }
-
         $event->getResponse()->headers->set('Access-Control-Allow-Origin', '*');
         $event->getResponse()->headers->set('Access-Control-Allow-Headers', 'x-auth-token, Content-Type');
     }
