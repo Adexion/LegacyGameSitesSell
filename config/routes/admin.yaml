@@ -122,7 +122,7 @@ admin-contact-get:
   methods:    [GET]
 admin-contact-put:
   path:       /contact
-  controller: ModernGame\Controller\Admin\ContactController::postTicket
+  controller: ModernGame\Controller\Admin\ContactController::putTicket
   methods:    [PUT]
 admin-contact-delete:
   path:       /contact

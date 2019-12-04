@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class AbstractAdminController extends AbstractController
 {
     protected const REPOSITORY_CLASS = '';
+    protected const FIND_BY = 'id';
 
     public function postEntity(Request $request, ServiceInterface $service): JsonResponse
     {
@@ -28,9 +29,9 @@ class AbstractAdminController extends AbstractController
     public function getEntity(Request $request): JsonResponse
     {
         $repository = $this->getDoctrine()->getRepository($this::REPOSITORY_CLASS);
-        $id = $request->query->getInt('id');
+        $toSearch = $request->query->getInt($this::FIND_BY);
 
-        return new JsonResponse(empty($id) ? $repository->findAll() : [$repository->find($id)]);
+        return new JsonResponse(empty($id) ? $repository->findAll() : [$repository->findBy([$this::FIND_BY => $toSearch])]);
     }
 
     public function putEntity(Request $request, ServiceInterface $service): JsonResponse

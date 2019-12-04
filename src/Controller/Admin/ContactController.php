@@ -11,21 +11,18 @@ use Symfony\Component\HttpFoundation\Request;
 class ContactController extends AbstractAdminController
 {
     protected const REPOSITORY_CLASS = Ticket::class;
+    protected const FIND_BY = 'token';
+
+    //ToDo: Add method for responding to user. How can i forgot?!
 
     /**
      * @SWG\Tag(name="Admin/Contact")
-     * @SWG\Response(
-     *     response=200,
-     *     description="Evertythig works",
+     * @SWG\Parameter(
+     *     name="ticket",
+     *     in="query",
+     *     type="string",
+     *     required=false
      * )
-     */
-    public function postTicket(Request $request, TicketService $contact): JsonResponse
-    {
-        return $this->postEntity($request, $contact);
-    }
-
-    /**
-     * @SWG\Tag(name="Admin/Contact")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -38,6 +35,33 @@ class ContactController extends AbstractAdminController
 
     /**
      * @SWG\Tag(name="Admin/Contact")
+     * @SWG\Parameter(
+     *     name="JSON",
+     *     in="body",
+     *     type="object",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="id", type="integer"),
+     *          @SWG\Property(property="message", type="string"),
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
+    public function putTicket(Request $request, TicketService $contact): JsonResponse
+    {
+        return $this->putEntity($request, $contact);
+    }
+
+    /**
+     * @SWG\Tag(name="Admin/Contact")
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="query",
+     *     type="integer"
+     * )
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",

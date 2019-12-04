@@ -9,13 +9,25 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-
 class ArticleController extends AbstractAdminController
 {
     protected const REPOSITORY_CLASS = Article::class;
 
     /**
      * @SWG\Tag(name="Admin/Article")
+     * @SWG\Parameter(
+     *     name="JSON",
+     *     in="body",
+     *     type="object",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="title", type="string"),
+     *          @SWG\Property(property="subhead", type="string"),
+     *          @SWG\Property(property="image", type="string"),
+     *          @SWG\Property(property="text", type="string"),
+     *          @SWG\Property(property="shortText", type="string")
+     *     )
+     * )
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -47,6 +59,20 @@ class ArticleController extends AbstractAdminController
 
     /**
      * @SWG\Tag(name="Admin/Article")
+     * @SWG\Parameter(
+     *     name="JSON",
+     *     in="body",
+     *     type="object",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="id", type="integer"),
+     *          @SWG\Property(property="title", type="string"),
+     *          @SWG\Property(property="subhead", type="string"),
+     *          @SWG\Property(property="image", type="string"),
+     *          @SWG\Property(property="text", type="string"),
+     *          @SWG\Property(property="shortText", type="string")
+     *     )
+     * )
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
@@ -59,6 +85,12 @@ class ArticleController extends AbstractAdminController
 
     /**
      * @SWG\Tag(name="Admin/Article")
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="query",
+     *     type="integer",
+     *     required=false
+     * )
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
