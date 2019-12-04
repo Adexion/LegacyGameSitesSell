@@ -3,6 +3,7 @@
 namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Repository\AbstractRepository;
+use ModernGame\Exception\ContentException;
 use ModernGame\Service\ServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -46,13 +47,19 @@ class AbstractAdminController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * @throws ContentException
+     */
     public function deleteEntity(Request $request): JsonResponse
     {
         /** @var AbstractRepository $repository */
         $repository = $this->getDoctrine()->getRepository($this::REPOSITORY_CLASS);
-        $repository->delete($request->query->getInt('id'));
+        try {
+            $repository->delete($request->query->getInt('id'));
+        } catch (\Exception $e) {
+            throw new ContentException(['error' => 'Nie znaleziono artykułu.']);
+        }
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
-
 }
