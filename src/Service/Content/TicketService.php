@@ -49,19 +49,6 @@ class TicketService extends AbstractService implements ServiceInterface
     }
 
     /**
-     * @throws ContentException
-     * @throws ORMExceptionAlias
-     * @throws OptimisticLockException
-     */
-    public function mapEntityById(Request $request)
-    {
-        $ticket = $this->mapById($request, ResponseTicketType::class);
-        $this->assignAsRead($request->request->getInt('id'));
-
-        return $ticket;
-    }
-
-    /**
      * @throws ORMExceptionAlias
      * @throws OptimisticLockException
      */
@@ -73,4 +60,6 @@ class TicketService extends AbstractService implements ServiceInterface
 
         $this->repository->update($contactEntity);
     }
+
+    public function mapEntityById(Request $request) {}
 }

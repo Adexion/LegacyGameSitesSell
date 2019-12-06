@@ -16,33 +16,20 @@ admin-article-delete:
   controller: ModernGame\Controller\Admin\ArticleController::deleteEntity
   methods:    [DELETE]
 
-# ---------- ItemList
-admin-item-list-post:
-  path:       /item/list
-  controller: ModernGame\Controller\Admin\ItemListController::postItemList
+# ---------- Contact
+admin-contact-post:
+  path:       /contact
+  controller: ModernGame\Controller\Admin\ContactController::postTicket
   methods:    [POST]
-admin-item-list-get:
-  path:       /item/list
-  controller: ModernGame\Controller\Admin\ItemListController::getEntity
+admin-contact-get:
+  path:       /contact
+  controller: ModernGame\Controller\Admin\ContactController::getEntity
   methods:    [GET]
-admin-item-list-put:
-  path:       /item/list
-  controller: ModernGame\Controller\Admin\ItemListController::putItemList
-  methods:    [PUT]
-admin-item-list-delete:
-  path:       /item/list
-  controller: ModernGame\Controller\Admin\ItemListController::deleteEntity
+admin-contact-delete:
+  path:       /contact
+  controller: ModernGame\Controller\Admin\ContactController::deleteEntity
   methods:    [DELETE]
 
-# ---------- Statistic
-admin-item-list-statistic-get:
-  path:       /item/list/statistic
-  controller: ModernGame\Controller\Admin\StatisticController::getItemListStatistic
-  methods:    [GET]
-admin-payment-history-get:
-  path:       /payment/history
-  controller: ModernGame\Controller\Admin\StatisticController::getPaymentHistory
-  methods:    [GET]
 # ---------- Item
 admin-item-post:
   path:       /item
@@ -59,6 +46,24 @@ admin-item-put:
 admin-item-delete:
   path:       /item
   controller: ModernGame\Controller\Admin\ItemController::deleteEntity
+  methods:    [DELETE]
+
+# ---------- ItemList
+admin-item-list-post:
+  path:       /item/list
+  controller: ModernGame\Controller\Admin\ItemListController::postItemList
+  methods:    [POST]
+admin-item-list-get:
+  path:       /item/list
+  controller: ModernGame\Controller\Admin\ItemListController::getEntity
+  methods:    [GET]
+admin-item-list-put:
+  path:       /item/list
+  controller: ModernGame\Controller\Admin\ItemListController::putItemList
+  methods:    [PUT]
+admin-item-list-delete:
+  path:       /item/list
+  controller: ModernGame\Controller\Admin\ItemListController::deleteEntity
   methods:    [DELETE]
 
 # ---------- Mod
@@ -79,24 +84,6 @@ admin-mod-delete:
   controller: ModernGame\Controller\Admin\ModController::deleteEntity
   methods:    [DELETE]
 
-# ---------- Regulation Category
-admin-regulation-category-post:
-  path:       /regulation/category
-  controller: ModernGame\Controller\Admin\RegulationCategoryController::postRegulationCategory
-  methods:    [POST]
-admin-regulation-category-get:
-  path:       /regulation/category
-  controller: ModernGame\Controller\Admin\RegulationCategoryController::getEntity
-  methods:    [GET]
-admin-regulation-category-put:
-  path:       /regulation/category
-  controller: ModernGame\Controller\Admin\RegulationCategoryController::putRegulationCategory
-  methods:    [PUT]
-admin-regulation-category-delete:
-  path:       /regulation/category
-  controller: ModernGame\Controller\Admin\RegulationCategoryController::deleteEntity
-  methods:    [DELETE]
-
 # ---------- Regulation
 admin-regulation-post:
   path:       /regulation
@@ -115,19 +102,33 @@ admin-regulation-delete:
   controller: ModernGame\Controller\Admin\RegulationController::deleteEntity
   methods:    [DELETE]
 
-# ---------- Contact
-admin-contact-get:
-  path:       /contact
-  controller: ModernGame\Controller\Admin\ContactController::getEntity
+# ---------- Regulation Category
+admin-regulation-category-post:
+  path:       /regulation/category
+  controller: ModernGame\Controller\Admin\RegulationCategoryController::postRegulationCategory
+  methods:    [POST]
+admin-regulation-category-get:
+  path:       /regulation/category
+  controller: ModernGame\Controller\Admin\RegulationCategoryController::getEntity
   methods:    [GET]
-admin-contact-put:
-  path:       /contact
-  controller: ModernGame\Controller\Admin\ContactController::putTicket
+admin-regulation-category-put:
+  path:       /regulation/category
+  controller: ModernGame\Controller\Admin\RegulationCategoryController::putRegulationCategory
   methods:    [PUT]
-admin-contact-delete:
-  path:       /contact
-  controller: ModernGame\Controller\Admin\ContactController::deleteEntity
+admin-regulation-category-delete:
+  path:       /regulation/category
+  controller: ModernGame\Controller\Admin\RegulationCategoryController::deleteEntity
   methods:    [DELETE]
+
+# ---------- Statistic
+admin-item-list-statistic-get:
+  path:       /item/list/statistic
+  controller: ModernGame\Controller\Admin\StatisticController::getItemListStatistic
+  methods:    [GET]
+admin-payment-history-get:
+  path:       /payment/history
+  controller: ModernGame\Controller\Admin\StatisticController::getPaymentHistory
+  methods:    [GET]
 
 # ---------- User
 admin-user-get:

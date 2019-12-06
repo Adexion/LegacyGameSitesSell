@@ -3,7 +3,12 @@
 namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Ticket;
+use ModernGame\Database\Entity\Token;
+use ModernGame\Enum\TicketStatusEnum;
+use ModernGame\Form\ResponseTicketType;
+use ModernGame\Form\TicketType;
 use ModernGame\Service\Content\TicketService;
+use ModernGame\Validator\FormErrorHandler;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,8 +17,6 @@ class ContactController extends AbstractAdminController
 {
     protected const REPOSITORY_CLASS = Ticket::class;
     protected const FIND_BY = 'token';
-
-    //ToDo: Add method for responding to user. How can i forgot?!
 
     /**
      * @SWG\Tag(name="Admin/Contact")
@@ -50,9 +53,29 @@ class ContactController extends AbstractAdminController
      *     description="Evertythig works",
      * )
      */
-    public function putTicket(Request $request, TicketService $contact): JsonResponse
+    public function postTicket(Request $request, TicketService $service, FormErrorHandler $handler): JsonResponse
     {
-        return $this->putEntity($request, $contact);
+        $repository = $this->getDoctrine()->getRepository(self::REPOSITORY_CLASS);
+
+        $ticket = $repository->find($request->request->get('id'));
+        $responseTicket = new Ticket();
+
+        $form = $this->createForm(ResponseTicketType::class, $responseTicket);
+
+        $responseTicket->setName($ticket->getName());
+        $responseTicket->setEmail($ticket->getEmail());
+        $responseTicket->setType($ticket->getType());
+        $responseTicket->setSubject($ticket->getSubject());
+        $responseTicket->setToken($ticket->getToken());
+
+        $responseTicket->setStatus(TicketStatusEnum::ASSIGN_AS_READ);
+        $ticket->setStatus(TicketStatusEnum::ASSIGN_AS_READ);
+
+        $repository->insert($responseTicket);
+        $repository->update($ticket);
+
+        $form->handleRequest($request);
+        $handler->handle($form);
     }
 
     /**

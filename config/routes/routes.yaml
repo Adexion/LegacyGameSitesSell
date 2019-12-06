@@ -2,7 +2,83 @@ routes:
   resource: 'admin.yaml'
   prefix:   /admin
 
-# ---------- USER
+# ---------- Article
+article:
+  path:       /article
+  controller: ModernGame\Controller\Content\ArticleController::getArticle
+  methods:    [GET]
+
+# ---------- Contact
+contact:
+  path:       /contact
+  controller: ModernGame\Controller\ContactController::setMessageContact
+  methods:    [POST]
+contact-ticket:
+  path:       /contact
+  controller: ModernGame\Controller\ContactController::getMessagesTicket
+  methods:    [GET]
+
+# ---------- ItemShop
+shop-buy-item:
+  path:       /shop/buy
+  controller: ModernGame\Controller\AfterLogin\ItemShopController::buyItemList
+  methods:    [POST]
+shop-paypal-execute-item-list:
+  path:       /shop/execute/paypal
+  controller: ModernGame\Controller\AfterLogin\ItemShopController::payPalExecute
+  methods:    [POST]
+shop-dotpay-execute-item-list:
+  path:       /shop/execute/dotpay
+  controller: ModernGame\Controller\AfterLogin\ItemShopController::dotPayExecute
+  methods:    [POST]
+shop-get-prices:
+  path:       /shop/sms/prices
+  controller: ModernGame\Controller\AfterLogin\ItemShopController::getSMSPrices
+  methods:    [GET]
+shop-get-items:
+  path:       /shop/list
+  controller: ModernGame\Controller\AfterLogin\ItemShopController::getItemList
+  methods:    [GET]
+
+# ---------- Player
+player-avatar:
+  path:       /player/avatar
+  controller: ModernGame\Controller\PlayerController::getMinecraftAvatar
+  methods:    [GET]
+player-list:
+  path:       /player/list
+  controller: ModernGame\Controller\PlayerController::getPlayerList
+  methods:    [GET]
+player:
+  path:       /player
+  controller: ModernGame\Controller\PlayerController::getPlayer
+  methods:    [GET]
+
+# ---------- Prepaid
+payment-paypal-confirmation:
+  path:       /prepaid/paypal
+  controller: ModernGame\Controller\AfterLogin\WalletController::paypalExecute
+  methods:    [POST]
+payment-dotpay-confirmation:
+  path:       /prepaid/dotpay
+  controller: ModernGame\Controller\AfterLogin\WalletController::dotPayExecute
+  methods:    [POST]
+payment-sms-confirmation:
+  path:       /prepaid/sms
+  controller: ModernGame\Controller\AfterLogin\WalletController::microSMSExecute
+  methods:    [POST]
+wallet-cash:
+  path:       /prepaid/status
+  controller: ModernGame\Controller\AfterLogin\WalletController::cash
+  methods:    [GET]
+
+# ---------- Regulation
+rules:
+  path:       /rules
+  controller: ModernGame\Controller\Content\RegulationController::getRules
+  methods:    [GET]
+
+# ---------- User
 user-login:
   path:       /user/login
   controller: ModernGame\Controller\UserController::login
@@ -43,79 +119,3 @@ user-update:
   path:       /user
   controller: ModernGame\Controller\UserController::update
   methods:    [PUT]
-
-# ---------- Player
-player-avatar:
-  path:       /player/avatar
-  controller: ModernGame\Controller\PlayerController::getMinecraftAvatar
-  methods:    [GET]
-player-list:
-  path:       /player/list
-  controller: ModernGame\Controller\PlayerController::getPlayerList
-  methods:    [GET]
-player:
-  path:       /player
-  controller: ModernGame\Controller\PlayerController::getPlayer
-  methods:    [GET]
-
-# ---------- Prepaid
-wallet-cash:
-  path:       /prepaid/status
-  controller: ModernGame\Controller\AfterLogin\WalletController::cash
-  methods:    [GET]
-payment-paypal-confirmation:
-  path:       /prepaid/paypal
-  controller: ModernGame\Controller\AfterLogin\WalletController::paypalExecute
-  methods:    [POST]
-payment-dotpay-confirmation:
-  path:       /prepaid/dotpay
-  controller: ModernGame\Controller\AfterLogin\WalletController::dotPayExecute
-  methods:    [POST]
-payment-sms-confirmation:
-  path:       /prepaid/sms
-  controller: ModernGame\Controller\AfterLogin\WalletController::microSMSExecute
-  methods:    [POST]
-
-# ---------- ItemShop
-shop-get-prices:
-  path:       /shop/sms/prices
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::getSMSPrices
-  methods:    [GET]
-shop-get-items:
-  path:       /shop/list
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::getItemList
-  methods:    [GET]
-shop-buy-item:
-  path:       /shop/buy
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::buyItemList
-  methods:    [POST]
-shop-paypal-execute-item-list:
-  path:       /shop/execute/paypal
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::payPalExecute
-  methods:    [POST]
-shop-dotpay-execute-item-list:
-  path:       /shop/execute/dotpay
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::dotPayExecute
-  methods:    [POST]
-
-# ---------- Contact
-contact:
-  path:       /contact
-  controller: ModernGame\Controller\ContactController::setMessageContact
-  methods:    [POST]
-contact-ticket:
-  path:       /contact
-  controller: ModernGame\Controller\ContactController::getMessagesTicket
-  methods:    [GET]
-
-# ---------- Article
-article:
-  path:       /article
-  controller: ModernGame\Controller\Content\ArticleController::getArticle
-  methods:    [GET]
-
-# ---------- Regulation
-rules:
-  path:       /rules
-  controller: ModernGame\Controller\Content\RegulationController::getRules
-  methods:    [GET]

@@ -21,7 +21,7 @@ class AbstractAdminController extends AbstractController
         $entity = $service->mapEntity($request);
 
         /** @var AbstractRepository $repository */
-        $repository = $this->getDoctrine()->getRepository($this::REPOSITORY_CLASS);
+        $repository = $this->getDoctrine()->getRepository(static::REPOSITORY_CLASS);
         $repository->insert($entity);
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
@@ -29,10 +29,10 @@ class AbstractAdminController extends AbstractController
 
     public function getEntity(Request $request): JsonResponse
     {
-        $repository = $this->getDoctrine()->getRepository($this::REPOSITORY_CLASS);
-        $toSearch = $request->query->getInt($this::FIND_BY);
+        $repository = $this->getDoctrine()->getRepository(static::REPOSITORY_CLASS);
+        $toSearch = $request->query->getInt(static::FIND_BY);
 
-        return new JsonResponse(empty($id) ? $repository->findAll() : [$repository->findBy([$this::FIND_BY => $toSearch])]);
+        return new JsonResponse(empty($id) ? $repository->findAll() : [$repository->findBy([static::FIND_BY => $toSearch])]);
     }
 
     public function putEntity(Request $request, ServiceInterface $service): JsonResponse
@@ -41,7 +41,7 @@ class AbstractAdminController extends AbstractController
         $entity = $service->mapEntityById($request);
 
         /** @var AbstractRepository $repository */
-        $repository = $this->getDoctrine()->getRepository($this::REPOSITORY_CLASS);
+        $repository = $this->getDoctrine()->getRepository(static::REPOSITORY_CLASS);
         $repository->update($entity);
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
@@ -53,7 +53,7 @@ class AbstractAdminController extends AbstractController
     public function deleteEntity(Request $request): JsonResponse
     {
         /** @var AbstractRepository $repository */
-        $repository = $this->getDoctrine()->getRepository($this::REPOSITORY_CLASS);
+        $repository = $this->getDoctrine()->getRepository(static::REPOSITORY_CLASS);
         try {
             $repository->delete($request->query->getInt('id'));
         } catch (\Exception $e) {
