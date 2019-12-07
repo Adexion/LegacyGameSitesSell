@@ -3,6 +3,9 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! next relese should be stable version. This is last BETA update !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# 0.103.0 - 07.12.2019
+    - clean in project
+    - add working (I hope so) reply for ticket
 # 0.102.1 - 02.12.2019
     - clean in project
 # 0.102.0 - 02.12.2019

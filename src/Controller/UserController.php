@@ -9,10 +9,10 @@ use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\User\LoginUserService;
 use ModernGame\Service\User\RegisterService;
 use ModernGame\Service\User\ResetPasswordService;
+use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Swagger\Annotations as SWG;
 
 class UserController extends Controller
 {
@@ -121,7 +121,8 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function getUserData(Request $request) {
+    public function getUserData(Request $request)
+    {
         /** @var User $user */
         $user = $this->getUser();
 
@@ -131,7 +132,6 @@ class UserController extends Controller
             'roles' => $user->getRoles()
         ]);
     }
-
 
     /**
      * Get an user bought items
@@ -226,8 +226,9 @@ class UserController extends Controller
     {
         $register->updatePassword($request, $this->getUser());
 
-        return new JsonResponse();
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     }
+
     /**
      * Set new password after reset
      *
@@ -267,7 +268,7 @@ class UserController extends Controller
     {
         $resetPassword->resetPassword($request);
 
-        return new JsonResponse();
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     }
 
     /**

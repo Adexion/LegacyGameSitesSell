@@ -49,6 +49,30 @@ class TicketService extends AbstractService implements ServiceInterface
     }
 
     /**
+     * @throws ContentException
+     */
+    public function setFieldsOfTickets(Request $request, Ticket $responseTicket, Ticket $ticket)
+    {
+        $form = $this->form->create(ResponseTicketType::class, $responseTicket);
+
+        $responseTicket->setName($ticket->getName());
+        $responseTicket->setEmail($ticket->getEmail());
+        $responseTicket->setType($ticket->getType());
+        $responseTicket->setSubject($ticket->getSubject());
+        $responseTicket->setToken($ticket->getToken());
+
+        $responseTicket->setStatus(TicketStatusEnum::ASSIGN_AS_READ);
+        $ticket->setStatus(TicketStatusEnum::ASSIGN_AS_READ);
+
+        $form->handleRequest($request);
+        $this->formErrorHandler->handle($form);
+    }
+
+    public function mapEntityById(Request $request)
+    {
+    }
+
+    /**
      * @throws ORMExceptionAlias
      * @throws OptimisticLockException
      */
@@ -60,6 +84,4 @@ class TicketService extends AbstractService implements ServiceInterface
 
         $this->repository->update($contactEntity);
     }
-
-    public function mapEntityById(Request $request) {}
 }

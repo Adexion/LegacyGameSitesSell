@@ -31,9 +31,12 @@ class ContactController extends AbstractAdminController
      *     description="Evertythig works",
      * )
      */
-    public function getEntity(Request $request): JsonResponse
+    public function getTicket(Request $request): JsonResponse
     {
-        return parent::getEntity($request);
+        $repository = $this->getDoctrine()->getRepository(self::REPOSITORY_CLASS);
+        $token = $request->request->get(self::FIND_BY);
+
+        return new JsonResponse($token ? $repository->find($token) : $repository->getListGroup());
     }
 
     /**
@@ -57,25 +60,16 @@ class ContactController extends AbstractAdminController
     {
         $repository = $this->getDoctrine()->getRepository(self::REPOSITORY_CLASS);
 
+        /** @var Ticket $ticket */
         $ticket = $repository->find($request->request->get('id'));
         $responseTicket = new Ticket();
 
-        $form = $this->createForm(ResponseTicketType::class, $responseTicket);
-
-        $responseTicket->setName($ticket->getName());
-        $responseTicket->setEmail($ticket->getEmail());
-        $responseTicket->setType($ticket->getType());
-        $responseTicket->setSubject($ticket->getSubject());
-        $responseTicket->setToken($ticket->getToken());
-
-        $responseTicket->setStatus(TicketStatusEnum::ASSIGN_AS_READ);
-        $ticket->setStatus(TicketStatusEnum::ASSIGN_AS_READ);
+        $service->setFieldsOfTickets($request, $responseTicket, $ticket);
 
         $repository->insert($responseTicket);
         $repository->update($ticket);
 
-        $form->handleRequest($request);
-        $handler->handle($form);
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     }
 
     /**
