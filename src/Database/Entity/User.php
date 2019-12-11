@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="Email jest zajęty.")
  * @UniqueEntity(fields="username", message="Nick jest zajęty.")
- * @UniqueEntity(fields="ipAddress", message="Ktoś o tym IP jest już zarajestrowany.")
  */
 class User implements UserInterface
 {
