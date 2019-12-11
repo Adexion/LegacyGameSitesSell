@@ -48,7 +48,6 @@ class RegisterService
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
 
-        $user->setIpAddress($request->getClientIp());
         $user->setPassword($this->setEncodedPassword($user));
 
         $this->userRepository->registerUser($user);

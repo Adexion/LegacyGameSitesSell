@@ -22,8 +22,8 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class)
             ->add('id', HiddenType::class)
+            ->add('username', TextType::class)
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class
             ])
@@ -40,9 +40,6 @@ class UserType extends AbstractType
                 ],
                 'multiple' => true
             ])
-            ->add('rules', HiddenType::class)
-            ->add('reCaptcha', HiddenType::class)
-            ->add('ipAddress', HiddenType::class)
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
     }
 

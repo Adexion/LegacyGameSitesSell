@@ -15,6 +15,23 @@ class UserRepository extends AbstractRepository
         parent::__construct($registry, User::class);
     }
 
+    public function find($id = null)
+    {
+        $qb = $this
+            ->createQueryBuilder('u')
+            ->select('u.id, u.email, u.username, u.roles');
+
+        if ($id) {
+           $qb
+               ->where('u.id = :id')
+               ->setParameter(':id', $id);
+        }
+
+        return $qb
+            ->getQuery()
+            ->execute();
+    }
+
     public function registerUser(User $user)
     {
         $this->_em->persist($user);

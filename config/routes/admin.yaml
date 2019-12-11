@@ -23,7 +23,7 @@ admin-contact-post:
   methods:    [POST]
 admin-contact-get:
   path:       /contact
-  controller: ModernGame\Controller\Admin\ContactController::getEntity
+  controller: ModernGame\Controller\Admin\ContactController::getTicket
   methods:    [GET]
 admin-contact-delete:
   path:       /contact

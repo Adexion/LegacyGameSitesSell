@@ -54,11 +54,6 @@ class User implements UserInterface
      */
     public $rules;
 
-    /**
-     * @ORM\Column(type="string", unique=true)
-     */
-    public $ipAddress;
-
     public $reCaptcha;
 
     public function __construct()
@@ -134,16 +129,6 @@ class User implements UserInterface
     public function setReCaptcha($reCaptcha)
     {
         $this->reCaptcha = $reCaptcha;
-    }
-
-    public function getIpAddress()
-    {
-        return $this->ipAddress;
-    }
-
-    public function setIpAddress($ipAddress)
-    {
-        $this->ipAddress = $ipAddress;
     }
 
     /**

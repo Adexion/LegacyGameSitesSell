@@ -24,7 +24,10 @@ class UserController extends AbstractAdminController
      */
     public function getEntity(Request $request): JsonResponse
     {
-        return parent::getEntity($request);
+        $repository = $this->getDoctrine()->getRepository(static::REPOSITORY_CLASS);
+        $toSearch = $request->query->getInt(static::FIND_BY);
+
+        return new JsonResponse(empty($id) ? $repository->find() : [$repository->find([static::FIND_BY => $toSearch])]);
     }
 
     /**
