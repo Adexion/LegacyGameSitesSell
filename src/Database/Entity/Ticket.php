@@ -2,9 +2,8 @@
 
 namespace ModernGame\Database\Entity;
 
-use App\Zeus\Service\ContactInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\Request;
+use ModernGame\Database\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -59,6 +58,12 @@ class Ticket
      * @ORM\Column(type="string", length=512)
      */
     public $status;
+
+    /**
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     */
+    public $user;
 
     public $reCaptcha;
 
@@ -145,5 +150,15 @@ class Ticket
     public function setToken($token)
     {
         $this->token = $token;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user)
+    {
+        $this->user = $user;
     }
 }

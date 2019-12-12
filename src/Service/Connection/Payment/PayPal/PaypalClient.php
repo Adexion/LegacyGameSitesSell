@@ -4,6 +4,7 @@ namespace ModernGame\Service\Connection\Payment\PayPal;
 
 use GuzzleHttp\Exception\GuzzleException;
 use ModernGame\Exception\ContentException;
+use ModernGame\Exception\PaymentProcessingException;
 use ModernGame\Service\Connection\ApiClient\RestApiClient;
 
 class PaypalClient extends RestApiClient
@@ -12,6 +13,8 @@ class PaypalClient extends RestApiClient
     private const API_TOKEN = '/v1/oauth2/token';
 
     private const PAYPAL_API = 'https://api.paypal.com';
+
+    private const PAYMENT_COMPLETED = 'approved';
 
     /**
      * @throws GuzzleException
@@ -36,6 +39,7 @@ class PaypalClient extends RestApiClient
     /**
      * @throws GuzzleException
      * @throws ContentException
+     * @throws PaymentProcessingException
      */
     public function executeRequest($token, $paymentId, $payerId): array
     {
@@ -61,9 +65,13 @@ class PaypalClient extends RestApiClient
 
     /**
      * @throws ContentException
+     * @throws PaymentProcessingException
      */
     protected function handleError(array $response)
     {
+        if (isset($response['state']) && $response['state'] !== self::PAYMENT_COMPLETED) {
+            throw new PaymentProcessingException('Płatność oczekuje na potwierzenie wykonania');
+        }
         if (!($response['transactions'][0]['amount']['total'] ?? false)) {
             throw new ContentException(['paymentId' => 'Podana płatność nie istnieje lub wystąpił problem po stronie serwera.']);
         }

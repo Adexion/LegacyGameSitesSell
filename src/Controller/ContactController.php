@@ -45,4 +45,19 @@ class ContactController extends AbstractController
 
         return new JsonResponse(['messages' => $messages]);
     }
+
+    /**
+     * @SWG\Tag(name="Contact")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     * )
+     */
+    function getMyTickets(Request $request)
+    {
+        $response = $this->getDoctrine()->getRepository(Ticket::class)
+            ->findBy(['userId' => $this->getUser()->getId()]);
+
+        return new JsonResponse(['messages' => $response]);
+    }
 }

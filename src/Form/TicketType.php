@@ -2,9 +2,10 @@
 
 namespace ModernGame\Form;
 
-use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Entity\Ticket;
+use ModernGame\Database\Entity\User;
 use ModernGame\Validator\ReCaptchaValidator;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -15,6 +16,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Optional;
 
 class TicketType extends AbstractType
 {
@@ -52,6 +54,13 @@ class TicketType extends AbstractType
             ->add('message', TextareaType::class)
             ->add('status')
             ->add('token')
+            ->add('user', EntityType::class, [
+                'constraints' => [
+                    new Optional()
+                ],
+                'class' => User::class,
+                'choice_label' => 'id'
+            ])
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
     }
 

@@ -97,7 +97,7 @@ class RegisterService
     private function setEncodedPassword(User $user)
     {
         return preg_replace(
-            '/^[$2y$]+/',
+            '/^(\$2y\$)+/',
             '\$2a$',
             $this->passwordEncoder->encodePassword($user, $user->getPassword())
         );

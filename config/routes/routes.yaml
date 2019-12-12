@@ -17,6 +17,10 @@ contact-ticket:
   path:       /contact
   controller: ModernGame\Controller\ContactController::getMessagesTicket
   methods:    [GET]
+logged-contact-ticket:
+  path:       /contact/list
+  controller: ModernGame\Controller\ContactController::getMyTickets
+  methods:    [GET]
 
 # ---------- ItemShop
 shop-buy-item:

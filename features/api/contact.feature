@@ -2,7 +2,9 @@ Feature:
   I should be able to send contact message
 
   Scenario: Send valid contact message
-    Given the request body is:
+    Given As logged user
+    And I store token to request
+    And the request body is:
     """
     {
       "name": "testowe",
