@@ -42,7 +42,7 @@ class ContactController extends AbstractAdminController
             $object->clearUser();
         }
 
-        return new JsonResponse();
+        return new JsonResponse($response);
     }
 
     /**
