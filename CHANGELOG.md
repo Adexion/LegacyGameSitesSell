@@ -1,8 +1,5 @@
 ## Versions
 ```
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!! next relese should be stable version. This is last BETA update !!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # 0.104.4 - 12.12.2019
     - clean in project
     - method for saving ticket for login user
@@ -50,6 +47,9 @@
     - add sms price for an item for buying without logging in
     - add prices endpoint for get sms prices
     - refactors for serializer
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! next relese should be stable version. This is last BETA update !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # RC-0.97.2 - 03.10.2019
     - repair tests
     - add relations to DB
