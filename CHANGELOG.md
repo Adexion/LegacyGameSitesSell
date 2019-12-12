@@ -3,6 +3,12 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! next relese should be stable version. This is last BETA update !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# 0.104.4 - 12.12.2019
+    - clean in project
+    - method for saving ticket for login user
+    - paypal now can waitin for execute payment
+    - repair tests for microsms and paypal
+    - replay for ticket is working
 # 0.103.0 - 07.12.2019
     - clean in project
     - add working (I hope so) reply for ticket
