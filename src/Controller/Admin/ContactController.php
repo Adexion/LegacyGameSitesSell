@@ -34,9 +34,9 @@ class ContactController extends AbstractAdminController
     public function getTicket(Request $request): JsonResponse
     {
         $repository = $this->getDoctrine()->getRepository(self::REPOSITORY_CLASS);
-        $token = $request->request->get(self::FIND_BY);
+        $token = $request->query->get(self::FIND_BY);
 
-        return new JsonResponse($token ? $repository->find($token) : $repository->getListGroup());
+        return new JsonResponse($token ? $repository->findBy([self::FIND_BY => $token]) : $repository->getListGroup());
     }
 
     /**
@@ -63,7 +63,6 @@ class ContactController extends AbstractAdminController
         /** @var Ticket $ticket */
         $ticket = $repository->find($request->request->get('id'));
         $responseTicket = new Ticket();
-
         $service->setFieldsOfTickets($request, $responseTicket, $ticket);
 
         $repository->insert($responseTicket);

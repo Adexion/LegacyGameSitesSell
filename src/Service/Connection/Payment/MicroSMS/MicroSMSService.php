@@ -43,7 +43,7 @@ class MicroSMSService extends AbstractPayment implements PaymentInterface
 
         $response = $this->client->executeRequest($configuration['userId'], $configuration['serviceId'], $id);
 
-        $amount = $this->price->findOneBy(['phoneNumber' => $response['data-']['number']])->getAmount();
+        $amount = $this->price->findOneBy(['phoneNumber' => $response['data']['number']])->getAmount();
         $this->notePayment($amount);
 
         return (float)$amount;

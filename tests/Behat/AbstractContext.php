@@ -17,6 +17,7 @@ abstract class AbstractContext extends ApiContext implements Context
 {
     /** @var KernelInterface */
     private $kernel;
+    private $value;
 
     public function __construct(KernelInterface $kernel)
     {
@@ -47,9 +48,28 @@ abstract class AbstractContext extends ApiContext implements Context
         }
     }
 
-    protected function getManager(): ObjectManager
+    /**
+     * @When I request :path using HTTP :method using stored param as :value
+     */
+    public function setToRequestQuery(string $path, string $method, string $value)
     {
-        return $this->kernel->getContainer()->get('doctrine')->getManager();
+        $this->setRequestPath($path . '?' . $value . '=' . $this->value);
+
+        if (null === $method) {
+            $this->setRequestMethod('GET', false);
+        } else {
+            $this->setRequestMethod($method);
+        }
+
+        return $this->sendRequest();
+    }
+
+    /**
+     * @Then I store :value
+     */
+    public function storeValue($value)
+    {
+        $this->value = ((array)$this->getResponseBody())[$value];
     }
 
     /**
@@ -61,5 +81,10 @@ abstract class AbstractContext extends ApiContext implements Context
 
         echo (string)$this->response->getBody() . ' Code: ' . $this->response->getStatusCode();
         die;
+    }
+
+    protected function getManager(): ObjectManager
+    {
+        return $this->kernel->getContainer()->get('doctrine')->getManager();
     }
 }

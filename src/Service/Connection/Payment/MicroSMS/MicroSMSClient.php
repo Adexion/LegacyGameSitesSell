@@ -25,6 +25,7 @@ class MicroSMSClient extends RestApiClient
         $response = json_decode($this->request(RestApiClient::GET, self::URL . http_build_query($request)), true);
         $this->handleError($response);
 
+        return $response;
     }
 
     /**
@@ -35,7 +36,7 @@ class MicroSMSClient extends RestApiClient
         if (empty($response)) {
             throw new ContentException(['error' => 'Nie można nawiązać połączenia z serwerem płatności.']);
         }
-        if (!is_object($response)) {
+        if (!is_array($response)) {
             throw new ContentException(['error' => 'Nie można odczytać informacji o płatności.']);
         }
         if (isset($response['error']) && $response['error']) {

@@ -53,17 +53,11 @@ class TicketService extends AbstractService implements ServiceInterface
      */
     public function setFieldsOfTickets(Request $request, Ticket $responseTicket, Ticket $ticket)
     {
-        $form = $this->form->create(ResponseTicketType::class, $responseTicket);
-
-        $responseTicket->setName($ticket->getName());
-        $responseTicket->setEmail($ticket->getEmail());
-        $responseTicket->setType($ticket->getType());
-        $responseTicket->setSubject($ticket->getSubject());
-        $responseTicket->setToken($ticket->getToken());
-
-        $responseTicket->setStatus(TicketStatusEnum::ASSIGN_AS_READ);
         $ticket->setStatus(TicketStatusEnum::ASSIGN_AS_READ);
 
+        $request->request->replace($this->serializer->mergeDataWithEntity($ticket, $request->request->all()));
+
+        $form = $this->form->create(ResponseTicketType::class, $responseTicket);
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
     }

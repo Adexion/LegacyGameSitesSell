@@ -24,7 +24,7 @@ class ContactController extends AbstractController
         $contact = $service->mapEntity($request);
         $this->getDoctrine()->getRepository(Ticket::class)->insert($contact);
 
-        return new JsonResponse(['ticket' => $contact->getToken()]);
+        return new JsonResponse(['token' => $contact->getToken()]);
     }
 
     /**
@@ -40,7 +40,7 @@ class ContactController extends AbstractController
             ->findBy(['token' => $request->request->get('token')]);
 
         if (empty($messages)) {
-            throw new ContentException(['ticket' => 'Ta wartość jest nieprawidłowa.']);
+            throw new ContentException(['token' => 'Ta wartość jest nieprawidłowa.']);
         }
 
         return new JsonResponse(['messages' => $messages]);

@@ -13,7 +13,7 @@ Feature:
       "payerId": "VALID_PAYER_ID"
     }
     """
-    When I request "/v1/payment/paypal" using HTTP "POST"
+    When I request "/v1/prepaid/paypal" using HTTP "POST"
     Then the response code is 200
     And the response body contains JSON:
     """
@@ -32,7 +32,7 @@ Feature:
         "payerId": "INVALID_PAYER_ID"
     }
     """
-    When I request "/v1/payment/paypal" using HTTP "POST"
+    When I request "/v1/prepaid/paypal" using HTTP "POST"
     Then the response code is 400
     And the response body contains JSON:
     """

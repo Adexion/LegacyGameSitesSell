@@ -13,7 +13,7 @@ Feature:
       "smsCode": "VALID_CODE"
     }
     """
-    When I request "/v1/payment/sms" using HTTP "POST"
+    When I request "/v1/prepaid/sms" using HTTP "POST"
     Then the response code is 200
     And the response body contains JSON:
     """
@@ -32,7 +32,7 @@ Feature:
       "smsCode": "INVALID_FORMAT_VALUE"
     }
     """
-    When I request "/v1/payment/sms" using HTTP "POST"
+    When I request "/v1/prepaid/sms" using HTTP "POST"
     Then the response code is 400
     And the response body contains JSON:
     """
@@ -51,7 +51,7 @@ Feature:
       "smsCode": "INVALID_VALUE"
     }
     """
-    When I request "/v1/payment/sms" using HTTP "POST"
+    When I request "/v1/prepaid/sms" using HTTP "POST"
     Then the response code is 400
     And the response body contains JSON:
     """

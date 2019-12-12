@@ -17,7 +17,7 @@ Feature:
     And the response body contains JSON:
     """
     {
-        "ticket": "@variableType(string)"
+        "token": "@variableType(string)"
     }
     """
 

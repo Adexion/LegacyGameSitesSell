@@ -16,6 +16,7 @@ class TicketRepository extends AbstractRepository
     {
         return $this
             ->createQueryBuilder('c')
+            ->select('c.token', 'c.name')
             ->groupBy('c.token')
             ->getQuery()
             ->execute();

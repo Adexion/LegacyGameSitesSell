@@ -15,7 +15,7 @@ Feature:
     }
     """
     When I request "/v1/user" using HTTP "PUT"
-    Then the response code is 200
+    Then the response code is 204
     Given the request body is:
     """
     {

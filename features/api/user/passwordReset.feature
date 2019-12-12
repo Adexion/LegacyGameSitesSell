@@ -1,4 +1,3 @@
-@dev
 Feature:
   I should be able to get email with reset token
 
@@ -34,8 +33,7 @@ Feature:
     }
     """
     When I request "/v1/user/password" using HTTP "PUT"
-    Then the response code is 200
-    And the response body is an empty JSON object
+    Then the response code is 204
 
   Scenario: Reset password with two different passwords
     Given set password reset token as testTest123
