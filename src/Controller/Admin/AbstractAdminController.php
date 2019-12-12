@@ -2,6 +2,7 @@
 
 namespace ModernGame\Controller\Admin;
 
+use Exception;
 use ModernGame\Database\Repository\AbstractRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\ServiceInterface;
@@ -56,7 +57,7 @@ class AbstractAdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(static::REPOSITORY_CLASS);
         try {
             $repository->delete($request->query->getInt('id'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new ContentException(['error' => 'Nic nie znaleziono.']);
         }
 

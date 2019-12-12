@@ -157,6 +157,11 @@ class Ticket
         return $this->user;
     }
 
+    public function clearUser()
+    {
+        $this->user = null;
+    }
+
     public function setUser(User $user)
     {
         $this->user = $user;

@@ -3,10 +3,6 @@
 namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Ticket;
-use ModernGame\Database\Entity\Token;
-use ModernGame\Enum\TicketStatusEnum;
-use ModernGame\Form\ResponseTicketType;
-use ModernGame\Form\TicketType;
 use ModernGame\Service\Content\TicketService;
 use ModernGame\Validator\FormErrorHandler;
 use Swagger\Annotations as SWG;
@@ -36,7 +32,17 @@ class ContactController extends AbstractAdminController
         $repository = $this->getDoctrine()->getRepository(self::REPOSITORY_CLASS);
         $token = $request->query->get(self::FIND_BY);
 
-        return new JsonResponse($token ? $repository->findBy([self::FIND_BY => $token]) : $repository->getListGroup());
+        $response = $token ? $repository->findBy([self::FIND_BY => $token]) : $repository->getListGroup();
+
+        foreach ($response as $object) {
+            if (!($object instanceof Ticket)) {
+                break;
+            }
+
+            $object->clearUser();
+        }
+
+        return new JsonResponse();
     }
 
     /**

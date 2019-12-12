@@ -5,10 +5,10 @@ namespace ModernGame\Controller;
 use ModernGame\Database\Entity\Ticket;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\Content\TicketService;
+use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Swagger\Annotations as SWG;
 
 class ContactController extends AbstractController
 {
@@ -36,8 +36,13 @@ class ContactController extends AbstractController
      */
     function getMessagesTicket(Request $request)
     {
+        /** @var Ticket[] $messages */
         $messages = $this->getDoctrine()->getRepository(Ticket::class)
             ->findBy(['token' => $request->request->get('token')]);
+
+        foreach ($messages as $message) {
+            $message->clearUser();
+        }
 
         if (empty($messages)) {
             throw new ContentException(['token' => 'Ta wartość jest nieprawidłowa.']);
@@ -56,7 +61,7 @@ class ContactController extends AbstractController
     function getMyTickets(Request $request)
     {
         $response = $this->getDoctrine()->getRepository(Ticket::class)
-            ->findBy(['userId' => $this->getUser()->getId()]);
+            ->getListGroup($this->getUser());
 
         return new JsonResponse(['messages' => $response]);
     }
