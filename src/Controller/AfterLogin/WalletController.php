@@ -14,10 +14,21 @@ use Swagger\Annotations as SWG;
 class WalletController extends Controller
 {
     /**
+     * Getting a prepaid status.
+     *
+     * Getting status of prepaid account. Shows how many moneys did you spend.
+     *
      * @SWG\Tag(name="Prepaid")
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(
+     *              type="integer",
+     *              property="cash"
+     *          )
+     *      )
      * )
      */
     public function cash(WalletService $wallet)
@@ -28,10 +39,31 @@ class WalletController extends Controller
     }
 
     /**
+     *  Charge your prepaid account with SMS
+     *
      * @SWG\Tag(name="Prepaid")
+     * @SWG\Parameter(
+     *     type="object",
+     *     in="body",
+     *     name="JSON",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(
+     *              type="string",
+     *              property="smsCode"
+     *          )
+     *     )
+     * )
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(
+     *              type="integer",
+     *              property="cash"
+     *          )
+     *      )
      * )
      */
     public function microSMSExecute(Request $request, WalletService $wallet, MicroSMSService $payment)
@@ -46,10 +78,35 @@ class WalletController extends Controller
     }
 
     /**
+     *  Charge your prepaid account with paypal
+     *
      * @SWG\Tag(name="Prepaid")
+     * @SWG\Parameter(
+     *     type="object",
+     *     in="body",
+     *     name="JSON",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(
+     *              type="string",
+     *              property="paymentId"
+     *          ),
+     *          @SWG\Property(
+     *              type="string",
+     *              property="payerId"
+     *          )
+     *     )
+     * )
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(
+     *              type="integer",
+     *              property="cash"
+     *          )
+     *      )
      * )
      */
     public function paypalExecute(Request $request, WalletService $wallet, PayPalService $payment)
@@ -65,10 +122,31 @@ class WalletController extends Controller
     }
 
     /**
+     *  Charge your prepaid account with DotPay
+     *
      * @SWG\Tag(name="Prepaid")
+     * @SWG\Parameter(
+     *     type="object",
+     *     in="body",
+     *     name="JSON",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(
+     *              type="string",
+     *              property="paymentId"
+     *          )
+     *     )
+     * )
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(
+     *              type="integer",
+     *              property="cash"
+     *          )
+     *      )
      * )
      */
     public function dotPayExecute(Request $request, WalletService $wallet, DotPayService $payment)
