@@ -321,26 +321,40 @@ class UserController extends Controller
     }
 
     /**
+     * Execute User Item
+     *
+     * Get user specific item and send it as command for player on server
+     * !!!Caution!!! It doesn't user status on server!
+     *
      * @SWG\Tag(name="User")
      * @SWG\Response(
-     *     response=200,
+     *     response=204,
      *     description="Evertythig works",
      * )
      */
     public function itemExecute(Request $request, RCONService $rcon)
     {
-        return new JsonResponse($rcon->executeItem($request->request->getInt('itemId')));
+        $rcon->executeItem($request->request->getInt('itemId'));
+
+        return new JsonResponse();
     }
 
     /**
+     * Execute User Item list
+     *
+     * Get user item list and send it as command for player on server
+     * !!!Caution!!! It doesn't user status on server!
+     *
      * @SWG\Tag(name="User")
      * @SWG\Response(
-     *     response=200,
+     *     response=204,
      *     description="Evertythig works",
      * )
      */
     public function itemListExecute(RCONService $rcon)
     {
-        return new JsonResponse($rcon->executeItem());
+        $rcon->executeItem();
+
+        return new JsonResponse();
     }
 }

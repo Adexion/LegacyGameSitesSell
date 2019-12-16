@@ -22,8 +22,8 @@ class RuleDto
         return $this->rules;
     }
 
-    public function addRules(string $rules)
+    public function addRule(string $rule)
     {
-        $this->rules[] = ['description' => $rules];
+        $this->rules[] = ['description' => $rule];
     }
 }
