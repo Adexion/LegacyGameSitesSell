@@ -12,6 +12,8 @@ use Swagger\Annotations as SWG;
 class ArticleController extends AbstractController
 {
     /**
+     * Get articles for home page
+     *
      * @SWG\Tag(name="Article")
      * @SWG\Parameter(
      *     name="id",
@@ -22,7 +24,10 @@ class ArticleController extends AbstractController
      * @SWG\Response(
      *     response=200,
      *     description="Evertythig works",
-     *     @SWG\Items(ref=@Model(type=Article::class))
+     *     @SWG\Schema(
+     *          type="array",
+     *          @SWG\Items(ref=@Model(type=Article::class))
+     *     )
      * )
      */
     public function getArticle(Request $request)

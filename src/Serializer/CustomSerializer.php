@@ -15,10 +15,10 @@ class CustomSerializer
         $this->serializer = $serializer;
     }
 
-    public function serialize($data, $format = 'json', $context = null): SerializedDto
+    public function serialize($data, $format = 'json', $context = []): SerializedDto
     {
         return new SerializedDto(
-            $this->serializer->serialize($data, $format, $context ?? self::CONTEXT)
+            $this->serializer->serialize($data, $format, array_merge_recursive($context, self::CONTEXT))
         );
     }
 
