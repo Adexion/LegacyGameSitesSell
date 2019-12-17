@@ -14,6 +14,8 @@ class ArticleController extends AbstractAdminController
     protected const REPOSITORY_CLASS = Article::class;
 
     /**
+     * Add new article
+     *
      * @SWG\Tag(name="Admin/Article")
      * @SWG\Parameter(
      *     name="JSON",
@@ -39,6 +41,10 @@ class ArticleController extends AbstractAdminController
     }
 
     /**
+     * Get Article list
+     *
+     * Get article list or one article when id given
+     *
      * @SWG\Tag(name="Admin/Article")
      * @SWG\Parameter(
      *     name="id",
@@ -58,6 +64,8 @@ class ArticleController extends AbstractAdminController
     }
 
     /**
+     * Update article
+     *
      * @SWG\Tag(name="Admin/Article")
      * @SWG\Parameter(
      *     name="JSON",
@@ -84,6 +92,10 @@ class ArticleController extends AbstractAdminController
     }
 
     /**
+     * Delete article
+     *
+     * Delete article from specific id
+     *
      * @SWG\Tag(name="Admin/Article")
      * @SWG\Parameter(
      *     name="id",

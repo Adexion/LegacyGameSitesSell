@@ -15,6 +15,8 @@ class ContactController extends AbstractAdminController
     protected const FIND_BY = 'token';
 
     /**
+     * Get list of all tickets
+     *
      * @SWG\Tag(name="Admin/Contact")
      * @SWG\Parameter(
      *     name="ticket",
@@ -46,6 +48,10 @@ class ContactController extends AbstractAdminController
     }
 
     /**
+     * Response for ticket
+     *
+     * Give an id and message to response for tickets
+     *
      * @SWG\Tag(name="Admin/Contact")
      * @SWG\Parameter(
      *     name="JSON",
@@ -78,6 +84,8 @@ class ContactController extends AbstractAdminController
     }
 
     /**
+     * Delete ticket when it is resolved or not needed
+     *
      * @SWG\Tag(name="Admin/Contact")
      * @SWG\Parameter(
      *     name="id",
