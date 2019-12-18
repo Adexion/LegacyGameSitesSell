@@ -31,7 +31,7 @@ class ArticleController extends AbstractAdminController
      *     )
      * )
      * @SWG\Response(
-     *     response=200,
+     *     response=204,
      *     description="Evertythig works",
      * )
      */
@@ -82,7 +82,7 @@ class ArticleController extends AbstractAdminController
      *     )
      * )
      * @SWG\Response(
-     *     response=200,
+     *     response=204,
      *     description="Evertythig works",
      * )
      */
@@ -104,7 +104,7 @@ class ArticleController extends AbstractAdminController
      *     required=false
      * )
      * @SWG\Response(
-     *     response=200,
+     *     response=204,
      *     description="Evertythig works",
      * )
      */

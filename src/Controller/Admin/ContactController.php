@@ -64,7 +64,7 @@ class ContactController extends AbstractAdminController
      *     )
      * )
      * @SWG\Response(
-     *     response=200,
+     *     response=204,
      *     description="Evertythig works",
      * )
      */
@@ -93,7 +93,7 @@ class ContactController extends AbstractAdminController
      *     type="integer"
      * )
      * @SWG\Response(
-     *     response=200,
+     *     response=204,
      *     description="Evertythig works",
      * )
      */

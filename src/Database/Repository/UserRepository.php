@@ -3,10 +3,7 @@
 namespace ModernGame\Database\Repository;
 
 use ModernGame\Database\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 
 class UserRepository extends AbstractRepository
 {

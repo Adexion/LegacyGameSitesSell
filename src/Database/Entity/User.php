@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Swagger\Annotations as SWG;
 
 /**
  * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\UserRepository")
@@ -43,6 +44,7 @@ class User implements UserInterface
     public $password;
 
     /**
+     * @SWG\Property(type="array", @SWG\Items(type="string"))
      * @ORM\Column(type="array")
      */
     public $roles;
@@ -53,6 +55,9 @@ class User implements UserInterface
      */
     public $rules;
 
+    /**
+     * @SWG\Property(type="string")
+     */
     public $reCaptcha;
 
     public function __construct()
@@ -60,7 +65,7 @@ class User implements UserInterface
         $this->roles = ['ROLE_USER'];
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -80,7 +85,7 @@ class User implements UserInterface
         $this->username = $username;
     }
 
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -90,12 +95,12 @@ class User implements UserInterface
         $this->password = $password;
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId($id): void
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -120,7 +125,7 @@ class User implements UserInterface
         $this->rules = $rules;
     }
 
-    public function getReCaptcha()
+    public function getReCaptcha(): string
     {
         return $this->reCaptcha;
     }
@@ -130,19 +135,7 @@ class User implements UserInterface
         $this->reCaptcha = $reCaptcha;
     }
 
-    /**
-     * @return null
-     * @deprecated
-     */
-    public function getSalt()
-    {
-        return null;
-    }
+    public function getSalt(): ?string {}
 
-    /**
-     * @deprecated
-     */
-    public function eraseCredentials()
-    {
-    }
+    public function eraseCredentials() {}
 }
