@@ -3,7 +3,7 @@
 namespace ModernGame\Database\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use ModernGame\Database\Entity\RegulationCategory;
 
 class RegulationCategoryRepository extends AbstractRepository

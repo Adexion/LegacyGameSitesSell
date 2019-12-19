@@ -3,7 +3,7 @@
 namespace ModernGame\Database\Repository;
 
 use ModernGame\Database\Entity\User;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 class UserRepository extends AbstractRepository
 {

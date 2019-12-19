@@ -2,7 +2,7 @@
 
 namespace ModernGame\Database\Repository;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use ModernGame\Database\Entity\ModList;
 
 class ModListRepository extends AbstractRepository

@@ -3,6 +3,7 @@
 namespace ModernGame\Service\Content;
 
 use ModernGame\Database\Entity\Article;
+use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\ArticleRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Form\ArticleType;

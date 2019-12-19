@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class WalletService
 {
-    private $em;
+    private EntityManagerInterface $em;
     private $user;
 
     public function __construct(EntityManagerInterface $em, TokenStorageInterface $token)

@@ -2,7 +2,7 @@
 
 namespace ModernGame\Database\Repository;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use ModernGame\Database\Entity\PaymentHistory;
 
 class PaymentHistoryRepository extends AbstractRepository

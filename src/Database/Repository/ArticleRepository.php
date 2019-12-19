@@ -2,7 +2,7 @@
 
 namespace ModernGame\Database\Repository;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Entity\User;

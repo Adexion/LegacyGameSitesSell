@@ -17,11 +17,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegisterService
 {
-    private $form;
-    private $formErrorHandler;
-    private $userRepository;
-    private $walletService;
-    private $passwordEncoder;
+    private FormFactoryInterface $form;
+    private FormErrorHandler $formErrorHandler;
+    private UserRepository $userRepository;
+    private WalletService $walletService;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
     public function __construct(
         FormFactoryInterface $form,

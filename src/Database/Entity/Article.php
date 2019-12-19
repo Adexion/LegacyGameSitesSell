@@ -15,48 +15,48 @@ class Article
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public ?int$id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
-    public ?string $title;
+    public $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
-    public ?string $subhead;
+    public $subhead;
 
     /**
      * @ORM\Column(type="string", length=256)
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
-    public ?string $image;
+    public $image;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Assert\Length(min="6")
      */
-    public ?string $text;
+    public $text;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      * @Assert\Length(min="6", max="256")
      */
-    public ?string $shortText;
+    public $shortText;
 
     /**
      * @ORM\Column(type="string", length=16)
      * @Assert\NotBlank()
      * @Assert\Length(min="3", max="16")
      */
-    public ?string $author;
+    public $author;
 
     public function getId()
     {

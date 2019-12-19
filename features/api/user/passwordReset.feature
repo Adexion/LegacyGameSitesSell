@@ -77,7 +77,7 @@ Feature:
     }
     """
 
-  Scenario: try to without data
+  Scenario: Try without data
     When I request "/v1/user/password" using HTTP "PUT"
     Then the response code is 400
     Then the response body contains JSON:

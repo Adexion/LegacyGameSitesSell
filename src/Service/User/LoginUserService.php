@@ -18,11 +18,11 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class LoginUserService
 {
-    private $userProvider;
-    private $passwordEncoder;
-    private $form;
-    private $formErrorHandler;
-    private $repository;
+    private UserProviderInterface $userProvider;
+    private UserPasswordEncoderInterface $passwordEncoder;
+    private FormFactoryInterface $form;
+    private FormErrorHandler $formErrorHandler;
+    private TokenRepository $repository;
 
     public function __construct(
         UserProviderInterface $userProvider,

@@ -47,7 +47,7 @@ class User implements UserInterface
      * @SWG\Property(type="array", @SWG\Items(type="string"))
      * @ORM\Column(type="array")
      */
-    public $roles;
+    public ?array $roles;
 
     /**
      * @ORM\Column(type="boolean")
@@ -65,7 +65,7 @@ class User implements UserInterface
         $this->roles = ['ROLE_USER'];
     }
 
-    public function getEmail(): string
+    public function getEmail()
     {
         return $this->email;
     }
@@ -85,7 +85,7 @@ class User implements UserInterface
         $this->username = $username;
     }
 
-    public function getPassword(): string
+    public function getPassword()
     {
         return $this->password;
     }
@@ -95,7 +95,7 @@ class User implements UserInterface
         $this->password = $password;
     }
 
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -105,7 +105,7 @@ class User implements UserInterface
         $this->id = $id;
     }
 
-    public function getRoles(): array
+    public function getRoles()
     {
         return $this->roles;
     }
@@ -125,7 +125,7 @@ class User implements UserInterface
         $this->rules = $rules;
     }
 
-    public function getReCaptcha(): string
+    public function getReCaptcha()
     {
         return $this->reCaptcha;
     }
@@ -135,7 +135,10 @@ class User implements UserInterface
         $this->reCaptcha = $reCaptcha;
     }
 
-    public function getSalt(): ?string {}
+    /**
+     * @return string
+     */
+    public function getSalt() {}
 
     public function eraseCredentials() {}
 }

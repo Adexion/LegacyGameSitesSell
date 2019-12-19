@@ -11,7 +11,7 @@ class UserApiContext extends AbstractContext
     const LOGIN_URI = 'v1/user/login';
     const REGISTER_URI = 'v1/user/register';
 
-    private $token;
+    private string $token;
 
     /**
      * @Given A register user

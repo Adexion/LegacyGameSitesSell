@@ -20,13 +20,13 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class ResetPasswordService
 {
-    private $userProvider;
-    private $form;
-    private $formErrorHandler;
-    private $repository;
-    private $userRepository;
-    private $mailSender;
-    private $passwordEncoder;
+    private UserProviderInterface $userProvider;
+    private FormFactoryInterface $form;
+    private FormErrorHandler $formErrorHandler;
+    private ResetPasswordRepository $repository;
+    private UserRepository $userRepository;
+    private MailSenderService $mailSender;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
     private const RESET_EMAIL_SCHEMA = '1';
 

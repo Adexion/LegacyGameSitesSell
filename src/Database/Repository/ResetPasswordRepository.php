@@ -2,7 +2,7 @@
 
 namespace ModernGame\Database\Repository;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use ModernGame\Database\Entity\ResetPassword;

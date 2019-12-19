@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class TicketService extends AbstractService implements ServiceInterface
 {
-    private User $user;
+    private $user;
 
     public function __construct(
         FormFactoryInterface $form,

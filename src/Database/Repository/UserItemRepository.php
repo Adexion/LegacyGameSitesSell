@@ -4,7 +4,7 @@ namespace ModernGame\Database\Repository;
 
 use ModernGame\Database\Entity\UserItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 class UserItemRepository extends AbstractRepository
 {
