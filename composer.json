@@ -23,7 +23,7 @@
         "symfony/swiftmailer-bundle": "^3.4",
         "symfony/translation": "*",
         "symfony/twig-bundle": "*",
-        "symfony/validator": "^5.0",
+        "symfony/validator": "*",
         "symfony/yaml": "*"
     },
     "require-dev": {
