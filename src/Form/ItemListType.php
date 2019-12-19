@@ -25,7 +25,7 @@ class ItemListType extends AbstractType
                 'empty_data' => 0
             ])
             ->add('description', TextType::class)
-            ->add('iconUrl', TextType::class)
+            ->add('icon', TextType::class)
             ->add('sliderImage', TextType::class)
             ->add('price', NumberType::class)
             ->add('promotion', NumberType::class)

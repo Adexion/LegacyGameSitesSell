@@ -324,9 +324,21 @@ class UserController extends Controller
      * Execute User Item
      *
      * Get user specific item and send it as command for player on server
-     * !!!Caution!!! It doesn't user status on server!
+     * !!!Caution!!! It doesn't check user status on the server!
      *
      * @SWG\Tag(name="User")
+     * @SWG\Parameter(
+     *     type="object",
+     *     in="body",
+     *     name="JSON",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(
+     *              property="itemId",
+     *              type="integer"
+     *          )
+     *     )
+     * )
      * @SWG\Response(
      *     response=204,
      *     description="Evertythig works",
@@ -343,7 +355,7 @@ class UserController extends Controller
      * Execute User Item list
      *
      * Get user item list and send it as command for player on server
-     * !!!Caution!!! It doesn't user status on server!
+     * !!!Caution!!! It doesn't check user status on the server!
      *
      * @SWG\Tag(name="User")
      * @SWG\Response(

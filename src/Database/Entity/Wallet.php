@@ -14,47 +14,46 @@ class Wallet
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="float")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $cash;
+    public ?float $cash = null;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\OneToOne(targetEntity="User", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    public $user;
+    public ?User $user = null;
 
     public function __construct()
     {
         $this->cash = 0;
     }
 
-    /**
-     * @return float|null
-     */
-    public function getCash()
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCash(): ?float
     {
         return $this->cash;
     }
 
-    public function setCash($cash)
+    public function setCash(float $cash)
     {
-        $this->cash = $cash;
+        $this->cash = round($cash, 2);
     }
 
-    public function increaseCash($cash)
+    public function increaseCash(float $cash)
     {
         $this->cash = round($cash + $this->cash, 2);
     }
 
-    /**
-     * @return User|null
-     */
-    public function getUser()
+    public function getUser(): ?User
     {
         return $this->user;
     }
@@ -62,13 +61,5 @@ class Wallet
     public function setUser(User $user)
     {
         $this->user = $user;
-    }
-
-    /**
-     * @return integer|null
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }

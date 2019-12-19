@@ -9,6 +9,8 @@ use ModernGame\Database\Entity\User;
 
 class TokenRepository extends AbstractRepository
 {
+    private const MAX_NUMBER_OF_TOKEN_INSTANCE = 3;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Token::class);
@@ -27,14 +29,14 @@ class TokenRepository extends AbstractRepository
             ])
             ->setMaxResults(1);
 
-        return $qb->getQuery()->getArrayResult()[0] ?? null;
+        return $qb->getQuery()->execute()[0] ?? null;
     }
 
     public function insert($entity)
     {
         $tokens = $this->findBy(['user' => $entity->getUser()]);
 
-        if (count($tokens) > 3) {
+        if (count($tokens) > self::MAX_NUMBER_OF_TOKEN_INSTANCE) {
             $this->clearTokensInstances($tokens);
         }
 
@@ -45,7 +47,7 @@ class TokenRepository extends AbstractRepository
     {
         /** @var Token $token */
         foreach ($tokens as $token) {
-            if ($token->getDate()->format('Y-m-d H:i:s') < date('Y-m-d H:i:s')) {
+            if ($token->getDate() < date('Y-m-d H:i:s')) {
                 $this->delete($token->getToken());
             }
         }

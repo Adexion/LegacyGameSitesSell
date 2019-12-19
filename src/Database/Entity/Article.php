@@ -15,115 +15,110 @@ class Article
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
-    public $title;
+    public ?string $title = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
-    public $subhead;
+    public ?string $subhead = null;
 
     /**
      * @ORM\Column(type="string", length=256)
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
-    public $image;
+    public ?string $image = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Assert\Length(min="6")
      */
-    public $text;
+    public ?string $text = null;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      * @Assert\Length(min="6", max="256")
      */
-    public $shortText;
+    public ?string $shortText = null;
 
     /**
      * @ORM\Column(type="string", length=16)
      * @Assert\NotBlank()
      * @Assert\Length(min="3", max="16")
      */
-    public $author;
+    public ?string $author = null;
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
 
-    public function getSubhead()
+    public function getSubhead(): ?string
     {
         return $this->subhead;
     }
 
-    public function setSubhead($subhead)
+    public function setSubhead(string $subhead)
     {
         $this->subhead = $subhead;
     }
 
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function setImage($image)
+    public function setImage(string $image)
     {
         $this->image = $image;
     }
 
-    public function getText()
+    public function getText(): ?string
     {
         return $this->text;
     }
 
-    public function setText($text)
+    public function setText(string $text)
     {
         $this->text = $text;
     }
 
-    public function getShortText()
+    public function getShortText(): ?string
     {
         return $this->shortText;
     }
 
-    public function setShortText($shortText)
+    public function setShortText(string $shortText)
     {
         $this->shortText = $shortText;
     }
 
-    public function getAuthor()
+    public function getAuthor(): ?string
     {
         return $this->author;
     }
 
-    public function setAuthor($author)
+    public function setAuthor(string $author)
     {
         $this->author = $author;
     }

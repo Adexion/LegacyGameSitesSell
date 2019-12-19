@@ -15,92 +15,92 @@ class UserItem
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public $name;
+    public ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public $iconUrl;
+    public ?string $icon = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public $command;
+    public ?string $command = null;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank()
      */
-    public $quantity;
+    public ?int $quantity = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Item", fetch="EAGER")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotBlank()
      */
-    public $item;
+    public ?Item $item = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotBlank()
      */
-    public $user;
+    public ?User $user = null;
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
 
-    public function getIconUrl()
+    public function getIcon(): ?string
     {
-        return $this->iconUrl;
+        return $this->icon;
     }
 
-    public function setIconUrl($iconUrl)
+    public function setIcon(string $icon)
     {
-        $this->iconUrl = $iconUrl;
+        $this->icon = $icon;
     }
 
-    public function getCommand()
+    public function getCommand(): ?string
     {
         return $this->command;
     }
 
-    public function setCommand($command)
+    public function setCommand(string $command)
     {
         $this->command = $command;
     }
 
-    public function getQuantity()
+    public function getQuantity(): ?int
     {
         return $this->quantity;
     }
 
-    public function setQuantity($quantity)
+    public function setQuantity(int $quantity)
     {
         $this->quantity = $quantity;
     }
 
-    public function getItem()
+    public function getItem(): ?Item
     {
         return $this->item;
     }
@@ -110,7 +110,7 @@ class UserItem
         $this->item = $item;
     }
 
-    public function getUser()
+    public function getUser(): ?User
     {
         return $this->user;
     }

@@ -15,127 +15,122 @@ class ItemList
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public $name;
+    public ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public $description;
+    public ?string $description = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public $iconUrl = 'https://www.freeiconspng.com/uploads/error-icon-4.png';
+    public ?string $icon = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public $sliderImage = 'https://www.freeiconspng.com/uploads/error-icon-4.png';
+    public ?string $sliderImage = null;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank()
      */
-    public $howManyBuyers = 0;
+    public ?int $howManyBuyers = 0;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
      */
-    public $price;
+    public ?float $price = 0;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
      */
-    public $promotion;
+    public ?float $promotion = 0;
 
     /**
      * @ORM\OneToOne(targetEntity="Price", fetch="EAGER")
      * @ORM\JoinColumn(name="sms_price_id", referencedColumnName="id")
      */
-    public $smsPrice;
+    public ?Price $smsPrice = null;
 
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
 
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription($description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
     }
 
-    public function getIconUrl()
+    public function getIcon(): ?string
     {
-        return $this->iconUrl;
+        return $this->icon;
     }
 
-    public function setIconUrl($iconUrl)
+    public function setIcon(string $icon)
     {
-        $this->iconUrl = $iconUrl;
+        $this->icon = $icon;
     }
 
-    public function getPrice()
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setPrice($price)
+    public function setPrice(float $price)
     {
         $this->price = $price;
     }
 
-    public function getPromotion()
+    public function getPromotion(): ?float
     {
         return $this->promotion;
     }
 
-    public function setPromotion($promotion)
+    public function setPromotion(float $promotion)
     {
         $this->promotion = $promotion;
     }
 
-    public function getSliderImage()
+    public function getSliderImage(): ?string
     {
         return $this->sliderImage;
     }
 
-    public function setSliderImage($sliderImage)
+    public function setSliderImage(string $sliderImage)
     {
         $this->sliderImage = $sliderImage;
     }
 
-    public function getHowManyBuyers()
+    public function getHowManyBuyers(): ?int
     {
         return $this->howManyBuyers;
     }
@@ -145,17 +140,17 @@ class ItemList
         $this->howManyBuyers++;
     }
 
-    public function setHowManyBuyers($howManyBuyers)
+    public function setHowManyBuyers(int $howManyBuyers)
     {
         $this->howManyBuyers = $howManyBuyers;
     }
 
-    public function getSmsPrice()
+    public function getSmsPrice(): ?Price
     {
         return $this->smsPrice;
     }
 
-    public function setSmsPrice($smsPrice): void
+    public function setSmsPrice(Price $smsPrice)
     {
         $this->smsPrice = $smsPrice;
     }

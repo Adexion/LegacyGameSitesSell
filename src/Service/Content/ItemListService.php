@@ -95,7 +95,7 @@ class ItemListService extends AbstractService implements ServiceInterface
         $userItem = empty($userItem) ? new UserItem() : $userItem[0];
 
         $userItem->setName($item->getName());
-        $userItem->setIconUrl($item->getIconUrl());
+        $userItem->setIcon($item->getIcon());
         $userItem->setCommand($item->getCommand());
         $userItem->setQuantity($userItem->getQuantity() + 1);
         $userItem->setItem($item);

@@ -13,7 +13,7 @@ class ModListType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('modId', HiddenType::class)
+            ->add('id', HiddenType::class)
             ->add('image', TextType::class)
             ->add('name', TextType::class)
             ->add('link', TextType::class);

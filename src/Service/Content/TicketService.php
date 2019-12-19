@@ -16,6 +16,7 @@ use ModernGame\Service\AbstractService;
 use ModernGame\Service\ServiceInterface;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -70,6 +71,16 @@ class TicketService extends AbstractService implements ServiceInterface
         $form = $this->form->create(ResponseTicketType::class, $responseTicket);
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
+    }
+
+    public function buildResponse($tokenList)
+    {
+        if (!isset($tokenList[0]) || !($tokenList[0] instanceof Ticket)) {
+            return $tokenList;
+        }
+
+        return $this->serializer->serialize($tokenList, 'json', ['ignored_attributes' => ['user', 'reCaptcha']])
+            ->getArray();
     }
 
     public function mapEntityById(Request $request)

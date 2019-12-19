@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Swagger\Annotations as SWG;
 
-class WalletController extends Controller
+class PrepaidController extends Controller
 {
     /**
      * Getting a prepaid status.

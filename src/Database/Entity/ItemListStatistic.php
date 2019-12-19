@@ -15,55 +15,55 @@ class ItemListStatistic
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="integer")
      */
-    public $userId;
+    public ?int $userId = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
-    public $date;
+    public ?DateTime $date = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    public $itemList;
+    public ?ItemList $itemList = null;
 
     public function __construct()
     {
         $this->date = new DateTime();
     }
 
-    public function getDate()
+    public function getDate(): ?string
     {
         return $this->date->format('Y-m-d H:i:s');
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getItemList()
+    public function getItemList(): ?ItemList
     {
         return $this->itemList;
     }
 
-    public function setItemList($itemList)
+    public function setItemList(ItemList $itemList)
     {
         $this->itemList = $itemList;
     }
 
-    public function getUserId()
+    public function getUserId(): ?int
     {
         return $this->userId;
     }
 
-    public function setUserId($userId): void
+    public function setUserId(int $userId)
     {
         $this->userId = $userId;
     }

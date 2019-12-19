@@ -14,29 +14,29 @@ class Price
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="integer", unique=true, length=5)
      */
-    public $phoneNumber;
+    public ?string $phoneNumber = null;
 
     /**
      * @ORM\Column(type="float")
      */
-    public $amount;
+    public ?float $amount = null;
 
     /**
      * @ORM\Column(type="float")
      */
-    public $price;
+    public ?float $price = null;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPhoneNumber(): int
+    public function getPhoneNumber(): ?int
     {
         return $this->phoneNumber;
     }
@@ -46,7 +46,7 @@ class Price
         $this->phoneNumber = $phoneNumber;
     }
 
-    public function getAmount(): float
+    public function getAmount(): ?float
     {
         return $this->amount;
     }
@@ -56,12 +56,12 @@ class Price
         $this->amount = $amount;
     }
 
-    public function getPrice()
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setPrice($price): void
+    public function setPrice(float $price)
     {
         $this->price = $price;
     }

@@ -61,19 +61,19 @@ player:
 # ---------- Prepaid
 payment-paypal-confirmation:
   path:       /prepaid/paypal
-  controller: ModernGame\Controller\AfterLogin\WalletController::paypalExecute
+  controller: ModernGame\Controller\AfterLogin\PrepaidController::paypalExecute
   methods:    [POST]
 payment-dotpay-confirmation:
   path:       /prepaid/dotpay
-  controller: ModernGame\Controller\AfterLogin\WalletController::dotPayExecute
+  controller: ModernGame\Controller\AfterLogin\PrepaidController::dotPayExecute
   methods:    [POST]
 payment-sms-confirmation:
   path:       /prepaid/sms
-  controller: ModernGame\Controller\AfterLogin\WalletController::microSMSExecute
+  controller: ModernGame\Controller\AfterLogin\PrepaidController::microSMSExecute
   methods:    [POST]
 wallet-cash:
   path:       /prepaid/status
-  controller: ModernGame\Controller\AfterLogin\WalletController::cash
+  controller: ModernGame\Controller\AfterLogin\PrepaidController::cash
   methods:    [GET]
 
 # ---------- Regulation

@@ -14,35 +14,35 @@ class ResetPassword
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @ORM\OneToOne(targetEntity="User", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    public User $user;
+    public ?User $user = null;
 
     /**
      * @ORM\Column(type="string", length=32)
      */
-    public $token;
+    public ?string $token = null;
 
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
 
-    public function setToken($token)
+    public function setToken(string $token)
     {
         $this->token = $token;
     }
 
-    public function getUser()
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser($user)
+    public function setUser(User $user)
     {
         $this->user = $user;
     }

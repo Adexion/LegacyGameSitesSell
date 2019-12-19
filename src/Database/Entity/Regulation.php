@@ -15,46 +15,41 @@ class Regulation
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $regulationId;
+    public ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="RegulationCategory", fetch="EAGER")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    public $category;
+    public ?RegulationCategory $category = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public $description;
+    public ?string $description = null;
 
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription($description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
     }
 
-    public function getRegulationId()
+    public function getId(): ?int
     {
-        return $this->regulationId;
+        return $this->id;
     }
 
-    public function setRegulationId($regulationId)
-    {
-        $this->regulationId = $regulationId;
-    }
-
-    public function getCategory()
+    public function getCategory(): ?RegulationCategory
     {
         return $this->category;
     }
 
-    public function setCategory($category)
+    public function setCategory(RegulationCategory $category)
     {
         $this->category = $category;
     }

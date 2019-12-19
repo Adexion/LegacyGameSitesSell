@@ -15,59 +15,54 @@ class PaymentHistory
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="integer")
      */
-    public $userId;
+    public ?int $userId = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
-    public $date;
+    public ?DateTime $date = null;
 
     /**
      * @ORM\Column(type="float")
      */
-    public $amount;
+    public ?float $amount = null;
 
     public function __construct()
     {
         $this->date = new DateTime();
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDate()
+    public function getDate(): ?string
     {
         return $this->date->format('Y-m-d H:i:s');
     }
 
-    public function setDate($date)
-    {
-        $this->date = $date;
-    }
-
-    public function getAmount()
+    public function getAmount(): ?float
     {
         return $this->amount;
     }
 
-    public function setAmount($amount)
+    public function setAmount(float $amount)
     {
         $this->amount = $amount;
     }
 
-    public function getUserId()
+    public function getUserId(): ?int
     {
         return $this->userId;
     }
 
-    public function setUserId($userId)
+    public function setUserId(int $userId)
     {
         $this->userId = $userId;
     }

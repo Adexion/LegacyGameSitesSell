@@ -20,77 +20,77 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-    public $email;
+    public ?string $email = null;
 
     /**
      * @ORM\Column(type="string", length=16, unique=true)
      * @Assert\NotBlank()
      * @Assert\Length(min="3", max="16")
      */
-    public $username;
+    public ?string  $username = null;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
-    public $password;
+    public ?string $password = null;
 
     /**
      * @SWG\Property(type="array", @SWG\Items(type="string"))
      * @ORM\Column(type="array")
      */
-    public ?array $roles;
+    public ?array $roles = [];
 
     /**
      * @ORM\Column(type="boolean")
      * @Assert\EqualTo(true)
      */
-    public $rules;
+    public ?bool $rules = false;
 
     /**
      * @SWG\Property(type="string")
      */
-    public $reCaptcha;
+    public ?string $reCaptcha = null;
 
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
     }
 
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
     }
 
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function setUsername($username)
+    public function setUsername(string $username)
     {
         $this->username = $username;
     }
 
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
         $this->password = $password;
     }
@@ -100,45 +100,43 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function getRoles()
+    public function getRoles(): ?array
     {
         return $this->roles;
     }
 
-    public function setRoles($roles)
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
     }
 
-    public function hasRules()
+    public function hasRules(): ?bool
     {
         return $this->rules;
     }
 
-    public function setRules($rules)
+    public function setRules(bool $rules)
     {
         $this->rules = $rules;
     }
 
-    public function getReCaptcha()
+    public function getReCaptcha(): ?string
     {
         return $this->reCaptcha;
     }
 
-    public function setReCaptcha($reCaptcha)
+    public function setReCaptcha(string $reCaptcha)
     {
         $this->reCaptcha = $reCaptcha;
     }
 
-    /**
-     * @return string
-     */
-    public function getSalt() {}
+    public function getSalt(): ?string
+    {
+        return null;
+    }
 
-    public function eraseCredentials() {}
+    public function eraseCredentials()
+    {
+
+    }
 }

@@ -15,78 +15,73 @@ class Item
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public $name;
+    public ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public $iconUrl = 'https://www.freeiconspng.com/uploads/error-icon-4.png';
+    public ?string $icon = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public $command;
+    public ?string $command = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    public $itemList;
+    public ?ItemList $itemList = null;
 
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
 
-    public function getIconUrl()
+    public function getIcon(): ?string
     {
-        return $this->iconUrl;
+        return $this->icon;
     }
 
-    public function setIconUrl($iconUrl)
+    public function setIcon(string $icon)
     {
-        $this->iconUrl = $iconUrl;
+        $this->icon = $icon;
     }
 
-    public function getCommand()
+    public function getCommand(): ?string
     {
         return $this->command;
     }
 
-    public function setCommand($command)
+    public function setCommand(string $command)
     {
         $this->command = $command;
     }
 
-    public function getItemList()
+    public function getItemList(): ?ItemList
     {
         return $this->itemList;
     }
 
-    public function setItemList($itemList)
+    public function setItemList(ItemList $itemList)
     {
         $this->itemList = $itemList;
     }

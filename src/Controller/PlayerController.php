@@ -40,8 +40,7 @@ class PlayerController extends AbstractController
     public function getMinecraftAvatar(Request $request, MojangPlayerService $player)
     {
         $link = self::PLAYER_AVATAR . $player->getUUID($request->query->get('username'));
-
-        return new JsonResponse(['link' => $link]);
+        return new JsonResponse(['avatar' => base64_encode(file_get_contents($link))]);
     }
 
     /**

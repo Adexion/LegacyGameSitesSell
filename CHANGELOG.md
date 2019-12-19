@@ -1,5 +1,8 @@
 ## Versions
 ```
+# 0.105.0 - 19.12.2019
+    - clean in project
+    - update project to PHP 7.4
 # 0.104.4 - 12.12.2019
     - clean in project
     - method for saving ticket for login user

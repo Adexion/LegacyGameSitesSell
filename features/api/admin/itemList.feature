@@ -10,7 +10,7 @@ Feature:
     {
         "name": "test test",
         "description": "test2 test2",
-        "iconUrl": "testTest123",
+        "icon": "testTest123",
         "sliderImage": "testTest123",
         "price": 10.00,
         "promotion": 0.1

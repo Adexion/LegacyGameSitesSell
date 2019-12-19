@@ -7,7 +7,7 @@ Feature:
     And the response body contains JSON:
     """
     {
-        "link": "https://crafatar.com/avatars/48fbb5a077394d8da623ecff6f87ad79"
+        "avatar": "@variableType(string)"
     }
     """
 

@@ -15,31 +15,26 @@ class RegulationCategory
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public $name;
+    public ?string $name = null;
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    public function setName(string$name)
     {
         $this->name = $name;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 }

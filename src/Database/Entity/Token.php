@@ -16,26 +16,26 @@ class Token
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public $token;
+    public ?string $token = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotBlank()
      */
-    public $user;
+    public ?User $user = null;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    public $date;
+    public ?DateTime $date = null;
 
     public function __construct()
     {
         $this->date = new DateTime('+24 hours');
     }
 
-    public function getToken(): string
+    public function getToken(): ?string
     {
         return $this->token;
     }
@@ -45,18 +45,18 @@ class Token
         $this->token = $token;
     }
 
-    public function getUser()
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser($user)
+    public function setUser(User $user)
     {
         $this->user = $user;
     }
 
-    public function getDate(): DateTime
+    public function getDate(): ?string
     {
-        return $this->date;
+        return $this->date->format('Y-m-d H:i:s');
     }
 }

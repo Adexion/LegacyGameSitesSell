@@ -15,62 +15,57 @@ class ModList
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $modId;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public $image;
+    public ?string $image = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public $name;
+    public ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public $link;
+    public ?string $link = null;
 
-    public function getModId()
+    public function getId(): ?int
     {
-        return $this->modId;
+        return $this->id;
     }
 
-    public function setModId($modId)
-    {
-        $this->modId = $modId;
-    }
-
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function setImage($image)
+    public function setImage(string $image)
     {
         $this->image = $image;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
 
-    public function getLink()
+    public function getLink(): ?string
     {
         return $this->link;
     }
 
-    public function setLink($link)
+    public function setLink(string $link)
     {
         $this->link = $link;
     }

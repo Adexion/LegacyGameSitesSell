@@ -51,26 +51,24 @@ Feature:
     """
     [
          {
-             "contactId": 1,
+             "id": 1,
              "name": "testowe",
              "email": "test@testowy.pl",
              "type": "support",
              "subject": "testowy",
              "message": "test testowy testowiec testera",
-             "token": "@variableType(string)",
              "status": "2",
-             "reCaptcha": null
+             "token": "@variableType(string)"
          },
          {
-             "contactId": 2,
+             "id":2,
              "name": "testowe",
              "email": "test@testowy.pl",
              "type": "support",
              "subject": "testowy",
              "message": "test testowy testowiec testera",
-             "token": "@variableType(string)",
              "status": "2",
-             "reCaptcha": null
+             "token": "@variableType(string)"
          }
     ]
     """

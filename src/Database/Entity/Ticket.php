@@ -16,63 +16,63 @@ class Ticket
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $contactId;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public $name;
+    public ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public $email;
+    public ?string $email = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public $type;
+    public ?string $type = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public $subject;
+    public ?string $subject = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public $message;
+    public ?string $message = null;
 
     /**
      * @ORM\Column(type="string", length=128)
      * @Assert\NotBlank()
      */
-    public $token;
+    public ?string $token = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      */
-    public $status;
+    public ?string $status = null;
 
     /**
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
-    public $user;
+    public ?User $user = null;
 
-    public $reCaptcha;
+    public ?string $reCaptcha = null;
 
-    public function getContactId()
+    public function getId(): ?int
     {
-        return $this->contactId;
+        return $this->id;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -82,7 +82,7 @@ class Ticket
         $this->name = $name;
     }
 
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -92,7 +92,7 @@ class Ticket
         $this->email = $email;
     }
 
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -102,7 +102,7 @@ class Ticket
         $this->type = $type;
     }
 
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
@@ -112,7 +112,7 @@ class Ticket
         $this->subject = $subject;
     }
 
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
@@ -122,7 +122,7 @@ class Ticket
         $this->message = $message;
     }
 
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->status;
     }
@@ -132,7 +132,7 @@ class Ticket
         $this->status = $status;
     }
 
-    public function getReCaptcha()
+    public function getReCaptcha(): ?string
     {
         return $this->reCaptcha;
     }
@@ -142,7 +142,7 @@ class Ticket
         $this->reCaptcha = $reCaptcha;
     }
 
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
@@ -155,11 +155,6 @@ class Ticket
     public function getUser(): ?User
     {
         return $this->user;
-    }
-
-    public function clearUser()
-    {
-        $this->user = null;
     }
 
     public function setUser(User $user)
