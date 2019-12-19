@@ -7,8 +7,8 @@ use Swift_Message;
 
 class MailSenderService
 {
-    private $mailer;
-    private $provider;
+    private Swift_Mailer $mailer;
+    private SchemaListProvider $provider;
 
     public function __construct(Swift_Mailer $mailer)
     {

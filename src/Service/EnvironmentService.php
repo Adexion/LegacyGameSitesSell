@@ -8,7 +8,7 @@ class EnvironmentService
     const DEV = 'dev';
     const TEST = 'test';
 
-    private $env;
+    private string $env;
 
     public function __construct(string $env)
     {

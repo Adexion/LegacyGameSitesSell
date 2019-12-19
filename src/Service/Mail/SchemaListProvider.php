@@ -6,7 +6,7 @@ use RuntimeException;
 
 class SchemaListProvider
 {
-    private $schemaList = [
+    private array $schemaList = [
         '1' => [
             'replace' => '%token%',
             'text' => '<p>Link do resetu hasła: <a href="http://ModernGame.pl/reset/%token%">http://ModernGame.pl/reset/%token%</a></p>',

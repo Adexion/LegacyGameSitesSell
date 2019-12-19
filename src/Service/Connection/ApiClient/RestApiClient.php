@@ -13,8 +13,8 @@ class RestApiClient
     const GET = 'GET';
     const POST = 'POST';
 
-    private $client;
-    private $env;
+    private Client $client;
+    private EnvironmentService $env;
 
     public function __construct(EnvironmentService $env)
     {

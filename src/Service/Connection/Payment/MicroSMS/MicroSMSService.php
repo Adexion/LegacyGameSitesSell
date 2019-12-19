@@ -15,9 +15,9 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class MicroSMSService extends AbstractPayment implements PaymentInterface
 {
-    private $client;
-    private $container;
-    private $price;
+    private MicroSMSClient $client;
+    private ContainerInterface $container;
+    private PriceRepository $price;
 
     public function __construct(
         PaymentHistoryRepository $repository,

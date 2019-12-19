@@ -4,8 +4,8 @@ namespace ModernGame\Dto;
 
 class RuleDto
 {
-    private $name;
-    private $rules;
+    private string $name;
+    private array $rules;
 
     public function __construct(string $name)
     {

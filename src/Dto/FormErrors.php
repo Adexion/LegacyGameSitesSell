@@ -4,7 +4,7 @@ namespace ModernGame\Dto;
 
 class FormErrors
 {
-    private $errors = [];
+    private array $errors = [];
 
     public function addError(string $key, string $error)
     {

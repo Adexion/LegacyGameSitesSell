@@ -14,8 +14,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class DotPayService extends AbstractPayment implements PaymentInterface
 {
-    private $client;
-    private $container;
+    private DotPayClient $client;
+    private ContainerInterface $container;
 
     public function __construct(
         PaymentHistoryRepository $repository,

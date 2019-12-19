@@ -2,7 +2,6 @@
 
 namespace ModernGame\Service\Connection\Payment\MicroSMS;
 
-use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\ApiClient\RestApiClient;
@@ -15,7 +14,8 @@ class MicroSMSClient extends RestApiClient
      * @throws ContentException
      * @throws GuzzleException
      */
-    public function executeRequest(string $userId, string $serviceId, string $code) {
+    public function executeRequest(string $userId, string $serviceId, string $code)
+    {
         $request = [
             'userid' => $userId,
             'serviceid' => $serviceId,

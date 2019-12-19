@@ -7,7 +7,7 @@ use ModernGame\Dto\RuleListDto;
 
 class RegulationMapper
 {
-    private $ruleListDto;
+    private RuleListDto $ruleListDto;
 
     public function __construct()
     {
@@ -18,7 +18,7 @@ class RegulationMapper
     {
         /** @var array $rule */
         foreach ($regulation as $rule) {
-            $this->getRuleDto($rule)->addRules($rule['description']);
+            $this->getRuleDto($rule)->addRule($rule['description']);
         }
 
         return $this->ruleListDto->toArray();

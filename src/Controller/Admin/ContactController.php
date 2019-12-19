@@ -4,7 +4,6 @@ namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Ticket;
 use ModernGame\Service\Content\TicketService;
-use ModernGame\Validator\FormErrorHandler;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -68,7 +67,7 @@ class ContactController extends AbstractAdminController
      *     description="Evertythig works",
      * )
      */
-    public function postTicket(Request $request, TicketService $service, FormErrorHandler $handler): JsonResponse
+    public function postTicket(Request $request, TicketService $service): JsonResponse
     {
         $repository = $this->getDoctrine()->getRepository(self::REPOSITORY_CLASS);
 

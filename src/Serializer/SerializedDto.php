@@ -4,7 +4,7 @@ namespace ModernGame\Serializer;
 
 class SerializedDto
 {
-    private $serialized;
+    private string $serialized;
 
     public function __construct(string $serialized)
     {

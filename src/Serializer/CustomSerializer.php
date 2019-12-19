@@ -8,7 +8,7 @@ class CustomSerializer
 {
     const CONTEXT = ['ignored_attributes' => ["__initializer__", "__cloner__","__isInitialized__"]];
 
-    private $serializer;
+    private SerializerInterface $serializer;
 
     public function __construct(SerializerInterface $serializer)
     {

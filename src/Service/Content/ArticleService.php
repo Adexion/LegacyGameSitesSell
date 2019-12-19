@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class ArticleService extends AbstractService implements ServiceInterface
 {
-    private $user;
+    private User $user;
 
     public function __construct(
         FormFactoryInterface $form,

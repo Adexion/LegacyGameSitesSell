@@ -8,16 +8,14 @@ use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\ApiClient\RestApiClient;
 use ModernGame\Service\User\LoginUserService;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class MojangPlayerService
 {
     const MOJANG_GET_UUID_URL = 'https://api.mojang.com/users/profiles/minecraft/';
     const STEVE_USER_UUID = '8667ba71b85a4004af54457a9734eed7';
 
-    private $client;
-    private $loginUserService;
+    private RestApiClient $client;
+    private LoginUserService $loginUserService;
 
     public function __construct(
         LoginUserService $loginUserService,

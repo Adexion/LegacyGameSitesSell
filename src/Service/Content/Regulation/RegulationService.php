@@ -3,6 +3,7 @@
 namespace ModernGame\Service\Content\Regulation;
 
 use ModernGame\Database\Entity\Regulation;
+use ModernGame\Database\Repository\AbstractRepository;
 use ModernGame\Database\Repository\RegulationCategoryRepository;
 use ModernGame\Database\Repository\RegulationRepository;
 use ModernGame\Exception\ContentException;
@@ -16,11 +17,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RegulationService extends AbstractService implements ServiceInterface
 {
-    private $regulationCategoryRepository;
-    private $mapper;
+    private RegulationCategoryRepository $regulationCategoryRepository;
+    private RegulationMapper $mapper;
 
-    /** @var RegulationRepository */
-    protected $repository;
+    protected AbstractRepository $repository;
 
     public function __construct(
         FormFactoryInterface $form,

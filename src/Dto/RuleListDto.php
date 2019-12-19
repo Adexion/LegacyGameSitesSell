@@ -4,7 +4,7 @@ namespace ModernGame\Dto;
 
 class RuleListDto
 {
-    private $ruleList = [];
+    private array $ruleList = [];
 
     public function getRule(string $category): RuleDto
     {

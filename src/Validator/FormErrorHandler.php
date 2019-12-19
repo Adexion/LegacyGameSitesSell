@@ -9,7 +9,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormErrorHandler
 {
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {
@@ -44,7 +44,7 @@ class FormErrorHandler
         }
     }
 
-    private function getFieldPath(FormInterface $form)
+    private function getFieldPath(FormInterface $form): string
     {
         $fieldsName = array($form->getName());
         $parentForm = $form->getParent();

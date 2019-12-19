@@ -16,12 +16,12 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class RCONService
 {
-    private $client;
-    private $user;
-    private $userItemRepository;
-    private $itemRepository;
-    private $itemListRepository;
-    private $container;
+    private RCONConnection $client;
+    private User $user;
+    private UserItemRepository $userItemRepository;
+    private ItemRepository $itemRepository;
+    private ItemListRepository $itemListRepository;
+    private ContainerInterface $container;
 
     /**
      * @throws ContentException

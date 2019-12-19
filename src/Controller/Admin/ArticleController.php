@@ -3,6 +3,7 @@
 namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Article;
+use ModernGame\Form\ArticleType;
 use ModernGame\Service\Content\ArticleService;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
@@ -37,7 +38,7 @@ class ArticleController extends AbstractAdminController
      */
     public function postArticle(Request $request, ArticleService $service): JsonResponse
     {
-        return $this->postEntity($request, $service);
+        return $this->postEntity($request, $service, new Article(), ArticleType::class);
     }
 
     /**

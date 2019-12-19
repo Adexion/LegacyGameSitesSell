@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractService
 {
-    protected $form;
-    protected $formErrorHandler;
-    protected $repository;
-    protected $serializer;
+    protected FormFactoryInterface $form;
+    protected FormErrorHandler $formErrorHandler;
+    protected AbstractRepository $repository;
+    protected CustomSerializer $serializer;
 
     public function __construct(
         FormFactoryInterface $form,

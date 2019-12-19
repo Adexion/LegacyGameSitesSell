@@ -15,11 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class StatisticService
 {
-    private $statisticRepository;
-    private $historyRepository;
-    private $form;
-    private $formErrorHandler;
-    private $serializer;
+    private ItemListStatisticRepository $statisticRepository;
+    private PaymentHistoryRepository $historyRepository;
+    private FormFactoryInterface $form;
+    private FormErrorHandler $formErrorHandler;
+    private CustomSerializer $serializer;
 
     public function __construct(
         ItemListStatisticRepository $statisticRepository,
@@ -54,7 +54,7 @@ class StatisticService
     /**
      * @throws ContentException
      */
-    private function getEntities(Request $request, $class, AbstractRepository $repository): array
+    private function getEntities(Request $request, string $class, AbstractRepository $repository): array
     {
         $form = $this->form->create($class, $request->query->all(), ['method' => 'get']);
         $form->handleRequest($request);

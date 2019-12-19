@@ -10,8 +10,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ReCaptchaValidator
 {
-    private $container;
-    private $env;
+    private ContainerInterface $container;
+    private EnvironmentService $env;
 
     public function __construct(ContainerInterface $container, EnvironmentService $env)
     {
@@ -19,7 +19,7 @@ class ReCaptchaValidator
         $this->env = $env;
     }
 
-    public function validate(string $reCaptcha)
+    public function validate(string $reCaptcha): array
     {
         if ($this->env->isTest() || $this->env->isDev()) {
             return [];

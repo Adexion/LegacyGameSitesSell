@@ -4,14 +4,14 @@ namespace ModernGame\Service\Connection\Minecraft;
 
 class RCONConnection
 {
-    private $host;
-    private $port;
-    private $password;
-    private $timeout;
-    private $socket;
-    private $authorized = false;
-    private $lastResponse;
-    private $isProd;
+    private string $host;
+    private string $port;
+    private string $password;
+    private int $timeout;
+    private resource $socket;
+    private bool $authorized = false;
+    private string $lastResponse;
+    private bool $isProd;
 
     const PACKET_AUTHORIZE = 5;
     const PACKET_COMMAND = 6;

@@ -5,6 +5,7 @@ namespace ModernGame\Service\Connection\Payment\PayPal;
 use GuzzleHttp\Exception\GuzzleException;
 use ModernGame\Database\Repository\PaymentHistoryRepository;
 use ModernGame\Exception\ContentException;
+use ModernGame\Exception\PaymentProcessingException;
 use ModernGame\Service\Connection\Payment\AbstractPayment;
 use ModernGame\Service\Connection\Payment\PaymentInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -12,8 +13,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class PayPalService extends AbstractPayment implements PaymentInterface
 {
-    private $client;
-    private $container;
+    private PaypalClient $client;
+    private ContainerInterface $container;
 
     public function __construct(
         PaymentHistoryRepository $repository,
@@ -30,6 +31,7 @@ class PayPalService extends AbstractPayment implements PaymentInterface
     /**
      * @throws GuzzleException
      * @throws ContentException
+     * @throws PaymentProcessingException
      */
     public function executePayment($id, $payer = null, bool $notePayment = true): float
     {

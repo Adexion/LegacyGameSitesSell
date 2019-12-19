@@ -18,9 +18,9 @@ class ExceptionListener
 {
     const ERROR = 404;
 
-    private $logger;
-    private $service;
-    private $env;
+    private LoggerInterface $logger;
+    private MailSenderService $service;
+    private EnvironmentService $env;
 
     public function __construct(LoggerInterface $logger, MailSenderService $service, EnvironmentService $env)
     {

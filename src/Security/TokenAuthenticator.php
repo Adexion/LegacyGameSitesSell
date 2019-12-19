@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
-    private $repository;
+    private TokenRepository $repository;
 
     public function __construct(TokenRepository $repository)
     {

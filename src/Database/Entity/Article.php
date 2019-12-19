@@ -3,7 +3,6 @@
 namespace ModernGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use stdClass;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -16,48 +15,48 @@ class Article
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    public ?int$id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
-    public $title;
+    public ?string $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
-    public $subhead;
+    public ?string $subhead;
 
     /**
      * @ORM\Column(type="string", length=256)
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
-    public $image;
+    public ?string $image;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Assert\Length(min="6")
      */
-    public $text;
+    public ?string $text;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      * @Assert\Length(min="6", max="256")
      */
-    public $shortText;
+    public ?string $shortText;
 
     /**
      * @ORM\Column(type="string", length=16)
      * @Assert\NotBlank()
      * @Assert\Length(min="3", max="16")
      */
-    public $author;
+    public ?string $author;
 
     public function getId()
     {
