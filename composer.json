@@ -28,8 +28,8 @@
     },
     "require-dev": {
         "behat/behat": "*",
-        "friends-of-behat/symfony-extension": "^2.0",
-        "imbo/behat-api-extension": "^2.2"
+        "friends-of-behat/symfony-extension": "*",
+        "imbo/behat-api-extension": "*"
     },
     "config": {
         "preferred-install": {
