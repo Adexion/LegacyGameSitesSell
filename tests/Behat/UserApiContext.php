@@ -72,8 +72,8 @@ class UserApiContext extends AbstractContext
     }
 
     /**
-     * @Given set pirce :price for phone number :number
-     * @Given set pirce :price for phone number :number and amount :amount
+     * @Given set price :price for phone number :number
+     * @Given set price :price for phone number :number and amount :amount
      */
     public function setPriceForPhoneNumber(float $price, int $number, float $amount = 1)
     {

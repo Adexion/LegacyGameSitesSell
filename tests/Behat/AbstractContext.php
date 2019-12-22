@@ -16,8 +16,8 @@ use Symfony\Component\HttpKernel\KernelInterface;
 abstract class AbstractContext extends ApiContext implements Context
 {
     /** @var KernelInterface */
-    private $kernel;
-    private $value;
+    private KernelInterface $kernel;
+    private string $value;
 
     public function __construct(KernelInterface $kernel)
     {
