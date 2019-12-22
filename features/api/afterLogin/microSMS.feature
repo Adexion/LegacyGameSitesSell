@@ -2,7 +2,7 @@ Feature:
   As logged user
   If I send request by MicroSMS
   I should be able to add money to my wallet
-@dev
+
   Scenario: I try to add money to my wallet
     Given As logged user
     And I store token to request
@@ -14,7 +14,6 @@ Feature:
     }
     """
     When I request "/v1/prepaid/sms" using HTTP "POST"
-  Then debug
     Then the response code is 200
     And the response body contains JSON:
     """
