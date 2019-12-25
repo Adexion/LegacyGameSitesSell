@@ -17,6 +17,8 @@ parameters:
     dotPay:
         username: 'moderngameservice@gmail.com'
         password: '7d9aaefbb73a'
+    additionalInfo:
+        serviceCost: 250
 
 services:
     _defaults:

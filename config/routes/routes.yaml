@@ -3,6 +3,12 @@ routes:
   prefix:   /admin
 
 # ---------- Article
+additional-info:
+  path:       /info
+  controller: ModernGame\Controller\Content\AdditionalInfoController::getPageAdditionalInfo
+  methods:    [GET]
+
+# ---------- Article
 article:
   path:       /article
   controller: ModernGame\Controller\Content\ArticleController::getArticle
