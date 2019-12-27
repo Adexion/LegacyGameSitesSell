@@ -25,7 +25,7 @@ class CustomSerializer
     public function mergeDataWithEntity($entity, $data): array
     {
         return array_filter(
-            array_merge($data, $this->serialize($entity)->getArray())
+            array_merge($this->serialize($entity)->getArray(), $data)
         );
     }
 }
