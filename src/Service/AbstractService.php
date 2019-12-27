@@ -55,7 +55,7 @@ abstract class AbstractService
 
         $data = $this->serializer->mergeDataWithEntity($entity, $request->request->all());
 
-        //HotFix for sending data by query
+        //HotFix for sending data by body
         $request->query->replace($data);
         $request->request->replace($data);
 
