@@ -33,7 +33,7 @@ class AbstractAdminController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(static::REPOSITORY_CLASS);
         $toSearch = $request->query->getInt(static::FIND_BY);
 
-        return new JsonResponse(empty($toSearch) ? $repository->findAll() : [$repository->findBy([static::FIND_BY => $toSearch])]);
+        return new JsonResponse(empty($toSearch) ? $repository->findAll() : $repository->findBy([static::FIND_BY => $toSearch]));
     }
 
     public function putEntity(Request $request, ServiceInterface $service): JsonResponse
