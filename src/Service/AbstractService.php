@@ -53,9 +53,11 @@ abstract class AbstractService
 
         $form = $this->form->create($formType, $entity, array_merge(['method' => 'PUT'], $options));
 
-        $request->request->replace(
-            $this->serializer->mergeDataWithEntity($entity, $request->request->all())
-        );
+        $data = $this->serializer->mergeDataWithEntity($entity, $request->request->all());
+
+        //HotFix for sending data by query
+        $request->query->replace($data);
+        $request->request->replace($data);
 
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
