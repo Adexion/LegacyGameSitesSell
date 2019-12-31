@@ -24,6 +24,7 @@ class WalletService
         $wallet = new Wallet();
 
         $wallet->setUser($user);
+        $wallet->setCash(2);
 
         $this->em->persist($wallet);
         $this->em->flush();
