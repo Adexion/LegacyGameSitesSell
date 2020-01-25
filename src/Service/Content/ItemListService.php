@@ -23,10 +23,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class ItemListService extends AbstractService implements ServiceInterface
 {
+    /** @var object|User */
+    private object $user;
     private UserItemRepository $userItemRepository;
     private ItemRepository $itemRepository;
     private ItemListStatisticRepository $statisticRepository;
-    private User $user;
 
     public function __construct(
         UserItemRepository $userItemRepository,

@@ -12,7 +12,7 @@ class ItemListRepository extends AbstractRepository
         parent::__construct($registry, ItemList::class);
     }
 
-    public function getSliderImages()
+    public function getSliderImages(): array
     {
         return $this->getEntityManager()->createQueryBuilder()
             ->select('item_list.sliderImage, item_list.id, item_list.description, item_list.name')
@@ -23,7 +23,7 @@ class ItemListRepository extends AbstractRepository
             ->execute();
     }
 
-    public function getAllList()
+    public function getAllList(): array
     {
         $list = $this->createQueryBuilder('item_list')
             ->select('item_list.id', 'item_list.name')

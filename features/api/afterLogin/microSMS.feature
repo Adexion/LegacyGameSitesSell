@@ -18,7 +18,7 @@ Feature:
     And the response body contains JSON:
     """
     {
-        "cash": 1.23
+        "cash": 3.23
     }
     """
 

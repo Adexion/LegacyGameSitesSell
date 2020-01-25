@@ -12,7 +12,7 @@ class UserRepository extends AbstractRepository
         parent::__construct($registry, User::class);
     }
 
-    public function search($id = null, $lockMode = null, $lockVersion = null)
+    public function search($id = null, $lockMode = null, $lockVersion = null): array
     {
         $qb = $this
             ->createQueryBuilder('u')

@@ -66,7 +66,7 @@ Feature:
              "email": "test@testowy.pl",
              "type": "support",
              "subject": "testowy",
-             "message": "test testowy testowiec testera",
+             "message": "response",
              "status": "2",
              "token": "@variableType(string)"
          }

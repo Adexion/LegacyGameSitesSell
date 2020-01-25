@@ -6,21 +6,15 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Entity\User;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ArticleRepository extends AbstractRepository
 {
-    /** @var User */
-    private $user;
-
-    public function __construct(ManagerRegistry $registry, TokenStorageInterface $tokenStorage)
+    public function __construct(ManagerRegistry $registry)
     {
-        $this->user = $tokenStorage->getToken()->getUser();
-
         parent::__construct($registry, Article::class);
     }
 
-    public function getLastArticles()
+    public function getLastArticles(): array
     {
         $builder = $this->getEntityManager()->createQueryBuilder();
 

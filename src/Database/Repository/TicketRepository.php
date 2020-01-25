@@ -5,6 +5,7 @@ namespace ModernGame\Database\Repository;
 use Doctrine\Persistence\ManagerRegistry;
 use ModernGame\Database\Entity\Ticket;
 use ModernGame\Database\Entity\User;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class TicketRepository extends AbstractRepository
 {
@@ -13,7 +14,7 @@ class TicketRepository extends AbstractRepository
         parent::__construct($registry, Ticket::class);
     }
 
-    public function getListGroup(User $user = null)
+    public function getListGroup(UserInterface $user = null): array
     {
         $qb = $this
             ->createQueryBuilder('c')

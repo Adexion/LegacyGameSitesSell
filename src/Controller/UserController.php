@@ -59,7 +59,7 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function register(Request $request, RegisterService $register)
+    public function register(Request $request, RegisterService $register): JsonResponse
     {
         $register->register($request);
 
@@ -99,7 +99,7 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function login(Request $request, LoginUserService $login)
+    public function login(Request $request, LoginUserService $login): JsonResponse
     {
         return new JsonResponse(['token' => $login->getToken($request)]);
     }
@@ -121,7 +121,7 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function getUserData(Request $request)
+    public function getUserData(Request $request): JsonResponse
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -144,7 +144,7 @@ class UserController extends Controller
      *     description="Evertythig works"
      * )
      */
-    public function getItemList()
+    public function getItemList(): JsonResponse
     {
         return new JsonResponse([
             'itemList' => $this->getDoctrine()
@@ -184,7 +184,7 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function resetPassword(Request $request, ResetPasswordService $resetPassword)
+    public function resetPassword(Request $request, ResetPasswordService $resetPassword): JsonResponse
     {
         return new JsonResponse(['status' => $resetPassword->sendResetEmail($request)]);
     }
@@ -222,9 +222,11 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function update(Request $request, RegisterService $register)
+    public function update(Request $request, RegisterService $register): JsonResponse
     {
-        $register->updatePassword($request, $this->getUser());
+        /** @var User $user */
+        $user = $this->getUser();
+        $register->updatePassword($request, $user);
 
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     }
@@ -264,7 +266,7 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function resetFromToken(Request $request, ResetPasswordService $resetPassword)
+    public function resetFromToken(Request $request, ResetPasswordService $resetPassword): JsonResponse
     {
         $resetPassword->resetPassword($request);
 
@@ -315,7 +317,7 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function loginMinecraft(Request $request, MojangPlayerService $player)
+    public function loginMinecraft(Request $request, MojangPlayerService $player): JsonResponse
     {
         return new JsonResponse($player->loginIn($request));
     }
@@ -344,7 +346,7 @@ class UserController extends Controller
      *     description="Evertythig works",
      * )
      */
-    public function itemExecute(Request $request, RCONService $rcon)
+    public function itemExecute(Request $request, RCONService $rcon): JsonResponse
     {
         $rcon->executeItem($request->request->getInt('itemId'));
 
@@ -363,7 +365,7 @@ class UserController extends Controller
      *     description="Evertythig works",
      * )
      */
-    public function itemListExecute(RCONService $rcon)
+    public function itemListExecute(RCONService $rcon): JsonResponse
     {
         $rcon->executeItem();
 

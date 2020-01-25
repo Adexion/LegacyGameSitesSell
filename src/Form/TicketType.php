@@ -25,7 +25,7 @@ class TicketType extends AbstractType
     const REPORTS = 'reports';
     const OTHER = 'other';
 
-    private $validator;
+    private ReCaptchaValidator $validator;
 
     public function __construct(ReCaptchaValidator $validator)
     {

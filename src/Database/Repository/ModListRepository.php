@@ -12,7 +12,7 @@ class ModListRepository extends AbstractRepository
         parent::__construct($registry, ModList::class);
     }
 
-    public function getModList()
+    public function getModList(): array
     {
         return $this->createQueryBuilder('ml')
             ->select("ml.image, ml.name, ml.link")

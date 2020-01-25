@@ -20,6 +20,7 @@ class RegulationService extends AbstractService implements ServiceInterface
     private RegulationCategoryRepository $regulationCategoryRepository;
     private RegulationMapper $mapper;
 
+    /** @var AbstractRepository|RegulationRepository  */
     protected AbstractRepository $repository;
 
     public function __construct(

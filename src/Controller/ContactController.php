@@ -65,9 +65,9 @@ class ContactController extends AbstractController
      *     description="Evertythig works",
      * )
      */
-    public function setMessageContact(Request $request, TicketService $service)
+    public function setMessageContact(Request $request, TicketService $service): JsonResponse
     {
-        $contact = $service->mapEntity($request);
+        $contact = $service->mapEntity($request, $this->getUser());
         $this->getDoctrine()->getRepository(Ticket::class)->insert($contact);
 
         return new JsonResponse(['token' => $contact->getToken()]);
@@ -126,7 +126,7 @@ class ContactController extends AbstractController
      *     )
      * )
      */
-    function getMessagesTicket(Request $request, CustomSerializer $serializer)
+    function getMessagesTicket(Request $request, CustomSerializer $serializer): JsonResponse
     {
         /** @var Ticket[] $messages */
         $messages = $this->getDoctrine()->getRepository(Ticket::class)
@@ -165,7 +165,7 @@ class ContactController extends AbstractController
      *     )
      * )
      */
-    function getMyTickets(Request $request)
+    function getMyTickets(Request $request): JsonResponse
     {
         $response = $this->getDoctrine()->getRepository(Ticket::class)
             ->getListGroup($this->getUser());

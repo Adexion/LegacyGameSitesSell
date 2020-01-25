@@ -2,10 +2,13 @@
 
 namespace ModernGame\Database\Repository;
 
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 use ModernGame\Database\Entity\Token;
 use ModernGame\Database\Entity\User;
+use Symfony\Component\VarExporter\Internal\Hydrator;
 
 class TokenRepository extends AbstractRepository
 {
@@ -16,11 +19,11 @@ class TokenRepository extends AbstractRepository
         parent::__construct($registry, Token::class);
     }
 
-    public function getTokenUsername($token)
+    public function getTokenUsername($token): string
     {
         $qb = $this->createQueryBuilder('t')
             ->select('u.username')
-            ->innerJoin(User::class, 'u', Join::WITH,'u.id = t.user')
+            ->innerJoin(User::class, 'u', Join::WITH, 'u.id = t.user')
             ->where('t.token = :token')
             ->andWhere('t.date > :currentDate')
             ->setParameters([
@@ -29,10 +32,16 @@ class TokenRepository extends AbstractRepository
             ])
             ->setMaxResults(1);
 
-        return $qb->getQuery()->execute()[0] ?? null;
+        return $qb->getQuery()->execute()[0]['username'] ?? null;
     }
 
-    public function insert($entity)
+    /**
+     * @param object $entity
+     * @return object
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function insert(object $entity): object
     {
         $tokens = $this->findBy(['user' => $entity->getUser()]);
 

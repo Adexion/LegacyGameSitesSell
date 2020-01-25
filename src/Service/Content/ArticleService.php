@@ -3,7 +3,6 @@
 namespace ModernGame\Service\Content;
 
 use ModernGame\Database\Entity\Article;
-use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\ArticleRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Form\ArticleType;
@@ -17,7 +16,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class ArticleService extends AbstractService implements ServiceInterface
 {
-    private User $user;
+    private object $user;
 
     public function __construct(
         FormFactoryInterface $form,

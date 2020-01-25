@@ -14,7 +14,7 @@ class RegulationRepository extends AbstractRepository
         parent::__construct($registry, Regulation::class);
     }
 
-    public function getRegulation()
+    public function getRegulation(): array
     {
        $builder = $this->_em->createQueryBuilder();
 

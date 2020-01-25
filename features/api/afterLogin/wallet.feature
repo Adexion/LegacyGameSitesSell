@@ -10,7 +10,7 @@ Feature:
     And the response body contains JSON:
     """
     {
-        "cash": 0
+        "cash": 2
     }
     """
 

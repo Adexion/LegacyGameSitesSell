@@ -2,9 +2,9 @@
 
 namespace ModernGame\Service\Connection\Minecraft;
 
-use ErrorException;
 use ModernGame\Database\Entity\Item;
 use ModernGame\Database\Entity\ItemList;
+use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
 use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Database\Repository\ItemRepository;
@@ -12,12 +12,13 @@ use ModernGame\Database\Repository\UserItemRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\EnvironmentService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class RCONService
 {
+    /** @var UserInterface|User */
+    private UserInterface $user;
     private RCONConnection $client;
-    private User $user;
     private UserItemRepository $userItemRepository;
     private ItemRepository $itemRepository;
     private ItemListRepository $itemListRepository;
@@ -30,7 +31,7 @@ class RCONService
         UserItemRepository $userItemRepository,
         ItemRepository $itemRepository,
         ItemListRepository $itemListRepository,
-        TokenStorageInterface $tokenStorage,
+        UserInterface $user,
         ContainerInterface $container,
         EnvironmentService $environmentService
     ) {
@@ -40,14 +41,14 @@ class RCONService
             $serverData = $container->getParameter('minecraft');
             $this->client = new RCONConnection($serverData['host'], $serverData['port'], $serverData['password'], $environmentService->isProd(), 5);
             $this->client->connect();
-        } catch (ErrorException $exception) {
+        } catch (Exception $exception) {
             throw new ContentException(['error' => 'Nie udało się połączyć z serwerem.']);
         }
 
         $this->userItemRepository = $userItemRepository;
         $this->itemRepository =  $itemRepository;
         $this->itemListRepository =  $itemListRepository;
-        $this->user = $tokenStorage->getToken()->getUser();
+        $this->user = $user;
     }
 
     public function getPlayerList()

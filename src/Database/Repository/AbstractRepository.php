@@ -14,7 +14,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function update($entity)
+    public function update(object $entity)
     {
         $this->_em->merge($entity);
         $this->_em->flush();
@@ -27,7 +27,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function insert($entity)
+    public function insert(object $entity): object
     {
         $this->_em->persist($entity);
         $this->_em->flush();

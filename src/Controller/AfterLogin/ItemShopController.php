@@ -32,7 +32,7 @@ class ItemShopController extends Controller
      *     )
      * )
      */
-    public function getItemList()
+    public function getItemList(): JsonResponse
     {
         return new JsonResponse(
             $this->getDoctrine()->getRepository(ItemList::class)->findAll()
@@ -70,7 +70,7 @@ class ItemShopController extends Controller
      *     )
      * )
      */
-    public function payPalExecute(Request $request, PayPalService $payment, RCONService $rcon)
+    public function payPalExecute(Request $request, PayPalService $payment, RCONService $rcon): JsonResponse
     {
         $paymentId = $request->request->get('paymentId') ?? 0;
         $payerId = $request->request->get('payerId') ?? 0;
@@ -113,7 +113,7 @@ class ItemShopController extends Controller
      *     )
      * )
      */
-    public function dotPayExecute(Request $request, DotPayService $payment, RCONService $rcon)
+    public function dotPayExecute(Request $request, DotPayService $payment, RCONService $rcon): JsonResponse
     {
         $paymentId = $request->request->get('paymentId') ?? 0;
 
@@ -146,10 +146,11 @@ class ItemShopController extends Controller
      *     )
      * )
      */
-    public function buyItemList(Request $request, WalletService $wallet, ItemListService $itemListService)
+    public function buyItemList(Request $request, WalletService $wallet, ItemListService $itemListService): JsonResponse
     {
         $cash = $wallet->changeCash(
-            -$itemListService->getItemListPrice($request->request->getInt('id'))
+            -$itemListService->getItemListPrice($request->request->getInt('id')),
+            $this->getUser()
         );
 
         $itemListService->assignListToUser($request->request->getInt('id'));
@@ -174,7 +175,7 @@ class ItemShopController extends Controller
      *     )
      * )
      */
-    public function getSMSPrices()
+    public function getSMSPrices(): JsonResponse
     {
         return new JsonResponse(
             $this->getDoctrine()->getRepository(Price::class)->findAll()

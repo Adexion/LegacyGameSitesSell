@@ -18,11 +18,11 @@ class ResetPasswordRepository extends AbstractRepository
     /**
      * @param User $user
      * @param string $token
-     *
      * @throws ORMException
+     *
      * @throws OptimisticLockException
      */
-    public function addNewToken($user, string $token)
+    public function addNewToken(User $user, string $token)
     {
         $resetPassword = new ResetPassword();
 

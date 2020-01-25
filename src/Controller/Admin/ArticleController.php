@@ -38,7 +38,7 @@ class ArticleController extends AbstractAdminController
      */
     public function postArticle(Request $request, ArticleService $service): JsonResponse
     {
-        return $this->postEntity($request, $service, new Article(), ArticleType::class);
+        return $this->postEntity($request, $service);
     }
 
     /**

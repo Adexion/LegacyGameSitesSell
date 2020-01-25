@@ -31,10 +31,10 @@ class PrepaidController extends Controller
      *      )
      * )
      */
-    public function cash(WalletService $wallet)
+    public function cash(WalletService $wallet): JsonResponse
     {
         return new JsonResponse([
-            "cash" => $wallet->changeCash(0),
+            "cash" => $wallet->changeCash(0, $this->getUser()),
         ]);
     }
 
@@ -66,13 +66,14 @@ class PrepaidController extends Controller
      *      )
      * )
      */
-    public function microSMSExecute(Request $request, WalletService $wallet, MicroSMSService $payment)
+    public function microSMSExecute(Request $request, WalletService $wallet, MicroSMSService $payment): JsonResponse
     {
         $code = $request->request->get('smsCode');
 
         return new JsonResponse([
             "cash" => $wallet->changeCash(
-                $payment->executePayment($code) * ($this->getParameter('multiplier') ?? 1)
+                $payment->executePayment($code) * ($this->getParameter('multiplier') ?? 1),
+                $this->getUser()
             ),
         ]);
     }
@@ -109,14 +110,15 @@ class PrepaidController extends Controller
      *      )
      * )
      */
-    public function paypalExecute(Request $request, WalletService $wallet, PayPalService $payment)
+    public function paypalExecute(Request $request, WalletService $wallet, PayPalService $payment): JsonResponse
     {
         $paymentId = $request->request->get('paymentId');
         $payerId = $request->request->get('payerId');
 
         return new JsonResponse([
             "cash" => $wallet->changeCash(
-                $payment->executePayment($paymentId, $payerId) * ($this->getParameter('multiplier') ?? 1)
+                $payment->executePayment($paymentId, $payerId) * ($this->getParameter('multiplier') ?? 1),
+                $this->getUser()
             ),
         ]);
     }
@@ -149,13 +151,14 @@ class PrepaidController extends Controller
      *      )
      * )
      */
-    public function dotPayExecute(Request $request, WalletService $wallet, DotPayService $payment)
+    public function dotPayExecute(Request $request, WalletService $wallet, DotPayService $payment): JsonResponse
     {
         $paymentId = $request->request->get('paymentId');
 
         return new JsonResponse([
             "cash" => $wallet->changeCash(
-                $payment->executePayment($paymentId) * ($this->getParameter('multiplier') ?? 1)
+                $payment->executePayment($paymentId) * ($this->getParameter('multiplier') ?? 1),
+                $this->getUser()
             ),
         ]);
     }

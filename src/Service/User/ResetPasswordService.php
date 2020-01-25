@@ -49,9 +49,9 @@ class ResetPasswordService
     }
 
     /**
+     * @throws ContentException
      * @throws ORMException
      * @throws OptimisticLockException
-     * @throws ContentException
      */
     public function sendResetEmail(Request $request): int
     {

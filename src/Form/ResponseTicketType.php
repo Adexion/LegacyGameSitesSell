@@ -3,12 +3,9 @@
 namespace ModernGame\Form;
 
 use ModernGame\Database\Entity\Ticket;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Tests\Fixtures\Type;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ResponseTicketType extends AbstractType
 {

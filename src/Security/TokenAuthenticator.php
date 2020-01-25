@@ -28,21 +28,21 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return $request->headers->has('X-AUTH-TOKEN');
     }
 
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): array
     {
         return [
             'token' => $request->headers->get('X-AUTH-TOKEN'),
         ];
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider): UserInterface
     {
         $username = $this->getUsernameByToken($credentials['token']);
 
         return $userProvider->loadUserByUsername($username);
     }
 
-    public function checkCredentials($credentials, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $user): bool
     {
         return true;
     }
@@ -52,7 +52,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return null;
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): JsonResponse
     {
         $data = [
             'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
@@ -61,7 +61,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return new JsonResponse($data, Response::HTTP_FORBIDDEN);
     }
 
-    public function start(Request $request, AuthenticationException $authException = null)
+    public function start(Request $request, AuthenticationException $authException = null): JsonResponse
     {
         if ($authException instanceof UsernameNotFoundException || $authException instanceof BadCredentialsException) {
             return new JsonResponse(['error' => $authException->getMessageKey()], Response::HTTP_BAD_REQUEST);
@@ -70,19 +70,19 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return new JsonResponse(['message' => 'Authentication Required'], Response::HTTP_UNAUTHORIZED);
     }
 
-    public function supportsRememberMe()
+    public function supportsRememberMe(): bool
     {
         return false;
     }
 
-    private function getUsernameByToken($token)
+    private function getUsernameByToken($token): string
     {
         if (empty($token)) {
             return null;
         }
 
-        $tokenInformation = $this->repository->getTokenUsername($token);
+        $username = $this->repository->getTokenUsername($token);
 
-        return $tokenInformation['username'] ?? null;
+        return $username ?? null;
     }
 }

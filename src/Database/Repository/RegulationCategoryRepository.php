@@ -13,10 +13,7 @@ class RegulationCategoryRepository extends AbstractRepository
         parent::__construct($registry, RegulationCategory::class);
     }
 
-    /**
-     * @return array
-     */
-    public function getCategoryList()
+    public function getCategoryList(): array
     {
         $rcList = $this->createQueryBuilder('rc')
             ->select('rc.id', 'rc.categoryName')

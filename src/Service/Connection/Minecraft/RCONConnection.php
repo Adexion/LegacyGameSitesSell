@@ -15,10 +15,10 @@ class RCONConnection
 
     const PACKET_AUTHORIZE = 5;
     const PACKET_COMMAND = 6;
-    const SERVERDATA_AUTH = 3;
-    const SERVERDATA_AUTH_RESPONSE = 2;
-    const SERVERDATA_EXECCOMMAND = 2;
-    const SERVERDATA_RESPONSE_VALUE = 0;
+    const SERVER_DATA_AUTH = 3;
+    const SERVER_DATA_AUTH_RESPONSE = 2;
+    const SERVER_DATA_EXEC_COMMAND = 2;
+    const SERVER_DATA_RESPONSE_VALUE = 0;
 
     public function __construct(string $host, string $port, string $password, bool $isProd, int $timeout = 10)
     {
@@ -32,7 +32,7 @@ class RCONConnection
     public function getResponse()
     {
         if (!$this->isProd) {
-            return 'Execution mockup done!';
+            return 'Mock execution done!';
         }
 
         return $this->lastResponse;
@@ -44,9 +44,9 @@ class RCONConnection
             return false;
         }
 
-        $this->socket = fsockopen($this->host, $this->port, $errno, $errstr, $this->timeout);
+        $this->socket = fsockopen($this->host, $this->port, $errno, $errStr, $this->timeout);
         if (!$this->socket) {
-            $this->lastResponse = $errstr;
+            $this->lastResponse = $errStr;
             return false;
         }
 
@@ -73,11 +73,11 @@ class RCONConnection
             return false;
         }
 
-        $this->writePacket(self::PACKET_COMMAND, self::SERVERDATA_EXECCOMMAND, $command);
+        $this->writePacket(self::PACKET_COMMAND, self::SERVER_DATA_EXEC_COMMAND, $command);
         $response_packet = $this->readPacket();
 
         if ((int)$response_packet['id'] === self::PACKET_COMMAND) {
-            if ((int)$response_packet['type'] === self::SERVERDATA_RESPONSE_VALUE) {
+            if ((int)$response_packet['type'] === self::SERVER_DATA_RESPONSE_VALUE) {
                 $this->lastResponse = $response_packet['body'];
 
                 return $response_packet['body'];
@@ -89,10 +89,10 @@ class RCONConnection
 
     private function authorize(): bool
     {
-        $this->writePacket(self::PACKET_AUTHORIZE, self::SERVERDATA_AUTH, $this->password);
+        $this->writePacket(self::PACKET_AUTHORIZE, self::SERVER_DATA_AUTH, $this->password);
         $response_packet = $this->readPacket();
 
-        if ((int)$response_packet['type'] === self::SERVERDATA_AUTH_RESPONSE) {
+        if ((int)$response_packet['type'] === self::SERVER_DATA_AUTH_RESPONSE) {
             if ((int)$response_packet['id'] === self::PACKET_AUTHORIZE) {
                 $this->authorized = true;
 

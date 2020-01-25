@@ -37,7 +37,7 @@ class PlayerController extends AbstractController
      *     )
      * )
      */
-    public function getMinecraftAvatar(Request $request, MojangPlayerService $player)
+    public function getMinecraftAvatar(Request $request, MojangPlayerService $player): JsonResponse
     {
         $link = self::PLAYER_AVATAR . $player->getUUID($request->query->get('username'));
         return new JsonResponse(['avatar' => base64_encode(file_get_contents($link))]);
@@ -54,7 +54,7 @@ class PlayerController extends AbstractController
      *     description="Evertythig works"
      * )
      */
-    public function getPlayerList(RCONService $rcon)
+    public function getPlayerList(RCONService $rcon): JsonResponse
     {
         return new JsonResponse(['list' => $rcon->getPlayerList()]);
     }
@@ -79,7 +79,7 @@ class PlayerController extends AbstractController
      *     )
      * )
      */
-    public function getPlayer(Request $request, RCONService $rcon)
+    public function getPlayer(Request $request, RCONService $rcon): JsonResponse
     {
         return new JsonResponse([
             'online' => strstr($rcon->getPlayerList(), $request->query->get('username')) !== false

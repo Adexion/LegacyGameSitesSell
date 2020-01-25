@@ -1,5 +1,7 @@
 ## Versions
 ```
+# 0.105.1 - 25.01.2020
+    - clean in project
 # 0.105.0 - 19.12.2019
     - clean in project
     - update project to PHP 7.4
