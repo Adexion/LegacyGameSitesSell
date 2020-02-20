@@ -23,12 +23,12 @@ class ArticleType extends AbstractType
             ->add('text', TextareaType::class)
             ->add('shortText', TextareaType::class)
             ->add('author')
-            ->addEventListener(FormEvents::SUBMIT, [$this, 'submit']);
+            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
     }
 
-    public function submit(FormEvent $event)
+    public function preSubmit(FormEvent $event)
     {
-        if (!empty($event->getData()->getText())) {
+        if (!empty($event->getData()['text'])) {
             return;
         }
 
@@ -38,8 +38,7 @@ class ArticleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Article::class,
-            'allow_extra_fields' => true
+            'data_class' => Article::class
         ]);
 
         parent::configureOptions($resolver);

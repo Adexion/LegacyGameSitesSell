@@ -52,7 +52,7 @@ class PaymentHistory
         return $this->amount;
     }
 
-    public function setAmount(float $amount)
+    public function setAmount(?float $amount)
     {
         $this->amount = $amount;
     }
@@ -62,7 +62,7 @@ class PaymentHistory
         return $this->userId;
     }
 
-    public function setUserId(int $userId)
+    public function setUserId(?int $userId)
     {
         $this->userId = $userId;
     }

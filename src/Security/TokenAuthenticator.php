@@ -75,7 +75,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return false;
     }
 
-    private function getUsernameByToken($token): string
+    private function getUsernameByToken($token): ?string
     {
         if (empty($token)) {
             return null;

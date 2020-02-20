@@ -65,7 +65,7 @@ class UserItem
         return $this->name;
     }
 
-    public function setName(string $name)
+    public function setName(?string $name)
     {
         $this->name = $name;
     }
@@ -75,7 +75,7 @@ class UserItem
         return $this->icon;
     }
 
-    public function setIcon(string $icon)
+    public function setIcon(?string $icon)
     {
         $this->icon = $icon;
     }
@@ -85,7 +85,7 @@ class UserItem
         return $this->command;
     }
 
-    public function setCommand(string $command)
+    public function setCommand(?string $command)
     {
         $this->command = $command;
     }
@@ -95,7 +95,7 @@ class UserItem
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity)
+    public function setQuantity(?int $quantity)
     {
         $this->quantity = $quantity;
     }
@@ -105,7 +105,7 @@ class UserItem
         return $this->item;
     }
 
-    public function setItem(Item $item)
+    public function setItem(?Item $item)
     {
         $this->item = $item;
     }
@@ -115,7 +115,7 @@ class UserItem
         return $this->user;
     }
 
-    public function setUser(User $user)
+    public function setUser(?User $user)
     {
         $this->user = $user;
     }

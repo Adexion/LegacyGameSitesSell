@@ -68,7 +68,7 @@ class Article
         return $this->title;
     }
 
-    public function setTitle(string $title)
+    public function setTitle(?string $title)
     {
         $this->title = $title;
     }
@@ -78,7 +78,7 @@ class Article
         return $this->subhead;
     }
 
-    public function setSubhead(string $subhead)
+    public function setSubhead(?string $subhead)
     {
         $this->subhead = $subhead;
     }
@@ -88,7 +88,7 @@ class Article
         return $this->image;
     }
 
-    public function setImage(string $image)
+    public function setImage(?string $image)
     {
         $this->image = $image;
     }
@@ -98,7 +98,7 @@ class Article
         return $this->text;
     }
 
-    public function setText(string $text)
+    public function setText(?string $text)
     {
         $this->text = $text;
     }
@@ -108,7 +108,7 @@ class Article
         return $this->shortText;
     }
 
-    public function setShortText(string $shortText)
+    public function setShortText(?string $shortText)
     {
         $this->shortText = $shortText;
     }
@@ -118,7 +118,7 @@ class Article
         return $this->author;
     }
 
-    public function setAuthor(string $author)
+    public function setAuthor(?string $author)
     {
         $this->author = $author;
     }

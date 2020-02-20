@@ -32,7 +32,7 @@ class ResetPassword
         return $this->token;
     }
 
-    public function setToken(string $token)
+    public function setToken(?string $token)
     {
         $this->token = $token;
     }
@@ -42,7 +42,7 @@ class ResetPassword
         return $this->user;
     }
 
-    public function setUser(User $user)
+    public function setUser(?User $user)
     {
         $this->user = $user;
     }

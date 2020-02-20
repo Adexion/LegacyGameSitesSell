@@ -53,7 +53,7 @@ class ItemListStatistic
         return $this->itemList;
     }
 
-    public function setItemList(ItemList $itemList)
+    public function setItemList(?ItemList $itemList)
     {
         $this->itemList = $itemList;
     }
@@ -63,7 +63,7 @@ class ItemListStatistic
         return $this->userId;
     }
 
-    public function setUserId(int $userId)
+    public function setUserId(?int $userId)
     {
         $this->userId = $userId;
     }

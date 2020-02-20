@@ -34,7 +34,7 @@ class Regulation
         return $this->description;
     }
 
-    public function setDescription(string $description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
     }
@@ -49,7 +49,7 @@ class Regulation
         return $this->category;
     }
 
-    public function setCategory(RegulationCategory $category)
+    public function setCategory(?RegulationCategory $category)
     {
         $this->category = $category;
     }

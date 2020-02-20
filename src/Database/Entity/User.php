@@ -70,7 +70,7 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email)
+    public function setEmail(?string $email)
     {
         $this->email = $email;
     }
@@ -80,7 +80,7 @@ class User implements UserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username)
+    public function setUsername(?string $username)
     {
         $this->username = $username;
     }
@@ -90,7 +90,7 @@ class User implements UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password)
+    public function setPassword(?string $password)
     {
         $this->password = $password;
     }
@@ -105,7 +105,7 @@ class User implements UserInterface
         return $this->roles;
     }
 
-    public function setRoles(array $roles)
+    public function setRoles(?array $roles)
     {
         $this->roles = $roles;
     }
@@ -115,7 +115,7 @@ class User implements UserInterface
         return $this->rules;
     }
 
-    public function setRules(bool $rules)
+    public function setRules(?bool $rules)
     {
         $this->rules = $rules;
     }
@@ -125,7 +125,7 @@ class User implements UserInterface
         return $this->reCaptcha;
     }
 
-    public function setReCaptcha(string $reCaptcha)
+    public function setReCaptcha(?string $reCaptcha)
     {
         $this->reCaptcha = $reCaptcha;
     }

@@ -3,7 +3,6 @@
 namespace ModernGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use ModernGame\Database\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -77,7 +76,7 @@ class Ticket
         return $this->name;
     }
 
-    public function setName($name)
+    public function setName(?string $name)
     {
         $this->name = $name;
     }
@@ -87,7 +86,7 @@ class Ticket
         return $this->email;
     }
 
-    public function setEmail($email)
+    public function setEmail(?string $email)
     {
         $this->email = $email;
     }
@@ -97,7 +96,7 @@ class Ticket
         return $this->type;
     }
 
-    public function setType($type)
+    public function setType(?string $type)
     {
         $this->type = $type;
     }
@@ -107,7 +106,7 @@ class Ticket
         return $this->subject;
     }
 
-    public function setSubject($subject)
+    public function setSubject(?string $subject)
     {
         $this->subject = $subject;
     }
@@ -117,7 +116,7 @@ class Ticket
         return $this->message;
     }
 
-    public function setMessage($message)
+    public function setMessage(?string $message)
     {
         $this->message = $message;
     }
@@ -127,7 +126,7 @@ class Ticket
         return $this->status;
     }
 
-    public function setStatus($status)
+    public function setStatus(?string $status)
     {
         $this->status = $status;
     }
@@ -137,7 +136,7 @@ class Ticket
         return $this->reCaptcha;
     }
 
-    public function setReCaptcha($reCaptcha)
+    public function setReCaptcha(?string $reCaptcha)
     {
         $this->reCaptcha = $reCaptcha;
     }
@@ -147,7 +146,7 @@ class Ticket
         return $this->token;
     }
 
-    public function setToken($token)
+    public function setToken(?string $token)
     {
         $this->token = $token;
     }
@@ -157,7 +156,7 @@ class Ticket
         return $this->user;
     }
 
-    public function setUser(User $user)
+    public function setUser(?User $user)
     {
         $this->user = $user;
     }

@@ -45,7 +45,7 @@ class ModList
         return $this->image;
     }
 
-    public function setImage(string $image)
+    public function setImage(?string $image)
     {
         $this->image = $image;
     }
@@ -55,7 +55,7 @@ class ModList
         return $this->name;
     }
 
-    public function setName(string $name)
+    public function setName(?string $name)
     {
         $this->name = $name;
     }
@@ -65,7 +65,7 @@ class ModList
         return $this->link;
     }
 
-    public function setLink(string $link)
+    public function setLink(?string $link)
     {
         $this->link = $link;
     }

@@ -43,12 +43,12 @@ class Wallet
         return $this->cash;
     }
 
-    public function setCash(float $cash)
+    public function setCash(?float $cash)
     {
         $this->cash = round($cash, 2);
     }
 
-    public function increaseCash(float $cash)
+    public function increaseCash(?float $cash)
     {
         $this->cash = round($cash + $this->cash, 2);
     }
@@ -58,7 +58,7 @@ class Wallet
         return $this->user;
     }
 
-    public function setUser(User $user)
+    public function setUser(?User $user)
     {
         $this->user = $user;
     }

@@ -75,7 +75,7 @@ class ItemList
         return $this->name;
     }
 
-    public function setName(string $name)
+    public function setName(?string $name)
     {
         $this->name = $name;
     }
@@ -85,7 +85,7 @@ class ItemList
         return $this->description;
     }
 
-    public function setDescription(string $description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
     }
@@ -95,7 +95,7 @@ class ItemList
         return $this->icon;
     }
 
-    public function setIcon(string $icon)
+    public function setIcon(?string $icon)
     {
         $this->icon = $icon;
     }
@@ -105,7 +105,7 @@ class ItemList
         return $this->price;
     }
 
-    public function setPrice(float $price)
+    public function setPrice(?float $price)
     {
         $this->price = $price;
     }
@@ -115,7 +115,7 @@ class ItemList
         return $this->promotion;
     }
 
-    public function setPromotion(float $promotion)
+    public function setPromotion(?float $promotion)
     {
         $this->promotion = $promotion;
     }
@@ -125,7 +125,7 @@ class ItemList
         return $this->sliderImage;
     }
 
-    public function setSliderImage(string $sliderImage)
+    public function setSliderImage(?string $sliderImage)
     {
         $this->sliderImage = $sliderImage;
     }
@@ -140,7 +140,7 @@ class ItemList
         $this->howManyBuyers++;
     }
 
-    public function setHowManyBuyers(int $howManyBuyers)
+    public function setHowManyBuyers(?int $howManyBuyers)
     {
         $this->howManyBuyers = $howManyBuyers;
     }
@@ -150,7 +150,7 @@ class ItemList
         return $this->smsPrice;
     }
 
-    public function setSmsPrice(Price $smsPrice)
+    public function setSmsPrice(?Price $smsPrice)
     {
         $this->smsPrice = $smsPrice;
     }

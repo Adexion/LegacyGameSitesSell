@@ -19,7 +19,7 @@ class TokenRepository extends AbstractRepository
         parent::__construct($registry, Token::class);
     }
 
-    public function getTokenUsername($token): string
+    public function getTokenUsername($token): ?string
     {
         $qb = $this->createQueryBuilder('t')
             ->select('u.username')

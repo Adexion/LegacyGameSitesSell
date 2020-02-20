@@ -51,7 +51,7 @@ class Item
         return $this->name;
     }
 
-    public function setName(string $name)
+    public function setName(?string $name)
     {
         $this->name = $name;
     }
@@ -61,7 +61,7 @@ class Item
         return $this->icon;
     }
 
-    public function setIcon(string $icon)
+    public function setIcon(?string $icon)
     {
         $this->icon = $icon;
     }
@@ -71,7 +71,7 @@ class Item
         return $this->command;
     }
 
-    public function setCommand(string $command)
+    public function setCommand(?string $command)
     {
         $this->command = $command;
     }
@@ -81,7 +81,7 @@ class Item
         return $this->itemList;
     }
 
-    public function setItemList(ItemList $itemList)
+    public function setItemList(?ItemList $itemList)
     {
         $this->itemList = $itemList;
     }

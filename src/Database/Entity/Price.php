@@ -41,7 +41,7 @@ class Price
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(int $phoneNumber)
+    public function setPhoneNumber(?int $phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
     }
@@ -51,7 +51,7 @@ class Price
         return $this->amount;
     }
 
-    public function setAmount(float $amount)
+    public function setAmount(?float $amount)
     {
         $this->amount = $amount;
     }
@@ -61,7 +61,7 @@ class Price
         return $this->price;
     }
 
-    public function setPrice(float $price)
+    public function setPrice(?float $price)
     {
         $this->price = $price;
     }
