@@ -21,19 +21,19 @@ class ModList
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public ?string $image = null;
+    private ?string $image = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public ?string $name = null;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public ?string $link = null;
+    private ?string $link = null;
 
     public function getId(): ?int
     {

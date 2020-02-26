@@ -20,17 +20,17 @@ class PaymentHistory
     /**
      * @ORM\Column(type="integer")
      */
-    public ?int $userId = null;
+    private ?int $userId = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
-    public ?DateTime $date = null;
+    private ?DateTime $date = null;
 
     /**
      * @ORM\Column(type="float")
      */
-    public ?float $amount = null;
+    private ?float $amount = null;
 
     public function __construct()
     {

@@ -7,7 +7,7 @@ use Doctrine\ORM\ORMException;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\UserRepository;
 use ModernGame\Form\RegisterType;
-use ModernGame\Form\UpdatePasswordType;
+use ModernGame\Form\ChangePasswordType;
 use ModernGame\Form\UserType;
 use ModernGame\Exception\ContentException;
 use ModernGame\Validator\FormErrorHandler;
@@ -61,35 +61,18 @@ class RegisterService
      * @throws OptimisticLockException
      * @throws ContentException
      */
-    public function update(Request $request)
+    public function update(Request $request, $typeClass)
     {
         /** @var User $user */
         $user = $this->userRepository->find($request->request->get('id'));
-
-        $form = $this->form->create(UserType::class, $user);
-
-        $form->handleRequest($request);
-        $this->formErrorHandler->handle($form);
-
-        $user->setPassword($this->setEncodedPassword($user));
-
-        $this->userRepository->update($user);
-    }
-
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     * @throws ContentException
-     */
-    public function updatePassword(Request $request, User $user)
-    {
-        $form = $this->form->create(UpdatePasswordType::class, null, ['method' => 'PUT']);
+        $form = $this->form->create($typeClass, $user, ['method' => 'PUT']);
 
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
 
-        $user->setPassword($request->request->get('password')['first']);
-        $user->setPassword($this->setEncodedPassword($user));
+        if ($request->request->get('password')) {
+            $user->setPassword($this->setEncodedPassword($user));
+        }
 
         $this->userRepository->update($user);
     }

@@ -16,19 +16,19 @@ class Token
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public ?string $token = null;
+    private ?string $token = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotBlank()
      */
-    public ?User $user = null;
+    private ?User $user = null;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    public ?DateTime $date = null;
+    private ?DateTime $date = null;
 
     public function __construct()
     {

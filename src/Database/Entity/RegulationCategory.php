@@ -21,7 +21,7 @@ class RegulationCategory
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public ?string $name = null;
+    private ?string $name = null;
 
     public function getId(): ?int
     {

@@ -21,25 +21,25 @@ class Item
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public ?string $name = null;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public ?string $icon = null;
+    private ?string $icon = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public ?string $command = null;
+    private ?string $command = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    public ?ItemList $itemList = null;
+    private ?ItemList $itemList = null;
 
     public function getId(): ?int
     {

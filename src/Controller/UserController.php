@@ -4,6 +4,7 @@ namespace ModernGame\Controller;
 
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
+use ModernGame\Form\ChangeUserType;
 use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\User\LoginUserService;
@@ -192,7 +193,7 @@ class UserController extends Controller
     /**
      * Update user data
      *
-     * Updating user password after login to an account for now.
+     * Updating user data after login to an account for now.
      *
      * @SWG\Tag(name="User")
      * @SWG\Parameter(
@@ -201,12 +202,16 @@ class UserController extends Controller
      *     type="object",
      *     @SWG\Schema(
      *          type="object",
+     *          @SWG\Property(property="username", type="string"),
+     *          @SWG\Property(property="email", type="string"),
      *          @SWG\Property(
      *              property="password",
      *              type="object",
      *              @SWG\Property(property="first", type="string"),
      *              @SWG\Property(property="second", type="string"),
      *          ),
+     *          @SWG\Property(property="rules", type="string"),
+     *          @SWG\Property(property="reCaptcha", type="string")
      *     )
      * )
      * @SWG\Response(
@@ -226,7 +231,9 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = $this->getUser();
-        $register->updatePassword($request, $user);
+        $request->request->add(['id' => $user->getId()]);
+
+        $register->update($request, ChangeUserType::class);
 
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     }

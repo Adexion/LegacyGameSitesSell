@@ -27,38 +27,38 @@ class User implements UserInterface
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-    public ?string $email = null;
+    private ?string $email = null;
 
     /**
      * @ORM\Column(type="string", length=16, unique=true)
      * @Assert\NotBlank()
      * @Assert\Length(min="3", max="16")
      */
-    public ?string  $username = null;
+    private ?string  $username = null;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
-    public ?string $password = null;
+    private ?string $password = null;
 
     /**
      * @SWG\Property(type="array", @SWG\Items(type="string"))
      * @ORM\Column(type="array")
      */
-    public ?array $roles = [];
+    private ?array $roles = [];
 
     /**
      * @ORM\Column(type="boolean")
      * @Assert\EqualTo(true)
      */
-    public ?bool $rules = false;
+    private ?bool $rules = false;
 
     /**
      * @SWG\Property(type="string")
      */
-    public ?string $reCaptcha = null;
+    private ?string $reCaptcha = null;
 
     public function __construct()
     {

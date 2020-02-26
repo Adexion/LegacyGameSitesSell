@@ -20,13 +20,13 @@ class Wallet
      * @ORM\Column(type="float")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public ?float $cash = null;
+    private ?float $cash = null;
 
     /**
      * @ORM\OneToOne(targetEntity="User", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    public ?User $user = null;
+    private ?User $user = null;
 
     public function __construct()
     {

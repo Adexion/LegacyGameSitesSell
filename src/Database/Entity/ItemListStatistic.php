@@ -20,18 +20,18 @@ class ItemListStatistic
     /**
      * @ORM\Column(type="integer")
      */
-    public ?int $userId = null;
+    private ?int $userId = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
-    public ?DateTime $date = null;
+    private ?DateTime $date = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    public ?ItemList $itemList = null;
+    private ?ItemList $itemList = null;
 
     public function __construct()
     {

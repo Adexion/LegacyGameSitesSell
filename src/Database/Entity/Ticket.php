@@ -21,50 +21,50 @@ class Ticket
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public ?string $name = null;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public ?string $email = null;
+    private ?string $email = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public ?string $type = null;
+    private ?string $type = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public ?string $subject = null;
+    private ?string $subject = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public ?string $message = null;
+    private ?string $message = null;
 
     /**
      * @ORM\Column(type="string", length=128)
      * @Assert\NotBlank()
      */
-    public ?string $token = null;
+    private ?string $token = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      */
-    public ?string $status = null;
+    private ?string $status = null;
 
     /**
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
-    public ?User $user = null;
+    private ?User $user = null;
 
-    public ?string $reCaptcha = null;
+    private ?string $reCaptcha = null;
 
     public function getId(): ?int
     {

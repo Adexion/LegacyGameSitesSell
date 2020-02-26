@@ -21,49 +21,49 @@ class ItemList
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public ?string $name = null;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public ?string $description = null;
+    private ?string $description = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public ?string $icon = null;
+    private ?string $icon = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public ?string $sliderImage = null;
+    private ?string $sliderImage = null;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank()
      */
-    public ?int $howManyBuyers = 0;
+    private ?int $howManyBuyers = 0;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
      */
-    public ?float $price = 0;
+    private ?float $price = 0;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
      */
-    public ?float $promotion = 0;
+    private ?float $promotion = 0;
 
     /**
      * @ORM\OneToOne(targetEntity="Price", fetch="EAGER")
      * @ORM\JoinColumn(name="sms_price_id", referencedColumnName="id")
      */
-    public ?Price $smsPrice = null;
+    private ?Price $smsPrice = null;
 
     public function getId(): ?int
     {

@@ -3,6 +3,7 @@
 namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\User;
+use ModernGame\Form\UserType;
 use ModernGame\Service\User\RegisterService;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -79,7 +80,7 @@ class UserController extends AbstractAdminController
      */
     public function putUser(Request $request, RegisterService $register)
     {
-        $register->update($request);
+        $register->update($request, UserType::class,);
 
         return new JsonResponse(null, Response::HTTP_OK);
     }

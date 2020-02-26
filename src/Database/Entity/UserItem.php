@@ -21,39 +21,39 @@ class UserItem
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public ?string $name = null;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public ?string $icon = null;
+    private ?string $icon = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    public ?string $command = null;
+    private ?string $command = null;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank()
      */
-    public ?int $quantity = null;
+    private ?int $quantity = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Item", fetch="EAGER")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotBlank()
      */
-    public ?Item $item = null;
+    private ?Item $item = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotBlank()
      */
-    public ?User $user = null;
+    private ?User $user = null;
 
     public function getId(): ?int
     {

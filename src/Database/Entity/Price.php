@@ -19,17 +19,17 @@ class Price
     /**
      * @ORM\Column(type="integer", unique=true, length=5)
      */
-    public ?string $phoneNumber = null;
+    private ?string $phoneNumber = null;
 
     /**
      * @ORM\Column(type="float")
      */
-    public ?float $amount = null;
+    private ?float $amount = null;
 
     /**
      * @ORM\Column(type="float")
      */
-    public ?float $price = null;
+    private ?float $price = null;
 
     public function getId(): ?int
     {

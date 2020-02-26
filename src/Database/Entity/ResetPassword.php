@@ -20,12 +20,12 @@ class ResetPassword
      * @ORM\OneToOne(targetEntity="User", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    public ?User $user = null;
+    private ?User $user = null;
 
     /**
      * @ORM\Column(type="string", length=32)
      */
-    public ?string $token = null;
+    private ?string $token = null;
 
     public function getToken(): ?string
     {

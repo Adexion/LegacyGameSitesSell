@@ -21,13 +21,13 @@ class Regulation
      * @ORM\ManyToOne(targetEntity="RegulationCategory", fetch="EAGER")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    public ?RegulationCategory $category = null;
+    private ?RegulationCategory $category = null;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      */
-    public ?string $description = null;
+    private ?string $description = null;
 
     public function getDescription(): ?string
     {
