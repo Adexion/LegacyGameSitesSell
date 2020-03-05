@@ -10,6 +10,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ContactController extends AbstractController
 {
@@ -138,7 +139,7 @@ class ContactController extends AbstractController
 
         return new JsonResponse($serializer
             ->serialize($messages,'json', ['ignored_attributes' => 'user'])
-            ->getArray()
+            ->toArray()
         );
     }
 

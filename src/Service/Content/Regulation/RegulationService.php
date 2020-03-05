@@ -43,7 +43,7 @@ class RegulationService extends AbstractService implements ServiceInterface
             $this->mapper->mapRules(
                 $this->repository->getRegulation()
             )
-        )->getArray();
+        )->toArray();
     }
 
     /**

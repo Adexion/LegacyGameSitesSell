@@ -74,6 +74,6 @@ class TicketService extends AbstractService
         }
 
         return $this->serializer->serialize($tokenList, 'json', ['ignored_attributes' => ['user', 'reCaptcha']])
-            ->getArray();
+            ->toArray();
     }
 }

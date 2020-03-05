@@ -66,7 +66,7 @@ class StatisticService
 
         $this->setFilters($qb, $request->query->all());
 
-        return $this->serializer->serialize($qb->getQuery()->execute())->getArray();
+        return $this->serializer->serialize($qb->getQuery()->execute())->toArray();
     }
 
     private function setFilters(QueryBuilder $qb, array $filter)

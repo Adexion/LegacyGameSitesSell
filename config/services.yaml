@@ -39,3 +39,8 @@ services:
             - { name: kernel.event_listener, event: kernel.exception }
     ModernGame\Service\EnvironmentService:
         arguments: ['%kernel.environment%']
+
+    get_set_method_normalizer:
+        class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
+        tags:
+            - { name: serializer.normalizer }

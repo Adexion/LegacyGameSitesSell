@@ -3,6 +3,7 @@
 namespace ModernGame\Controller\Content;
 
 use ModernGame\Database\Entity\Article;
+use ModernGame\Serializer\CustomSerializer;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,11 +31,14 @@ class ArticleController extends AbstractController
      *     )
      * )
      */
-    public function getArticle(Request $request)
+    public function getArticle(Request $request, CustomSerializer $serializer)
     {
         $repository = $this->getDoctrine()->getRepository(Article::class);
         $id = $request->query->getInt('id');
 
-        return new JsonResponse(empty($id) ? $repository->findBy([], ['id' => 'DESC'], 4) : [$repository->find($id)]);
+        return new JsonResponse($serializer
+            ->serialize(empty($id) ? $repository->findAll([], ['id' => 'DESC'], 4) : [$repository->find($id)])
+            ->toArray()
+        );
     }
 }
