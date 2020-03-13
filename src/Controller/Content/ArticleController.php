@@ -37,7 +37,7 @@ class ArticleController extends AbstractController
         $id = $request->query->getInt('id');
 
         return new JsonResponse($serializer
-            ->serialize(empty($id) ? $repository->findAll([], ['id' => 'DESC'], 4) : [$repository->find($id)])
+            ->serialize(empty($id) ? $repository->findBy([], ['id' => 'DESC'], 4) : [$repository->find($id)])
             ->toArray()
         );
     }

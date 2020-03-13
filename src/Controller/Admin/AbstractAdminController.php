@@ -35,7 +35,7 @@ class AbstractAdminController extends AbstractController
         $toSearch = $request->query->getInt(static::FIND_BY);
 
         return new JsonResponse($serializer->serialize(
-            empty($toSearch) ? $repository->findAll() : $repository->findBy([static::FIND_BY => $toSearch])
+            empty($toSearch) ? $repository->findBy([], ['id' => 'DESC']) : $repository->findBy([static::FIND_BY => $toSearch])
         )->toArray());
     }
 
