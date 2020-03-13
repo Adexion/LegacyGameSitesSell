@@ -62,11 +62,11 @@ class Article
     /**
      * @ORM\Column(type="datetime")
      */
-    private ?string $createdAt;
+    private ?DateTime $createdAt;
 
     public function __construct()
     {
-        $this->createdAt = (new DateTime())->format('Y-m-d H:i:s');
+        $this->createdAt = (new DateTime());
     }
 
     public function getId(): ?int
@@ -134,13 +134,13 @@ class Article
         $this->author = $author;
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
 
     public function setCreatedAt(?DateTime $createdAt)
     {
-        $this->createdAt = $createdAt ?? (new DateTime())->format('Y-m-d H:i:s');
+        $this->createdAt = $createdAt ?? new DateTime();
     }
 }
