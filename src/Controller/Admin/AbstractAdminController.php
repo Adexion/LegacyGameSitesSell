@@ -5,6 +5,7 @@ namespace ModernGame\Controller\Admin;
 use Exception;
 use ModernGame\Database\Repository\AbstractRepository;
 use ModernGame\Exception\ContentException;
+use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\ServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,12 +29,14 @@ class AbstractAdminController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function getEntity(Request $request): JsonResponse
+    public function getEntity(Request $request, CustomSerializer $serializer): JsonResponse
     {
         $repository = $this->getDoctrine()->getRepository(static::REPOSITORY_CLASS);
         $toSearch = $request->query->getInt(static::FIND_BY);
 
-        return new JsonResponse(empty($toSearch) ? $repository->findAll() : $repository->findBy([static::FIND_BY => $toSearch]));
+        return new JsonResponse($serializer->serialize(
+            empty($toSearch) ? $repository->findAll() : $repository->findBy([static::FIND_BY => $toSearch])
+        )->toArray());
     }
 
     public function putEntity(Request $request, ServiceInterface $service): JsonResponse
