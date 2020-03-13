@@ -3,6 +3,7 @@
 namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\ModList;
+use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\Content\ModListService;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -31,9 +32,9 @@ class ModController extends AbstractAdminController
      *     description="Evertythig works",
      * )
      */
-    public function getEntity(Request $request): JsonResponse
+    public function getEntity(Request $request, CustomSerializer $serializer): JsonResponse
     {
-        return parent::getEntity($request);
+        return parent::getEntity($request, $serializer);
     }
 
     /**

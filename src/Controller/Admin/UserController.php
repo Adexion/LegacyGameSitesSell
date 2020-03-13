@@ -4,6 +4,7 @@ namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\User;
 use ModernGame\Form\UserType;
+use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\User\RegisterService;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -52,12 +53,14 @@ class UserController extends AbstractAdminController
      *     )
      * )
      */
-    public function getEntity(Request $request): JsonResponse
+    public function getEntity(Request $request, CustomSerializer $serializer): JsonResponse
     {
         $repository = $this->getDoctrine()->getRepository(static::REPOSITORY_CLASS);
         $toSearch = $request->query->getInt(static::FIND_BY);
 
-        return new JsonResponse(empty($id) ? $repository->search() : [$repository->search([static::FIND_BY => $toSearch])]);
+        return new JsonResponse($serializer->serialize(
+            empty($id) ? $repository->search() : [$repository->search([static::FIND_BY => $toSearch])]
+        )->toArray());
     }
 
     /**

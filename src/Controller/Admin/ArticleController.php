@@ -4,6 +4,7 @@ namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Article;
 use ModernGame\Form\ArticleType;
+use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\Content\ArticleService;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
@@ -59,9 +60,9 @@ class ArticleController extends AbstractAdminController
      *     @SWG\Items(ref=@Model(type=Article::class))
      * )
      */
-    public function getEntity(Request $request): JsonResponse
+    public function getEntity(Request $request, CustomSerializer $serializer): JsonResponse
     {
-        return parent::getEntity($request);
+        return parent::getEntity($request, $serializer);
     }
 
     /**
