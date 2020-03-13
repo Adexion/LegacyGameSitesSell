@@ -58,6 +58,16 @@ class Article
      */
     private ?string $author = null;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private ?string $createdAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,5 +131,15 @@ class Article
     public function setAuthor(?string $author)
     {
         $this->author = $author;
+    }
+
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt ?? new DateTime();
     }
 }
