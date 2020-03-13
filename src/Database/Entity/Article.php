@@ -3,6 +3,7 @@
 namespace ModernGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -65,7 +66,7 @@ class Article
 
     public function __construct()
     {
-        $this->createdAt = new DateTime();
+        $this->createdAt = (new DateTime())->format('Y-m-d H:i:s');
     }
 
     public function getId(): ?int
@@ -133,13 +134,13 @@ class Article
         $this->author = $author;
     }
 
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
     public function setCreatedAt(?DateTime $createdAt)
     {
-        $this->createdAt = $createdAt ?? new DateTime();
+        $this->createdAt = $createdAt ?? (new DateTime())->format('Y-m-d H:i:s');
     }
 }
