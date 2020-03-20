@@ -18,8 +18,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class TicketService extends AbstractService
 {
-    private object $user;
-
     public function __construct(
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,

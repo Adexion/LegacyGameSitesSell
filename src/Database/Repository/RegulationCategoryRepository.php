@@ -2,7 +2,6 @@
 
 namespace ModernGame\Database\Repository;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use ModernGame\Database\Entity\RegulationCategory;
 

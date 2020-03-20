@@ -4,7 +4,6 @@ namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Ticket;
 use ModernGame\Database\Repository\TicketRepository;
-use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\Content\TicketService;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,7 +29,7 @@ class ContactController extends AbstractAdminController
      *     description="Evertythig works",
      * )
      */
-    public function getTicket(Request $request, TicketService $ticketService, CustomSerializer $serializer): JsonResponse
+    public function getTicket(Request $request, TicketService $ticketService): JsonResponse
     {
         /** @var TicketRepository $repository */
         $repository = $this->getDoctrine()->getRepository(self::REPOSITORY_CLASS);

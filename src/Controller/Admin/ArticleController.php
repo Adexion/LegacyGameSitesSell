@@ -3,7 +3,6 @@
 namespace ModernGame\Controller\Admin;
 
 use ModernGame\Database\Entity\Article;
-use ModernGame\Form\ArticleType;
 use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\Content\ArticleService;
 use Nelmio\ApiDocBundle\Annotation\Model;

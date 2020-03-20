@@ -8,7 +8,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 use ModernGame\Database\Entity\Token;
 use ModernGame\Database\Entity\User;
-use Symfony\Component\VarExporter\Internal\Hydrator;
 
 class TokenRepository extends AbstractRepository
 {

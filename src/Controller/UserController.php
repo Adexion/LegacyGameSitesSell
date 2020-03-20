@@ -122,7 +122,7 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function getUserData(Request $request): JsonResponse
+    public function getUserData(): JsonResponse
     {
         /** @var User $user */
         $user = $this->getUser();

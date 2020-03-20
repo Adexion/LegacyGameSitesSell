@@ -10,7 +10,6 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class ContactController extends AbstractController
 {
@@ -166,7 +165,7 @@ class ContactController extends AbstractController
      *     )
      * )
      */
-    function getMyTickets(Request $request): JsonResponse
+    function getMyTickets(): JsonResponse
     {
         $response = $this->getDoctrine()->getRepository(Ticket::class)
             ->getListGroup($this->getUser());
