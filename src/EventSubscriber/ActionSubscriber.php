@@ -2,9 +2,6 @@
 
 namespace ModernGame\EventSubscriber;
 
-use ModernGame\Serializer\CustomSerializer;
-use phpDocumentor\Reflection\Types\Array_;
-use phpDocumentor\Reflection\Types\Object_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -13,7 +10,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class ActionSubscriber implements EventSubscriberInterface
 {

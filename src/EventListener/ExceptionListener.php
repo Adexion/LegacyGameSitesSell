@@ -35,7 +35,6 @@ class ExceptionListener
     public function onKernelException(ExceptionEvent $event)
     {
         $exception = $event->getThrowable();
-        var_dump($exception);die;
         $response = new JsonResponse();
 
         if ($exception instanceof HttpExceptionInterface) {
