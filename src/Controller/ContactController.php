@@ -136,10 +136,9 @@ class ContactController extends AbstractController
             throw new ContentException(['token' => 'Ta wartość jest nieprawidłowa.']);
         }
 
-        return new JsonResponse($serializer
-            ->serialize($messages,'json', ['ignored_attributes' => 'user'])
-            ->toArray()
-        );
+        return new JsonResponse($serializer->serialize(
+            $messages, 'json', ['ignored_attributes' => 'user']
+        )->toArray());
     }
 
     /**

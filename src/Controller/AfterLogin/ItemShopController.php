@@ -4,6 +4,7 @@ namespace ModernGame\Controller\AfterLogin;
 
 use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\Price;
+use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\Connection\Payment\DotPay\DotPayService;
 use ModernGame\Service\Connection\Payment\PayPal\PayPalService;
@@ -32,11 +33,11 @@ class ItemShopController extends Controller
      *     )
      * )
      */
-    public function getItemList(): JsonResponse
+    public function getItemList(CustomSerializer $serializer): JsonResponse
     {
-        return new JsonResponse(
+        return new JsonResponse($serializer->serialize(
             $this->getDoctrine()->getRepository(ItemList::class)->findAll()
-        );
+        )->toArray());
     }
 
     /**
@@ -175,10 +176,10 @@ class ItemShopController extends Controller
      *     )
      * )
      */
-    public function getSMSPrices(): JsonResponse
+    public function getSMSPrices(CustomSerializer $serializer): JsonResponse
     {
-        return new JsonResponse(
+        return new JsonResponse($serializer->serialize(
             $this->getDoctrine()->getRepository(Price::class)->findAll()
-        );
+        )->toArray());
     }
 }
