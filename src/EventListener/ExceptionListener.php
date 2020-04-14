@@ -56,6 +56,7 @@ class ExceptionListener
                     );
                 } else {
                     if ($this->env->isTest() || $this->env->isDev()) {
+                        var_dump($exception->getMessage());die;
                         throw $exception;
                     }
                 }

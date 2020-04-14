@@ -3,6 +3,7 @@
 namespace ModernGame\Form;
 
 use ModernGame\Database\Entity\Article;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,7 +29,13 @@ class ArticleType extends AbstractType
 
     public function preSubmit(FormEvent $event)
     {
-        if (!empty($event->getData()['text'])) {
+        $data = $event->getData();
+        if ($data['createdAt']) {
+            unset($data['createdAt']);
+            $event->setData($data);
+        }
+
+        if (!empty($data['text'])) {
             return;
         }
 
