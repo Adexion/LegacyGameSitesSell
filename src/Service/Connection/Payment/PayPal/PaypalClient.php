@@ -53,7 +53,7 @@ class PaypalClient extends RestApiClient
             self::GET,
             self::PAYPAL_SANDBOX__API . sprintf(self::API_EXECUTE, $orderId), $request
         );
-die;
+
         $response = json_decode($rawResponse, true) ?? [];
 
         $this->handleError($response);
