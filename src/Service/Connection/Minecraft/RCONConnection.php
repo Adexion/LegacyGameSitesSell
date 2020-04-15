@@ -85,7 +85,8 @@ class RCONConnection
         if ((int)$response_packet['id'] === self::PACKET_COMMAND) {
             if ((int)$response_packet['type'] === self::SERVER_DATA_RESPONSE_VALUE) {
                 $this->lastResponse = $response_packet['body'];
-                if (empty($response_packet['body'])) {
+                if (empty($response_packet['body']) && empty($this->lastResponse)) {
+                    $this->lastResponse = 'Wykonano!';
                     return $this->readPackets();
                 }
 
