@@ -78,6 +78,10 @@ class RCONConnection
 
         if ((int)$response_packet['id'] === self::PACKET_COMMAND) {
             if ((int)$response_packet['type'] === self::SERVER_DATA_RESPONSE_VALUE) {
+
+                header('Access-Control-Allow-Origin: *');
+                var_dump($response_packet);die;
+
                 $this->lastResponse = $response_packet['body'];
 
                 return $response_packet['body'];
