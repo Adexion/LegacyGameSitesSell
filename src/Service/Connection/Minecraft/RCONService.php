@@ -96,8 +96,8 @@ class RCONService
             $this->client->sendCommand(sprintf($item->getCommand(), $username));
 
             $response[] = $this->client->getResponse();
-            if (strpos($this->client->getResponse(), 'Nie znaleziono gracza.') === false) {
 
+            if (strpos($this->client->getResponse(), 'Nie znaleziono gracza.') !== false) {
                 $userItem = new UserItem();
 
                 $userItem->setUser($this->user);
