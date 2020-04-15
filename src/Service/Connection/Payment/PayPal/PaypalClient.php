@@ -49,13 +49,13 @@ class PaypalClient extends RestApiClient
             'Authorization' => 'Bearer ' . $token
         ];
 
+        header('Access-Control-Allow-Origin: *');
+        var_dump(self::PAYPAL_SANDBOX__API . sprintf(self::API_EXECUTE, $orderId));die;
+
         $rawResponse = $this->request(
             self::GET,
             self::PAYPAL_SANDBOX__API . sprintf(self::API_EXECUTE, $orderId), $request
         );
-
-        header('Access-Control-Allow-Origin: *');
-        var_dump($rawResponse);die;
 
         $response = json_decode($rawResponse, true) ?? [];
 
