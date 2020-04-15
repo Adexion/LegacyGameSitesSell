@@ -39,6 +39,9 @@ class PayPalService extends AbstractPayment implements PaymentInterface
 
         $token = $this->client->tokenRequest($configuration['client'], $configuration['secret'])['access_token'] ?? '';
 
+        header('Access-Control-Allow-Origin: *');
+        var_dump($token);die;
+
         $response = $this->client->executeRequest($token, $id);
 
         $amount = $response['purchase_units'][0]['amount']['value'];

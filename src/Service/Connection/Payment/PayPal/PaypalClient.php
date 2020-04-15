@@ -36,9 +36,6 @@ class PaypalClient extends RestApiClient
 
         $response = $this->request(self::POST, self::PAYPAL_SANDBOX__API . self::API_TOKEN, $request);
 
-        header('Access-Control-Allow-Origin: *');
-        var_dump($response);die;
-
         return json_decode($response, true) ?? [];
     }
 
