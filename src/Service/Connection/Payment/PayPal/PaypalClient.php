@@ -41,7 +41,7 @@ class PaypalClient extends RestApiClient
      * @throws ContentException
      * @throws PaymentProcessingException
      */
-    public function executeRequest($token, $paymentId): array
+    public function executeRequest($token, $orderId): array
     {
         $request['headers'] = [
             'Content-Type' => 'application/json',
@@ -50,10 +50,12 @@ class PaypalClient extends RestApiClient
 
         $rawResponse = $this->request(
             self::POST,
-            self::PAYPAL_API . sprintf(self::API_EXECUTE, $paymentId), $request
+            self::PAYPAL_API . sprintf(self::API_EXECUTE, $orderId), $request
         );
 
         $response = json_decode($rawResponse, true) ?? [];
+
+        var_dump($response);die;
         $this->handleError($response);
 
         return $response;
