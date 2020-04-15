@@ -12,6 +12,7 @@ use ModernGame\Database\Repository\UserItemRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\EnvironmentService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class RCONService
@@ -31,7 +32,7 @@ class RCONService
         UserItemRepository $userItemRepository,
         ItemRepository $itemRepository,
         ItemListRepository $itemListRepository,
-        UserInterface $user,
+        TokenStorageInterface $tokenStorage,
         ContainerInterface $container,
         EnvironmentService $environmentService
     ) {
@@ -48,7 +49,7 @@ class RCONService
         $this->userItemRepository = $userItemRepository;
         $this->itemRepository =  $itemRepository;
         $this->itemListRepository =  $itemListRepository;
-        $this->user = $user;
+        $this->user = $tokenStorage->getToken()->getUser();
     }
 
     public function getPlayerList()
