@@ -34,7 +34,12 @@ class PaypalClient extends RestApiClient
             'grant_type' => 'client_credentials'
         ];
 
-        return json_decode($this->request(self::POST, self::PAYPAL_SANDBOX__API . self::API_TOKEN, $request), true) ?? [];
+        $response = $this->request(self::POST, self::PAYPAL_SANDBOX__API . self::API_TOKEN, $request);
+
+        header('Access-Control-Allow-Origin: *');
+        var_dump($response);die;
+
+        return json_decode($response, true) ?? [];
     }
 
     /**
