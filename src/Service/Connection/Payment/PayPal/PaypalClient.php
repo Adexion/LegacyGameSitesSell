@@ -55,6 +55,7 @@ class PaypalClient extends RestApiClient
 
         $response = json_decode($rawResponse, true) ?? [];
 
+        header('Access-Control-Allow-Origin: *');
         var_dump($response);die;
         $this->handleError($response);
 
