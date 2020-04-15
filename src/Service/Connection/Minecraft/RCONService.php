@@ -65,7 +65,7 @@ class RCONService
     {
         /** @var UserItem[] $userItems */
         $userItems = empty($itemList)
-            ? $this->userItemRepository->findBy(['user' => $this->user->getId()])
+            ? $this->userItemRepository->findBy(['user' => $this->user])
             : [$this->userItemRepository->find($itemId)];
 
         foreach ($userItems as $item) {
