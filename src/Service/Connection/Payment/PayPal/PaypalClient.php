@@ -53,10 +53,12 @@ class PaypalClient extends RestApiClient
             self::PAYPAL_API . sprintf(self::API_EXECUTE, $orderId), $request
         );
 
-        $response = json_decode($rawResponse, true) ?? [];
 
         header('Access-Control-Allow-Origin: *');
-        var_dump($response);die;
+        var_dump($rawResponse);die;
+
+        $response = json_decode($rawResponse, true) ?? [];
+
         $this->handleError($response);
 
         return $response;
