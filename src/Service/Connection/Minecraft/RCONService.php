@@ -103,6 +103,9 @@ class RCONService
                 $userItem->setUser($this->user);
                 $userItem->setItem($item);
                 $userItem->setQuantity(1);
+                $userItem->setName($item->getName());
+                $userItem->setIcon($item->getIcon());
+                $userItem->setCommand($item->getCommand());
 
                 $this->userItemRepository->insert($userItem);
             }
