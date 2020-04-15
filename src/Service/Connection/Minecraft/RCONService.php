@@ -64,7 +64,7 @@ class RCONService
     public function executeItem(int $itemId = null, $break = false): array
     {
         /** @var UserItem[] $userItems */
-        $userItems = empty($itemList)
+        $userItems = empty($itemId)
             ? $this->userItemRepository->findBy(['user' => $this->user])
             : [$this->userItemRepository->find($itemId)];
 
