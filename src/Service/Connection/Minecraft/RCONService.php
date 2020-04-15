@@ -89,6 +89,9 @@ class RCONService
             throw new ContentException(['error' => 'Kwota zakupu jest mniejsza niż kwota opłacenia']);
         }
 
+        $itemList->setHowManyBuyers($itemList->getHowManyBuyers() + 1);
+        $this->itemListRepository->update($itemList);
+
         /** @var Item[] $items */
         $items = $this->itemRepository->findBy(['itemList' => $itemList]) ?? [];
 
