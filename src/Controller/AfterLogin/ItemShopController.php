@@ -53,11 +53,11 @@ class ItemShopController extends Controller
      *          type="object",
      *          @SWG\Property(
      *              type="string",
-     *              property="paymentId"
+     *              property="orderId"
      *          ),
      *          @SWG\Property(
      *              type="string",
-     *              property="payerId"
+     *              property="itemListId"
      *          )
      *     )
      * )
