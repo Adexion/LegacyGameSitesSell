@@ -74,15 +74,20 @@ class RCONConnection
         }
 
         $this->writePacket(self::PACKET_COMMAND, self::SERVER_DATA_EXEC_COMMAND, $command);
+
+        return $this->readPackets();
+    }
+
+    private function readPackets()
+    {
         $response_packet = $this->readPacket();
 
         if ((int)$response_packet['id'] === self::PACKET_COMMAND) {
             if ((int)$response_packet['type'] === self::SERVER_DATA_RESPONSE_VALUE) {
-
-                header('Access-Control-Allow-Origin: *');
-                var_dump($response_packet);die;
-
                 $this->lastResponse = $response_packet['body'];
+                if (empty($response_packet['body'])) {
+                    return $this->readPackets();
+                }
 
                 return $response_packet['body'];
             }
