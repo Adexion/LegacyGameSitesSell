@@ -2,6 +2,8 @@
 
 namespace ModernGame\Service\Connection\Minecraft;
 
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use ModernGame\Database\Entity\Item;
 use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\User;
@@ -59,7 +61,7 @@ class RCONService
         return $this->client->getResponse();
     }
 
-    public function executeItem(int $itemId = null): array
+    public function executeItem(int $itemId = null, $break = false): array
     {
         /** @var UserItem[] $userItems */
         $userItems = empty($itemList)
@@ -70,6 +72,15 @@ class RCONService
             $this->client->sendCommand(sprintf($item->getCommand(), $this->user->getUsername()));
 
             $response[] = $this->client->getResponse();
+            if (strpos($this->client->getResponse(), 'Nie znaleziono gracza.') !== false) {
+                if ($break) {
+                    throw new ContentException(array(
+                        'message' => $this->client->getResponse()
+                    ));
+                }
+
+                continue;
+            }
 
             $this->userItemRepository->deleteItem($item);
         }
@@ -78,7 +89,14 @@ class RCONService
     }
 
     /**
+     * @param float $amount
+     * @param int|null $itemListId
+     * @param string|null $username
+     * @return array
+     *
      * @throws ContentException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function executeItemListForDonation(float $amount, int $itemListId = null, string $username = null): array
     {

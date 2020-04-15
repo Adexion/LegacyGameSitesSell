@@ -5,6 +5,7 @@ namespace ModernGame\Controller;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
 use ModernGame\Form\ChangeUserType;
+use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\User\LoginUserService;
@@ -145,11 +146,14 @@ class UserController extends Controller
      *     description="Evertythig works"
      * )
      */
-    public function getItemList(): JsonResponse
+    public function getItemList(CustomSerializer $serializer): JsonResponse
     {
         return new JsonResponse([
-            'itemList' => $this->getDoctrine()
-                ->getRepository(UserItem::class)->findBy(['user' => $this->getUser()->getId()])
+            'itemList' => $serializer->serialize(
+                $this
+                    ->getDoctrine()
+                    ->getRepository(UserItem::class)->findBy(['user' => $this->getUser()->getId()])
+            )->toArray()
         ]);
     }
 
@@ -355,7 +359,7 @@ class UserController extends Controller
      */
     public function itemExecute(Request $request, RCONService $rcon): JsonResponse
     {
-        $rcon->executeItem($request->request->getInt('itemId'));
+        $rcon->executeItem($request->request->getInt('itemId'), true);
 
         return new JsonResponse();
     }
