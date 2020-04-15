@@ -84,7 +84,7 @@ class RCONService
         /** @var ItemList $itemList */
         $itemList = $this->itemListRepository->find($itemListId) ?? new ItemList();
 
-        if (!empty($itemList->getId()) && $itemList->getPrice() > $amount) {
+        if (!empty($itemList->getId()) && ($itemList->getPrice() - ($itemList->getPrice() * $itemList->getPromotion())) > $amount) {
             throw new ContentException(['error' => 'Kwota zakupu jest mniejsza niż kwota opłacenia']);
         }
 
