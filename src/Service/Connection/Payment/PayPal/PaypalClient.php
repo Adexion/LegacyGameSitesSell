@@ -49,7 +49,7 @@ class PaypalClient extends RestApiClient
         ];
 
         $rawResponse = $this->request(
-            self::POST,
+            self::GET,
             self::PAYPAL_API . sprintf(self::API_EXECUTE, $orderId), $request
         );
 
