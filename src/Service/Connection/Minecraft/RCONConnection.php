@@ -8,7 +8,7 @@ class RCONConnection
     private string $port;
     private string $password;
     private int $timeout;
-    private resource $socket;
+    private $socket;
     private bool $authorized = false;
     private string $lastResponse;
     private bool $isProd;
