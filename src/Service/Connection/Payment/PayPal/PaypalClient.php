@@ -30,7 +30,7 @@ class PaypalClient extends RestApiClient
             'Authorization' => 'Basic ' . base64_encode($client . ':' . $secret)
         ];
 
-        $request['body'] = [
+        $request['form_params'] = [
             'grant_type' => 'client_credentials'
         ];
 
