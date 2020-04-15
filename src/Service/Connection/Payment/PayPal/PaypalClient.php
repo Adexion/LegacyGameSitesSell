@@ -9,7 +9,7 @@ use ModernGame\Service\Connection\ApiClient\RestApiClient;
 
 class PaypalClient extends RestApiClient
 {
-    private const API_EXECUTE = ' /v2/checkout/orders/%s';
+    private const API_EXECUTE = '/v2/checkout/orders/%s';
     private const API_TOKEN = '/v1/oauth2/token';
 
     private const PAYPAL_API = 'https://api.paypal.com';
