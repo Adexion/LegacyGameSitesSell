@@ -8,9 +8,9 @@ parameters:
         secret: 'EBn_slN84rAb8fNQIqsPz5H_Rk8v4Ua5SV27sjTodts5L0RB5ZHkO84hMCSO-Z1NwJpBEqMgMGgBq1QG'
     recaptcha: '6LdGKMUUAAAAAAAcXOywQS6SwBQx25nUApvXz-3z'
     minecraft:
-        host: '83.25.13.28'
-        port: '25575'
-        password: 'qwerty'
+        host: 's719954.csrv.pl'
+        port: '9728'
+        password: 'f0286775a33ae71f1ef7'
     command:
         list: 'list'
     multiplier: 1
