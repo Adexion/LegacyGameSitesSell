@@ -33,14 +33,14 @@ class PayPalService extends AbstractPayment implements PaymentInterface
      * @throws ContentException
      * @throws PaymentProcessingException
      */
-    public function executePayment($id, $payer = null, bool $notePayment = true): float
+    public function executePayment($id, bool $notePayment = true): float
     {
         $configuration = $this->container->getParameter('paypal');
 
         $token = $this->client->tokenRequest($configuration['client'], $configuration['secret'])['access_token'] ?? '';
-        $response = $this->client->executeRequest($token, $id, $payer);
+        $response = $this->client->executeRequest($token, $id);
 
-        $amount = $response['transactions'][0]['amount']['total'];
+        $amount = $response['purchase_units'][0]['amount']['value'];
         $this->notePayment($amount);
 
         return (float)$amount;

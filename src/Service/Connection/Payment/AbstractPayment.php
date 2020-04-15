@@ -11,10 +11,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 abstract class AbstractPayment
 {
     private PaymentHistoryRepository $repository;
-
-    /**
-     * @var User
-     */
     private User $user;
 
     public function __construct(PaymentHistoryRepository $repository, TokenStorageInterface $tokenStorage)

@@ -14,9 +14,6 @@ parameters:
     command:
         list: 'list'
     multiplier: 1
-    dotPay:
-        username: 'moderngameservice@gmail.com'
-        password: '7d9aaefbb73a'
     additionalInfo:
         serviceCost: 250
 

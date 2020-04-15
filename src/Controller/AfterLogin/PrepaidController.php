@@ -112,52 +112,9 @@ class PrepaidController extends Controller
      */
     public function paypalExecute(Request $request, WalletService $wallet, PayPalService $payment): JsonResponse
     {
-        $paymentId = $request->request->get('paymentId');
-        $payerId = $request->request->get('payerId');
-
         return new JsonResponse([
             "cash" => $wallet->changeCash(
-                $payment->executePayment($paymentId, $payerId) * ($this->getParameter('multiplier') ?? 1),
-                $this->getUser()
-            ),
-        ]);
-    }
-
-    /**
-     *  Charge your prepaid account with DotPay
-     *
-     * @SWG\Tag(name="Prepaid")
-     * @SWG\Parameter(
-     *     type="object",
-     *     in="body",
-     *     name="JSON",
-     *     @SWG\Schema(
-     *          type="object",
-     *          @SWG\Property(
-     *              type="string",
-     *              property="paymentId"
-     *          )
-     *     )
-     * )
-     * @SWG\Response(
-     *     response=200,
-     *     description="Evertythig works",
-     *     @SWG\Schema(
-     *          type="object",
-     *          @SWG\Property(
-     *              type="integer",
-     *              property="cash"
-     *          )
-     *      )
-     * )
-     */
-    public function dotPayExecute(Request $request, WalletService $wallet, DotPayService $payment): JsonResponse
-    {
-        $paymentId = $request->request->get('paymentId');
-
-        return new JsonResponse([
-            "cash" => $wallet->changeCash(
-                $payment->executePayment($paymentId) * ($this->getParameter('multiplier') ?? 1),
+                $payment->executePayment($request->request->get('orderId')) * ($this->getParameter('multiplier') ?? 1),
                 $this->getUser()
             ),
         ]);

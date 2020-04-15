@@ -9,12 +9,12 @@ use ModernGame\Service\Connection\ApiClient\RestApiClient;
 
 class PaypalClient extends RestApiClient
 {
-    private const API_EXECUTE = '/v1/payments/payment/%s/execute';
+    private const API_EXECUTE = ' /v2/checkout/orders/%s';
     private const API_TOKEN = '/v1/oauth2/token';
 
     private const PAYPAL_API = 'https://api.paypal.com';
 
-    private const PAYMENT_COMPLETED = 'approved';
+    private const PAYMENT_COMPLETED = 'COMPLETED';
 
     /**
      * @throws GuzzleException
@@ -41,16 +41,12 @@ class PaypalClient extends RestApiClient
      * @throws ContentException
      * @throws PaymentProcessingException
      */
-    public function executeRequest($token, $paymentId, $payerId): array
+    public function executeRequest($token, $paymentId): array
     {
         $request['headers'] = [
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer ' . $token
         ];
-
-        $request['body'] = json_encode([
-            'payer_id' => $payerId
-        ]);
 
         $rawResponse = $this->request(
             self::POST,
@@ -69,11 +65,11 @@ class PaypalClient extends RestApiClient
      */
     protected function handleError(array $response)
     {
-        if (isset($response['state']) && $response['state'] !== self::PAYMENT_COMPLETED) {
-            throw new PaymentProcessingException('Płatność oczekuje na potwierzenie wykonania');
+        if (isset($response['status']) && $response['status'] !== self::PAYMENT_COMPLETED) {
+            throw new PaymentProcessingException('Operacja oczekuje na potwierzenie wykonania');
         }
-        if (!($response['transactions'][0]['amount']['total'] ?? false)) {
-            throw new ContentException(['paymentId' => 'Podana płatność nie istnieje lub wystąpił problem po stronie serwera.']);
+        if (!($response['purchase_units'][0]['amount']['value'] ?? false)) {
+            throw new ContentException(['paymentId' => 'Podana operacja nie istnieje lub wystąpił problem po stronie serwera.']);
         }
     }
 }
