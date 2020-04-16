@@ -17,6 +17,10 @@ class PaypalClient extends RestApiClient
 
     private const PAYMENT_COMPLETED = 'COMPLETED';
 
+    private const MAX_ERROR_COUNT = 3;
+
+    private int $counter = 0;
+
     /**
      * @throws GuzzleException
      * @throws ContentException
@@ -56,8 +60,17 @@ class PaypalClient extends RestApiClient
             self::PAYPAL_SANDBOX__API . sprintf(self::API_EXECUTE, $orderId), $request
         );
 
-        $response = json_decode($rawResponse, true) ?? [];
-        $this->handleError($response);
+        try {
+            $response = json_decode($rawResponse, true) ?? [];
+            $this->handleError($response);
+        } catch (ContentException $exception) {
+            if ($this->counter === self::MAX_ERROR_COUNT) {
+                throw $exception;
+            }
+
+            $this->counter++;
+            return $this->executeRequest($token, $orderId);
+        }
 
         return $response;
     }
