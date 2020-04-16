@@ -13,7 +13,7 @@ class PaypalClient extends RestApiClient
     private const API_TOKEN = '/v1/oauth2/token';
 
     private const PAYPAL_API = 'https://api.paypal.com';
-    private const PAYPAL_SANDBOX__API = 'https://api.sandbox.paypal.com';
+    private const PAYPAL_SANDBOX_API = 'https://api.sandbox.paypal.com';
 
     private const PAYMENT_COMPLETED = 'COMPLETED';
 
@@ -38,7 +38,7 @@ class PaypalClient extends RestApiClient
             'grant_type' => 'client_credentials'
         ];
 
-        $response = $this->request(self::POST, self::PAYPAL_SANDBOX__API . self::API_TOKEN, $request);
+        $response = $this->request(self::POST, self::PAYPAL_API . self::API_TOKEN, $request);
 
         return json_decode($response, true) ?? [];
     }
@@ -57,7 +57,7 @@ class PaypalClient extends RestApiClient
 
         $rawResponse = $this->request(
             self::GET,
-            self::PAYPAL_SANDBOX__API . sprintf(self::API_EXECUTE, $orderId), $request
+            self::PAYPAL_API . sprintf(self::API_EXECUTE, $orderId), $request
         );
 
         try {
