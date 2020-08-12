@@ -6,7 +6,6 @@
 /vendor/
 /.idea/
 /bin/
-/templates/
 /config/routes/dev/
 .env
 symfony.lock
