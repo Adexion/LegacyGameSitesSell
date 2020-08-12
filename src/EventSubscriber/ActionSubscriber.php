@@ -37,7 +37,7 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if (!$request->getContent()) {
+        if (strpos($request->getContentType(), 'json') === false) {
             return;
         }
 

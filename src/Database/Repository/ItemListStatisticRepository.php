@@ -11,4 +11,20 @@ class ItemListStatisticRepository extends AbstractRepository
     {
         parent::__construct($registry, ItemListStatistic::class);
     }
+
+    public function getStatistic($userId = null)
+    {
+        /** @var ItemListStatistic $statistic */
+        foreach ($userId ? $this->findBy(['userId' => $userId]) : $this->findAll() as $statistic) {
+            $statistics[] = [
+                'dateTime' => $statistic->getDate(),
+                'userId' => $statistic->getUser()->getId(),
+                'userName' => $statistic->getUser()->getUsername(),
+                'itemListId' => $statistic->getItemList()->getId(),
+                'itemListName' => $statistic->getItemList()->getName()
+            ];
+        }
+
+        return $statistics ?? [];
+    }
 }

@@ -1,35 +1,42 @@
 security:
-    providers:
-        ModernGame:
-            entity:
-                class: ModernGame\Database\Entity\User
-                property: username
+  providers:
+    ModernGame:
+      entity:
+        class: ModernGame\Database\Entity\User
+        property: username
 
-    firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        main:
-            anonymous: ~
-            logout: ~
-            guard:
-                authenticators:
-                    - ModernGame\Security\TokenAuthenticator
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+    main:
+      anonymous: ~
+      logout:
+        path: logout
+        target: login
+      form_login:
+        login_path: login
+        check_path: login
+      guard:
+        authenticators:
+          - ModernGame\Security\TokenAuthenticator
 
-    encoders:
-        ModernGame\Database\Entity\User: bcrypt
+  encoders:
+    ModernGame\Database\Entity\User: bcrypt
 
-    access_control:
-        - { path: ^/v1/contact/list, roles: ROLE_USER, method: [GET] }
-        - { path: ^/v1/contact, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/v1/info, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/v1/shop, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/v1/rules, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/v1/article, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/v1/player, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/v1/documentation, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/v1/user/items, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
-        - { path: ^/v1/user/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/v1/user, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
-        - { path: ^/v1/admin/, roles: ROLE_ADMIN, method: [POST, GET, PUT, DELETE]}
-        - { path: ^/v1/, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
+  access_control:
+    - { path: ^/v1/contact/list, roles: ROLE_USER, method: [GET] }
+    - { path: ^/v1/contact, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/v1/info, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/v1/shop, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/v1/rules, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/v1/article, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/v1/player, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/v1/documentation, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/v1/user/items, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
+    - { path: ^/v1/user/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/v1/user, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
+    - { path: ^/v1/admin/, roles: ROLE_ADMIN, method: [POST, GET, PUT, DELETE]}
+    - { path: ^/v1/, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
+    - { path: ^/panel/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+    - { path: ^/panel/, roles: ROLE_ADMIN}

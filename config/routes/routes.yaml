@@ -37,10 +37,6 @@ shop-paypal-execute-item-list:
   path:       /shop/execute/paypal
   controller: ModernGame\Controller\AfterLogin\ItemShopController::payPalExecute
   methods:    [POST]
-shop-dotpay-execute-item-list:
-  path:       /shop/execute/dotpay
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::dotPayExecute
-  methods:    [POST]
 shop-get-prices:
   path:       /shop/sms/prices
   controller: ModernGame\Controller\AfterLogin\ItemShopController::getSMSPrices
@@ -68,10 +64,6 @@ player:
 payment-paypal-confirmation:
   path:       /prepaid/paypal
   controller: ModernGame\Controller\AfterLogin\PrepaidController::paypalExecute
-  methods:    [POST]
-payment-dotpay-confirmation:
-  path:       /prepaid/dotpay
-  controller: ModernGame\Controller\AfterLogin\PrepaidController::dotPayExecute
   methods:    [POST]
 payment-sms-confirmation:
   path:       /prepaid/sms

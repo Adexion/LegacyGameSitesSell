@@ -53,11 +53,10 @@ class Article
     private ?string $shortText = null;
 
     /**
-     * @ORM\Column(type="string", length=16)
-     * @Assert\NotBlank()
-     * @Assert\Length(min="3", max="16")
+     * @ORM\ManyToOne(targetEntity="User", fetch="EAGER")
+     * @ORM\JoinColumn(name="author", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private ?string $author = null;
+    private ?User $author = null;
 
     /**
      * @ORM\Column(type="datetime")
@@ -124,12 +123,12 @@ class Article
         $this->shortText = $shortText;
     }
 
-    public function getAuthor(): ?string
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
-    public function setAuthor(?string $author)
+    public function setAuthor(?User $author)
     {
         $this->author = $author;
     }
