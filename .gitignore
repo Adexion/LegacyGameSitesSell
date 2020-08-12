@@ -8,7 +8,6 @@
 /bin/
 /templates/
 /config/routes/dev/
-/config/packages/twig.yaml
 .env
 symfony.lock
 composer.lock

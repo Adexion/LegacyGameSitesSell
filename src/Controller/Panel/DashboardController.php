@@ -13,7 +13,7 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return $this->render('panel/index.html.twig', [
+        return $this->render('@ModernGame/panel/index.html.twig', [
             'dashboard_controller_filepath' => (new ReflectionClass(static::class))->getFileName(),
             'dashboard_controller_class' => (new ReflectionClass(static::class))->getShortName(),
         ]);
