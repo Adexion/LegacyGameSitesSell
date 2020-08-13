@@ -3,7 +3,7 @@ import Chart from 'chart.js';
 
 let backgroundColor = [];
 let borderColor = [];
-let statistics = JSON.parse(document.querySelector('.statistics').dataset['statistics']);
+let statistics = JSON.parse(document.querySelector('.statistics').dataset['statistics']) ?? [];
 
 function drawChartByStatisticList(name, description, type = 'horizontalBar') {
     generateTableOfColors(Object.entries(statistics[name]));
