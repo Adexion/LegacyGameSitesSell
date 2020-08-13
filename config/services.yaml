@@ -26,6 +26,12 @@ services:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
+    ModernGame\Service\Connection\Minecraft\MojangPlayerService:
+        autowire: true
+
+    mojang.player.service:
+      class: ModernGame\Service\Connection\Minecraft\MojangPlayerService
+
     ModernGame\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']

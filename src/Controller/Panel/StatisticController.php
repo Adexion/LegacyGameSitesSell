@@ -2,13 +2,14 @@
 
 namespace ModernGame\Controller\Panel;
 
+use EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\DashboardControllerInterface;
 use ModernGame\Database\Entity\ItemListStatistic;
 use ModernGame\Database\Entity\PaymentHistory;
 use ReflectionClass;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class StatisticController extends AbstractDashboardController
+class StatisticController extends AbstractDashboardController implements DashboardControllerInterface
 {
     /**
      * @Route("/panel/statistic/shop", name="shopStatistic")

@@ -87,8 +87,8 @@ abstract class AbstractDashboardController extends AbstractBasicDashboardControl
         /** @var User $user */
         return parent::configureUserMenu($user)
             ->setName($user->getUsername())
+            ->setAvatarUrl(sprintf('http://cravatar.eu/avatar/%s/64.png', $this->getUser()->getUsername()))
             ->displayUserName(true)
-            ->displayUserAvatar(true)
-            ->setGravatarEmail($user->getEmail());
+            ->displayUserAvatar(true);
     }
 }
