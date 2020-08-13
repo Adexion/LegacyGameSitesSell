@@ -43,6 +43,7 @@ abstract class AbstractDashboardController extends AbstractBasicDashboardControl
             MenuItem::section('Wykresy'),
 
             MenuItem::linktoRoute('Statystyki Sprzedaży', 'fas fa-chart-pie', 'shopStatistic'),
+            MenuItem::linktoRoute('Statystyki Płatności', 'fas fa-chart-pie', 'paymentStatistic'),
 
             MenuItem::section('ItemShop'),
 

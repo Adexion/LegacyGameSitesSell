@@ -10,10 +10,11 @@
     <div class="statistics" data-statistics="{{ statistics }}"></div>
 
     <canvas id="buyers" width="4" height="1"></canvas>
-    <canvas id="userBought" width="4" height="1"></canvas>
-    <canvas id="dateTime" width="4" height="1"></canvas>
+    <div style="display:flex; width: 50%">
+        <canvas id="userBought" width="2" height="1"></canvas>
+        <canvas id="dateTime" width="2" height="1"></canvas>
+    </div>
 
-    {{ encore_entry_link_tags('shopStatistic') }}
     {{ encore_entry_script_tags('shopStatistic') }}
 
 {% endblock %}

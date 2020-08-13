@@ -7,6 +7,7 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
+    .addEntry('paymentStatistic', './assets/js/paymentStatistic.js')
     .addEntry('shopStatistic', './assets/js/shopStatistic.js')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()

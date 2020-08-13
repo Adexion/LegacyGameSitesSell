@@ -1,18 +1,18 @@
-import '../css/shopStatistic.css'
+import '../css/statistic.css'
 import Chart from 'chart.js';
 
 let backgroundColor = [];
 let borderColor = [];
 let statistics = JSON.parse(document.querySelector('.statistics').dataset['statistics']) ?? [];
 
-function drawChartByStatisticList(name, description, type = 'horizontalBar') {
-    generateTableOfColors(Object.entries(statistics[name] ?? {}));
+export default function (name, description, type = 'horizontalBar') {
+    generateTableOfColors(Object.entries(statistics[name] ?? {}), type);
 
     let items = Array.of(statistics[name] ?? [])[0];
     new Chart(document.querySelector('#' + name), getChartOptions(items, description, type));
 }
 
-function generateTableOfColors(array) {
+function generateTableOfColors(array, type) {
     backgroundColor = [];
     borderColor = [];
 
@@ -21,7 +21,7 @@ function generateTableOfColors(array) {
         const green = randomInt(0, 255);
         const blue = randomInt(0, 255);
 
-        backgroundColor.push('rgba(' + red + ', ' + blue + ', ' + green + ', 0.2)');
+        backgroundColor.push('rgba(' + red + ', ' + blue + ', ' + green + ', ' + (type === 'pie' ? '1)' : '0.5)'));
         borderColor.push('rgba(' + red + ', ' + blue + ', ' + green + ', 1)');
     });
 
@@ -31,7 +31,7 @@ function generateTableOfColors(array) {
 }
 
 function getChartOptions(items, name, type) {
-    return {
+    let options = {
         type: type,
         data: {
             labels: Object.keys(items),
@@ -42,19 +42,28 @@ function getChartOptions(items, name, type) {
                 borderColor: borderColor,
                 borderWidth: 1
             }]
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
         }
+    };
+
+    if (type === 'pie' || type === 'polarArea') {
+        return options;
     }
+
+    options.options = {
+        scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    };
+
+    return options;
 }
 
-drawChartByStatisticList('buyers','Ilość sprzedanych sztuk');
-drawChartByStatisticList('userBought', 'Kto kupił ile');
-drawChartByStatisticList('dateTime', 'Kiedy kupowano najczęściej');

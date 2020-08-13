@@ -4,6 +4,7 @@ namespace ModernGame\Database\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\PaymentHistoryRepository")
@@ -18,9 +19,11 @@ class PaymentHistory
     public ?int $id = null;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="User", fetch="EAGER")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Assert\NotBlank()
      */
-    private ?int $userId = null;
+    private ?User $user = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
@@ -57,13 +60,13 @@ class PaymentHistory
         $this->amount = $amount;
     }
 
-    public function getUserId(): ?int
+    public function getUser(): ?User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(?int $userId)
+    public function setUser(?User $user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
     }
 }
