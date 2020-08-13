@@ -8,10 +8,12 @@
 {% block page_content %}
 
     <div class="statistics" data-statistics="{{ statistics }}"></div>
-    <div class="chart-area">
-        <canvas id="shop-statistic" width="4" height="1"></canvas>
-        {{ encore_entry_link_tags('shopStatistic') }}
-        {{ encore_entry_script_tags('shopStatistic') }}
-    </div>
+
+    <canvas id="buyers" width="4" height="1"></canvas>
+    <canvas id="userBought" width="4" height="1"></canvas>
+    <canvas id="dateTime" width="4" height="1"></canvas>
+
+    {{ encore_entry_link_tags('shopStatistic') }}
+    {{ encore_entry_script_tags('shopStatistic') }}
 
 {% endblock %}

@@ -14,7 +14,8 @@ class StatisticController extends AbstractDashboardController
      */
     public function shopStatistic(): Response
     {
-        $itemList = $this->getDoctrine()->getRepository(ItemListStatistic::class)
+        $itemList = $this->getDoctrine()
+            ->getRepository(ItemListStatistic::class)
             ->getStatistic();
 
         return $this->render('@ModernGame/panel/shopStatistic.html.twig', [
