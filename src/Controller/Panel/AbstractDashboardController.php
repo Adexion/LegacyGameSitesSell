@@ -4,7 +4,6 @@
 namespace ModernGame\Controller\Panel;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController as AbstractBasicDashboardController;
@@ -41,8 +40,6 @@ abstract class AbstractDashboardController extends AbstractBasicDashboardControl
     public function configureMenuItems(): iterable
     {
         return [
-            MenuItem::linktoDashboard('Panel Administracyjny', 'fa fa-home'),
-
             MenuItem::section('Wykresy'),
 
             MenuItem::linktoRoute('Statystyki Sprzedaży', 'fas fa-chart-pie', 'shopStatistic'),

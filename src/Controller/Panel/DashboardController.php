@@ -9,7 +9,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractDashboardController
 {
     /**
-     * @Route("/panel/", name="panel")
+     * @Route("/admin", name="admin")
+     */
+    public function main(): Response
+    {
+        return $this->redirectToRoute('panel');
+    }
+
+    /**
+     * @Route("/panel", name="panel")
      */
     public function index(): Response
     {
