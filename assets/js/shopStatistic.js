@@ -6,9 +6,9 @@ let borderColor = [];
 let statistics = JSON.parse(document.querySelector('.statistics').dataset['statistics']) ?? [];
 
 function drawChartByStatisticList(name, description, type = 'horizontalBar') {
-    generateTableOfColors(Object.entries(statistics[name]));
+    generateTableOfColors(Object.entries(statistics[name] ?? {}));
 
-    let items = Array.of(statistics[name])[0];
+    let items = Array.of(statistics[name] ?? [])[0];
     new Chart(document.querySelector('#' + name), getChartOptions(items, description, type));
 }
 
