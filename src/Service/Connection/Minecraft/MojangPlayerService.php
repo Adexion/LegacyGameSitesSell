@@ -39,6 +39,7 @@ class MojangPlayerService
         );
 
         return [
+            'email' => $user->getEmail(),
             'accessToken' => md5(uniqid(rand(), true)),
             'clientToken' => md5(uniqid(rand(), true)),
             'selectedProfile' => $profile,
