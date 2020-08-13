@@ -1,5 +1,8 @@
 ## Versions
 ```
+# 0.115.0 - 13.08.2020
+    - add fully fiunctional panel admin without app configuration (in the next phase instead of saveing in parameters file)
+    - addingd charts for item shop statistic and payment hitory
 # 0.106.0 - 26.02.2020
     - add updating user email
     - change logic of entities
