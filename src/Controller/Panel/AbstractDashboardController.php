@@ -78,7 +78,7 @@ abstract class AbstractDashboardController extends AbstractBasicDashboardControl
 
             MenuItem::section(),
 
-            MenuItem::linkToLogout('Wyloguj', 'fa fa-exit')
+            MenuItem::linkToLogout('Wyloguj', 'fas fa-sign-out-alt')
         ];
     }
 
