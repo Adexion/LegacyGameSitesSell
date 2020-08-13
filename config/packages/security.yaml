@@ -40,3 +40,5 @@ security:
     - { path: ^/v1/, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
     - { path: ^/panel/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
     - { path: ^/panel/, roles: ROLE_ADMIN}
+    - { path: ^/admin, roles: ROLE_ADMIN}
+    - { path: ^/admin/, roles: ROLE_ADMIN}
