@@ -1,0 +1,66 @@
+{
+  "entrypoints": {
+    "paymentStatistic": {
+      "js": [
+        "/build/runtime.d94b3b43.js",
+        "/build/0.0a1c1ead.js",
+        "/build/1.9e94e72c.js",
+        "/build/paymentStatistic.268f96c1.js"
+      ],
+      "css": [
+        "/build/paymentStatistic.99c21d8d.css"
+      ]
+    },
+    "shopStatistic": {
+      "js": [
+        "/build/runtime.d94b3b43.js",
+        "/build/0.0a1c1ead.js",
+        "/build/1.9e94e72c.js",
+        "/build/shopStatistic.00d0aea3.js"
+      ],
+      "css": [
+        "/build/shopStatistic.99c21d8d.css"
+      ]
+    },
+    "app": {
+      "js": [
+        "/build/runtime.d94b3b43.js",
+        "/build/0.0a1c1ead.js",
+        "/build/2.6d42b1bf.js",
+        "/build/app.aff6ac7f.js"
+      ]
+    },
+    "articleStyle": {
+      "js": [
+        "/build/runtime.d94b3b43.js"
+      ],
+      "css": [
+        "/build/articleStyle.28df1477.css"
+      ]
+    },
+    "ruleStyle": {
+      "js": [
+        "/build/runtime.d94b3b43.js"
+      ],
+      "css": [
+        "/build/ruleStyle.f56333b2.css"
+      ]
+    },
+    "main": {
+      "js": [
+        "/build/runtime.d94b3b43.js"
+      ],
+      "css": [
+        "/build/main.1ed8731e.css"
+      ]
+    },
+    "nav": {
+      "js": [
+        "/build/runtime.d94b3b43.js"
+      ],
+      "css": [
+        "/build/nav.f9eb5901.css"
+      ]
+    }
+  }
+}
