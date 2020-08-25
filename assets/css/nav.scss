@@ -1,0 +1,26 @@
+.nav {
+  font-size: 19px;
+
+  .active {
+    color: #B08F66;
+  }
+}
+
+.nav-content {
+  border-bottom: 3px #32aaff solid;
+  height: 65px;
+  z-index: 1;
+  background: #ffffff;
+}
+
+.nav-link {
+  font-size: 17px;
+  line-height: 42px;
+  padding: 10px 20px;
+  margin: 0 5px;
+
+  &:hover {
+    background: #f2f2f2;
+    color: #000000;
+  }
+}

@@ -4,5 +4,5 @@ namespace ModernGame\Service\Connection\Payment;
 
 interface PaymentInterface
 {
-    public function executePayment($id): float;
+    public function executePayment(string $id): float;
 }

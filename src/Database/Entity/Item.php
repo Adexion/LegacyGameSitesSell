@@ -36,6 +36,11 @@ class Item
     private ?string $command = null;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $serverId = null;
+
+    /**
      * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
@@ -74,6 +79,16 @@ class Item
     public function setCommand(?string $command)
     {
         $this->command = $command;
+    }
+
+    public function getServerId(): ?string
+    {
+        return $this->serverId;
+    }
+
+    public function setServerId(?string $serverId)
+    {
+        $this->serverId = $serverId;
     }
 
     public function getItemList(): ?ItemList

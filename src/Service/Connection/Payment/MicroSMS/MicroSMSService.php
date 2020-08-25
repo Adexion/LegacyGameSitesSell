@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class MicroSMSService extends AbstractPayment implements PaymentInterface
 {
-    private MicroSMSClient $client;
+    private MicroSMSClient $microSMSClient;
     private ContainerInterface $container;
     private PriceRepository $price;
 
@@ -24,9 +24,9 @@ class MicroSMSService extends AbstractPayment implements PaymentInterface
         TokenStorageInterface $tokenStorage,
         ContainerInterface $container,
         PriceRepository $price,
-        MicroSMSClient $client
+        MicroSMSClient $microSMSClient
     ) {
-        $this->client = $client;
+        $this->microSMSClient = $microSMSClient;
         $this->container = $container;
         $this->price = $price;
 
@@ -37,11 +37,10 @@ class MicroSMSService extends AbstractPayment implements PaymentInterface
      * @throws GuzzleException
      * @throws Exception
      */
-    public function executePayment($id): float
+    public function executePayment(string $id): float
     {
         $configuration = $this->container->getParameter('microSMS');
-
-        $response = $this->client->executeRequest($configuration['userId'], $configuration['serviceId'], $id);
+        $response = $this->microSMSClient->executeRequest($configuration['userId'], $configuration['serviceId'], $id);
 
         $amount = $this->price->findOneBy(['phoneNumber' => $response['data']['number']])->getAmount();
         $this->notePayment($amount);

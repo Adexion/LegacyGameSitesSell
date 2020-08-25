@@ -1,0 +1,12 @@
+{{ encore_entry_link_tags('nav') }}
+
+<div class="nav-content position-fixed w-100">
+    <a href="{{ path('index') }}" class="nav-link float-left left title title--small">MODERNGAME</a>
+    <nav class="nav right position-absolute">
+        <a class="nav-link" href="{{ path('rule') }}">{% trans %}Rules{% endtrans %}</a>
+        <a class="nav-link" href="#">{% trans %}Itemshop{% endtrans %}</a>
+        <a class="nav-link" href="#">{% trans %}Register{% endtrans %}</a>
+        <a class="nav-link" href="#">{% trans %}Sign in{% endtrans %}</a>
+        <a class="nav-link" href="#">{% trans %}Contact{% endtrans %}</a>
+    </nav>
+</div>

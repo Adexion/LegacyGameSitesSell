@@ -37,6 +37,10 @@ shop-paypal-execute-item-list:
   path:       /shop/execute/paypal
   controller: ModernGame\Controller\AfterLogin\ItemShopController::payPalExecute
   methods:    [POST]
+shop-sms-execute-item-list:
+  path:       /shop/execute/sms
+  controller: ModernGame\Controller\AfterLogin\ItemShopController::microSMSExecute
+  methods:    [POST]
 shop-get-prices:
   path:       /shop/sms/prices
   controller: ModernGame\Controller\AfterLogin\ItemShopController::getSMSPrices

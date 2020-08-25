@@ -22,7 +22,7 @@ class MojangPlayerService
         RestApiClient $client
     ) {
         $this->loginUserService = $loginUserService;
-        $this->client = $client;
+        $client = $client;
     }
 
     /**
@@ -58,7 +58,7 @@ class MojangPlayerService
             throw new ContentException(['username' => 'Pole nie może być puste.']);
         }
 
-        $mojangPlayer = json_decode($this->client->request(
+        $mojangPlayer = json_decode($client->request(
             RestApiClient::GET,
             self::MOJANG_GET_UUID_URL . $userName
         ), true);

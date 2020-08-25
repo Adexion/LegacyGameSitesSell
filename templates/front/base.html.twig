@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}ModernGame{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('main') }}
+    {% endblock %}
+</head>
+<body>
+{% include 'front/component/nav.html.twig' %}
+{% include 'front/component/media.html.twig' %}
+
+<div class="pt-nav">
+    {% block body %}
+    {% endblock %}
+</div>
+
+<footer>
+    {% block javascripts %}
+        <script defer src="https://friconix.com/cdn/friconix.js"></script>
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</footer>
+</body>
+</html>

@@ -6,6 +6,7 @@ use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\Price;
 use ModernGame\Serializer\CustomSerializer;
 use ModernGame\Service\Connection\Minecraft\RCONService;
+use ModernGame\Service\Connection\Payment\MicroSMS\MicroSMSService;
 use ModernGame\Service\Connection\Payment\PayPal\PayPalService;
 use ModernGame\Service\Content\ItemListService;
 use ModernGame\Service\User\WalletService;
@@ -72,10 +73,54 @@ class ItemShopController extends Controller
      */
     public function payPalExecute(Request $request, PayPalService $payment, RCONService $rcon): JsonResponse
     {
-        $amount = $payment->executePayment($request->request->get('orderId') ?? 0, true);
+        $amount = $payment->executePayment($request->request->get('orderId') ?? 0);
 
         return new JsonResponse(
-            $rcon->executeItemListForDonation(
+            $rcon->executeItemListInstant(
+                $amount,
+                $request->request->getInt('itemListId') ?? 0,
+                $this->getUser()->getUsername()
+            )
+        );
+    }
+
+    /**
+     * Execute instantly items without using prepaid account or donate by MicroSMS
+     *
+     * Can buy items and instantly execute it on minecraft server or without giving username only give donation for server.
+     *
+     * @SWG\Tag(name="Shop")
+     * @SWG\Parameter(
+     *     type="object",
+     *     in="body",
+     *     name="JSON",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(
+     *              type="string",
+     *              property="smsCode"
+     *          ),
+     *          @SWG\Property(
+     *              type="string",
+     *              property="itemListId"
+     *          )
+     *     )
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Evertythig works",
+     *     @SWG\Schema(
+     *          type="array",
+     *          @SWG\Items(type="string", minItems=1),
+     *     )
+     * )
+     */
+    public function microSMSExecute(Request $request, MicroSMSService $payment, RCONService $rcon): JsonResponse
+    {
+        $amount = $payment->executePayment($request->request->get('smsCode') ?? 0);
+
+        return new JsonResponse(
+            $rcon->executeItemListInstant(
                 $amount,
                 $request->request->getInt('itemListId') ?? 0,
                 $this->getUser()->getUsername()

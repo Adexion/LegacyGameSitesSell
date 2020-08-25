@@ -1,4 +1,4 @@
-import '../css/statistic.css'
+import '../../css/statistic.css'
 import Chart from 'chart.js';
 
 let backgroundColor = [];

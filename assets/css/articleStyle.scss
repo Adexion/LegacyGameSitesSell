@@ -1,0 +1,26 @@
+.avatar {
+  border-radius: 50px;
+  width: 25px;
+}
+
+.container {
+  width: 75%;
+  margin: auto;
+  height: 100vh;
+}
+
+.text-small {
+  font-size: small;
+}
+
+.article-image {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .article-image {
+    display: block;
+    width: 90%;
+    float: right;
+  }
+}

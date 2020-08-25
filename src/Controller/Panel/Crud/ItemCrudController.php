@@ -3,10 +3,11 @@
 namespace ModernGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use ModernGame\Database\Entity\Item;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use ModernGame\Database\Entity\ItemList;
 use ModernGame\Field\EntityField;
 
@@ -28,10 +29,22 @@ class ItemCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name', 'Nazwa'),
-            AvatarField::new('icon','Ikona'),
+            AvatarField::new('icon', 'Ikona'),
             TextField::new('command', 'Komenda'),
             EntityField::new('itemList', 'Lista')
-                ->setClass(ItemList::class, 'name')
+                ->setClass(ItemList::class, 'name'),
+            ChoiceField::new('serverid', 'Serwer ID')
+                ->setChoices($this->getServerList())
         ];
+    }
+
+    public function getServerList(): array
+    {
+        $list = [];
+        foreach ($this->getParameter('minecraft') as $key => $value) {
+            $list[$value['host']] = $key;
+        }
+
+        return $list;
     }
 }

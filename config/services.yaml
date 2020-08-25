@@ -8,6 +8,7 @@ parameters:
         secret: 'EKphnn0pTtiyegluAPXfuuk4pQW9dBB4SVLnF0a85LKpWhSyogY49b32gFxYvpC4Qdto9uIZrYFA0tpO'
     recaptcha: '6LdGKMUUAAAAAAAcXOywQS6SwBQx25nUApvXz-3z'
     minecraft:
+      1:
         host: 's719954.csrv.pl'
         port: '9728'
         password: 'f0286775a33ae71f1ef7'

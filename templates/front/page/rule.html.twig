@@ -1,0 +1,27 @@
+{% extends 'front/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('ruleStyle') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div id="rules" class="col col-lg-7 col-sm-7 col-7">
+
+            </div>
+            <div id="rulesCategory" class="col col-lg-5 col-sm-5 col-5 right-0 position-fixed">
+                <div class="d-inline-block">
+                <h5 class="font-weight-bold">Regulamin</h5>
+                <ul></ul>
+                </div>
+                <div class="hr border-right mr-2 float-left"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

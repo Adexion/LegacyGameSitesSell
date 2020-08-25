@@ -15,13 +15,19 @@ class ItemListStatisticRepository extends AbstractRepository
 
     public function getStatistic($userId = null)
     {
-        /** @var ItemListStatistic $statistic */
-        foreach ($this->findAll() as $statistic) {
-            if ($userId && $statistic->getUser()->getId() !== $userId) {
-                continue;
-            }
+        $qb = $this->createQueryBuilder('ils')
+            ->select('ils')
+            ->where('ils.date >= :date')
+            ->setParameter(':date', (new DateTime('-1 month'))->format('Y-m-d'));
 
-            $boughtName  = $statistic->getItemList()->getName();
+        if ($userId) {
+            $qb->andWhere('ils.user = :userId')
+                ->setParameter(':userId', $userId);
+        }
+
+        /** @var ItemListStatistic $statistic */
+        foreach ($qb->getQuery()->execute() as $statistic) {
+            $boughtName = $statistic->getItemList()->getName();
             $userName = $statistic->getUser()->getUsername();
             $monthOfBought = (new DateTime($statistic->getDate()))->format('Y-m');
 

@@ -13,16 +13,16 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class PayPalService extends AbstractPayment implements PaymentInterface
 {
-    private PaypalClient $client;
+    private PaypalClient $paypalClient;
     private ContainerInterface $container;
 
     public function __construct(
         PaymentHistoryRepository $repository,
         TokenStorageInterface $tokenStorage,
         ContainerInterface $container,
-        PaypalClient $client
+        PaypalClient $paypalClient
     ) {
-        $this->client = $client;
+        $this->paypalClient = $paypalClient;
         $this->container = $container;
 
         parent::__construct($repository, $tokenStorage);
@@ -33,13 +33,11 @@ class PayPalService extends AbstractPayment implements PaymentInterface
      * @throws ContentException
      * @throws PaymentProcessingException
      */
-    public function executePayment($id, bool $notePayment = true): float
+    public function executePayment(string $id): float
     {
         $configuration = $this->container->getParameter('paypal');
-
-        $token = $this->client->tokenRequest($configuration['client'], $configuration['secret'])['access_token'] ?? '';
-
-        $response = $this->client->executeRequest($token, $id);
+        $token = $this->paypalClient->tokenRequest($configuration['client'], $configuration['secret'])['access_token'] ?? '';
+        $response = $this->paypalClient->executeRequest($token, $id);
 
         $amount = $response['purchase_units'][0]['amount']['value'];
         $this->notePayment($amount);

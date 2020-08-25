@@ -12,7 +12,6 @@ use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Database\Repository\ItemRepository;
 use ModernGame\Database\Repository\UserItemRepository;
 use ModernGame\Exception\ContentException;
-use ModernGame\Service\EnvironmentService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -21,44 +20,35 @@ class RCONService
 {
     /** @var UserInterface|User */
     private UserInterface $user;
-    private RCONConnection $client;
     private UserItemRepository $userItemRepository;
     private ItemRepository $itemRepository;
     private ItemListRepository $itemListRepository;
     private ContainerInterface $container;
+    private ServerConnectionService $connectionService;
 
-    /**
-     * @throws ContentException
-     */
     public function __construct(
         UserItemRepository $userItemRepository,
         ItemRepository $itemRepository,
         ItemListRepository $itemListRepository,
         TokenStorageInterface $tokenStorage,
         ContainerInterface $container,
-        EnvironmentService $environmentService
+        ServerConnectionService $connectionService
     ) {
         $this->container = $container;
 
-        try {
-            $serverData = $container->getParameter('minecraft');
-            $this->client = new RCONConnection($serverData['host'], $serverData['port'], $serverData['password'], $environmentService->isProd(), 5);
-            $this->client->connect();
-        } catch (Exception $exception) {
-            throw new ContentException(['error' => 'Nie udało się połączyć z serwerem.']);
-        }
-
+        $this->connectionService = $connectionService;
         $this->userItemRepository = $userItemRepository;
         $this->itemRepository =  $itemRepository;
         $this->itemListRepository =  $itemListRepository;
         $this->user = $tokenStorage->getToken()->getUser();
     }
 
-    public function getPlayerList()
+    public function getPlayerList(string $serverId = null)
     {
-        $this->client->sendCommand($this->container->getParameter('command')['list']);
+        $client = $this->connectionService->getClient($serverId);
+        $client->sendCommand($this->container->getParameter('command')['list']);
 
-        return $this->client->getResponse();
+        return $client->getResponse();
     }
 
     public function executeItem(int $itemId = null, $break = false): array
@@ -69,13 +59,14 @@ class RCONService
             : [$this->userItemRepository->find($itemId)];
 
         foreach ($userItems as $item) {
-            $this->client->sendCommand(sprintf($item->getCommand(), $this->user->getUsername()));
+            $client = $this->connectionService->getClient($item->getItem()->getServerId());
+            $client->sendCommand(sprintf($item->getCommand(), $this->user->getUsername()));
 
-            $response[] = $this->client->getResponse();
-            if (strpos($this->client->getResponse(), 'Nie znaleziono gracza.') !== false) {
+            $response[] = $client->getResponse();
+            if (strpos($client->getResponse(), 'Nie znaleziono gracza.') !== false) {
                 if ($break) {
                     throw new ContentException(array(
-                        'message' => $this->client->getResponse()
+                        'message' => $client->getResponse()
                     ));
                 }
 
@@ -98,7 +89,7 @@ class RCONService
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function executeItemListForDonation(float $amount, int $itemListId = null, string $username = null): array
+    public function executeItemListInstant(float $amount, int $itemListId = null, string $username = null): array
     {
         /** @var ItemList $itemList */
         $itemList = $this->itemListRepository->find($itemListId) ?? new ItemList();
@@ -114,11 +105,12 @@ class RCONService
         $items = $this->itemRepository->findBy(['itemList' => $itemList]) ?? [];
 
         foreach ($items ?? [] as $item) {
-            $this->client->sendCommand(sprintf($item->getCommand(), $username));
+            $client = $this->connectionService->getClient($item->getServerId());
+            $client->sendCommand(sprintf($item->getCommand(), $username));
 
-            $response[] = $this->client->getResponse();
+            $response[] = $client->getResponse();
 
-            if (strpos($this->client->getResponse(), 'Nie znaleziono gracza.') !== false) {
+            if (strpos($client->getResponse(), $this->connectionService::PLAYER_NOT_FOUND) !== false) {
                 $userItem = new UserItem();
 
                 $userItem->setUser($this->user);

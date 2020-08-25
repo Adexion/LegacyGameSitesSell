@@ -1,0 +1,141 @@
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import "~bootstrap";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: #333333;
+  font-family: sans-serif;
+  font-weight: lighter;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #333333;
+}
+
+.bg-image {
+  background: url("/assets/images/main.png") no-repeat;
+  background-size: cover;
+  height: calc(100vh - 65px);
+  color: #ffffff;
+}
+
+.title {
+  color: #000000;
+  text-shadow: 1px 1px #ffffff;
+
+  &--big {
+    font-size: 100px;
+    letter-spacing: 20px;
+  }
+
+  &--small {
+    letter-spacing: 5px;
+    font-weight: bold;
+  }
+}
+
+.arrow {
+  font-size: 55px;
+}
+
+.btn-dark {
+  background-color: #141619;
+  border-color: #141619;
+}
+
+.top-space-100 {
+  padding-top: 100px;
+}
+
+.bottom {
+  bottom: 25px;
+  margin: auto;
+}
+
+.right {
+  right: 25px;
+  margin: auto;
+}
+
+.right-0 {
+  right: 0px;
+  margin: auto;
+}
+
+.left {
+  left: 25px;
+}
+
+.top {
+  top: 25px;
+}
+
+.h-4 {
+  height: 4%;
+}
+
+.pt-nav {
+  padding-top: 65px;
+}
+
+.text-small {
+  font-size: small;
+}
+
+.text-xx-large {
+  font-size: xx-large;
+}
+
+.box-shadow {
+  -webkit-box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.5);
+  -moz-box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.5);
+  box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.5);
+}
+
+.media-container {
+  background: #ffffff;
+  border: #929292 1px solid;
+  border-radius: 5px;
+  right: 50px;
+  top: 45%;
+  position: fixed;
+  justify-content: center;
+  padding: 0.5em;
+  z-index: 1;
+}
+
+.bounce {
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-name: bounce;
+  animation-timing-function: ease;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1.1, .9) translateY(0);
+  }
+  30% {
+    transform: scale(.9, 1.1) translateY(-100px);
+  }
+  50% {
+    transform: scale(1, 1) translateY(0);
+  }
+  57% {
+    transform: scale(1, 1) translateY(-7px);
+  }
+  64% {
+    transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0);
+  }
+}
