@@ -30,7 +30,7 @@ class ArticleType extends AbstractType
     public function preSubmit(FormEvent $event)
     {
         $data = $event->getData();
-        if ($data['createdAt']) {
+        if ($data['createdAt'] ?? '') {
             unset($data['createdAt']);
             $event->setData($data);
         }

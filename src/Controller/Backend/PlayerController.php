@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Controller;
+namespace ModernGame\Controller\Backend;
 
 use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
 use ModernGame\Service\Connection\Minecraft\RCONService;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Controller\Content;
+namespace ModernGame\Controller\Backend;
 
 use ModernGame\Service\Content\Regulation\RegulationService;
 use Symfony\Component\HttpFoundation\JsonResponse;

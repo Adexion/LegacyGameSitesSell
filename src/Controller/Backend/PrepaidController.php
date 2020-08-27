@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Controller\AfterLogin;
+namespace ModernGame\Controller\Backend;
 
 use ModernGame\Service\Connection\Payment\DotPay\DotPayService;
 use ModernGame\Service\Connection\Payment\MicroSMS\MicroSMSService;

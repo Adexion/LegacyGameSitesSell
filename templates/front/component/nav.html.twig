@@ -3,10 +3,22 @@
 <div class="nav-content position-fixed w-100">
     <a href="{{ path('index') }}" class="nav-link float-left left title title--small">MODERNGAME</a>
     <nav class="nav right position-absolute">
-        <a class="nav-link" href="{{ path('rule') }}">{% trans %}Rules{% endtrans %}</a>
-        <a class="nav-link" href="#">{% trans %}Itemshop{% endtrans %}</a>
-        <a class="nav-link" href="#">{% trans %}Register{% endtrans %}</a>
-        <a class="nav-link" href="#">{% trans %}Sign in{% endtrans %}</a>
-        <a class="nav-link" href="#">{% trans %}Contact{% endtrans %}</a>
+        <li class="nav-item"><a class="nav-link" href="{{ path('rule') }}">{% trans %}Rules{% endtrans %}</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">{% trans %}Itemshop{% endtrans %}</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">{% trans %}Contact{% endtrans %}</a></li>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Panel użytkownika</a>
+                    <a class="dropdown-item bg-warning" href="{{ path('panel') }}">Panel Administracyjny</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a>
+                </div>
+            </li>
+        {% else %}
+            <li class="nav-item"><a class="nav-link" href="#">{% trans %}Register{% endtrans %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('login') }}">{% trans %}Sign in{% endtrans %}</a></li>
+        {% endif %}
     </nav>
 </div>

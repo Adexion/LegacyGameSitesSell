@@ -1,3 +1,3 @@
 export class Configuration {
-    public apiURL = "https://api.mngame.pl/v1/"
+    public apiURL = "http://moderngame.loc/v1/"
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Controller;
+namespace ModernGame\Controller\Backend;
 
 use ModernGame\Database\Entity\Ticket;
 use ModernGame\Exception\ContentException;

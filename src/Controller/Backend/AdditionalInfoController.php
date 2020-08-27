@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Controller\Content;
+namespace ModernGame\Controller\Backend;
 
 use ModernGame\Service\AdditionalInfoService;
 use Symfony\Component\HttpFoundation\JsonResponse;

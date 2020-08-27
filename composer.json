@@ -32,7 +32,10 @@
     "require-dev": {
         "behat/behat": ">=3.4",
         "friends-of-behat/symfony-extension": "*",
-        "imbo/behat-api-extension": "*"
+        "imbo/behat-api-extension": "*",
+        "symfony/stopwatch": "^5.1",
+        "symfony/twig-bundle": "^5.1",
+        "symfony/web-profiler-bundle": "^5.1"
     },
     "config": {
         "preferred-install": {

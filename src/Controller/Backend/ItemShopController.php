@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Controller\AfterLogin;
+namespace ModernGame\Controller\Backend;
 
 use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\Price;

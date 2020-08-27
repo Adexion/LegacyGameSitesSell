@@ -1,17 +1,13 @@
-routes:
-  resource: 'admin.yaml'
-  prefix:   /admin
-
 # ---------- Article
 additional-info:
   path:       /info
-  controller: ModernGame\Controller\Content\AdditionalInfoController::getPageAdditionalInfo
+  controller: ModernGame\Controller\Backend\AdditionalInfoController::getPageAdditionalInfo
   methods:    [GET]
 
 # ---------- Article
 article:
   path:       /article
-  controller: ModernGame\Controller\Content\ArticleController::getArticle
+  controller: ModernGame\Controller\Backend\ArticleController::getArticle
   methods:    [GET]
 
 # ---------- Contact
@@ -31,97 +27,89 @@ logged-contact-ticket:
 # ---------- ItemShop
 shop-buy-item:
   path:       /shop/buy
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::buyItemList
+  controller: ModernGame\Controller\Backend\ItemShopController::buyItemList
   methods:    [POST]
 shop-paypal-execute-item-list:
   path:       /shop/execute/paypal
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::payPalExecute
+  controller: ModernGame\Controller\Backend\ItemShopController::payPalExecute
   methods:    [POST]
 shop-sms-execute-item-list:
   path:       /shop/execute/sms
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::microSMSExecute
+  controller: ModernGame\Controller\Backend\ItemShopController::microSMSExecute
   methods:    [POST]
 shop-get-prices:
   path:       /shop/sms/prices
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::getSMSPrices
+  controller: ModernGame\Controller\Backend\ItemShopController::getSMSPrices
   methods:    [GET]
 shop-get-items:
   path:       /shop/list
-  controller: ModernGame\Controller\AfterLogin\ItemShopController::getItemList
+  controller: ModernGame\Controller\Backend\ItemShopController::getItemList
   methods:    [GET]
 
 # ---------- Player
 player-avatar:
   path:       /player/avatar
-  controller: ModernGame\Controller\PlayerController::getMinecraftAvatar
+  controller: ModernGame\Controller\Backend\PlayerController::getMinecraftAvatar
   methods:    [GET]
 player-list:
   path:       /player/list
-  controller: ModernGame\Controller\PlayerController::getPlayerList
+  controller: ModernGame\Controller\Backend\PlayerController::getPlayerList
   methods:    [GET]
 player:
   path:       /player
-  controller: ModernGame\Controller\PlayerController::getPlayer
+  controller: ModernGame\Controller\Backend\PlayerController::getPlayer
   methods:    [GET]
 
 # ---------- Prepaid
 payment-paypal-confirmation:
   path:       /prepaid/paypal
-  controller: ModernGame\Controller\AfterLogin\PrepaidController::paypalExecute
+  controller: ModernGame\Controller\Backend\PrepaidController::paypalExecute
   methods:    [POST]
 payment-sms-confirmation:
   path:       /prepaid/sms
-  controller: ModernGame\Controller\AfterLogin\PrepaidController::microSMSExecute
+  controller: ModernGame\Controller\Backend\PrepaidController::microSMSExecute
   methods:    [POST]
 wallet-cash:
   path:       /prepaid/status
-  controller: ModernGame\Controller\AfterLogin\PrepaidController::cash
+  controller: ModernGame\Controller\Backend\PrepaidController::cash
   methods:    [GET]
 
 # ---------- Regulation
 rules:
   path:       /rules
-  controller: ModernGame\Controller\Content\RegulationController::getRules
+  controller: ModernGame\Controller\Backend\RegulationController::getRules
   methods:    [GET]
 
 # ---------- User
-user-login:
-  path:       /user/login
-  controller: ModernGame\Controller\UserController::login
-  methods:    [POST]
 user-login-launcher:
   path:       /user/launcher/login
-  controller: ModernGame\Controller\UserController::loginMinecraft
-  methods:    [POST]
-user-register:
-  path:       /user/register
-  controller: ModernGame\Controller\UserController::register
+  controller: ModernGame\Controller\Backend\UserController::loginMinecraft
   methods:    [POST]
 user-reset-password:
   path:       /user/reset
-  controller: ModernGame\Controller\UserController::resetPassword
+  controller: ModernGame\Controller\Backend\UserController::resetPassword
   methods:    [POST]
 user-item-execute:
   path:       /user/item
-  controller: ModernGame\Controller\UserController::itemExecute
+  controller: ModernGame\Controller\Backend\UserController::itemExecute
   methods:    [POST]
 user-item-list-execute:
   path:       /user/item/list
-  controller: ModernGame\Controller\UserController::itemListExecute
+  controller: ModernGame\Controller\Backend\UserController::itemListExecute
   methods:    [POST]
 user-item-list:
   path:       /user/items
-  controller: ModernGame\Controller\UserController::getItemList
+  controller: ModernGame\Controller\Backend\UserController::getItemList
   methods:    [GET]
 user-data:
   path:       /user
-  controller: ModernGame\Controller\UserController::getUserData
+  controller: ModernGame\Controller\Backend\UserController::getUserData
   methods:    [GET]
 user-reset-from-token:
   path:       /user/password
-  controller: ModernGame\Controller\UserController::resetFromToken
+  controller: ModernGame\Controller\Backend\UserController::resetFromToken
   methods:    [PUT]
 user-update:
   path:       /user
-  controller: ModernGame\Controller\UserController::update
+  controller: ModernGame\Controller\Backend\UserController::update
   methods:    [PUT]

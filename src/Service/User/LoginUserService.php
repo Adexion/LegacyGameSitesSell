@@ -37,27 +37,6 @@ class LoginUserService
         $this->formErrorHandler = $formErrorHandler;
         $this->repository = $repository;
     }
-
-    /**
-     * @throws ContentException
-     */
-    public function getUser(Request $request): User
-    {
-        $form = $this->form->create(LoginType::class);
-
-        $form->handleRequest($request);
-        $this->formErrorHandler->handle($form);
-
-        /** @var User $user */
-        $user = $this->userProvider->loadUserByUsername($request->request->get('username'));
-
-        if (!$this->passwordEncoder->isPasswordValid($user, $request->request->get('password'))) {
-            throw new BadCredentialsException();
-        }
-
-        return $user;
-    }
-
     /**
      * @throws ContentException
      * @throws ORMException

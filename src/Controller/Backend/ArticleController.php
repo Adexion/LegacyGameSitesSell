@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Controller\Content;
+namespace ModernGame\Controller\Backend;
 
 use ModernGame\Database\Entity\Article;
 use ModernGame\Serializer\CustomSerializer;
