@@ -1,0 +1,49 @@
+.menu {
+  border-right: 1px solid #b2b2b2;
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      line-height: 30px;
+    }
+  }
+}
+
+.content {
+  padding-left: 15px;
+}
+
+.user-data {
+  h5 {
+    line-height: 35px;
+  }
+}
+
+.user-avatar {
+  .avatar {
+    border: 1px solid #d5d5d5;
+    padding: 10px;
+    display: block;
+    border-radius: 0;
+    margin: auto;
+    width: 30%;
+  }
+}
+
+
+@media (max-width: 991px) {
+  .menu {
+    border: 0;
+    border-bottom: 1px solid #d5d5d5;
+
+    ul > li {
+      line-height: 15px;
+
+      .nav-link {
+        line-height: 25px;
+      }
+    }
+  }
+}

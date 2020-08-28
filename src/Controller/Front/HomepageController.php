@@ -22,4 +22,12 @@ class HomepageController extends AbstractController
     {
         return $this->render('front/page/rule.html.twig');
     }
+
+    /**
+     * @Route(name="user-profile", path="/user/profile")
+     */
+    public function userProfile()
+    {
+        return $this->render('front/page/user.profile.html.twig');
+    }
 }

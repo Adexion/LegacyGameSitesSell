@@ -15,7 +15,7 @@
                     {{ app.user.username }}
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Panel użytkownika</a>
+                    <a class="dropdown-item" href="{{ path('user-profile') }}">{% trans %}Panel Użytkownika{% endtrans %}</a>
                     {% if is_granted('ROLE_ADMIN') %}
                         <a class="dropdown-item bg-warning" href="{{ path('panel') }}">Panel Administracyjny</a>
                     {% endif %}
