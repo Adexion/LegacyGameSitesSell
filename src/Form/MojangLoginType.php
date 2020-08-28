@@ -15,14 +15,12 @@ class MojangLoginType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'constraints' => [
-                    new NotBlank(),
-                    new Length(['min' => 3, 'max' => 16])
+                    new NotBlank()
                 ]
             ])
             ->add('password', PasswordType::class, [
                 'constraints' => [
-                    new NotBlank(),
-                    new Length(['min' => 6])
+                    new NotBlank()
                 ]
             ]);
     }
