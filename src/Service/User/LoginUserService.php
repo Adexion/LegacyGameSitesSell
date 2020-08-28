@@ -10,6 +10,7 @@ use ModernGame\Database\Repository\TokenRepository;
 use ModernGame\Database\Repository\UserRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Form\LoginType;
+use ModernGame\Form\MojangLoginType;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,7 +48,7 @@ class LoginUserService
      */
     public function getUser(Request $request): User
     {
-        $form = $this->form->create(LoginType::class);
+        $form = $this->form->create(MojangLoginType::class);
         $form->handleRequest($request);
         $this->formErrorHandler->handle($form);
 
