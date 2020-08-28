@@ -7,6 +7,7 @@ use ModernGame\Validator\ReCaptchaValidator;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -46,8 +47,10 @@ class RegisterType extends AbstractType
                         'value' => true,
                         'message' => 'Proszę zaznaczyć wymagane zgody.'
                     ])
-                ]
+                ],
+                'label' => 'Rule text'
             ])
+            ->add('reCaptcha', HiddenType::class)
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
 
         $builder
@@ -62,7 +65,7 @@ class RegisterType extends AbstractType
             ->getForm()
             ->add(
                 'reCaptcha',
-                TextType::class,
+                HiddenType::class,
                 $this->validator->validate($event->getData()['reCaptcha'] ?? '')
             );
     }

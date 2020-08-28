@@ -8,7 +8,10 @@
         <li class="nav-item"><a class="nav-link" href="#">{% trans %}Contact{% endtrans %}</a></li>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img class="avatar" src="http://cravatar.eu/avatar/{{ app.user.username }}" alt="{{ app.user.username }} avatar">
+                    {{ app.user.username }}
+                </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">Panel użytkownika</a>
                     <a class="dropdown-item bg-warning" href="{{ path('panel') }}">Panel Administracyjny</a>
@@ -17,7 +20,7 @@
                 </div>
             </li>
         {% else %}
-            <li class="nav-item"><a class="nav-link" href="#">{% trans %}Register{% endtrans %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('register') }}">{% trans %}Register{% endtrans %}</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ path('login') }}">{% trans %}Sign in{% endtrans %}</a></li>
         {% endif %}
     </nav>

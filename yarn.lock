@@ -5643,6 +5643,11 @@ readdirp@~3.4.0:
   dependencies:
     picomatch "^2.2.1"
 
+recaptcha@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/recaptcha/-/recaptcha-1.2.1.tgz#3d7a576a525aa19270d8b0ac90820ee7ca9eb8ae"
+  integrity sha1-PXpXalJaoZJw2LCskIIO58qeuK4=
+
 redent@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/redent/-/redent-1.0.0.tgz#cf916ab1fd5f1f16dfb20822dd6ec7f730c2afde"

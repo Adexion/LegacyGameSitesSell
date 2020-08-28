@@ -1,13 +1,12 @@
 import {Connection} from "../../library/connection";
 import {ArticleInterface} from "../interface/article.interface";
 import {AvatarProvider} from "../../library/avatar.provider";
-import {AbstractClass} from "./abstract.class";
+import {ClassInterface} from "../interface/class.interface";
 
-export class ArticleService extends AbstractClass {
+export class ArticleService implements ClassInterface {
     articleElement: Element;
 
     constructor(private connection: Connection, private avatarProvider: AvatarProvider) {
-        super();
         this.articleElement = document.querySelector('#article-list');
     }
 

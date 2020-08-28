@@ -46,6 +46,14 @@
         "/build/ruleStyle.css"
       ]
     },
+    "loginStyle": {
+      "js": [
+        "/build/runtime.js"
+      ],
+      "css": [
+        "/build/loginStyle.css"
+      ]
+    },
     "main": {
       "js": [
         "/build/runtime.js"

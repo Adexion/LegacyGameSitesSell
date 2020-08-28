@@ -1,6 +1,7 @@
 {
   "build/app.js": "/build/app.js",
   "build/articleStyle.css": "/build/articleStyle.css",
+  "build/loginStyle.css": "/build/loginStyle.css",
   "build/main.css": "/build/main.css",
   "build/nav.css": "/build/nav.css",
   "build/paymentStatistic.css": "/build/paymentStatistic.css",

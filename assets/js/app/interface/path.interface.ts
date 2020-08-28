@@ -1,6 +1,6 @@
-import {AbstractClass} from "../component/abstract.class";
+import {ClassInterface} from "./class.interface";
 
 export interface PathInterface {
     path: string
-    class: AbstractClass
+    class: ClassInterface
 }

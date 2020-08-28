@@ -1,6 +1,6 @@
 import {Connection} from "./connection";
-import {Configuration} from "../app/config/configuration";
 import {CookieService} from "./cookie.service";
+import configuration from "../app/config/configuration";
 
 
 class Store {
@@ -9,7 +9,7 @@ class Store {
 
     constructor() {
         this.cookieService = new CookieService();
-        this.connection = new Connection(new Configuration())
+        this.connection = new Connection()
     }
 }
 

@@ -36,25 +36,6 @@ class RegisterService
     }
 
     /**
-     * @throws ContentException
-     */
-    public function register(Request $request)
-    {
-        $user = new User();
-        $form = $this->form->create(RegisterType::class, $user);
-
-        $form->handleRequest($request);
-        $this->formErrorHandler->handle($form);
-
-        $user->setPassword($this->setEncodedPassword($user));
-
-        $this->userRepository->registerUser($user);
-        $this->walletService->create($user);
-
-        return $user->getId();
-    }
-
-    /**
      * @throws ORMException
      * @throws OptimisticLockException
      * @throws ContentException
@@ -69,18 +50,10 @@ class RegisterService
         $this->formErrorHandler->handle($form);
 
         if ($request->request->get('password')) {
-            $user->setPassword($this->setEncodedPassword($user));
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
         }
 
         $this->userRepository->update($user);
     }
 
-    private function setEncodedPassword(User $user)
-    {
-        return preg_replace(
-            '/^(\$2y\$)+/',
-            '\$2a$',
-            $this->passwordEncoder->encodePassword($user, $user->getPassword())
-        );
-    }
 }

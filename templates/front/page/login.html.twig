@@ -2,15 +2,34 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    {{ encore_entry_link_tags('loginStyle') }}
 {% endblock %}
 
 {% block body %}
-    {{ form_start(login_form, {action: 'login'}) }}
-        {{ form_row(login_form._username) }}
-        {{ form_row(login_form._password) }}
+    <div class="container pt-5">
+        <div class="raw">
+            <div class="login-radius bg-grey d-flex">
+                <div class="column column--left">
+                    {{ form_start(login_form, {action: 'login'}) }}
+                    {{ form_row(login_form._username) }}
+                    {{ form_row(login_form._password) }}
 
-    <button class="btn btn-success" type="submit">{% trans %}Sign in{% endtrans %}</button>
-    {{ form_end(login_form) }}
+                    <button class="btn btn-primary w-100" type="submit">{% trans %}Sign in{% endtrans %}</button>
+                    {{ form_end(login_form) }}
+                </div>
+                <div class="column column--middle">
+                    <span class="vertical-line"></span>
+                    <p class="bg-grey">OR</p>
+                </div>
+                <div class="column column--right">
+                    <a href="{{ path('register') }}" class="btn btn-secondary w-75 m-auto">
+                        <i class="fas fa-sign-in-alt"></i>
+                        {% trans %}Create account{% endtrans %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

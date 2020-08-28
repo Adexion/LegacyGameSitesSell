@@ -1,7 +1,10 @@
 import {ArticleService} from "./article";
-import {AvatarProvider} from "../../library/avatar.provider";
 import {RuleService} from "./rule";
+import {RecaptchaService} from "./recaptcha";
+
 import {PathInterface} from "../interface/path.interface";
+
+import {AvatarProvider} from "../../library/avatar.provider";
 import store from "../../library/store";
 
 export class Route {
@@ -13,6 +16,10 @@ export class Route {
         {
             path: '/rule',
             class: new RuleService(store.connection)
+        },
+        {
+            path: '/register',
+            class: new RecaptchaService()
         }
     ];
 
@@ -22,6 +29,6 @@ export class Route {
             if (pathname === element.path) {
                 element.class.generate();
             }
-        })
+        });
     }
 }

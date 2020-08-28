@@ -1,13 +1,12 @@
 import {Connection} from "../../library/connection";
 import {RuleCategoryInterface, RuleInterface} from "../interface/rule.interface";
-import {AbstractClass} from "./abstract.class";
+import {ClassInterface} from "../interface/class.interface";
 
-export class RuleService extends AbstractClass {
+export class RuleService implements ClassInterface {
     private rulesCategoryElement: Element;
     private rulesElement: Element;
 
     constructor(private connection: Connection) {
-        super();
         this.rulesCategoryElement = document.querySelector('#rulesCategory > div > ul');
         this.rulesElement = document.querySelector('#rules');
     }

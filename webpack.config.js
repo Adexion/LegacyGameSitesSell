@@ -12,6 +12,7 @@ Encore
 
     .addStyleEntry('articleStyle', './assets/css/articleStyle.scss')
     .addStyleEntry('ruleStyle', './assets/css/ruleStyle.scss')
+    .addStyleEntry('loginStyle', './assets/css/loginStyle.scss')
 
     .addEntry('app', './assets/js/app/app.ts')
 

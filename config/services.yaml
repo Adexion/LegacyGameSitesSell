@@ -6,7 +6,9 @@ parameters:
     paypal:
         client: 'AcshzYPPq0YGpv0Trz5aysOQ-hx0jxNzMbjHZrSYYw6teXfAaScSde4XGaTuc5d3XTwJEtDqEozwRbFC'
         secret: 'EKphnn0pTtiyegluAPXfuuk4pQW9dBB4SVLnF0a85LKpWhSyogY49b32gFxYvpC4Qdto9uIZrYFA0tpO'
-    recaptcha: '6LdGKMUUAAAAAAAcXOywQS6SwBQx25nUApvXz-3z'
+    google:
+      recaptcha: '6LfwhcQZAAAAAJBPmY2tgGvITdZbSSt692Zn9tHb'
+      siteKey: '6LfwhcQZAAAAALY5FSmCcRdfDCE7quCozrzEyQIE'
     minecraft:
       1:
         host: 's719954.csrv.pl'
