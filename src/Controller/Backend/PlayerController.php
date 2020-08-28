@@ -11,7 +11,7 @@ use Swagger\Annotations as SWG;
 
 class PlayerController extends AbstractController
 {
-    const PLAYER_AVATAR = 'https://crafatar.com/avatars/';
+    const PLAYER_AVATAR = 'http://cravatar.eu/avatar/';
 
     /**
      * Get user minecraft avatar
@@ -37,9 +37,9 @@ class PlayerController extends AbstractController
      *     )
      * )
      */
-    public function getMinecraftAvatar(Request $request, MojangPlayerService $player): JsonResponse
+    public function getMinecraftAvatar(Request $request): JsonResponse
     {
-        $link = self::PLAYER_AVATAR . $player->getUUID($request->query->get('username'));
+        $link = self::PLAYER_AVATAR . $request->query->get('username');
         return new JsonResponse(['avatar' => base64_encode(file_get_contents($link))]);
     }
 
