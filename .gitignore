@@ -15,6 +15,7 @@ composer.phar
 /config/secrets/prod/prod.decrypt.private.php
 
 ###> symfony/webpack-encore-bundle ###
+/node_modules/*
 /node_modules/
 /public/build/*
 public/build
