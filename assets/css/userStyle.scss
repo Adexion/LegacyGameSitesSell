@@ -1,5 +1,5 @@
 .menu {
-  border-right: 1px solid #b2b2b2;
+  border-right: 1px solid #d5d5d5;
 
   ul {
     list-style: none;
@@ -7,6 +7,10 @@
 
     li {
       line-height: 30px;
+
+      .nav-link {
+        line-height: 25px;
+      }
     }
   }
 }
@@ -16,22 +20,28 @@
 }
 
 .user-data {
+  margin: 15px;
+  padding: 15px 0;
+  border: 1px solid #d5d5d5;
+  height: 415px;
+
   h5 {
     line-height: 35px;
   }
 }
 
 .user-avatar {
-  .avatar {
-    border: 1px solid #d5d5d5;
+  height: 100%;
+  justify-content: center;
+  display: flex;
+
+  img#avatar {
+    height: 100%;
     padding: 10px;
-    display: block;
-    border-radius: 0;
     margin: auto;
-    width: 30%;
+    border: 1px solid #b5b5b5;
   }
 }
-
 
 @media (max-width: 991px) {
   .menu {
@@ -40,10 +50,6 @@
 
     ul > li {
       line-height: 15px;
-
-      .nav-link {
-        line-height: 25px;
-      }
     }
   }
 }

@@ -1,14 +1,11 @@
 {
   "entrypoints": {
-    "paymentStatistic": {
+    "ruleStyle": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors~app~paymentStatistic~shopStatistic.js",
-        "/build/vendors~paymentStatistic~shopStatistic.js",
-        "/build/paymentStatistic.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/paymentStatistic.css"
+        "/build/ruleStyle.css"
       ]
     },
     "shopStatistic": {
@@ -38,12 +35,23 @@
         "/build/articleStyle.css"
       ]
     },
-    "ruleStyle": {
+    "paymentStatistic": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~app~paymentStatistic~shopStatistic.js",
+        "/build/vendors~paymentStatistic~shopStatistic.js",
+        "/build/paymentStatistic.js"
+      ],
+      "css": [
+        "/build/paymentStatistic.css"
+      ]
+    },
+    "itemshopStyle": {
       "js": [
         "/build/runtime.js"
       ],
       "css": [
-        "/build/ruleStyle.css"
+        "/build/itemshopStyle.css"
       ]
     },
     "loginStyle": {

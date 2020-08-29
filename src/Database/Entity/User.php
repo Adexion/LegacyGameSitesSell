@@ -139,4 +139,12 @@ class User implements UserInterface
     {
 
     }
+
+    public function toArray(): array
+    {
+        return [
+            'username' => $this->username,
+            'email' => $this->email
+        ];
+    }
 }

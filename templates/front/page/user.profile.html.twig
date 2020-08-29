@@ -1,23 +1,27 @@
 {% extends "front/page/user.html.twig" %}
 
 {% block content %}
-    <div class="row">
-        <div class="user-data col-lg-6 col-sm-12">
-            <div class="m-auto d-flex justify-content-center">
-                <h5>{{ app.user.username }}</h5>
-                <h5>{{ app.user.email }}</h5>
-                <h5>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <span class="text-danger">ADMINISTRATOR</span>
-                    {% else %}
-                        <span class="text-success">GRACZ</span>
-                    {% endif %}
-                </h5>
-            </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label class="w-75" for="username">{% trans %}Username{% endtrans %}</label>
+            <input id="username" type="text" class="form-control" value="{{ app.user.username }}" disabled/>
         </div>
-        <div class="user-avatar col-lg-6 col-sm-12">
-            <img class="avatar" alt="{{ app.user.username }}"
-                 src="https://minotar.net/armor/body/{{ app.user.username }}/500.png">
+        <div class="form-group">
+            <label class="w-75" for="email">Email</label>
+            <input id="email" type="text" class="form-control" value="{{ app.user.email }}" disabled/>
         </div>
+        <div class="form-group">
+            <label class="w-75">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <span class="text-danger">ADMINISTRATOR</span>
+                {% else %}
+                    <span class="text-success">GRACZ</span>
+                {% endif %}
+            </label>
+        </div>
+    </div>
+    <div class="user-avatar col-6">
+        <img id="avatar" class="bg-white" alt="{{ app.user.username }}"
+             src="https://minotar.net/armor/body/{{ app.user.username }}/500.png">
     </div>
 {% endblock %}

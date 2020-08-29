@@ -1,0 +1,34 @@
+{% extends "front/page/user.html.twig" %}
+
+{% block content %}
+    <div class="col-6">
+        {{ form_start(edit_form, {action: '/user/edit',}) }}
+        {{ form_row(edit_form.username) }}
+        {{ form_row(edit_form.email) }}
+        {{ form_row(edit_form.password.first) }}
+        {{ form_row(edit_form.password.second) }}
+        <button class="btn btn-warning w-100" type="submit">{% trans %}Update account{% endtrans %}</button>
+        {{ form_end(edit_form) }}
+    </div>
+    <div class="user-avatar col-6">
+        <img id="avatar" class="bg-white" alt="{{ app.user.username }}"
+             src="https://minotar.net/armor/body/{{ app.user.username }}/500.png">
+    </div>
+    <script>
+        (() => {
+            const username = document.querySelector('#username');
+            const avatar = document.querySelector('#avatar');
+            let timeout;
+
+            username.addEventListener('keypress', event => {
+                if (timeout !== undefined) {
+                    clearTimeout(timeout);
+                }
+
+                timeout = setTimeout(() => {
+                    avatar.src = `https://minotar.net/armor/body/${username.value}/500.png`;
+                }, 1000)
+            })
+        })()
+    </script>
+{% endblock %}
