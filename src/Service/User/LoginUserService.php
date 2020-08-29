@@ -9,13 +9,13 @@ use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\TokenRepository;
 use ModernGame\Database\Repository\UserRepository;
 use ModernGame\Exception\ContentException;
-use ModernGame\Form\LoginType;
 use ModernGame\Form\MojangLoginType;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class LoginUserService
@@ -53,10 +53,13 @@ class LoginUserService
         $this->formErrorHandler->handle($form);
 
         /** @var User $user */
-        $user = $this->userProvider->loadUserByUsername($request->request->get('username'))
-            ?? $this->userRepository->findOneBy(['email' => $request->request->get('username')]);
+        try {
+            $user = $this->userProvider->loadUserByUsername($request->request->get('username'));
+        } catch (UsernameNotFoundException $e) {
+            $user = $this->userRepository->findOneBy(['email' => $request->request->get('username')]);
+        }
 
-        if (!$this->passwordEncoder->isPasswordValid($user, $request->request->get('password'))) {
+        if (empty($user) || !$this->passwordEncoder->isPasswordValid($user, $request->request->get('password'))) {
             throw new BadCredentialsException();
         }
 
