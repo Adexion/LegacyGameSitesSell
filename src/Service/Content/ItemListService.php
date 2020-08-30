@@ -20,6 +20,7 @@ use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class ItemListService extends AbstractService implements ServiceInterface
 {
@@ -52,17 +53,13 @@ class ItemListService extends AbstractService implements ServiceInterface
         /** @var ItemList $itemList */
         $itemList = $this->repository->find($id);
 
-        $this->setStatistic($itemList);
+        $this->setStatistic($itemList, $this->user);
 
         $items = $this->itemRepository->findBy(['itemList' => $itemList]);
         /** @var Item $item */
         foreach ($items as $item) {
             $this->assignToUser($item);
         }
-
-        /** @var ItemListRepository $repository */
-        $repository = $this->repository;
-        $repository->increaseCounterOfBuying($id);
     }
 
     public function getItemListPrice(int $equipmentId): float
@@ -105,11 +102,11 @@ class ItemListService extends AbstractService implements ServiceInterface
         $this->userItemRepository->insert($userItem);
     }
 
-    private function setStatistic(ItemList $itemList)
+    public function setStatistic(ItemList $itemList, User $user)
     {
         $itemListStatistic = new ItemListStatistic();
         $itemListStatistic->setItemList($itemList);
-        $itemListStatistic->setUserId($this->user->getId());
+        $itemListStatistic->setUser($user);
 
         $this->statisticRepository->insert($itemListStatistic);
     }

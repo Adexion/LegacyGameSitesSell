@@ -31,19 +31,11 @@ class RCONConnection
 
     public function getResponse()
     {
-        if (!$this->isProd) {
-            return 'Mock execution done!';
-        }
-
-        return $this->lastResponse;
+        return $this->lastResponse ?? '';
     }
 
     public function connect()
     {
-        if (!$this->isProd) {
-            return false;
-        }
-
         $this->socket = fsockopen($this->host, $this->port, $errno, $errStr, $this->timeout);
         if (!$this->socket) {
             $this->lastResponse = $errStr;

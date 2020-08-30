@@ -15,6 +15,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class UserController extends Controller
 {
@@ -357,9 +358,14 @@ class UserController extends Controller
      *     description="Evertythig works",
      * )
      */
-    public function itemExecute(Request $request, RCONService $rcon): JsonResponse
+    public function itemExecute(Request $request, RCONService $rcon, UserProviderInterface $userProvider): JsonResponse
     {
-        $rcon->executeItem($request->request->getInt('itemId'), true);
+
+        $rcon->executeItem(
+            $request->request->getInt('itemId'),
+            $userProvider->loadUserByUsername($request->request->getInt('username')),
+            true
+        );
 
         return new JsonResponse();
     }
@@ -376,9 +382,9 @@ class UserController extends Controller
      *     description="Evertythig works",
      * )
      */
-    public function itemListExecute(RCONService $rcon): JsonResponse
+    public function itemListExecute(Request $request, RCONService $rcon, UserProviderInterface $userProvider): JsonResponse
     {
-        $rcon->executeItem();
+        $rcon->executeItem(null, $userProvider->loadUserByUsername($request->request->getInt('username')), true);
 
         return new JsonResponse();
     }

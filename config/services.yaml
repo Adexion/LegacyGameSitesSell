@@ -4,19 +4,18 @@ parameters:
         userId: 2003
         serviceId: 3235
     paypal:
-        client: 'AcshzYPPq0YGpv0Trz5aysOQ-hx0jxNzMbjHZrSYYw6teXfAaScSde4XGaTuc5d3XTwJEtDqEozwRbFC'
-        secret: 'EKphnn0pTtiyegluAPXfuuk4pQW9dBB4SVLnF0a85LKpWhSyogY49b32gFxYvpC4Qdto9uIZrYFA0tpO'
+        client: 'Aaskn_HyRuesP0qQRmzFWFKat8o8UC4pHgzmdEUZUUiFTGjUIbuycQcZAFniOjtK_e9QETDDleCl-Cwv'
+        secret: 'EBn_slN84rAb8fNQIqsPz5H_Rk8v4Ua5SV27sjTodts5L0RB5ZHkO84hMCSO-Z1NwJpBEqMgMGgBq1QG'
     google:
       recaptcha: '6LfwhcQZAAAAAJBPmY2tgGvITdZbSSt692Zn9tHb'
       siteKey: '6LfwhcQZAAAAALY5FSmCcRdfDCE7quCozrzEyQIE'
     minecraft:
       1:
-        host: 's719954.csrv.pl'
+        host: 'novagaming.pl'
         port: '9728'
-        password: 'f0286775a33ae71f1ef7'
+        password: 'uZrBMBbzfP'
     command:
         list: 'list'
-    multiplier: 1
     additionalInfo:
         serviceCost: 250
 

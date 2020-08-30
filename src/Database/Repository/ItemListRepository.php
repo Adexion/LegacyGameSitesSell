@@ -37,13 +37,4 @@ class ItemListRepository extends AbstractRepository
 
         return $mappedList;
     }
-
-    public function increaseCounterOfBuying(int $id)
-    {
-        /** @var ItemList $itemList */
-        $itemList = $this->find($id);
-        $itemList->increaseCounterOfBuying();
-
-        $this->getEntityManager()->flush($itemList);
-    }
 }

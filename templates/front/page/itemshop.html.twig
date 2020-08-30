@@ -10,6 +10,9 @@
     <div class="container pt-2">
         <div class="row">
             {% include 'front/component/notLogged.html.twig' %}
+            {% include 'front/component/wallet.html.twig' %}
+            <div class="w-100" id="error-container">
+            </div>
             <div class="d-inline-flex w-100 flex-wrap flex-column">
                 {% for itemList in itemLists %}
                     <div class="item-list bg-light p-2">
@@ -23,11 +26,25 @@
                             <hr/>
                         </div>
                         <div>
-                            <p class="price float-left"><i class="fas fa-coins"></i> {{ (itemList.price - (itemList.promotion * itemList.price)) | number_format(2) }} <strong>zł</strong></p>
+                            <p class="price float-left">
+                                <i class="fas fa-coins"></i>
+                                {{ itemList.afterPromotionPrice | number_format(2) }}
+                                <strong>zł</strong>
+                            </p>
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
-                                Zapłać
-                            </button>
+                                <div class="float-right">
+                                    <form action="{{ path('wallet-payment') }}" method="post" class="d-inline-block">
+                                        <input type="hidden" name="itemListId" value="{{ itemList.id }}">
+                                        <button class="btn btn-info" id="prepaid" type="submit">
+                                            Zapłać z Prepaida
+                                        </button>
+                                    </form>
+                                    <button data-item-list-id="{{ itemList.id }}" type="button"
+                                            class="btn btn-primary  open-modal" data-toggle="modal"
+                                            data-target="#modal">
+                                        Zapłać
+                                    </button>
+                                </div>
                             {% endif %}
                         </div>
                     </div>
@@ -36,43 +53,29 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Wybierz sposób płatności</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class="pb-2 bold">Po zakończeniu płatności prosimy o chwilę cierpliwości. Jeśli&nbsp;wszytko
+                        przebiegnie poprawnie, to
+                        okno zostanie automatycznie zamknięte.<br/><br/>Dziękujemy!
+                        <hr/>
+                    </div>
+                    <div class="modal-form"></div>
                     <div id="paypal-button-container"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-danger">Zamknij</button>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
-
-{#<script>#}
-{#    paypal.Buttons({#}
-{#        createOrder: function (data, actions) {#}
-{#            return actions.order.create({#}
-{#                purchase_units: [{#}
-{#                    amount: {#}
-{#                        currency_code: 'PLN',#}
-{#                        value: '{{ itemList.price - (itemList.promotion * itemList.price) }}'#}
-{#                    }#}
-{#                }]#}
-{#            });#}
-{#        },#}
-{#        onApprove: function (data, actions) {#}
-{#            return actions.order.capture().then(function (details) {#}
-
-{#            });#}
-{#        }#}
-{#    }).render('#paypal-button-container{{ itemList.id }}');#}
-{#</script>#}

@@ -1,5 +1,5 @@
 class Configuration {
-    public apiURL = "https://api.mngame.pl/v1/";
+    public apiURL = "http://moderngame.loc/v1/";
     public recaptchaSiteKey = '6LfwhcQZAAAAALY5FSmCcRdfDCE7quCozrzEyQIE';
 }
 

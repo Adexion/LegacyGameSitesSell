@@ -4,7 +4,8 @@
     <a href="{{ path('index') }}" class="nav-link float-left left title title--small">MODERNGAME</a>
     <nav class="nav right position-absolute">
         <li class="nav-item"><a class="nav-link" href="{{ path('rule') }}">{% trans %}Rules{% endtrans %}</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ path('item-shop') }}">{% trans %}Itemshop{% endtrans %}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ path('item-shop') }}">{% trans %}Itemshop{% endtrans %}</a>
+        </li>
         <li class="nav-item"><a class="nav-link" href="#">{% trans %}Contact{% endtrans %}</a></li>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <li class="nav-item dropdown">
@@ -12,7 +13,7 @@
                    aria-expanded="false">
                     <img class="avatar" src="http://cravatar.eu/avatar/{{ app.user.username }}"
                          alt="{{ app.user.username }} avatar">
-                    {{ app.user.username }}
+                    <span id="username">{{ app.user.username }}</span>
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ path('user-profile') }}">{% trans %}User panel{% endtrans %}</a>

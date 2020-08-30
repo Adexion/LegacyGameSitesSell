@@ -1,0 +1,30 @@
+{% extends 'front/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('itemshopStyle') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container pt-2">
+        <div class="row">
+            {% include 'front/component/notLogged.html.twig' %}
+            <div class="wallet-container alert alert-success">
+                <i class="fas fa-wallet"></i>
+                Stan twojego konta wynosi: {{ wallet.cash | number_format(2) }} zł.
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center pt-5 mt-5">
+        {% if responseType %}
+            <h1 class="text-success">Kupiono {{ itemList.name }} za {{ itemList.afterPromotionPrice }} zł</h1>
+            <img src="{{ itemList.icon }}" alt="{{ itemList.name }}"/>
+            <br/>
+            <p>Zapraszamy do zabawy z nowo zakupionym pakietem!!!</p>
+        {% else %}
+            <h1 class="text-danger">Wystąpił błąd podczas kupowania przedmiotu!</h1>
+            <p>{{ error }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

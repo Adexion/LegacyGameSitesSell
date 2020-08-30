@@ -1,0 +1,7 @@
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="wallet-container alert alert-success">
+        <i class="fas fa-wallet"></i>
+        Stan twojego konta wynosi: {{ wallet.cash | number_format(2) }} zł. Chcesz je doładować?
+        <a id="wallet" href="#" data-toggle="modal" data-target="#modal">kliknij tutaj!</a>
+    </div>
+{% endif %}

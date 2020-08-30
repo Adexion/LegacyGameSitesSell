@@ -9,7 +9,7 @@ use ModernGame\Exception\PaymentProcessingException;
 use ModernGame\Service\Connection\Payment\AbstractPayment;
 use ModernGame\Service\Connection\Payment\PaymentInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class PayPalService extends AbstractPayment implements PaymentInterface
 {
@@ -18,14 +18,14 @@ class PayPalService extends AbstractPayment implements PaymentInterface
 
     public function __construct(
         PaymentHistoryRepository $repository,
-        TokenStorageInterface $tokenStorage,
         ContainerInterface $container,
-        PaypalClient $paypalClient
+        PaypalClient $paypalClient,
+        UserProviderInterface $userProvider
     ) {
         $this->paypalClient = $paypalClient;
         $this->container = $container;
 
-        parent::__construct($repository, $tokenStorage);
+        parent::__construct($repository, $userProvider);
     }
 
     /**
@@ -33,14 +33,15 @@ class PayPalService extends AbstractPayment implements PaymentInterface
      * @throws ContentException
      * @throws PaymentProcessingException
      */
-    public function executePayment(string $id): float
+    public function executePayment(string $id, string $username): float
     {
         $configuration = $this->container->getParameter('paypal');
         $token = $this->paypalClient->tokenRequest($configuration['client'], $configuration['secret'])['access_token'] ?? '';
         $response = $this->paypalClient->executeRequest($token, $id);
 
         $amount = $response['purchase_units'][0]['amount']['value'];
-        $this->notePayment($amount);
+
+        $this->notePayment($amount, $username);
 
         return (float)$amount;
     }

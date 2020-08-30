@@ -20,8 +20,7 @@ class PaymentHistory
 
     /**
      * @ORM\ManyToOne(targetEntity="User", fetch="EAGER")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Assert\NotBlank()
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private ?User $user = null;
 

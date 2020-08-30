@@ -11,10 +11,11 @@ use ModernGame\Service\Connection\Payment\PayPal\PayPalService;
 use ModernGame\Service\Content\ItemListService;
 use ModernGame\Service\User\WalletService;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Swagger\Annotations as SWG;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class ItemShopController extends Controller
 {
@@ -71,15 +72,15 @@ class ItemShopController extends Controller
      *     )
      * )
      */
-    public function payPalExecute(Request $request, PayPalService $payment, RCONService $rcon): JsonResponse
+    public function payPalExecute(Request $request, PayPalService $payment, RCONService $rcon, UserProviderInterface $userProvider): JsonResponse
     {
-        $amount = $payment->executePayment($request->request->get('orderId') ?? 0);
+        $amount = $payment->executePayment($request->request->get('orderId') ?? 0, $request->request->get('username'));
 
         return new JsonResponse(
             $rcon->executeItemListInstant(
                 $amount,
                 $request->request->getInt('itemListId') ?? 0,
-                $this->getUser()->getUsername()
+                $userProvider->loadUserByUsername($request->request->get('username'))
             )
         );
     }
@@ -115,15 +116,15 @@ class ItemShopController extends Controller
      *     )
      * )
      */
-    public function microSMSExecute(Request $request, MicroSMSService $payment, RCONService $rcon): JsonResponse
+    public function microSMSExecute(Request $request, MicroSMSService $payment, RCONService $rcon, UserProviderInterface $userProvider): JsonResponse
     {
-        $amount = $payment->executePayment($request->request->get('smsCode') ?? 0);
+        $amount = $payment->executePayment($request->request->get('smsCode') ?? 0, $request->request->get('username'));
 
         return new JsonResponse(
             $rcon->executeItemListInstant(
                 $amount,
                 $request->request->getInt('itemListId') ?? 0,
-                $this->getUser()->getUsername()
+                $userProvider->loadUserByUsername($request->request->get('username'))
             )
         );
     }

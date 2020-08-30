@@ -6,12 +6,10 @@ use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use ModernGame\Database\Repository\PaymentHistoryRepository;
 use ModernGame\Database\Repository\PriceRepository;
-use ModernGame\Exception\ContentException;
-use ModernGame\Service\Connection\ApiClient\RestApiClient;
 use ModernGame\Service\Connection\Payment\AbstractPayment;
 use ModernGame\Service\Connection\Payment\PaymentInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class MicroSMSService extends AbstractPayment implements PaymentInterface
 {
@@ -21,29 +19,29 @@ class MicroSMSService extends AbstractPayment implements PaymentInterface
 
     public function __construct(
         PaymentHistoryRepository $repository,
-        TokenStorageInterface $tokenStorage,
         ContainerInterface $container,
         PriceRepository $price,
-        MicroSMSClient $microSMSClient
+        MicroSMSClient $microSMSClient,
+        UserProviderInterface $userProvider
     ) {
         $this->microSMSClient = $microSMSClient;
         $this->container = $container;
         $this->price = $price;
 
-        parent::__construct($repository, $tokenStorage);
+        parent::__construct($repository, $userProvider);
     }
 
     /**
      * @throws GuzzleException
      * @throws Exception
      */
-    public function executePayment(string $id): float
+    public function executePayment(string $id, string $username): float
     {
         $configuration = $this->container->getParameter('microSMS');
         $response = $this->microSMSClient->executeRequest($configuration['userId'], $configuration['serviceId'], $id);
 
         $amount = $this->price->findOneBy(['phoneNumber' => $response['data']['number']])->getAmount();
-        $this->notePayment($amount);
+        $this->notePayment($amount, $username);
 
         return (float)$amount;
     }

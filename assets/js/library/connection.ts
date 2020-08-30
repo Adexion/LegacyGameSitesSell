@@ -6,9 +6,13 @@ export class Connection {
             .then(response => response.json())
     }
 
-    public post(uri: string, data: [] = null) {
+    public post(uri: string, data: {} = null) {
         return fetch(configuration.apiURL + uri, {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         }).then(response => response.json())
     }
 }

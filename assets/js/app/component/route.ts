@@ -6,6 +6,7 @@ import {PathInterface} from "../interface/path.interface";
 
 import {AvatarProvider} from "../../library/avatar.provider";
 import store from "../../library/store";
+import {ItemShopService} from "./itemshop";
 
 export class Route {
     private paths: PathInterface[] = [
@@ -20,6 +21,10 @@ export class Route {
         {
             path: '/register',
             class: new RecaptchaService()
+        },
+        {
+            path: '/itemshop',
+            class: new ItemShopService(store.connection)
         }
     ];
 

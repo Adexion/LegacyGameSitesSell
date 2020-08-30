@@ -2,14 +2,13 @@
 
 namespace ModernGame\Controller\Backend;
 
-use ModernGame\Service\Connection\Payment\DotPay\DotPayService;
 use ModernGame\Service\Connection\Payment\MicroSMS\MicroSMSService;
 use ModernGame\Service\Connection\Payment\PayPal\PayPalService;
 use ModernGame\Service\User\WalletService;
+use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Swagger\Annotations as SWG;
 
 class PrepaidController extends Controller
 {
@@ -72,8 +71,8 @@ class PrepaidController extends Controller
 
         return new JsonResponse([
             "cash" => $wallet->changeCash(
-                $payment->executePayment($code) * ($this->getParameter('multiplier') ?? 1),
-                $this->getUser()
+                $payment->executePayment($code, $request->request->get('username')),
+                $request->request->get('username')
             ),
         ]);
     }
@@ -114,8 +113,8 @@ class PrepaidController extends Controller
     {
         return new JsonResponse([
             "cash" => $wallet->changeCash(
-                $payment->executePayment($request->request->get('orderId')) * ($this->getParameter('multiplier') ?? 1),
-                $this->getUser()
+                $payment->executePayment($request->request->get('orderId'), $request->request->get('username')),
+                $request->request->get('username')
             ),
         ]);
     }

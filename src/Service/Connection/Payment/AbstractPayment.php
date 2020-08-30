@@ -5,28 +5,33 @@ namespace ModernGame\Service\Connection\Payment;
 use ModernGame\Database\Entity\PaymentHistory;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\PaymentHistoryRepository;
-use stdClass;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 abstract class AbstractPayment
 {
     private PaymentHistoryRepository $repository;
-    private User $user;
+    private UserProviderInterface $userProvider;
 
-    public function __construct(PaymentHistoryRepository $repository, TokenStorageInterface $tokenStorage)
+    public function __construct(PaymentHistoryRepository $repository, UserProviderInterface $userProvider)
     {
         $this->repository = $repository;
-        $this->user = $tokenStorage->getToken()->getUser();
+        $this->userProvider = $userProvider;
     }
 
-    protected function notePayment($amount) {
+    protected function notePayment(float $amount, string $username) {
         $paymentHistory = new PaymentHistory();
 
-        if ($this->user instanceof User) {
-            $userId = $this->user->getId();
+        try {
+            $user = $this->userProvider->loadUserByUsername($username);
+        } catch (UsernameNotFoundException $exception) {
+            $user = null;
         }
 
-        $paymentHistory->setUserId($userId ?? 0);
+        if ($user instanceof User) {
+            $paymentHistory->setUser($user);
+        }
+
         $paymentHistory->setAmount($amount);
 
         $this->repository->insert($paymentHistory);

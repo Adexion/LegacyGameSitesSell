@@ -21,7 +21,7 @@ class ItemList
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private ?string $name = null;
+    public ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -153,5 +153,9 @@ class ItemList
     public function setSmsPrice(?Price $smsPrice)
     {
         $this->smsPrice = $smsPrice;
+    }
+
+    public function getAfterPromotionPrice() {
+        return $this->getPrice() - ($this->getPrice() * $this->getPromotion());
     }
 }
