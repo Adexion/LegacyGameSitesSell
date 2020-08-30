@@ -26,10 +26,12 @@
                             <hr/>
                         </div>
                         <div>
-                            <p class="price float-left">
+                            <p class="price float-left text-warning">
                                 <i class="fas fa-coins"></i>
-                                {{ itemList.afterPromotionPrice | number_format(2) }}
-                                <strong>zł</strong>
+                                {% if itemList.promotion %}
+                                    <s class="text-danger">{{ itemList.price | number_format(2) }}</s>
+                                {% endif %}
+                                <span class="font-weight-bold text-dark">{{ itemList.afterPromotionPrice | number_format(2) }} zł</span>
                             </p>
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <div class="float-right">
