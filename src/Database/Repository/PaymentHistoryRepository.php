@@ -28,7 +28,7 @@ class PaymentHistoryRepository extends AbstractRepository
         /** @var PaymentHistory $statistic */
         foreach ($qb->getQuery()->execute() as $statistic) {
             $moneyMonth = (new DateTime($statistic->getDate()))->format('Y-m');
-            $userMoney = $statistic->getUser()->getUsername();
+            $userMoney = $statistic->getUser() ? $statistic->getUser()->getUsername() : 'Nie zalogowany';
 
             $statistics['moneyMonth'][$moneyMonth] = ($statistics['moneyMonth'][$moneyMonth] ?? 0) + $statistic->getAmount();
             $statistics['userMoney'][$userMoney] = ($statistics['userMoney'][$userMoney] ?? 0) + $statistic->getAmount();
