@@ -1,6 +1,6 @@
 parameters:
     locale: 'pl'
-    link: '/public/launcher/ModerngameLauncher.exe'
+    link: '/launcher/ModerngameLauncher.exe'
     microSMS:
         userId: 2003
         serviceId: 3235
