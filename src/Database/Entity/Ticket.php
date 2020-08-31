@@ -3,6 +3,7 @@
 namespace ModernGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ModernGame\Enum\TicketStatusEnum;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -56,7 +57,7 @@ class Ticket
     /**
      * @ORM\Column(type="string", length=512)
      */
-    private ?string $status = null;
+    private ?int $status = TicketStatusEnum::NOT_READ;
 
     /**
      * @ORM\OneToOne(targetEntity="User")
@@ -121,12 +122,12 @@ class Ticket
         $this->message = $message;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?int
     {
         return $this->status;
     }
 
-    public function setStatus(?string $status)
+    public function setStatus(?int $status)
     {
         $this->status = $status;
     }

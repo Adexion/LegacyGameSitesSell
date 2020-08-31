@@ -32,6 +32,10 @@ final class EntityField implements FieldInterface
                 self::OPTION_CHOICE_LABEL => $choiceLabel
             ])
             ->formatValue(function ($entity) use ($choiceLabel) {
+                if (!$entity) {
+                    return null;
+                }
+
                 return call_user_func([$entity, 'get' . ucfirst($choiceLabel)]);
             });
 

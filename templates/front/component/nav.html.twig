@@ -6,7 +6,7 @@
         <li class="nav-item"><a class="nav-link" href="{{ path('rule') }}">{% trans %}Rules{% endtrans %}</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ path('item-shop') }}">{% trans %}Itemshop{% endtrans %}</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ path('download') }}">{% trans %}Download{% endtrans %}</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">{% trans %}Contact{% endtrans %}</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ path('contact-front') }}">{% trans %}Contact{% endtrans %}</a></li>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"

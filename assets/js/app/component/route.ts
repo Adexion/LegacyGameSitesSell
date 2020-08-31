@@ -23,6 +23,10 @@ export class Route {
             class: new RecaptchaService()
         },
         {
+            path: '/contact',
+            class: new RecaptchaService()
+        },
+        {
             path: '/itemshop',
             class: new ItemShopService(store.connection)
         }
