@@ -1,0 +1,31 @@
+.btn-outline-purple {
+  color: #9147ff;
+  border-color: #9147ff;
+}
+
+.btn-outline-purple:hover {
+  color: #fff;
+  background-color: #9147ff;
+  border-color: #9147ff;
+}
+
+.btn-outline-purple:focus, .btn-outline-purple.focus {
+  box-shadow: 0 0 0 0.2rem #7d3ddb;
+}
+
+.btn-outline-purple.disabled, .btn-outline-purple:disabled {
+  color: #9147ff;
+  background-color: transparent;
+}
+
+.btn-outline-purple:not(:disabled):not(.disabled):active, .btn-outline-purple:not(:disabled):not(.disabled).active,
+.show > .btn-outline-purple.dropdown-toggle {
+  color: #fff;
+  background-color: #9147ff;
+  border-color: #9147ff;
+}
+
+.btn-outline-purple:not(:disabled):not(.disabled):active:focus, .btn-outline-purple:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-purple.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem #7d3ddb;
+}

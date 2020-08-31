@@ -3,6 +3,7 @@
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
 @import "~bootstrap";
+@import "cutomButtons";
 
 html {
   scroll-behavior: smooth;
@@ -147,4 +148,9 @@ a {
   100% {
     transform: scale(1, 1) translateY(0);
   }
+}
+
+.slider-container {
+  height: 500px;
+  width: 100%;
 }
