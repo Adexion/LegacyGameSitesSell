@@ -26,7 +26,6 @@ class TicketCrudController extends AbstractCrudController
             TextField::new('type', 'Typ wiadomości'),
             TextField::new('subject', 'Temat'),
             TextEditorField::new('message', 'Wiadomość'),
-            TextareaField::new('token', 'Klucz wiadomości'),
             EntityField::new('user', 'Użytkownik')
                 ->setClass(User::class, 'username')
         ];
