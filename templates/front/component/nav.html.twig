@@ -3,32 +3,32 @@
 <div class="nav-content w-100">
     <a href="{{ path('index') }}" class="nav-link float-left left title title--small">MODERNGAME</a>
     <nav class="nav right">
-        <li class="nav-item"><a class="nav-link" href="{{ path('rule') }}">{% trans %}Rules{% endtrans %}</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ path('item-shop') }}">{% trans %}Itemshop{% endtrans %}</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ path('download') }}">{% trans %}Download{% endtrans %}</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ path('contact-front') }}">{% trans %}Contact{% endtrans %}</a></li>
+        <span class="nav-item"><a class="nav-link" href="{{ path('rule') }}">{% trans %}Rules{% endtrans %}</a></span>
+        <span class="nav-item"><a class="nav-link" href="{{ path('item-shop') }}">{% trans %}Itemshop{% endtrans %}</a></span>
+        <span class="nav-item"><a class="nav-link" href="{{ path('download') }}">{% trans %}Download{% endtrans %}</a></span>
+        <span class="nav-item"><a class="nav-link" href="{{ path('contact-front') }}">{% trans %}Contact{% endtrans %}</a></span>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li class="nav-item dropdown">
+            <span class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                    aria-expanded="false">
                     <img class="avatar" src="http://cravatar.eu/avatar/{{ app.user.username }}"
                          alt="{{ app.user.username }} avatar">
                     <span id="username">{{ app.user.username }}</span>
                 </a>
-                <div class="dropdown-menu">
+                <span class="dropdown-menu">
                     <a class="dropdown-item" href="{{ path('user-profile') }}">{% trans %}User panel{% endtrans %}</a>
                     {% if is_granted('ROLE_ADMIN') %}
                         <a class="dropdown-item bg-warning" href="{{ path('panel') }}">Panel Administracyjny</a>
                     {% endif %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a>
-                </div>
-            </li>
+                </span>
+            </span>
         {% else %}
-            <li class="nav-item"><a class="nav-link" href="{{ path('register') }}">{% trans %}Register{% endtrans %}</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('login') }}">{% trans %}Sign in{% endtrans %}</a>
-            </li>
+            <span class="nav-item"><a class="nav-link" href="{{ path('register') }}">{% trans %}Register{% endtrans %}</a>
+            </span>
+            <span class="nav-item"><a class="nav-link" href="{{ path('login') }}">{% trans %}Sign in{% endtrans %}</a>
+            </span>
         {% endif %}
     </nav>
 </div>
