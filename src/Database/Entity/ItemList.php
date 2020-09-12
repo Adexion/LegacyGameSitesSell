@@ -155,7 +155,8 @@ class ItemList
         $this->smsPrice = $smsPrice;
     }
 
-    public function getAfterPromotionPrice() {
-        return $this->getPrice() - ($this->getPrice() * $this->getPromotion());
+    public function getAfterPromotionPrice(): ?float
+    {
+        return round($this->getPrice() - ($this->getPrice() * $this->getPromotion()), 2);
     }
 }

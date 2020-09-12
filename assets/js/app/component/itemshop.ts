@@ -22,6 +22,8 @@ export class ItemShopService implements ClassInterface {
 
         Array.from(collection).forEach((element: HTMLButtonElement) => {
             element.addEventListener('click', (event) => {
+                document.querySelector('#paySafeCard-form').setAttribute('style', 'display: none;');
+
                 let target: EventTarget = event.currentTarget;
                 if (target instanceof HTMLButtonElement) {
                     let itemListId = Number(target.attributes.getNamedItem('data-item-list-id').value);
@@ -38,14 +40,19 @@ export class ItemShopService implements ClassInterface {
                 </div>
             `;
 
+            document.querySelector('#paySafeCard-form').setAttribute('style', 'display: block;');
+
             this.renderPaypalButton(1, 0, this.connection);
             $('#money').bind('change keyup', (event: Event) => {
                 if (this.timeout !== undefined) {
                     clearTimeout(this.timeout);
                 }
+                let paySafeCardInput: HTMLInputElement = document.querySelector('#paySafeCardMoney');
 
                 if (event.target instanceof HTMLInputElement) {
                     let money = Number(event.target.value);
+                    paySafeCardInput.value = event.target.value;
+
                     this.timeout = setTimeout(() => {
                         this.renderPaypalButton(money, 0, this.connection)
                     }, 500)

@@ -73,9 +73,18 @@
                     </div>
                     <div class="modal-form"></div>
                     <div id="paypal-button-container"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">Zamknij</button>
+                    <div id="paySafeCard-form" class="mb-3" style="display: none;">
+                        <form class="form-group" action="{{ path('wallet-payment-paySafeCard') }}" method="POST">
+                            <div class="form-group">
+                                <label for="code">Kod PaySafeCard:</label>
+                                <input name="code" id="code" type="text" class="form-control" min="1"/>
+                            </div>
+                            <input name="money" type="hidden" id="paySafeCardMoney" min="1"/>
+                            <button type="submit" class="btn btn-block btn-primary">
+                                <i class="fas fa-lock text-danger"></i> <strong>paysafe</strong>card
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -11,6 +11,7 @@ use ModernGame\Controller\Panel\Crud\ArticleCrudController;
 use ModernGame\Controller\Panel\Crud\ItemCrudController;
 use ModernGame\Controller\Panel\Crud\ItemListCrudController;
 use ModernGame\Controller\Panel\Crud\ModListCrudController;
+use ModernGame\Controller\Panel\Crud\PaySafeCardCrudController;
 use ModernGame\Controller\Panel\Crud\PriceCrudController;
 use ModernGame\Controller\Panel\Crud\RegulationCategoryCrudController;
 use ModernGame\Controller\Panel\Crud\RegulationCrudController;
@@ -21,6 +22,7 @@ use ModernGame\Controller\Panel\Crud\WalletCrudController;
 use ModernGame\Database\Entity\Item;
 use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\ModList;
+use ModernGame\Database\Entity\PaySafeCard;
 use ModernGame\Database\Entity\Price;
 use ModernGame\Database\Entity\Regulation;
 use ModernGame\Database\Entity\RegulationCategory;
@@ -53,6 +55,8 @@ abstract class AbstractDashboardController extends AbstractBasicDashboardControl
                 ->setController(ItemListCrudController::class),
             MenuItem::linkToCrud('Cennik SMS', 'fa fa-tags', Price::class)
                 ->setController(PriceCrudController::class),
+            MenuItem::linkToCrud('PaySafeCard', 'fa fa-lock', PaySafeCard::class)
+                ->setController(PaySafeCardCrudController::class),
 
             MenuItem::section('Tekstowe'),
 

@@ -3,6 +3,8 @@
 namespace ModernGame\Controller\Front;
 
 use ModernGame\Database\Entity\ItemList;
+use ModernGame\Database\Entity\PaySafeCard;
+use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\Wallet;
 use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Enum\PaymentTypeEnum;
@@ -58,6 +60,25 @@ class ItemsShopController extends AbstractController
             'responseType' => PaymentTypeEnum::SUCCESS,
             'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()])
         ]);
+    }
+
+    /**
+     * @Route(name="wallet-payment-paySafeCard", path="/prepaid/card")
+     */
+    public function paySafeCard(Request $request) {
+        /** @var User $user */
+        $user = $this->getUser();
+        $paySafeCard = new PaySafeCard();
+
+        $paySafeCard->setUser($user);
+        $paySafeCard->setCode($request->request->get('code'));
+        $paySafeCard->setMoney((float)$request->request->get('money'));
+
+        $dm = $this->getDoctrine()->getManager();
+        $dm->persist($paySafeCard);
+        $dm->flush();
+
+        return $this->redirectToRoute('item-shop');
     }
 
     private function predicate(ItemList $itemList, WalletService $walletService)

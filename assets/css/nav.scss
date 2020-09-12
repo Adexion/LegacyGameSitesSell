@@ -1,4 +1,5 @@
 .nav {
+  position: absolute;
   font-size: 19px;
 
   .active {
@@ -11,6 +12,7 @@
   height: 65px;
   z-index: 101;
   background: #ffffff;
+  position: fixed;
 }
 
 .nav-link {
@@ -22,5 +24,39 @@
   &:hover {
     background: #f2f2f2;
     color: #000000;
+  }
+}
+
+.pt-nav {
+  padding-top: 65px;
+}
+
+@media (max-width: 980px) {
+  .nav-content {
+    position: initial;
+    height: max-content;
+  }
+
+  .pt-nav {
+    padding-top: 0 !important;
+  }
+
+  .nav {
+    position: initial;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+  }
+
+  .nav-link {
+    font-size: 15px;
+    line-height: 24px;
+    padding: 10px 10px;
+    margin: 0 5px;
+
+    &:hover {
+      background: #f2f2f2;
+      color: #000000;
+    }
   }
 }
