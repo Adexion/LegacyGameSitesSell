@@ -1,5 +1,9 @@
 ## Versions
 ```
+# 1.0.0 - 12.08.2020
+    - first fully functional site
+    - add paysafecard payment to wallet
+    - repair view of mobile version
 # 0.115.0 - 13.08.2020
     - add fully fiunctional panel admin without app configuration (in the next phase instead of saveing in parameters file)
     - addingd charts for item shop statistic and payment hitory
