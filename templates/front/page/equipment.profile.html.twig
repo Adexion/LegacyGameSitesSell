@@ -6,9 +6,11 @@
             <div class=" {% if code == 404 %}alert alert-warning{% else %}alert alert-success{% endif %}">{{ code | trans }}</div>
         {% endif %}
 
+        {% if userItemList | length > 1 %}
         <form action="{{ path('item-list-profile') }}" method="post">
             <button class="btn btn-success btn-block">{% trans %}Execute all{% endtrans %}</button>
         </form>
+        {% endif %}
         {% for item in userItemList %}
             <div class="w-100">
                 <div class="user-item">
