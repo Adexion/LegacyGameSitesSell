@@ -362,8 +362,7 @@ class UserController extends Controller
     {
         $rcon->executeItem(
             $request->request->getInt('itemId'),
-            $userProvider->loadUserByUsername($request->request->getInt('username')),
-            true
+            $userProvider->loadUserByUsername($request->request->getInt('username'))
         );
 
         return new JsonResponse();
@@ -383,7 +382,7 @@ class UserController extends Controller
      */
     public function itemListExecute(Request $request, RCONService $rcon, UserProviderInterface $userProvider): JsonResponse
     {
-        $rcon->executeItem(null, $userProvider->loadUserByUsername($request->request->getInt('username')), true);
+        $rcon->executeItem(null, $userProvider->loadUserByUsername($request->request->getInt('username')));
 
         return new JsonResponse();
     }

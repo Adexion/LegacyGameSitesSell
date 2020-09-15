@@ -14,8 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-;
-
 class UserController extends AbstractController
 {
     /**
@@ -62,7 +60,8 @@ class UserController extends AbstractController
     /**
      * @Route(name="equipment-profile", path="/user/equipment")
      */
-    public function equipmentProfile(Request $request) {
+    public function equipmentProfile(Request $request)
+    {
         return $this->render('front/page/equipment.profile.html.twig', [
             'userItemList' => $this->getDoctrine()->getRepository(UserItem::class)->findBy(['user' => $this->getUser()]),
             'code' => $request->query->getInt('code')
@@ -80,7 +79,7 @@ class UserController extends AbstractController
             ]);
         }
 
-        $rcon->executeItem($request->request->getInt('itemId'), $this->getUser(), true);
+        $rcon->executeItem($request->request->getInt('itemId'), $this->getUser());
 
         return $this->redirectToRoute('equipment-profile', [
             'code' => Response::HTTP_OK
@@ -98,7 +97,7 @@ class UserController extends AbstractController
             ]);
         }
 
-        $rcon->executeItem(null, $this->getUser(), true);
+        $rcon->executeItem(null, $this->getUser());
 
         return $this->redirectToRoute('equipment-profile', [
             'code' => Response::HTTP_OK

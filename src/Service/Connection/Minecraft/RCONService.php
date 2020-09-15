@@ -56,18 +56,18 @@ class RCONService
         return $client->getResponse();
     }
 
-    public function executeItem(?int $itemId, UserInterface $user, $break = false): array
+    public function executeItem(?int $itemId, UserInterface $user): array
     {
         /** @var UserItem[] $userItems */
         $userItems = empty($itemId)
             ? $this->userItemRepository->findBy(['user' => $user])
             : [$this->userItemRepository->find($itemId)];
-        $break = strstr($this->getPlayerList(), $user->getUsername()) === false;
+        $isUserDisconnected = strstr($this->getPlayerList(), $user->getUsername()) === false;
 
         foreach ($userItems as $item) {
             for ($i = 0; $i < $item->getQuantity(); $i++) {
                 try {
-                    if ($break) {
+                    if ($isUserDisconnected) {
                         throw new Exception();
                     }
 
@@ -81,13 +81,7 @@ class RCONService
                 }
 
                 if (strpos($lastResponse, $this->connectionService::PLAYER_NOT_FOUND) !== false) {
-                    if ($break) {
-                        throw new ContentException([
-                            'message' => $lastResponse
-                        ]);
-                    }
-
-                    continue;
+                    return [];
                 }
 
                 $this->userItemRepository->deleteItem($item);
@@ -117,12 +111,12 @@ class RCONService
 
         $this->itemListService->setStatistic($itemList, $user);
         $items = $this->itemRepository->findBy(['itemList' => $itemList]) ?? [];
-        $break = strstr($this->getPlayerList(), $user->getUsername()) === false;
+        $isUserDisconnected = strstr($this->getPlayerList(), $user->getUsername()) === false;
 
         foreach ($items ?? [] as $item) {
             for ($i = 0; $i < $item->getQuantity(); $i++) {
                 try {
-                    if ($break) {
+                    if ($isUserDisconnected) {
                         throw new Exception();
                     }
 
