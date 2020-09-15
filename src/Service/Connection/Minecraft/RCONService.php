@@ -2,6 +2,7 @@
 
 namespace ModernGame\Service\Connection\Minecraft;
 
+use Exception;
 use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
@@ -61,10 +62,15 @@ class RCONService
         $userItems = empty($itemId)
             ? $this->userItemRepository->findBy(['user' => $user])
             : [$this->userItemRepository->find($itemId)];
+        $break = strstr($this->getPlayerList(), $user->getUsername()) === false;
 
         foreach ($userItems as $item) {
             for ($i = 0; $i < $item->getQuantity(); $i++) {
                 try {
+                    if ($break) {
+                        throw new Exception();
+                    }
+
                     $client = $this->connectionService->getClient($item->getItem()->getServerId());
                     $client->sendCommand(sprintf($item->getCommand(), $user->getUsername()));
 
@@ -111,31 +117,38 @@ class RCONService
 
         $this->itemListService->setStatistic($itemList, $user);
         $items = $this->itemRepository->findBy(['itemList' => $itemList]) ?? [];
+        $break = strstr($this->getPlayerList(), $user->getUsername()) === false;
 
         foreach ($items ?? [] as $item) {
-            try {
-                $client = $this->connectionService->getClient($item->getServerId());
-                $client->sendCommand(sprintf($item->getCommand(), $user->getUsername()));
+            for ($i = 0; $i < $item->getQuantity(); $i++) {
+                try {
+                    if ($break) {
+                        throw new Exception();
+                    }
 
-                $lastResponse = $client->getResponse();
-                if (strpos($lastResponse, $this->connectionService::PLAYER_NOT_FOUND) === false) {
-                    $response[] = $client->getResponse();
+                    $client = $this->connectionService->getClient($item->getServerId());
+                    $client->sendCommand(sprintf($item->getCommand(), $user->getUsername()));
+
+                    $lastResponse = $client->getResponse();
+                    if (strpos($lastResponse, $this->connectionService::PLAYER_NOT_FOUND) === false) {
+                        $response[] = $client->getResponse();
+                    }
+                } catch (Exception $e) {
+                    $lastResponse = $this->connectionService::PLAYER_NOT_FOUND;
                 }
-            } catch (Exception $e) {
-                $lastResponse = $this->connectionService::PLAYER_NOT_FOUND;
-            }
 
-            if (strpos($lastResponse, $this->connectionService::PLAYER_NOT_FOUND) !== false) {
-                $userItem = new UserItem();
+                if (strpos($lastResponse, $this->connectionService::PLAYER_NOT_FOUND) !== false) {
+                    $userItem = new UserItem();
 
-                $userItem->setUser($user);
-                $userItem->setItem($item);
-                $userItem->setQuantity(1);
-                $userItem->setName($item->getName());
-                $userItem->setIcon($item->getIcon());
-                $userItem->setCommand($item->getCommand());
+                    $userItem->setUser($user);
+                    $userItem->setItem($item);
+                    $userItem->setQuantity(1);
+                    $userItem->setName($item->getName());
+                    $userItem->setIcon($item->getIcon());
+                    $userItem->setCommand($item->getCommand());
 
-                $this->userItemRepository->insert($userItem);
+                    $this->userItemRepository->insert($userItem);
+                }
             }
         }
 

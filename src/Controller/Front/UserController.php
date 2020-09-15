@@ -8,7 +8,6 @@ use ModernGame\Database\Repository\UserRepository;
 use ModernGame\Form\UserEditType;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
