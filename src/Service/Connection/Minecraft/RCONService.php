@@ -9,10 +9,10 @@ use ModernGame\Database\Entity\UserItem;
 use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Database\Repository\ItemRepository;
 use ModernGame\Database\Repository\UserItemRepository;
-use ModernGame\Exception\ContentException;
 use ModernGame\Service\Content\ItemListService;
 use ModernGame\Service\User\WalletService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -56,16 +56,16 @@ class RCONService
         return $client->getResponse();
     }
 
-    public function executeItem(?int $itemId, UserInterface $user): array
+    public function executeItem(?int $itemId, UserInterface $user): int
     {
         /** @var UserItem[] $userItems */
         $userItems = empty($itemId)
             ? $this->userItemRepository->findBy(['user' => $user])
             : [$this->userItemRepository->find($itemId)];
-        $isUserDisconnected = strstr($this->getPlayerList(), $user->getUsername()) === false;
 
         foreach ($userItems as $item) {
             for ($i = 0; $i < $item->getQuantity(); $i++) {
+                $isUserDisconnected = strstr($this->getPlayerList(), $user->getUsername()) === false;
                 try {
                     if ($isUserDisconnected) {
                         throw new Exception();
@@ -75,23 +75,22 @@ class RCONService
                     $client->sendCommand(sprintf($item->getCommand(), $user->getUsername()));
 
                     $lastResponse = $client->getResponse();
-                    $response[] = $client->getResponse();
                 } catch (Exception $e) {
                     $lastResponse = $this->connectionService::PLAYER_NOT_FOUND;
                 }
 
                 if (strpos($lastResponse, $this->connectionService::PLAYER_NOT_FOUND) !== false) {
-                    return [];
+                    return Response::HTTP_PARTIAL_CONTENT;
                 }
 
                 $this->userItemRepository->deleteItem($item);
             }
         }
 
-        return $response ?? [];
+        return Response::HTTP_OK;
     }
 
-    public function executeItemListInstant(float $amount, int $itemListId = null, UserInterface $user = null): array
+    public function executeItemListInstant(float $amount, int $itemListId = null, UserInterface $user = null): int
     {
         /** @var ItemList $itemList */
         $itemList = $this->itemListRepository->find($itemListId);
@@ -106,48 +105,49 @@ class RCONService
         if (!empty($itemList->getId()) && ($itemList->getPrice() - ($itemList->getPrice() * $itemList->getPromotion())) > $amount) {
             $this->walletService->changeCash($amount, $user);
 
-            return ['Kwota zakupu jest mniejsza niż kwota zapłacona. Środki przypisano do portfela.'];
+            return Response::HTTP_PAYMENT_REQUIRED;
         }
 
         $this->itemListService->setStatistic($itemList, $user);
         $items = $this->itemRepository->findBy(['itemList' => $itemList]) ?? [];
-        $isUserDisconnected = strstr($this->getPlayerList(), $user->getUsername()) === false;
 
         foreach ($items ?? [] as $item) {
-            for ($i = 0; $i < $item->getQuantity(); $i++) {
-                try {
-                    if ($isUserDisconnected) {
-                        throw new Exception();
-                    }
-
-                    $client = $this->connectionService->getClient($item->getServerId());
-                    $client->sendCommand(sprintf($item->getCommand(), $user->getUsername()));
-
-                    $lastResponse = $client->getResponse();
-                    if (strpos($lastResponse, $this->connectionService::PLAYER_NOT_FOUND) === false) {
-                        $response[] = $client->getResponse();
-                    }
-                } catch (Exception $e) {
-                    $lastResponse = $this->connectionService::PLAYER_NOT_FOUND;
+            $isUserDisconnected = strstr($this->getPlayerList(), $user->getUsername()) === false;
+            try {
+                if ($isUserDisconnected) {
+                    throw new Exception();
                 }
 
-                if (strpos($lastResponse, $this->connectionService::PLAYER_NOT_FOUND) !== false) {
-                    $userItem = new UserItem();
+                $client = $this->connectionService->getClient($item->getServerId());
+                $client->sendCommand(sprintf($item->getCommand(), $user->getUsername()));
 
-                    $userItem->setUser($user);
-                    $userItem->setItem($item);
-                    $userItem->setQuantity(1);
-                    $userItem->setName($item->getName());
-                    $userItem->setIcon($item->getIcon());
-                    $userItem->setCommand($item->getCommand());
-
-                    $this->userItemRepository->insert($userItem);
+                $lastResponse = $client->getResponse();
+                if (strpos($lastResponse, $this->connectionService::PLAYER_NOT_FOUND) === false) {
+                    $response[] = $client->getResponse();
                 }
+            } catch (Exception $e) {
+                $lastResponse = $this->connectionService::PLAYER_NOT_FOUND;
+            }
+
+            if (strpos($lastResponse, $this->connectionService::PLAYER_NOT_FOUND) !== false) {
+                $userItem = new UserItem();
+
+                $userItem->setUser($user);
+                $userItem->setItem($item);
+                $userItem->setQuantity(1);
+                $userItem->setName($item->getName());
+                $userItem->setIcon($item->getIcon());
+                $userItem->setCommand($item->getCommand());
+
+                $this->userItemRepository->insert($userItem);
+                $isSomItemAssignedToEquipment = true;
             }
         }
 
-        $response[] = 'Dziękujemy za wsparcie serwera!';
+        if ($isSomItemAssignedToEquipment ?? false) {
+            return Response::HTTP_PARTIAL_CONTENT;
+        }
 
-        return $response;
+        return Response::HTTP_OK;
     }
 }

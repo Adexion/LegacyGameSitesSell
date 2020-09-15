@@ -360,12 +360,10 @@ class UserController extends Controller
      */
     public function itemExecute(Request $request, RCONService $rcon, UserProviderInterface $userProvider): JsonResponse
     {
-        $rcon->executeItem(
+        return new JsonResponse(null, $rcon->executeItem(
             $request->request->getInt('itemId'),
             $userProvider->loadUserByUsername($request->request->getInt('username'))
-        );
-
-        return new JsonResponse();
+        ));
     }
 
     /**
@@ -382,8 +380,9 @@ class UserController extends Controller
      */
     public function itemListExecute(Request $request, RCONService $rcon, UserProviderInterface $userProvider): JsonResponse
     {
-        $rcon->executeItem(null, $userProvider->loadUserByUsername($request->request->getInt('username')));
-
-        return new JsonResponse();
+        return new JsonResponse(null, $rcon->executeItem(
+            null,
+            $userProvider->loadUserByUsername($request->request->getInt('username'))
+        ));
     }
 }

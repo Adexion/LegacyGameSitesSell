@@ -79,10 +79,8 @@ class UserController extends AbstractController
             ]);
         }
 
-        $rcon->executeItem($request->request->getInt('itemId'), $this->getUser());
-
         return $this->redirectToRoute('equipment-profile', [
-            'code' => Response::HTTP_OK
+            'code' => $rcon->executeItem($request->request->getInt('itemId'), $this->getUser())
         ]);
     }
 
@@ -97,10 +95,8 @@ class UserController extends AbstractController
             ]);
         }
 
-        $rcon->executeItem(null, $this->getUser());
-
         return $this->redirectToRoute('equipment-profile', [
-            'code' => Response::HTTP_OK
+            'code' => $rcon->executeItem(null, $this->getUser())
         ]);
     }
 }

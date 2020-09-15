@@ -65,18 +65,14 @@ class ItemShopController extends Controller
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Evertythig works",
-     *     @SWG\Schema(
-     *          type="array",
-     *          @SWG\Items(type="string", minItems=1),
-     *     )
+     *     description="Evertythig works"
      * )
      */
     public function payPalExecute(Request $request, PayPalService $payment, RCONService $rcon, UserProviderInterface $userProvider): JsonResponse
     {
         $amount = $payment->executePayment($request->request->get('orderId') ?? 0, $request->request->get('username'));
 
-        return new JsonResponse(
+        return new JsonResponse(null,
             $rcon->executeItemListInstant(
                 $amount,
                 $request->request->getInt('itemListId') ?? 0,
@@ -109,18 +105,14 @@ class ItemShopController extends Controller
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Evertythig works",
-     *     @SWG\Schema(
-     *          type="array",
-     *          @SWG\Items(type="string", minItems=1),
-     *     )
+     *     description="Evertythig works"
      * )
      */
     public function microSMSExecute(Request $request, MicroSMSService $payment, RCONService $rcon, UserProviderInterface $userProvider): JsonResponse
     {
         $amount = $payment->executePayment($request->request->get('smsCode') ?? 0, $request->request->get('username'));
 
-        return new JsonResponse(
+        return new JsonResponse(null,
             $rcon->executeItemListInstant(
                 $amount,
                 $request->request->getInt('itemListId') ?? 0,
