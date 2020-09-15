@@ -48,7 +48,7 @@ class ItemsShopController extends AbstractController
             ]);
         }
 
-        $rcon->executeItemListInstant(
+        $code = $rcon->executeItemListInstant(
             $itemList->getAfterPromotionPrice(),
             $request->request->getInt('itemListId') ?? 0,
             $this->getUser()
@@ -58,7 +58,8 @@ class ItemsShopController extends AbstractController
         return $this->render('front/page/prepaidPayment.html.twig', [
             'itemList' => $itemList,
             'responseType' => PaymentTypeEnum::SUCCESS,
-            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()])
+            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+            'code' => $code
         ]);
     }
 
