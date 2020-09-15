@@ -1,0 +1,29 @@
+{% extends "front/page/user.html.twig" %}
+
+{% block content %}
+    <div class="user-equipment">
+        {% if code is defined %}
+            <div class=" {% if code == 404 %}alert alert-warning{% else %}alert alert-success{% endif %}">{{ code | trans }}</div>
+        {% endif %}
+
+        <form action="{{ path('item-list-profile') }}" method="post">
+            <button class="btn btn-success btn-block">{% trans %}Execute all{% endtrans %}</button>
+        </form>
+        {% for item in userItemList %}
+            <div class="w-100">
+                <div class="user-item">
+                    <img src="{{ item.icon }}" class="item-image" alt="{{ item.name }}">
+                    <span class="quantity">{{ item.quantity }}</span>
+                </div>
+                <div class="item-information">
+                    <h1 class="h4">{{ item.name }}</h1>
+                    <h2 class="h5 text-light">{{ item.command }}</h2>
+                    <form action="{{ path('item-profile') }}" method="post">
+                        <input type="hidden" name="itemId" value="{{ item.id }}"/>
+                        <button class="btn btn-warning">{% trans %}Execute{% endtrans %}</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

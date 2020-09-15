@@ -63,27 +63,29 @@ class RCONService
             : [$this->userItemRepository->find($itemId)];
 
         foreach ($userItems as $item) {
-            try {
-                $client = $this->connectionService->getClient($item->getItem()->getServerId());
-                $client->sendCommand(sprintf($item->getCommand(), $user->getUsername()));
+            for ($i = 0; $i < $item->getQuantity(); $i++) {
+                try {
+                    $client = $this->connectionService->getClient($item->getItem()->getServerId());
+                    $client->sendCommand(sprintf($item->getCommand(), $user->getUsername()));
 
-                $lastResponse = $client->getResponse();
-                $response[] = $client->getResponse();
-            } catch (Exception $e) {
-                $lastResponse = $this->connectionService::PLAYER_NOT_FOUND;
-            }
-
-            if (strpos($lastResponse, $this->connectionService::PLAYER_NOT_FOUND) !== false) {
-                if ($break) {
-                    throw new ContentException([
-                        'message' => $lastResponse
-                    ]);
+                    $lastResponse = $client->getResponse();
+                    $response[] = $client->getResponse();
+                } catch (Exception $e) {
+                    $lastResponse = $this->connectionService::PLAYER_NOT_FOUND;
                 }
 
-                continue;
-            }
+                if (strpos($lastResponse, $this->connectionService::PLAYER_NOT_FOUND) !== false) {
+                    if ($break) {
+                        throw new ContentException([
+                            'message' => $lastResponse
+                        ]);
+                    }
 
-            $this->userItemRepository->deleteItem($item);
+                    continue;
+                }
+
+                $this->userItemRepository->deleteItem($item);
+            }
         }
 
         return $response ?? [];

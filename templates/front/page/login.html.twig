@@ -7,26 +7,24 @@
 
 {% block body %}
     <div class="container-fluid pt-5">
-        <div class="raw">
-            <div class="col-lg-6 col-12 m-auto login-radius bg-light d-flex">
-                <div class="column column--left">
-                    {{ form_start(login_form, {action: 'login'}) }}
-                    {{ form_row(login_form._username) }}
-                    {{ form_row(login_form._password) }}
+        <div class="col-lg-6 col-12 m-auto bg-light d-flex">
+            <div class="column column--left">
+                {{ form_start(login_form, {action: 'login'}) }}
+                {{ form_row(login_form._username) }}
+                {{ form_row(login_form._password) }}
 
-                    <button class="btn btn-primary w-100" type="submit">{% trans %}Sign in{% endtrans %}</button>
-                    {{ form_end(login_form) }}
-                </div>
-                <div class="column column--middle">
-                    <span class="vertical-line"></span>
-                    <p class="bg-light">OR</p>
-                </div>
-                <div class="column column--right">
-                    <a href="{{ path('register') }}" class="btn btn-secondary w-75 m-auto">
-                        <i class="fas fa-sign-in-alt"></i>
-                        {% trans %}Create account{% endtrans %}
-                    </a>
-                </div>
+                <button class="btn btn-primary w-100" type="submit">{% trans %}Sign in{% endtrans %}</button>
+                {{ form_end(login_form) }}
+            </div>
+            <div class="column column--middle">
+                <span class="vertical-line"></span>
+                <p class="bg-light">OR</p>
+            </div>
+            <div class="column column--right">
+                <a href="{{ path('register') }}" class="btn btn-secondary w-75 m-auto">
+                    <i class="fas fa-sign-in-alt"></i>
+                    {% trans %}Create account{% endtrans %}
+                </a>
             </div>
         </div>
     </div>

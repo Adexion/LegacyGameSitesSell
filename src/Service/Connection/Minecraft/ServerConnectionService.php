@@ -23,8 +23,10 @@ class ServerConnectionService
     public function getClient(string $serverId = null): RCONConnection
     {
         $serverData = $this->container->getParameter('minecraft');
-        $client = new RCONConnection($serverData[$serverId]['host'], $serverData[$serverId]['port'],
-            $serverData[$serverId]['password'], $this->environmentService->isProd(), 5);
+        $server = $serverData[$serverId] ?? current($serverData);
+
+        $client = new RCONConnection($server['host'], $server['port'],
+            $server['password'], $this->environmentService->isProd(), 5);
         @$client->connect();
 
         if (strpos($client->getResponse(), self::SEVER_NOT_RESPONDING) !== false) {

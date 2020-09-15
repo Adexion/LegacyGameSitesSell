@@ -10,12 +10,10 @@
         <div class="row">
             <div class="menu col-lg-3 col-sm-12">{{ include('front/component/user.menu.html.twig') }}</div>
             <div class="content col-lg-6 col-sm-12">
-                <div class="user-data bg-light text-dark">
-                    <div class="container h-100">
-                        <div class="row h-100">
-                            {% block content %}
-                            {% endblock %}
-                        </div>
+                <div class="user-data bg-light text-dark container-fluid">
+                    <div class="row h-100">
+                        {% block content %}
+                        {% endblock %}
                     </div>
                 </div>
             </div>

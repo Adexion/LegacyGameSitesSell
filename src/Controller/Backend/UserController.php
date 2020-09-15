@@ -360,7 +360,6 @@ class UserController extends Controller
      */
     public function itemExecute(Request $request, RCONService $rcon, UserProviderInterface $userProvider): JsonResponse
     {
-
         $rcon->executeItem(
             $request->request->getInt('itemId'),
             $userProvider->loadUserByUsername($request->request->getInt('username')),

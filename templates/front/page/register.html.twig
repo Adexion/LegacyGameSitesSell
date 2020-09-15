@@ -7,46 +7,44 @@
 
 {% block body %}
     <div class="container pt-5">
-        <div class="raw">
-            <div class="login-radius bg-light d-flex">
-                <div class="column column--left">
-                    {{ form_start(register_form, {action: 'register'}) }}
-                    {{ form_row(register_form.username) }}
-                    {{ form_row(register_form.password.first) }}
-                    {{ form_row(register_form.password.second) }}
-                    {{ form_row(register_form.email) }}
-                    {{ form_row(register_form.rules) }}
-                    {{ form_row(register_form.reCaptcha) }}
+        <div class="bg-light d-flex">
+            <div class="column column--left">
+                {{ form_start(register_form, {action: 'register'}) }}
+                {{ form_row(register_form.username) }}
+                {{ form_row(register_form.password.first) }}
+                {{ form_row(register_form.password.second) }}
+                {{ form_row(register_form.email) }}
+                {{ form_row(register_form.rules) }}
+                {{ form_row(register_form.reCaptcha) }}
 
-                    <div id="recaptcha-component"></div>
+                <div id="recaptcha-component"></div>
 
-                    <button class="btn btn-primary w-100" type="submit">{% trans %}Create account{% endtrans %}</button>
-                    {{ form_end(register_form) }}
-                </div>
-                <div class="column column--middle">
-                    <span class="vertical-line"></span>
-                    <p class="bg-light">OR</p>
-                </div>
-                <div class="column column--right">
-                    <div>
-                        <h5 class="font-weight-bold">Chcesz zagrać na naszym serwerze?</h5>
-                        <h6>Lubisz miłą atmosferę i dobrą zabawę?</h6>
-                        <p>Dołącz do nas, a zabawa nie będzie miała końca!</p>
-                        <br/>
-                        <h5 class="font-weight-bold">Jesteś graczem premium?</h5>
-                        <p>Pamiętaj, aby zarejestrować się prawdziwymi danymi do konta Mojang. Nie przechowujemy ich, a
-                            ty możesz bezpiecznie korzystać ze swojej premki!</p>
-                        <p>Jest to zasługa specjalnych plug-inów, które pozwalają na grę tzw. Semi-Premium</p>
-                        <p>Na naszym serwerze zagrasz bez żadnych przeszkód. Posiadając konto premium, jak i jej go nie
-                            posiadając</p>
+                <button class="btn btn-primary w-100" type="submit">{% trans %}Create account{% endtrans %}</button>
+                {{ form_end(register_form) }}
+            </div>
+            <div class="column column--middle">
+                <span class="vertical-line"></span>
+                <p class="bg-light">OR</p>
+            </div>
+            <div class="column column--right">
+                <div>
+                    <h5 class="font-weight-bold">Chcesz zagrać na naszym serwerze?</h5>
+                    <h6>Lubisz miłą atmosferę i dobrą zabawę?</h6>
+                    <p>Dołącz do nas, a zabawa nie będzie miała końca!</p>
+                    <br/>
+                    <h5 class="font-weight-bold">Jesteś graczem premium?</h5>
+                    <p>Pamiętaj, aby zarejestrować się prawdziwymi danymi do konta Mojang. Nie przechowujemy ich, a
+                        ty możesz bezpiecznie korzystać ze swojej premki!</p>
+                    <p>Jest to zasługa specjalnych plug-inów, które pozwalają na grę tzw. Semi-Premium</p>
+                    <p>Na naszym serwerze zagrasz bez żadnych przeszkód. Posiadając konto premium, jak i jej go nie
+                        posiadając</p>
 
-                        <h5 class="font-weight-bold">Życzymy dobrej zabawy!</h5>
-                        <br/>
-                        <br/>
-                        <p>Masz juz kontow serwisie? <a class="text-primary"
-                                                        href="{{ path('login') }}">{% trans %}Sign in now{% endtrans %}</a>
-                        </p>
-                    </div>
+                    <h5 class="font-weight-bold">Życzymy dobrej zabawy!</h5>
+                    <br/>
+                    <br/>
+                    <p>Masz juz kontow serwisie? <a class="text-primary"
+                                                    href="{{ path('login') }}">{% trans %}Sign in now{% endtrans %}</a>
+                    </p>
                 </div>
             </div>
         </div>
