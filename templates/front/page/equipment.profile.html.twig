@@ -10,6 +10,8 @@
         <form action="{{ path('item-list-profile') }}" method="post">
             <button class="btn btn-success btn-block">{% trans %}Execute all{% endtrans %}</button>
         </form>
+        {% elseif userItemList | length == 0 %}
+            <div class="alert alert-info">{% trans %}Nothing to do here{% endtrans %}</div>
         {% endif %}
         {% for item in userItemList %}
             <div class="w-100">
