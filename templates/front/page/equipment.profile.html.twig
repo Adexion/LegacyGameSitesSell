@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="user-equipment">
-        {% if code is defined %}
+        {% if code == 404 or code == 200 %}
             <div class=" {% if code == 404 %}alert alert-warning{% else %}alert alert-success{% endif %}">{{ code | trans }}</div>
         {% endif %}
 
