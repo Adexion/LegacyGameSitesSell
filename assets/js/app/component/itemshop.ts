@@ -40,7 +40,7 @@ export class ItemShopService implements ClassInterface {
 
             document.querySelector('#paySafeCard-form').setAttribute('style', 'display: block;');
 
-            this.renderPaypalButton(1, 0, this.connection);
+            this.renderPaypalButton(1, 0);
             $('#money').bind('change keyup', (event: Event) => {
                 if (this.timeout !== undefined) {
                     clearTimeout(this.timeout);
@@ -52,7 +52,7 @@ export class ItemShopService implements ClassInterface {
                     paySafeCardInput.value = event.target.value;
 
                     this.timeout = setTimeout(() => {
-                        this.renderPaypalButton(money, 0, this.connection)
+                        this.renderPaypalButton(money, 0)
                     }, 500)
                 }
             });
@@ -72,13 +72,12 @@ export class ItemShopService implements ClassInterface {
         if (chooseItemList !== undefined) {
             this.renderPaypalButton(
                 chooseItemList.price - (chooseItemList.promotion * chooseItemList.price),
-                itemListId,
-                this.connection
+                itemListId
             );
         }
     }
 
-    private renderPaypalButton(price: number, itemListId: number, connection: Connection) {
+    private renderPaypalButton(price: number, itemListId: number) {
         if (this.buttonComponent !== undefined) {
             this.buttonComponent.close();
         }

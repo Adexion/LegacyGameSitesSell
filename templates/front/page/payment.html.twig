@@ -22,8 +22,10 @@
                 <h1 class="text-success">Kupiono {{ itemList.name }} za {{ itemList.afterPromotionPrice }} zł</h1>
                 <img src="{{ itemList.icon }}" alt="{{ itemList.name }}"/>
                 <br/>
+                <p>Zapraszamy do zabawy z nowo zakupionym pakietem!!!</p>
             {% else %}
-                <h1 class="text-success">Dołądowałeś swoje konto!</h1>
+                <h1 class="text-success">Doładowałeś swoje konto!</h1>
+                <h2>Możesz teraz wykorzystać środki ze swojego konta prepaid!</h2>
                 <br/>
             {% endif %}
             {% if responseType == 206 %}
@@ -32,7 +34,6 @@
                     ekwipunek</a>
                 <br/>
             {% endif %}
-            <p>Zapraszamy do zabawy z nowo zakupionym pakietem!!!</p>
         {% else %}
             <h1 class="text-danger">Wystąpił błąd podczas kupowania przedmiotu!</h1>
             <p>Nie masz wystarczającej ilości środków na koncie</p>
