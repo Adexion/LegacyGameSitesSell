@@ -17,19 +17,25 @@
     </div>
 
     <div class="text-center pt-5 mt-5">
-        {% if responseType %}
-            <h1 class="text-success">Kupiono {{ itemList.name }} za {{ itemList.afterPromotionPrice }} zł</h1>
-            <img src="{{ itemList.icon }}" alt="{{ itemList.name }}"/>
-            <br/>
-            {% if code == 206 %}
+        {% if responseType != 402 %}
+            {% if itemList is not empty %}
+                <h1 class="text-success">Kupiono {{ itemList.name }} za {{ itemList.afterPromotionPrice }} zł</h1>
+                <img src="{{ itemList.icon }}" alt="{{ itemList.name }}"/>
+                <br/>
+            {% else %}
+                <h1 class="text-success">Dołądowałeś swoje konto!</h1>
+                <br/>
+            {% endif %}
+            {% if responseType == 206 %}
                 <p>Nie udało sie wypłacić wszystkich przedmiotów. Zostaną one przypisane do twojego ekwipunku</p>
-                <a href="{{ path('equipment-profile') }}" class="btn btn-block btn-info w-50 m-auto">Sprzawdź swój ekwipunek</a>
+                <a href="{{ path('equipment-profile') }}" class="btn btn-block btn-info w-50 m-auto">Sprzawdź swój
+                    ekwipunek</a>
                 <br/>
             {% endif %}
             <p>Zapraszamy do zabawy z nowo zakupionym pakietem!!!</p>
         {% else %}
             <h1 class="text-danger">Wystąpił błąd podczas kupowania przedmiotu!</h1>
-            <p>{{ error }}</p>
+            <p>Nie masz wystarczającej ilości środków na koncie</p>
         {% endif %}
     </div>
 {% endblock %}

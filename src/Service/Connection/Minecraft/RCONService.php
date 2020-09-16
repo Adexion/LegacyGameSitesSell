@@ -96,13 +96,12 @@ class RCONService
         $itemList = $this->itemListRepository->find($itemListId);
         if (!$itemList) {
             $this->walletService->changeCash($amount, $user);
-            $response[] = 'Dziękujemy za wsparcie serwera!';
 
-            return $response;
+            return Response::HTTP_OK;
         }
 
         /** @var User|UserInterface $user */
-        if (!empty($itemList->getId()) && ($itemList->getPrice() - ($itemList->getPrice() * $itemList->getPromotion())) > $amount) {
+        if (!empty($itemList->getId()) && $itemList->getAfterPromotionPrice() > $amount) {
             $this->walletService->changeCash($amount, $user);
 
             return Response::HTTP_PAYMENT_REQUIRED;

@@ -15,7 +15,6 @@ export class ItemShopService implements ClassInterface {
     }
 
     generate() {
-        window.username = document.querySelector('#username');
         this.connection.get('shop/list').then(itemLists => this.itemLists = itemLists);
         let collection: HTMLCollection = document.getElementsByClassName('open-modal');
 
@@ -98,39 +97,34 @@ export class ItemShopService implements ClassInterface {
             onApprove: async function (data: any, actions: any) {
                 let details = await actions.order.capture();
 
-                ItemShopService.checkInformationOnBackend(details, itemListId, 'shop/execute/paypal', connection).then();
+                ItemShopService.redirectToStatusPage(details.id, itemListId).then();
             }
         });
 
         this.buttonComponent.render('#paypal-button-container');
     };
 
-    static async checkInformationOnBackend(details: any, itemListId: number, link: string, connection: Connection) {
-        $('#modal').modal('hide');
+    static async redirectToStatusPage(detailsId: string, itemListId: number) {
+        let form = document.createElement("form");
 
-        let container: HTMLDivElement = document.querySelector('#error-container');
-        let response: string[] = await connection.post(link, {
-            username: window.username.innerHTML,
-            orderId: details.id,
-            itemListId
-        });
+        form.method = "POST";
+        form.action = "/paypal/status";
 
-        let list = document.createElement('ul');
-        list.setAttribute('style', 'margin: 0;');
+        const element1 = document.createElement("input");
+        element1.name = "orderId";
+        element1.value = detailsId;
+        element1.type = 'hidden';
+        form.appendChild(element1);
 
-        response.forEach(communicate => {
-            let element = document.createElement('li');
-            element.innerText = communicate;
+        const element2 = document.createElement("input");
+        element2.name = "itemListId";
+        element2.value = itemListId.toString();
+        element2.type = 'hidden';
 
-            list.appendChild(element);
-        });
+        form.appendChild(element2);
+        document.body.appendChild(form);
 
-        let info = document.createElement('div');
-        info.classList.add('alert');
-        info.classList.add('alert-info');
-        info.appendChild(list);
-
-        container.appendChild(info);
+        form.submit();
     }
 }
 

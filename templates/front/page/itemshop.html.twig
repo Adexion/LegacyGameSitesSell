@@ -35,7 +35,7 @@
                             </p>
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <div class="float-right">
-                                    <form action="{{ path('wallet-payment') }}" method="post" class="d-inline-block">
+                                    <form action="{{ path('prepaid-status') }}" method="post" class="d-inline-block">
                                         <input type="hidden" name="itemListId" value="{{ itemList.id }}">
                                         <button class="btn btn-info" id="prepaid" type="submit">
                                             Zapłać z Prepaida
@@ -74,7 +74,7 @@
                     <div class="modal-form"></div>
                     <div id="paypal-button-container"></div>
                     <div id="paySafeCard-form" class="mb-3" style="display: none;">
-                        <form class="form-group" action="{{ path('wallet-payment-paySafeCard') }}" method="POST">
+                        <form class="form-group" action="{{ path('paySafeCard-status') }}" method="POST">
                             <div class="form-group">
                                 <label for="code">Kod PaySafeCard:</label>
                                 <input name="code" id="code" type="text" class="form-control" min="1"/>

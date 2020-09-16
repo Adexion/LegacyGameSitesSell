@@ -7,11 +7,12 @@ use ModernGame\Database\Entity\PaySafeCard;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\Wallet;
 use ModernGame\Database\Repository\ItemListRepository;
-use ModernGame\Enum\PaymentTypeEnum;
 use ModernGame\Service\Connection\Minecraft\RCONService;
+use ModernGame\Service\Connection\Payment\PayPal\PayPalService;
 use ModernGame\Service\User\WalletService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ItemsShopController extends AbstractController
@@ -29,9 +30,9 @@ class ItemsShopController extends AbstractController
     }
 
     /**
-     * @Route(name="wallet-payment", path="/prepaid/payment")
+     * @Route(name="prepaid-status", path="/prepaid/status")
      */
-    public function prepaidPayment(
+    public function prepaidStatus(
         Request $request,
         ItemListRepository $itemListRepository,
         WalletService $walletService,
@@ -40,33 +41,60 @@ class ItemsShopController extends AbstractController
         /** @var ItemList $itemList */
         $itemList = $itemListRepository->find($request->request->getInt('itemListId'));
 
-        if ($this->predicate($itemList, $walletService)) {
-            return $this->render('front/page/prepaidPayment.html.twig', [
-                'error' => 'Kwota zakupu jest mniejsza niż kwota którą zapłacono.',
-                'responseType' => PaymentTypeEnum::ERROR,
-                'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()])
-            ]);
-        }
-
         $code = $rcon->executeItemListInstant(
-            $itemList->getAfterPromotionPrice(),
+            $walletService->changeCash(0, $this->getUser()),
             $request->request->getInt('itemListId') ?? 0,
             $this->getUser()
         );
-        $walletService->changeCash(-$itemList->getAfterPromotionPrice(), $this->getUser());
 
-        return $this->render('front/page/prepaidPayment.html.twig', [
+        if ($code !== Response::HTTP_PAYMENT_REQUIRED) {
+            $walletService->changeCash(-$itemList->getAfterPromotionPrice(), $this->getUser());
+        }
+
+        return $this->render('front/page/payment.html.twig', [
             'itemList' => $itemList,
-            'responseType' => PaymentTypeEnum::SUCCESS,
+            'responseType' => $code,
             'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
-            'code' => $code
         ]);
     }
 
     /**
-     * @Route(name="wallet-payment-paySafeCard", path="/prepaid/card")
+     * @Route(name="paypal-status", path="/paypal/status")
      */
-    public function paySafeCard(Request $request) {
+    public function paypalStatus(
+        Request $request,
+        ItemListRepository $itemListRepository,
+        PayPalService $payment,
+        RCONService $rcon
+    ) {
+        $amount = $payment->executePayment($request->request->get('orderId') ?? 0, $this->getUser()->getUsername());
+        $itemList = $itemListRepository->find($request->request->getInt('itemListId'));
+
+        $code = $rcon->executeItemListInstant(
+            $amount,
+            $request->request->getInt('itemListId') ?? 0,
+            $this->getUser()
+        );
+
+        return $this->render('front/page/payment.html.twig', [
+            'itemList' => $itemList,
+            'responseType' => $code,
+            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+        ]);
+    }
+
+    /**
+     * @Route(name="paySafeCard-status", path="/paySafeCard/status")
+     */
+    public function paySafeCardStatus(Request $request)
+    {
+        if (empty($request->request->get('code'))) {
+            return $this->render('front/page/paySafeCard.html.twig', [
+                'responseType' => Response::HTTP_BAD_REQUEST,
+                'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+            ]);
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $paySafeCard = new PaySafeCard();
@@ -79,11 +107,9 @@ class ItemsShopController extends AbstractController
         $dm->persist($paySafeCard);
         $dm->flush();
 
-        return $this->redirectToRoute('item-shop');
-    }
-
-    private function predicate(ItemList $itemList, WalletService $walletService)
-    {
-        return $itemList && $itemList->getAfterPromotionPrice() > $walletService->changeCash(0, $this->getUser());
+        return $this->render('front/page/paySafeCard.html.twig', [
+            'responseType' => Response::HTTP_OK,
+            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+        ]);
     }
 }

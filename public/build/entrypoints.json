@@ -1,89 +1,89 @@
 {
   "entrypoints": {
-    "ruleStyle": {
+    "paymentStatistic": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.d94b3b43.js",
+        "/build/0.2c87cd30.js",
+        "/build/1.56fc4a34.js",
+        "/build/paymentStatistic.268f96c1.js"
       ],
       "css": [
-        "/build/ruleStyle.css"
+        "/build/paymentStatistic.99c21d8d.css"
       ]
     },
     "shopStatistic": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors~app~paymentStatistic~shopStatistic.js",
-        "/build/vendors~paymentStatistic~shopStatistic.js",
-        "/build/shopStatistic.js"
+        "/build/runtime.d94b3b43.js",
+        "/build/0.2c87cd30.js",
+        "/build/1.56fc4a34.js",
+        "/build/shopStatistic.00d0aea3.js"
       ],
       "css": [
-        "/build/shopStatistic.css"
+        "/build/shopStatistic.99c21d8d.css"
       ]
     },
     "app": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors~app~paymentStatistic~shopStatistic.js",
-        "/build/vendors~app.js",
-        "/build/app.js"
+        "/build/runtime.d94b3b43.js",
+        "/build/0.2c87cd30.js",
+        "/build/2.8e240fca.js",
+        "/build/app.88f7a669.js"
       ]
     },
     "articleStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/articleStyle.css"
+        "/build/articleStyle.51dfa01f.css"
       ]
     },
-    "paymentStatistic": {
+    "ruleStyle": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors~app~paymentStatistic~shopStatistic.js",
-        "/build/vendors~paymentStatistic~shopStatistic.js",
-        "/build/paymentStatistic.js"
+        "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/paymentStatistic.css"
+        "/build/ruleStyle.f56333b2.css"
       ]
     },
     "itemshopStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/itemshopStyle.css"
+        "/build/itemshopStyle.be781808.css"
       ]
     },
     "loginStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/loginStyle.css"
+        "/build/loginStyle.35c3b35f.css"
       ]
     },
     "userStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/userStyle.css"
+        "/build/userStyle.2125a3c5.css"
       ]
     },
     "main": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/main.css"
+        "/build/main.ab46140c.css"
       ]
     },
     "nav": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/nav.css"
+        "/build/nav.332da6c5.css"
       ]
     }
   }
