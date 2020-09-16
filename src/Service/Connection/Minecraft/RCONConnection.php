@@ -122,13 +122,18 @@ class RCONConnection
 
     private function readPacket()
     {
-        $size_data = fread($this->socket, 4);
-        $size_pack = unpack('V1size', $size_data);
-        $size = $size_pack['size'];
+        try {
+            $size_data = fread($this->socket, 4);
+            $size_pack = unpack('V1size', $size_data);
+            $size = $size_pack['size'];
+        } catch (\Exception $exception) {
+            return $this->readPacket();
+        }
 
         $packet_data = fread($this->socket, $size);
         $packet_pack = unpack('V1id/V1type/a*body', $packet_data);
 
         return $packet_pack;
+
     }
 }
