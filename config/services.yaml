@@ -14,7 +14,7 @@ parameters:
       siteKey: '6LfwhcQZAAAAALY5FSmCcRdfDCE7quCozrzEyQIE'
     minecraft:
       1:
-        host: 'novagaming.pl'
+        host: 'play.mngame.pl'
         port: '9728'
         password: 'uZrBMBbzfP'
     command:
