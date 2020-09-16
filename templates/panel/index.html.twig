@@ -6,5 +6,53 @@
 {% block page_title 'Panel administracyjny!' %}
 
 {% block page_content %}
+    <style>
+        .console {
+            height: 500px;
+            border: 1px solid #9fa9b7;
+            overflow-y: auto;
+            margin: auto;
+            background: #212121;
+            color: #e2e2e2;
+        }
 
+        .console > p {
+            overflow-wrap: break-word;
+            max-width: 800px;
+        }
+    </style>
+
+    <div class="console">
+    </div>
+    <script type="text/javascript">
+        function readLog() {
+            fetch('https://play.mngame.pl/')
+                .then(response => response.text())
+                .then(text => {
+                    let el = document.querySelector('.console');
+                    el.innerHTML = text;
+                    el.scrollBy(0, el.scrollHeight);
+                    setTimeout(() => {
+                        readLog();
+                    }, 2000);
+                });
+        }
+
+        function sendCommand() {
+            fetch('/panel/command', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    command: document.querySelector('.command').value
+                })
+            });
+            readLog()
+        }
+
+        readLog()
+    </script>
+    <input class="command form-control mt-2" placeholder="Wpisz komende ..."/>
+    <button class="btn btn-info btn-block" onclick="sendCommand()">Wyślij</button>
 {% endblock %}
