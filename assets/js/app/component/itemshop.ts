@@ -4,8 +4,7 @@ import {ItemListInterface} from "../interface/itemList.interface";
 
 const $ = require('jquery');
 
-declare var paypal: any;
-declare var username: HTMLSpanElement;
+declare const window: any;
 
 export class ItemShopService implements ClassInterface {
     private itemLists: ItemListInterface[];
@@ -16,7 +15,7 @@ export class ItemShopService implements ClassInterface {
     }
 
     generate() {
-        username = document.querySelector('#username');
+        window.username = document.querySelector('#username');
         this.connection.get('shop/list').then(itemLists => this.itemLists = itemLists);
         let collection: HTMLCollection = document.getElementsByClassName('open-modal');
 
@@ -85,7 +84,7 @@ export class ItemShopService implements ClassInterface {
             this.buttonComponent.close();
         }
 
-        this.buttonComponent = paypal.Buttons({
+        this.buttonComponent = window.paypal.Buttons({
             createOrder: function (data: any, actions: any) {
                 return actions.order.create({
                     purchase_units: [{
@@ -111,7 +110,7 @@ export class ItemShopService implements ClassInterface {
 
         let container: HTMLDivElement = document.querySelector('#error-container');
         let response: string[] = await connection.post(link, {
-            username: username.innerHTML,
+            username: window.username.innerHTML,
             orderId: details.id,
             itemListId
         });
