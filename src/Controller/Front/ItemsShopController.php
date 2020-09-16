@@ -9,6 +9,7 @@ use ModernGame\Database\Entity\Wallet;
 use ModernGame\Database\Repository\ItemListRepository;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\Connection\Payment\PayPal\PayPalService;
+use ModernGame\Service\Mail\MailSenderService;
 use ModernGame\Service\User\WalletService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,7 +87,7 @@ class ItemsShopController extends AbstractController
     /**
      * @Route(name="paySafeCard-status", path="/paySafeCard/status")
      */
-    public function paySafeCardStatus(Request $request)
+    public function paySafeCardStatus(Request $request, MailSenderService $mailSenderService)
     {
         if (empty($request->request->get('code'))) {
             return $this->render('front/page/paySafeCard.html.twig', [
@@ -106,6 +107,12 @@ class ItemsShopController extends AbstractController
         $dm = $this->getDoctrine()->getManager();
         $dm->persist($paySafeCard);
         $dm->flush();
+
+        $mailSenderService->sendEmail(
+            Response::HTTP_PAYMENT_REQUIRED,
+            [$this->getUser()->getUsername(), $request->request->get('code')],
+            'moderngameservice@gmail.com'
+        );
 
         return $this->render('front/page/paySafeCard.html.twig', [
             'responseType' => Response::HTTP_OK,

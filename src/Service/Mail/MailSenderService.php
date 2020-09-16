@@ -16,7 +16,7 @@ class MailSenderService
         $this->provider = new SchemaListProvider();
     }
 
-    public function sendEmail($schemaId, string $data, string $email)
+    public function sendEmail($schemaId, $data, string $email)
     {
         $schema = $this->provider->provide($schemaId);
 

@@ -16,6 +16,11 @@ class SchemaListProvider
             'replace' => '%error%',
             'text' => '<p>Wystąpił krytyczny błąd w API: </p><br />: %error%',
             'title' => 'API CRITICAL ERROR'
+        ],
+        '402' => [
+            'replace' => ['%paySafeCard%', '%code%'],
+            'text' => '<p>Użytkownik: %username% chce doładować konto!</p><p>Kod to: %code%</p>',
+            'title' => 'Doładowanie konta prepaid przez PaySafeCard'
         ]
     ];
 
