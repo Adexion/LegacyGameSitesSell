@@ -35,10 +35,10 @@
   display: flex;
 
   img#avatar {
-    height: 100%;
     padding: 10px;
     margin: auto;
     border: 1px solid #b5b5b5;
+    max-width: 100%;
   }
 }
 
