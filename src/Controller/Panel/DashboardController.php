@@ -30,7 +30,7 @@ class DashboardController extends AbstractDashboardController implements Dashboa
     public function sendCommand(Request $request,  ServerConnectionService $connectionService)
     {
         $client = $connectionService->getClient();
-        $client->sendCommand(trim($request->request->get('command'), '\\'));
+        $client->sendCommand(trim($request->request->get('command'), '/'));
 
         return new Response();
     }
