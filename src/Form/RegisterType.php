@@ -52,11 +52,6 @@ class RegisterType extends AbstractType
             ])
             ->add('reCaptcha', HiddenType::class)
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
-
-        $builder
-            ->get('email')
-            ->addModelTransformer($this->filterCharacters());
-
     }
 
     public function preSubmit(FormEvent $event)
@@ -78,19 +73,5 @@ class RegisterType extends AbstractType
         ]);
 
         parent::configureOptions($resolver);
-    }
-
-    private function filterCharacters()
-    {
-        return new CallbackTransformer(function () {
-        }, function ($value) {
-            if (!isset($value)) {
-                return $value;
-            }
-
-            $value = explode('@', $value);
-
-            return isset($value[1]) ? str_replace('.', '', $value[0]) . '@' . $value[1] : $value[0];
-        });
     }
 }
