@@ -3,6 +3,7 @@
 namespace ModernGame\Controller\Front;
 
 use ModernGame\Database\Entity\ItemList;
+use ModernGame\Database\Entity\PaymentHistory;
 use ModernGame\Database\Entity\PaySafeCard;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\Wallet;
@@ -68,7 +69,20 @@ class ItemsShopController extends AbstractController
         PayPalService $payment,
         RCONService $rcon
     ) {
-        $amount = $payment->executePayment($request->request->get('orderId') ?? 0, $this->getUser()->getUsername());
+        $paymentHistory = $this->getDoctrine()->getRepository(PaymentHistory::class)->findOneBy([
+            'paymentType' => 'paypal',
+            'paymentId' => $request->request->get('orderId') ?? 0
+        ]);
+
+        if ($paymentHistory instanceof PaymentHistory) {
+            return $this->render('front/page/payment.html.twig', [
+                'itemList' => [],
+                'responseType' => Response::HTTP_TOO_MANY_REQUESTS,
+                'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+            ]);
+        }
+
+        $amount = $payment->executePayment($request->request->get('orderId') ?? '0', $this->getUser()->getUsername());
         $itemList = $itemListRepository->find($request->request->getInt('itemListId'));
 
         $code = $rcon->executeItemListInstant(

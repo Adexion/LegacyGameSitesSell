@@ -41,7 +41,7 @@ class PayPalService extends AbstractPayment implements PaymentInterface
 
         $amount = $response['purchase_units'][0]['amount']['value'];
 
-        $this->notePayment($amount, $username);
+        $this->notePayment($amount, $username, 'paypal', $id);
 
         return (float)$amount;
     }

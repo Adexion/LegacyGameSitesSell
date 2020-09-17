@@ -5,10 +5,10 @@ parameters:
         userId: 2003
         serviceId: 3235
     paypal:
-        client: 'AcshzYPPq0YGpv0Trz5aysOQ-hx0jxNzMbjHZrSYYw6teXfAaScSde4XGaTuc5d3XTwJEtDqEozwRbFC'
-#        client: 'Aaskn_HyRuesP0qQRmzFWFKat8o8UC4pHgzmdEUZUUiFTGjUIbuycQcZAFniOjtK_e9QETDDleCl-Cwv'
-        secret: 'ENW0ij8yxYsbDWyEvwK4SZ3SR08V6eeP0tMYZLsoVAwYDxnP0xq-RKpKL3St3SoKsoQYi-V4AO63U9-5'
-#        secret: 'EBn_slN84rAb8fNQIqsPz5H_Rk8v4Ua5SV27sjTodts5L0RB5ZHkO84hMCSO-Z1NwJpBEqMgMGgBq1QG'
+#        client: 'AcshzYPPq0YGpv0Trz5aysOQ-hx0jxNzMbjHZrSYYw6teXfAaScSde4XGaTuc5d3XTwJEtDqEozwRbFC'
+        client: 'Aaskn_HyRuesP0qQRmzFWFKat8o8UC4pHgzmdEUZUUiFTGjUIbuycQcZAFniOjtK_e9QETDDleCl-Cwv'
+#        secret: 'ENW0ij8yxYsbDWyEvwK4SZ3SR08V6eeP0tMYZLsoVAwYDxnP0xq-RKpKL3St3SoKsoQYi-V4AO63U9-5'
+        secret: 'EBn_slN84rAb8fNQIqsPz5H_Rk8v4Ua5SV27sjTodts5L0RB5ZHkO84hMCSO-Z1NwJpBEqMgMGgBq1QG'
     google:
       recaptcha: '6LfwhcQZAAAAAJBPmY2tgGvITdZbSSt692Zn9tHb'
       siteKey: '6LfwhcQZAAAAALY5FSmCcRdfDCE7quCozrzEyQIE'

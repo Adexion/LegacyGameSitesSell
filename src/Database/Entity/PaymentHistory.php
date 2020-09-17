@@ -4,7 +4,6 @@ namespace ModernGame\Database\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\PaymentHistoryRepository")
@@ -33,6 +32,16 @@ class PaymentHistory
      * @ORM\Column(type="float")
      */
     private ?float $amount = null;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private ?string $paymentId = null;
+
+    /**
+     * @ORM\Column(type="string", columnDefinition="ENUM('paypal', 'sms')")
+     */
+    private ?string $paymentType = null;
 
     public function __construct()
     {
@@ -67,5 +76,25 @@ class PaymentHistory
     public function setUser(?User $user)
     {
         $this->user = $user;
+    }
+
+    public function getPaymentId(): ?string
+    {
+        return $this->paymentId;
+    }
+
+    public function setPaymentId(?string $paymentId)
+    {
+        $this->paymentId = $paymentId;
+    }
+
+    public function getPaymentType(): ?string
+    {
+        return $this->paymentType;
+    }
+
+    public function setPaymentType(?string $paymentType)
+    {
+        $this->paymentType = $paymentType;
     }
 }

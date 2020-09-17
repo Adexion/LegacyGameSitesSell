@@ -19,7 +19,7 @@ abstract class AbstractPayment
         $this->userProvider = $userProvider;
     }
 
-    protected function notePayment(float $amount, string $username) {
+    protected function notePayment(float $amount, string $username, string $type, string $id) {
         $paymentHistory = new PaymentHistory();
 
         try {
@@ -33,6 +33,8 @@ abstract class AbstractPayment
         }
 
         $paymentHistory->setAmount($amount);
+        $paymentHistory->setPaymentId($id);
+        $paymentHistory->setPaymentType($type);
 
         $this->repository->insert($paymentHistory);
     }
