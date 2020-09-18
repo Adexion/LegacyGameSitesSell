@@ -3,6 +3,8 @@
 namespace ModernGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\ResetPasswordRepository")
@@ -17,8 +19,8 @@ class ResetPassword
     public ?int $id = null;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", fetch="EAGER")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ManyToOne(targetEntity="User", fetch="EAGER")
+     * @JoinColumn(name="user_id", referencedColumnName="id")
      */
     private ?User $user = null;
 

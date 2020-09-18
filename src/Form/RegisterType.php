@@ -4,7 +4,6 @@ namespace ModernGame\Form;
 
 use ModernGame\Database\Entity\User;
 use ModernGame\Validator\ReCaptchaValidator;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -21,7 +20,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegisterType extends AbstractType
 {
-    private $validator;
+    private ReCaptchaValidator $validator;
 
     public function __construct(ReCaptchaValidator $validator)
     {

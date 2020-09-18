@@ -9,7 +9,7 @@ class SchemaListProvider
     private array $schemaList = [
         '1' => [
             'replace' => '%token%',
-            'text' => '<p>Link do resetu hasła: <a href="http://ModernGame.pl/reset/%token%">http://ModernGame.pl/reset/%token%</a></p>',
+            'text' => '<p>Link do resetu hasła: <a href="http://mngame.pl/reset/%token%">https://mngame.pl/reset/%token%</a></p>',
             'title' => 'Resetowanie hasła ModernGame.pl'
         ],
         '404' => [

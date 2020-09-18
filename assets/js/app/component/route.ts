@@ -27,6 +27,10 @@ export class Route {
             class: new RecaptchaService()
         },
         {
+            path: '/reset',
+            class: new RecaptchaService()
+        },
+        {
             path: '/itemshop',
             class: new ItemShopService(store.connection)
         }

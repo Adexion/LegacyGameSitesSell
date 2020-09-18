@@ -7,6 +7,7 @@ use ModernGame\Service\EnvironmentService;
 use ReCaptcha\ReCaptcha;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use function Symfony\Component\String\b;
 
 class ReCaptchaValidator
 {
@@ -21,15 +22,10 @@ class ReCaptchaValidator
 
     public function validate(string $reCaptcha): array
     {
-        if ($this->env->isTest() || $this->env->isDev()) {
-            return [];
-        }
-
         try {
-            $reCaptchaValidator = new ReCaptcha($this->container->getParameter('recaptcha'));
+            $reCaptchaValidator = new ReCaptcha($this->container->getParameter('google')['recaptcha']);
 
             $response = $reCaptchaValidator->verify($reCaptcha);
-
             if ($response->isSuccess()) {
                 return [];
             }

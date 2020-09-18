@@ -2,18 +2,23 @@
 
 namespace ModernGame\Controller\Front;
 
-use Doctrine\ORM\Cache\Region;
+use LogicException;
+use ModernGame\Database\Entity\ResetPassword;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\UserRepository;
 use ModernGame\Form\LoginType;
 use ModernGame\Form\RegisterType;
-use ModernGame\Service\User\RegisterService;
+use ModernGame\Form\ResetPasswordType;
+use ModernGame\Form\ResetType;
+use ModernGame\Service\Mail\MailSenderService;
 use ModernGame\Service\User\WalletService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -31,7 +36,7 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername,
             'csrf_token_intention' => 'authenticate',
             'target_path' => $this->generateUrl('index'),
-            'login_form' =>  $this->createForm(LoginType::class)->createView()
+            'login_form' => $this->createForm(LoginType::class)->createView()
         ]);
     }
 
@@ -64,10 +69,75 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/reset", name="forgot-password")
+     */
+    public function forgotPassword(
+        Request $request,
+        UserProviderInterface $userProvider,
+        MailSenderService $service
+    ): Response {
+        $form = $this->createForm(ResetPasswordType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            try {
+                $user = $userProvider->loadUserByUsername($form->getData()['username']);
+                $token = md5(serialize($user) . date('Y-m-d H:i:s'));
+
+                $resetPassword = new ResetPassword();
+
+                $resetPassword->setUser($user);
+                $resetPassword->setToken($token);
+
+                $send = $service->sendEmail('1', $token, $user->getEmail());
+                $this->getDoctrine()->getManager()->persist($resetPassword);
+                $this->getDoctrine()->getManager()->flush();
+            } catch (UsernameNotFoundException $e) {
+                $send = 1;
+            }
+        }
+
+        return $this->render('front/page/forgotPassword.html.twig', [
+            'send' => $send ?? false,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/reset/{token}", name="reset-password")
+     */
+    public function resetToken(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token): Response
+    {
+        /** @var ResetPassword $resetToken */
+        $resetToken = $this->getDoctrine()->getRepository(ResetPassword::class)->findOneBy(['token' => $token]);
+
+        $form = $this->createForm(ResetType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() && $resetToken) {
+            $user = $resetToken->getUser();
+
+            $user->setPassword($passwordEncoder->encodePassword($user, $form->getData()['password']));
+
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->remove($resetToken);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('login');
+        }
+
+        return $this->render('front/page/resetPassword.html.twig', [
+            'form' => $form->createView(),
+            'link' => '/reset/' . $token
+        ]);
+    }
+
+    /**
      * @Route("/logout", name="logout")
      */
     public function logout()
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }
