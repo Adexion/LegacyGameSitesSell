@@ -115,7 +115,7 @@ a {
   position: fixed;
   justify-content: center;
   padding: 0.5em;
-  z-index: 1;
+  z-index: 2;
 }
 
 .bounce {
@@ -149,4 +149,9 @@ a {
 .slider-container {
   height: 500px;
   width: 100%;
+}
+
+.slider-container > div {
+  margin: auto;
+  height: 100%;
 }
