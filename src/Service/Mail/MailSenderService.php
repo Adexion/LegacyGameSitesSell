@@ -24,7 +24,7 @@ class MailSenderService
 
         $message = (new Swift_Message($schema['title']))
             ->setFrom('moderngameservice@gmail.com')
-            ->setTo('szczupak13@gmail.com')
+            ->setTo($email)
             ->setBody($body,'text/html');
 
         return $this->mailer->send($message);

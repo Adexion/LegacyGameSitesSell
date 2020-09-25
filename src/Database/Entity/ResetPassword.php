@@ -20,7 +20,7 @@ class ResetPassword
 
     /**
      * @ManyToOne(targetEntity="User", fetch="EAGER")
-     * @JoinColumn(name="user_id", referencedColumnName="id")
+     * @JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private ?User $user = null;
 
