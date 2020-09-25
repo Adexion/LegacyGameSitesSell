@@ -89,6 +89,18 @@ user-login-launcher:
   path:       /user/launcher/login
   controller: ModernGame\Controller\Backend\UserController::loginMinecraft
   methods:    [POST]
+user-validate-launcher:
+  path:       /user/launcher/validate
+  controller: ModernGame\Controller\Backend\UserController::validateMinecraft
+  methods:    [POST]
+user-invalidate-launcher:
+  path:       /user/launcher/validate
+  controller: ModernGame\Controller\Backend\UserController::invalidateMinecraft
+  methods:    [POST]
+user-refresh-launcher:
+  path:       /user/launcher/refresh
+  controller: ModernGame\Controller\Backend\UserController::refreshMinecraft
+  methods:    [POST]
 user-reset-password:
   path:       /user/reset
   controller: ModernGame\Controller\Backend\UserController::resetPassword

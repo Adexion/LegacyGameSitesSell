@@ -335,6 +335,36 @@ class UserController extends Controller
     }
 
     /**
+     * Validate minecraft account
+     *
+     * This only works for premium account player
+     */
+    public function validateMinecraft(Request $request, MojangPlayerService $player): JsonResponse
+    {
+        return new JsonResponse($player->additionalAccountAction($request, 'validate'));
+    }
+
+    /**
+     * Invalidate minecraft account
+     *
+     * This only works for premium account player
+     */
+    public function invalidateMinecraft(Request $request, MojangPlayerService $player): JsonResponse
+    {
+        return new JsonResponse($player->additionalAccountAction($request, 'invalidate'));
+    }
+
+    /**
+     * Refresh minecraft account
+     *
+     * This only works for premium account player
+     */
+    public function refreshMinecraft(Request $request, MojangPlayerService $player): JsonResponse
+    {
+        return new JsonResponse($player->additionalAccountAction($request, 'refresh'));
+    }
+
+    /**
      * Execute User Item
      *
      * Get user specific item and send it as command for player on server
@@ -378,8 +408,11 @@ class UserController extends Controller
      *     description="Evertythig works",
      * )
      */
-    public function itemListExecute(Request $request, RCONService $rcon, UserProviderInterface $userProvider): JsonResponse
-    {
+    public function itemListExecute(
+        Request $request,
+        RCONService $rcon,
+        UserProviderInterface $userProvider
+    ): JsonResponse {
         return new JsonResponse(null, $rcon->executeItem(
             null,
             $userProvider->loadUserByUsername($request->request->getInt('username'))

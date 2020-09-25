@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class MojangPlayerService
 {
     const MOJANG_GET_UUID_URL = 'https://api.mojang.com/users/profiles/minecraft/';
-    const MOJANG_AUTH_URL = 'https://authserver.mojang.com/authenticate';
+    const MOJANG_AUTH_URL = 'https://authserver.mojang.com/';
     const STEVE_USER_UUID = '8667ba71b85a4004af54457a9734eed7';
 
     private RestApiClient $client;
@@ -80,20 +80,42 @@ class MojangPlayerService
     {
         $mojangPlayer = json_decode($this->client->request(
             RestApiClient::POST,
-            self::MOJANG_AUTH_URL, [
-                'body' => json_encode(
-                    [
-                        'agent' => [
-                            'name' => "Minecraft",
-                            'version' => 1
-                        ],
-                        'username' => $user->getEmail(),
-                        'password' => $user->getPassword()
-                    ])
+            self::MOJANG_AUTH_URL . 'authenticate', [
+                'body' => json_encode([
+                    'agent' => [
+                        'name' => "Minecraft",
+                        'version' => 1
+                    ],
+                    'username' => $user->getEmail(),
+                    'password' => $user->getPassword()
+                ])
             ]
         ), true);
 
         return $mojangPlayer;
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws ContentException
+     */
+    public function additionalAccountAction(Request $request, $type): ?array
+    {
+        $response = json_decode($this->client->request(
+            RestApiClient::POST,
+            self::MOJANG_AUTH_URL . $type, [
+                'body' => json_encode([
+                    'accessToken' => $request->request->get('accessToken'),
+                    'clientToken' => $request->request->get('clientToken'),
+                ])
+            ]
+        ), true);
+
+        if(isset($response['error'])) {
+            throw new ContentException($response);
+        }
+
+        return $response;
     }
 
     private function buildNonPremiumProfile(string $username): array
