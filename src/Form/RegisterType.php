@@ -3,6 +3,7 @@
 namespace ModernGame\Form;
 
 use ModernGame\Database\Entity\User;
+use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
 use ModernGame\Validator\ReCaptchaValidator;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -11,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,10 +23,12 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class RegisterType extends AbstractType
 {
     private ReCaptchaValidator $validator;
+    private MojangPlayerService $playerService;
 
-    public function __construct(ReCaptchaValidator $validator)
+    public function __construct(ReCaptchaValidator $validator, MojangPlayerService $playerService)
     {
         $this->validator = $validator;
+        $this->playerService = $playerService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -50,7 +54,8 @@ class RegisterType extends AbstractType
                 'label' => 'Rule text'
             ])
             ->add('reCaptcha', HiddenType::class)
-            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
+            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit'])
+            ->addEventListener(FormEvents::POST_SUBMIT, [$this, 'postSubmit']);
     }
 
     public function preSubmit(FormEvent $event)
@@ -62,6 +67,18 @@ class RegisterType extends AbstractType
                 HiddenType::class,
                 $this->validator->validate($event->getData()['reCaptcha'] ?? '')
             );
+    }
+
+    public function postSubmit(FormEvent $event)
+    {
+        if ($this->playerService->getUUID($event->getData()->getUsername()) !== MojangPlayerService::STEVE_USER_UUID) {
+            $mojangPlayer = $this->playerService->loginByMojangAPI($event->getData());
+
+            if (isset($mojangPlayer['error'])) {
+                $event->getForm()->get('password')->get('first')
+                    ->addError( new FormError('Wykryto konto premium. Nieprawidłowe dane do konta Minecraft.'));
+            }
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

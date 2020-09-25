@@ -38,9 +38,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $userData = $form->getData();
-
             $user->setUsername($userData['username']);
             $user->setEmail($userData['email']);
 

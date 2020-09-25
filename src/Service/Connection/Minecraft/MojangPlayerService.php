@@ -4,6 +4,7 @@ namespace ModernGame\Service\Connection\Minecraft;
 
 use DateTime;
 use GuzzleHttp\Exception\GuzzleException;
+use ModernGame\Database\Entity\User;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\ApiClient\RestApiClient;
 use ModernGame\Service\User\LoginUserService;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class MojangPlayerService
 {
     const MOJANG_GET_UUID_URL = 'https://api.mojang.com/users/profiles/minecraft/';
+    const MOJANG_AUTH_URL = 'https://authserver.mojang.com/authenticate';
     const STEVE_USER_UUID = '8667ba71b85a4004af54457a9734eed7';
 
     private RestApiClient $client;
@@ -33,10 +35,18 @@ class MojangPlayerService
     {
         $user = $this->loginUserService->getUser($request);
 
-        $profile = $this->buildProfile(
-            $user->getUsername(),
-            $this->getUUID($user->getUsername())
-        );
+        if ($this->getUUID($user->getUsername()) !== MojangPlayerService::STEVE_USER_UUID) {
+            $user->setPassword($request->request->get('password'));
+            $mojangPlayer = $this->loginByMojangAPI($user);
+
+            if (isset($mojangPlayer['error'])) {
+                throw new ContentException($mojangPlayer);
+            }
+
+            return $mojangPlayer;
+        }
+
+        $profile = $this->buildNonPremiumProfile($user->getUsername());
 
         return [
             'email' => $user->getEmail(),
@@ -66,12 +76,32 @@ class MojangPlayerService
         return empty($mojangPlayer) ? self::STEVE_USER_UUID : $mojangPlayer['id'];
     }
 
-    private function buildProfile(string $username, string $uuid): array
+    public function loginByMojangAPI(User $user): ?array
+    {
+        $mojangPlayer = json_decode($this->client->request(
+            RestApiClient::POST,
+            self::MOJANG_AUTH_URL, [
+                'body' => json_encode(
+                    [
+                        'agent' => [
+                            'name' => "Minecraft",
+                            'version' => 1
+                        ],
+                        'username' => $user->getEmail(),
+                        'password' => $user->getPassword()
+                    ])
+            ]
+        ), true);
+
+        return $mojangPlayer;
+    }
+
+    private function buildNonPremiumProfile(string $username): array
     {
         return [
             'agent' => 'minecraft',
-            'id' => $uuid,
-            'userId' => $uuid,
+            'id' => self::STEVE_USER_UUID,
+            'userId' => self::STEVE_USER_UUID,
             'name' => $username,
             'createdAt' => (new DateTime())->getTimestamp(),
             'legacyProfile' => false,
