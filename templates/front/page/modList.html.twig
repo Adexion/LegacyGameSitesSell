@@ -1,0 +1,22 @@
+{% extends 'front/base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div>
+                <h1>List modyfikacji</h1>
+                <h2 class="h4">Każdy mod można pobrać bezpośrednio z naszego serwera!</h2>
+                <p>Pamiętaj! Modyfikacje te nie są naszą własnością, a każdy z nich został bezpłatnie udostepniony przez jego
+                    twórcę bądź twórców!</p>
+                <hr/>
+                <div class="mod-list">
+                    {% for file in list %}
+                        <span><a class="h5" href="{{ uri }}{{ file }}">{{ file }}</a></span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
