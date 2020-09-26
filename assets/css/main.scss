@@ -159,8 +159,9 @@ a {
 .mod-list {
   display: flex;
   flex-direction: column;
-  max-height: 700px;
+  max-height: 1000px;
   margin: 15px;
+  flex-wrap: wrap;
 
   span {
     width: 50%;
