@@ -12,6 +12,10 @@
   width: 100%;
 }
 
+#article-list > div {
+  padding-bottom: 50px;
+}
+
 @media (min-width: 768px) {
   .article-image {
     display: block;
