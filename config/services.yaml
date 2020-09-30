@@ -1,55 +1,59 @@
 parameters:
-    locale: 'pl'
-    link: '/launcher/ModerngameLauncher.exe'
-    microSMS:
-        userId: 2003
-        serviceId: 3235
-    paypal:
-        client: 'AcshzYPPq0YGpv0Trz5aysOQ-hx0jxNzMbjHZrSYYw6teXfAaScSde4XGaTuc5d3XTwJEtDqEozwRbFC'
-#        client: 'Aaskn_HyRuesP0qQRmzFWFKat8o8UC4pHgzmdEUZUUiFTGjUIbuycQcZAFniOjtK_e9QETDDleCl-Cwv'
-        secret: 'ENW0ij8yxYsbDWyEvwK4SZ3SR08V6eeP0tMYZLsoVAwYDxnP0xq-RKpKL3St3SoKsoQYi-V4AO63U9-5'
-#        secret: 'EBn_slN84rAb8fNQIqsPz5H_Rk8v4Ua5SV27sjTodts5L0RB5ZHkO84hMCSO-Z1NwJpBEqMgMGgBq1QG'
-    google:
-      recaptcha: '6LfwhcQZAAAAAJBPmY2tgGvITdZbSSt692Zn9tHb'
-      siteKey: '6LfwhcQZAAAAALY5FSmCcRdfDCE7quCozrzEyQIE'
-    minecraft:
-      1:
-        host: '95.214.52.211'
-        port: '9728'
-        password: 'uZrBMBbzfP'
-    command:
-        list: 'list'
-    additionalInfo:
-        serviceCost: 250
+  locale: 'pl'
+  link: '/launcher/ModerngameLauncher.exe'
+  microSMS:
+    userId: 2003
+    serviceId: 3235
+  paypal:
+    client: 'AcshzYPPq0YGpv0Trz5aysOQ-hx0jxNzMbjHZrSYYw6teXfAaScSde4XGaTuc5d3XTwJEtDqEozwRbFC'
+    #        client: 'Aaskn_HyRuesP0qQRmzFWFKat8o8UC4pHgzmdEUZUUiFTGjUIbuycQcZAFniOjtK_e9QETDDleCl-Cwv'
+    secret: 'ENW0ij8yxYsbDWyEvwK4SZ3SR08V6eeP0tMYZLsoVAwYDxnP0xq-RKpKL3St3SoKsoQYi-V4AO63U9-5'
+    #        secret: 'EBn_slN84rAb8fNQIqsPz5H_Rk8v4Ua5SV27sjTodts5L0RB5ZHkO84hMCSO-Z1NwJpBEqMgMGgBq1QG'
+  google:
+    recaptcha: '6LfwhcQZAAAAAJBPmY2tgGvITdZbSSt692Zn9tHb'
+    siteKey: '6LfwhcQZAAAAALY5FSmCcRdfDCE7quCozrzEyQIE'
+  minecraft:
+    1:
+      host: '95.214.52.211'
+      port: '9728'
+      password: 'uZrBMBbzófP'
+  command:
+    list: 'list'
+  whitelistCommands:
+    - unban
+    - pardon
+    - ban
+  additionalInfo:
+    serviceCost: 250
 
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
+  _defaults:
+    autowire: true
+    autoconfigure: true
 
-    ModernGame\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+  ModernGame\:
+    resource: '../src/*'
+    exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
-    ModernGame\EventListener\ExceptionListener:
-      arguments: ['@logger', '@ModernGame\Service\Mail\MailSenderService']
-      tags:
-        - { name: kernel.event_listener, event: kernel.exception }
+  ModernGame\EventListener\ExceptionListener:
+    arguments: ['@logger', '@ModernGame\Service\Mail\MailSenderService']
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception }
 
-    ModernGame\Service\Connection\Minecraft\MojangPlayerService:
-        autowire: true
+  ModernGame\Service\Connection\Minecraft\MojangPlayerService:
+    autowire: true
 
-    mojang.player.service:
-      class: ModernGame\Service\Connection\Minecraft\MojangPlayerService
+  mojang.player.service:
+    class: ModernGame\Service\Connection\Minecraft\MojangPlayerService
 
-    ModernGame\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
+  ModernGame\Controller\:
+    resource: '../src/Controller'
+    tags: ['controller.service_arguments']
 
-    ModernGame\Service\EnvironmentService:
-        arguments: ['%kernel.environment%']
+  ModernGame\Service\EnvironmentService:
+    arguments: ['%kernel.environment%']
 
-    get_set_method_normalizer:
-        class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
-        tags:
-            - { name: serializer.normalizer }
+  get_set_method_normalizer:
+    class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
+    tags:
+      - { name: serializer.normalizer }
