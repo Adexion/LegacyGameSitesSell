@@ -46,7 +46,8 @@ class ItemsShopController extends AbstractController
         $code = $rcon->executeItemListInstant(
             $walletService->changeCash(0, $this->getUser()),
             $request->request->getInt('itemListId') ?? 0,
-            $this->getUser()
+            $this->getUser(),
+            true
         );
 
         if ($code !== Response::HTTP_PAYMENT_REQUIRED) {

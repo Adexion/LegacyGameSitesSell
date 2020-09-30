@@ -90,7 +90,7 @@ class RCONService
         return Response::HTTP_OK;
     }
 
-    public function executeItemListInstant(float $amount, int $itemListId = null, UserInterface $user = null): int
+    public function executeItemListInstant(float $amount, int $itemListId = null, UserInterface $user = null, bool $isFromWallet = null): int
     {
         /** @var ItemList $itemList */
         $itemList = $this->itemListRepository->find($itemListId);
@@ -102,7 +102,9 @@ class RCONService
 
         /** @var User|UserInterface $user */
         if (!empty($itemList->getId()) && $itemList->getAfterPromotionPrice() > $amount) {
-            $this->walletService->changeCash($amount, $user);
+            if (!$isFromWallet) {
+                $this->walletService->changeCash($amount, $user);
+            }
 
             return Response::HTTP_PAYMENT_REQUIRED;
         }
@@ -113,7 +115,7 @@ class RCONService
         foreach ($items ?? [] as $item) {
             $isUserDisconnected = strstr($this->getPlayerList(), $user->getUsername()) === false;
             try {
-                if ($isUserDisconnected  && !$this->isItemOnWhiteList($item->getCommand())) {
+                if ($isUserDisconnected && !$this->isItemOnWhiteList($item->getCommand())) {
                     throw new Exception();
                 }
 
