@@ -16,7 +16,7 @@ parameters:
     1:
       host: '95.214.52.211'
       port: '9728'
-      password: 'uZrBMBbzófP'
+      password: 'uZrBMBbzfP'
   command:
     list: 'list'
   whitelistCommands:
