@@ -20,6 +20,19 @@
   height: 40px;
 }
 
+.main-context {
+  padding: 20px 0;
+}
+
+.card-skin {
+  width: 50%;
+  margin: 10px auto;
+}
+
+.list-style-none {
+  list-style: none;
+}
+
 @media (min-width: 768px) {
   .article-image {
     display: block;
