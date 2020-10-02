@@ -27,7 +27,7 @@ Message: Treść wiadomości
 Name: Nazwa
 Execute all: Wypłać wszytko
 Execute: Wypłać
-404: Nie udało się znaleźć użytkownika na serwerze! Nie wypłacono przedmiotów!
+206: Niektóre z przedmiotów nie mogły zostać wypłacone! Sprawdź stan ekwipunku!
 200: Przedmioty pomyslnie przesłane na serwer! Miłej Gry!
 Nothing to do here: Nie masz nic w ekwipunku.
 Forgot password: Zapomniałeś hasła

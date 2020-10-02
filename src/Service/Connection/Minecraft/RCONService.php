@@ -115,6 +115,7 @@ class RCONService
         foreach ($items ?? [] as $item) {
             $isUserDisconnected = strstr($this->getPlayerList(), $user->getUsername()) === false;
             try {
+
                 if ($isUserDisconnected && !$this->isItemOnWhiteList($item->getCommand())) {
                     throw new Exception();
                 }
@@ -152,12 +153,12 @@ class RCONService
         return Response::HTTP_OK;
     }
 
-    private function isItemOnWhiteList(string $command): bool
+    public function isItemOnWhiteList(string $command): bool
     {
         $whiteListCommands = $this->container->getParameter('whitelistCommands');
 
         foreach ($whiteListCommands as $partialCommand) {
-            if (strpos($partialCommand, $command) !== false) {
+            if (strpos($command, $partialCommand) !== false) {
                 return true;
             }
         }

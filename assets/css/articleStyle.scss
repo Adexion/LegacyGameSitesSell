@@ -1,7 +1,6 @@
 .container {
   width: 75%;
   margin: auto;
-  height: 100vh;
 }
 
 .text-small {
@@ -14,6 +13,11 @@
 
 #article-list > div {
   padding-bottom: 50px;
+}
+
+.progress {
+  margin-top: 15px;
+  height: 40px;
 }
 
 @media (min-width: 768px) {

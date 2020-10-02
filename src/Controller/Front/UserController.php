@@ -71,12 +71,6 @@ class UserController extends AbstractController
      */
     public function itemExecute(Request $request, RCONService $rcon, UserProviderInterface $userProvider)
     {
-        if (strstr($rcon->getPlayerList(), $this->getUser()->getUsername()) === false) {
-            return $this->redirectToRoute('equipment-profile', [
-                'code' => Response::HTTP_NOT_FOUND
-            ]);
-        }
-
         return $this->redirectToRoute('equipment-profile', [
             'code' => $rcon->executeItem($request->request->getInt('itemId'), $this->getUser())
         ]);
@@ -87,12 +81,6 @@ class UserController extends AbstractController
      */
     public function itemListExecute(Request $request, RCONService $rcon, UserProviderInterface $userProvider)
     {
-        if (strstr($rcon->getPlayerList(), $this->getUser()->getUsername()) === false) {
-            return $this->redirectToRoute('equipment-profile', [
-                'code' => Response::HTTP_NOT_FOUND
-            ]);
-        }
-
         return $this->redirectToRoute('equipment-profile', [
             'code' => $rcon->executeItem(null, $this->getUser())
         ]);

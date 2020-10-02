@@ -28,6 +28,10 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('user-profile');
+        }
+
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -49,6 +53,10 @@ class SecurityController extends AbstractController
         WalletService $walletService,
         UserPasswordEncoderInterface $passwordEncoder
     ): Response {
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('user-profile');
+        }
+
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
@@ -76,6 +84,10 @@ class SecurityController extends AbstractController
         UserProviderInterface $userProvider,
         MailSenderService $service
     ): Response {
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('user-profile');
+        }
+
         $form = $this->createForm(ResetPasswordType::class);
         $form->handleRequest($request);
 
@@ -109,6 +121,10 @@ class SecurityController extends AbstractController
      */
     public function resetToken(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token): Response
     {
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('user-profile');
+        }
+
         /** @var ResetPassword $resetToken */
         $resetToken = $this->getDoctrine()->getRepository(ResetPassword::class)->findOneBy(['token' => $token]);
 
