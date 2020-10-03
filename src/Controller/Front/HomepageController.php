@@ -4,7 +4,6 @@ namespace ModernGame\Controller\Front;
 
 use ModernGame\Controller\Backend\PlayerController;
 use ModernGame\Database\Entity\Article;
-use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,7 +20,7 @@ class HomepageController extends AbstractController
     /**
      * @Route(path="/article/{slug}", name="show-article")
      */
-    public function article(string $slug, MojangPlayerService $playerService)
+    public function article(string $slug)
     {
         /** @var Article $article */
         $article =  $this->getDoctrine()->getRepository(Article::class)->find($slug);
