@@ -13,10 +13,12 @@ use ModernGame\Form\ResetType;
 use ModernGame\Service\Mail\MailSenderService;
 use ModernGame\Service\User\WalletService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -35,12 +37,19 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        $form  = $this->createForm(LoginType::class);
+        if ($error instanceof BadCredentialsException) {
+            $form
+                ->get('_password')
+                ->addError(new FormError('Login lub hasło jest nieprawidłowy.'));
+        }
+
         return $this->render('front/page/login.html.twig', [
             'error' => $error,
             'last_username' => $lastUsername,
             'csrf_token_intention' => 'authenticate',
             'target_path' => $this->generateUrl('index'),
-            'login_form' => $this->createForm(LoginType::class)->createView()
+            'login_form' => $form->createView()
         ]);
     }
 
