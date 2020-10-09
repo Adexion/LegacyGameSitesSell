@@ -14,7 +14,7 @@ parameters:
     siteKey: '6LfwhcQZAAAAALY5FSmCcRdfDCE7quCozrzEyQIE'
   minecraft:
     1:
-      host: 'play.mngame.pl'
+      host: '95.214.52.234'
       port: '9728'
       password: 'uZrBMBbzfP'
   command:
