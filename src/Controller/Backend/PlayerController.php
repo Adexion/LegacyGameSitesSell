@@ -2,12 +2,11 @@
 
 namespace ModernGame\Controller\Backend;
 
-use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
 use ModernGame\Service\Connection\Minecraft\RCONService;
+use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Swagger\Annotations as SWG;
 
 class PlayerController extends AbstractController
 {
@@ -40,7 +39,8 @@ class PlayerController extends AbstractController
     public function getMinecraftAvatar(Request $request): JsonResponse
     {
         $link = self::PLAYER_AVATAR . $request->query->get('username');
-        return new JsonResponse(['avatar' => base64_encode(file_get_contents($link))]);
+
+        return new JsonResponse(['avatar' => $link]);
     }
 
     /**
