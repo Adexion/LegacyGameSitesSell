@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PlayerController extends AbstractController
 {
-    const PLAYER_AVATAR = 'http://cravatar.eu/avatar/';
+    const PLAYER_AVATAR = 'https://minotar.net/avatar/';
 
     /**
      * Get user minecraft avatar
