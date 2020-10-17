@@ -24,8 +24,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class ItemListService extends AbstractService implements ServiceInterface
 {
-    /** @var object|User */
-    private object $user;
+    /** @var object|User|null */
+    private ?object $user;
     private UserItemRepository $userItemRepository;
     private ItemRepository $itemRepository;
     private ItemListStatisticRepository $statisticRepository;
@@ -43,7 +43,8 @@ class ItemListService extends AbstractService implements ServiceInterface
         $this->userItemRepository = $userItemRepository;
         $this->itemRepository = $itemRepository;
         $this->statisticRepository = $statisticRepository;
-        $this->user = $tokenStorage->getToken()->getUser();
+        $token = $tokenStorage->getToken();
+        $this->user = is_string($token->getUser()) ? null : $token->getUser();
 
         parent::__construct($form, $formErrorHandler, $repository, $serializer);
     }

@@ -4,6 +4,7 @@ namespace ModernGame\Controller\Front;
 
 use ModernGame\Controller\Backend\PlayerController;
 use ModernGame\Database\Entity\Article;
+use ModernGame\Service\Connection\Minecraft\RCONService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,9 +13,11 @@ class HomepageController extends AbstractController
     /**
      * @Route(name="index", path="/")
      */
-    public function index()
+    public function index(RCONService $RCONService)
     {
-        return $this->render('front/page/index.html.twig');
+        return $this->render('front/page/index.html.twig', [
+            'playerListCount' => count(explode(':', $RCONService->getPlayerList()))
+        ]);
     }
 
     /**
@@ -23,7 +26,7 @@ class HomepageController extends AbstractController
     public function article(string $slug)
     {
         /** @var Article $article */
-        $article =  $this->getDoctrine()->getRepository(Article::class)->find($slug);
+        $article = $this->getDoctrine()->getRepository(Article::class)->find($slug);
 
         return $this->render('front/page/article.html.twig', [
             'article' => $article,
