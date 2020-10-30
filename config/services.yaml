@@ -14,7 +14,7 @@ parameters:
     siteKey: '6LfwhcQZAAAAALY5FSmCcRdfDCE7quCozrzEyQIE'
   minecraft:
     1:
-      host: '95.214.52.234'
+      host: '95.214.52.241'
       port: '9728'
       password: 'uZrBMBbzfP'
   command:
