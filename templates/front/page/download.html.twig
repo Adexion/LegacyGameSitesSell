@@ -3,7 +3,8 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row">
-            <div class="slider-container bg-dark">
+            <div class="slider-container position-relative">
+                <div class="bg-image bg-blur position-absolute h-100 w-100"></div>
                 <div id="carouselExampleControls" class="carousel slide h-100" data-ride="carousel">
                     <div class="carousel-inner h-100">
                         <div class="carousel-item active h-100">
@@ -26,14 +27,18 @@
                     </a>
                 </div>
             </div>
+
+            <div class="container pt-4 text-center">
+                <h2>Obawiasz się naszego Launchera?</h2>
+                <p>Możecie zagrać używając przygotowanej specjalnie dla was paczki Twitch!</p>
+                <br />
+                <p>Chcesz sprawdzić listę modyfikacji? Zapraszamy <a href="{{ path('modList') }}" class="text-danger text-center mt-2">tutaj!</a></p>
+            </div>
+
             <div id="button-container" class="container">
                 <div class="row">
-                    <span class="col-4 p-3"><a class="btn btn-outline-purple btn-lg btn-block"><i class="fab fa-twitch"></i>&nbsp;<del>Twitch Launcher</del></a></span>
-                    <span class="col-4 p-3">
-                        <a href="{{ link }}" class="btn btn-outline-secondary btn-lg btn-block"><i class="fas fa-download"></i>&nbsp;Nasz Launcher</a>
-                        <a href="{{ path('modList') }}" class="d-block text-danger text-center mt-2">Lista modyfikacji</a>
-                    </span>
-                    <span class="col-4 p-3"><a class="btn btn-outline-primary btn-lg btn-block"><i class="fas fa-wrench"></i>&nbsp;<del>Technic Launcher</del></a></span>
+                    <span class="col-6 p-3"><a href="https://www.curseforge.com/minecraft/modpacks/moderngame" class="btn btn-lg btn-outline-purple btn-block" target="_blank"><i class="fab fa-twitch"></i>&nbsp;Twitch Launcher</a></span>
+                    <span class="col-6 p-3"><a href="{{ link }}" class="btn btn-outline-secondary btn-lg btn-block"><i class="fas fa-download"></i>&nbsp;Nasz Launcher</a></span>
                 </div>
             </div>
         </div>
