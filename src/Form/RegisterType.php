@@ -54,8 +54,7 @@ class RegisterType extends AbstractType
                 'label' => 'Rule text'
             ])
             ->add('reCaptcha', HiddenType::class)
-            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit'])
-            ->addEventListener(FormEvents::POST_SUBMIT, [$this, 'postSubmit']);
+            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
     }
 
     public function preSubmit(FormEvent $event)
@@ -67,18 +66,6 @@ class RegisterType extends AbstractType
                 HiddenType::class,
                 $this->validator->validate($event->getData()['reCaptcha'] ?? '')
             );
-    }
-
-    public function postSubmit(FormEvent $event)
-    {
-        if ($this->playerService->getUUID($event->getData()->getUsername()) !== MojangPlayerService::STEVE_USER_UUID) {
-            $mojangPlayer = $this->playerService->loginByMojangAPI($event->getData());
-
-            if (isset($mojangPlayer['error'])) {
-                $event->getForm()->get('password')->get('first')
-                    ->addError( new FormError('Wykryto konto premium. Nieprawidłowe dane do konta Minecraft.'));
-            }
-        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

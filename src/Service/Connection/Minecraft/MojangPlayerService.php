@@ -4,7 +4,6 @@ namespace ModernGame\Service\Connection\Minecraft;
 
 use DateTime;
 use GuzzleHttp\Exception\GuzzleException;
-use ModernGame\Database\Entity\User;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\ApiClient\RestApiClient;
 use ModernGame\Service\User\LoginUserService;
@@ -33,11 +32,8 @@ class MojangPlayerService
      */
     public function loginIn(Request $request): array
     {
-        $user = $this->loginUserService->getUser($request);
-
-        if ($this->getUUID($user->getUsername()) !== MojangPlayerService::STEVE_USER_UUID) {
-            $user->setPassword($request->request->get('password'));
-            $mojangPlayer = $this->loginByMojangAPI($user);
+        if ($this->getUUID($request->request->get('username')) !== MojangPlayerService::STEVE_USER_UUID) {
+            $mojangPlayer = $this->loginByMojangAPI($request);
 
             if (isset($mojangPlayer['error'])) {
                 throw new ContentException($mojangPlayer);
@@ -46,6 +42,7 @@ class MojangPlayerService
             return $mojangPlayer;
         }
 
+        $user = $this->loginUserService->getUser($request);
         $profile = $this->buildNonPremiumProfile($user->getUsername());
 
         return [
@@ -76,9 +73,9 @@ class MojangPlayerService
         return empty($mojangPlayer) ? self::STEVE_USER_UUID : $mojangPlayer['id'];
     }
 
-    public function loginByMojangAPI(User $user): ?array
+    public function loginByMojangAPI(Request $request): ?array
     {
-        $mojangPlayer = json_decode($this->client->request(
+        return json_decode($this->client->request(
             RestApiClient::POST,
             self::MOJANG_AUTH_URL . 'authenticate', [
                 'body' => json_encode([
@@ -86,13 +83,11 @@ class MojangPlayerService
                         'name' => "Minecraft",
                         'version' => 1
                     ],
-                    'username' => $user->getEmail(),
-                    'password' => $user->getPassword()
+                    'username' => $request->request->get('username'),
+                    'password' => $request->request->get('password')
                 ])
             ]
         ), true);
-
-        return $mojangPlayer;
     }
 
     /**
@@ -111,7 +106,7 @@ class MojangPlayerService
             ]
         ), true);
 
-        if(isset($response['error'])) {
+        if (isset($response['error'])) {
             throw new ContentException($response);
         }
 
