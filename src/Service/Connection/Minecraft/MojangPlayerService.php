@@ -27,18 +27,12 @@ class MojangPlayerService
     }
 
     /**
-     * @throws GuzzleException
      * @throws ContentException
      */
     public function loginIn(Request $request): array
     {
-        if ($this->getUUID($request->request->get('username')) !== MojangPlayerService::STEVE_USER_UUID) {
-            $mojangPlayer = $this->loginByMojangAPI($request);
-
-            if (isset($mojangPlayer['error'])) {
-                throw new ContentException($mojangPlayer);
-            }
-
+        $mojangPlayer = $this->loginByMojangAPI($request);
+        if (!isset($mojangPlayer['error'])) {
             return $mojangPlayer;
         }
 
@@ -53,6 +47,7 @@ class MojangPlayerService
             'availableProfiles' => [$profile],
             'banned' => false
         ];
+
     }
 
     /**
