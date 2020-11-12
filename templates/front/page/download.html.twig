@@ -31,14 +31,16 @@
             <div class="container pt-4 text-center">
                 <h2>Obawiasz się naszego Launchera?</h2>
                 <p>Możecie zagrać używając przygotowanej specjalnie dla was paczki Twitch!</p>
+                <p class="text-danger">Link nie działa? skorzystaj z zipa i zaimportuj profil do launchera!</p>
                 <br />
                 <p>Chcesz sprawdzić listę modyfikacji? Zapraszamy <a href="{{ path('modList') }}" class="text-danger text-center mt-2">tutaj!</a></p>
             </div>
 
             <div id="button-container" class="container">
                 <div class="row">
-                    <span class="col-6 p-3"><a href="https://www.curseforge.com/minecraft/modpacks/moderngame" class="btn btn-lg btn-outline-purple btn-block" target="_blank"><i class="fab fa-twitch"></i>&nbsp;Twitch Launcher</a></span>
-                    <span class="col-6 p-3"><a href="{{ link }}" class="btn btn-outline-secondary btn-lg btn-block"><i class="fas fa-download"></i>&nbsp;Nasz Launcher</a></span>
+                    <span class="col-4 p-3"><a href="https://www.curseforge.com/minecraft/modpacks/moderngame" class="btn btn-lg btn-outline-purple btn-block" target="_blank"><i class="fab fa-twitch"></i>&nbsp;Official Twitch Launcher</a></span>
+                    <span class="col-4 p-3"><a href="{{ link }}" class="btn btn-outline-secondary btn-lg btn-block"><i class="fas fa-download"></i>&nbsp;Nasz Launcher</a></span>
+                    <span class="col-4 p-3"><a href="{{ zip }}" class="btn btn-lg btn-outline-purple btn-block" target="_blank"><i class="fab fa-twitch"></i>&nbsp;Unofficial Twitch ZIP</a></span>
                 </div>
             </div>
         </div>
