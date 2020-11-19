@@ -17,6 +17,7 @@ parameters:
     1:
       host: '95.214.52.241'
       port: '9728'
+      queryPort: '21370'
       password: 'uZrBMBbzfP'
   command:
     list: 'list'

@@ -16,7 +16,8 @@ class HomepageController extends AbstractController
     public function index(RCONService $RCONService)
     {
         return $this->render('front/page/index.html.twig', [
-            'playerListCount' => count(explode(':', $RCONService->getPlayerList()))
+            'playerListCount' => $RCONService->getServerStatus()['players'] ?? 0,
+            'isOnline' => (bool)$RCONService->getServerStatus()
         ]);
     }
 

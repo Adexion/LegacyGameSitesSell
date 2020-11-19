@@ -3,6 +3,7 @@
 namespace ModernGame\Service\Connection\Minecraft;
 
 use Exception;
+use MinecraftServerStatus\MinecraftServerStatus;
 use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
@@ -48,12 +49,20 @@ class RCONService
         $this->itemListService = $itemListService;
     }
 
-    public function getPlayerList(string $serverId = null)
+    public function getPlayerList(string $serverId = null): string
     {
         $client = $this->connectionService->getClient($serverId);
         $client->sendCommand($this->container->getParameter('command')['list']);
 
         return $client->getResponse();
+    }
+
+    public function getServerStatus(string $serverId = null): ?array
+    {
+        $serverData = $this->container->getParameter('minecraft');
+        $server = $serverData[$serverId] ?? current($serverData);
+
+        return MinecraftServerStatus::query($server['host'], $server['queryPort']) ?: null;
     }
 
     public function executeItem(?int $itemId, UserInterface $user): int
