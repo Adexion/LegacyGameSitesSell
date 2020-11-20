@@ -50,7 +50,7 @@
         {{ encore_entry_link_tags('main') }}
     {% endblock %}
 </head>
-<body>
+<body class="bg-dark text-light">
 {% include 'front/component/nav.html.twig' %}
 {% include 'front/component/media.html.twig' %}
 
@@ -60,7 +60,7 @@
 </div>
 
 <footer>
-    <div class="bg-light copyright">© Copyright 2020. All right reserved.</div>
+    <div class="bg-darker copyright">© Copyright 2020. All right reserved.</div>
     {% block javascripts %}
         <script defer src="https://friconix.com/cdn/friconix.js"></script>
         {{ encore_entry_script_tags('app') }}

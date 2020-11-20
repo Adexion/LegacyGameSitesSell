@@ -21,6 +21,12 @@ a {
   color: #333333;
 }
 
+.rules {
+  .nav-link {
+    color: #fff;
+  }
+}
+
 .bg-image {
   background: url("/assets/images/main.jpg") no-repeat;
   background-size: cover;
@@ -183,4 +189,12 @@ a {
   position: fixed;
   bottom: 0;
   left: 0;
+}
+
+.card {
+  background-color: initial !important;
+}
+
+.bg-darker {
+  background-color: #2e353c;
 }
