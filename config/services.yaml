@@ -1,7 +1,9 @@
 parameters:
   locale: 'pl'
-  link: '/launcher/ModerngameLauncher.exe'
-  zip: '/launcher/ModernGame-1.1.0.zip'
+  download:
+    link: '/launcher/ModerngameLauncher.exe'
+    individual: '/launcher/Moderngame.rar'
+    zip: '/launcher/ModernGame_Curseforge.zip'
   microSMS:
     userId: 2003
     serviceId: 3235

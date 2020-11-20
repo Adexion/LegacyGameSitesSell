@@ -12,9 +12,6 @@ class DownloadController extends AbstractController
      */
     public function download()
     {
-        return $this->render('front/page/download.html.twig', [
-            'link' => $this->getParameter('link'),
-            'zip' => $this->getParameter('zip')
-        ]);
+        return $this->render('front/page/download.html.twig', $this->getParameter('download'));
     }
 }
