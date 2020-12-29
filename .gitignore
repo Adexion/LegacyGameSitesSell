@@ -14,12 +14,10 @@ composer.lock
 composer.phar
 !/bin/console
 /config/secrets/prod/prod.decrypt.private.php
-
-###> symfony/webpack-encore-bundle ###
-/node_modules/*
-/node_modules/
-/public/build/*
+node_modules
 public/build
+public/build/entrypoints.json
+public/build/manifest.json
 npm-debug.log
 yarn-error.log
-###< symfony/webpack-encore-bundle ###
+mysql
