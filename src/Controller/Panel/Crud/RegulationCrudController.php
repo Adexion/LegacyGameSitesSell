@@ -19,7 +19,7 @@ class RegulationCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('- Zasada')
+            ->setEntityLabelInSingular('Zasada')
             ->setEntityLabelInPlural('Zasady');
     }
 

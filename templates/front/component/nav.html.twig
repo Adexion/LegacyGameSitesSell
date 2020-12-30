@@ -5,7 +5,6 @@
     <nav class="nav right">
         <span class="nav-item"><a class="nav-link" href="{{ path('rule') }}">{% trans %}Rules{% endtrans %}</a></span>
         <span class="nav-item"><a class="nav-link" href="{{ path('item-shop') }}">{% trans %}Itemshop{% endtrans %}</a></span>
-        <span class="nav-item"><a class="nav-link" href="{{ path('download') }}">{% trans %}Download{% endtrans %}</a></span>
         <span class="nav-item"><a class="nav-link" href="{{ path('contact-front') }}">{% trans %}Contact{% endtrans %}</a></span>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <span class="nav-item dropdown">

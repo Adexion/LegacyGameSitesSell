@@ -48,6 +48,7 @@ class UserEditType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'data_class' => User::class,
             'allow_extra_fields' => true
         ]);
 

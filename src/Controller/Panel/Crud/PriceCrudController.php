@@ -18,7 +18,7 @@ class PriceCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('- Cennik SMS')
+            ->setEntityLabelInSingular('Cennik SMS')
             ->setEntityLabelInPlural('Cenniki SMS');
     }
 

@@ -34,7 +34,7 @@ class UserController extends AbstractController
     ) {
         /** @var User $user */
         $user = $this->getUser();
-        $form = $this->createForm(UserEditType::class, $user->toArray());
+        $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

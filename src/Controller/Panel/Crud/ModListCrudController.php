@@ -19,7 +19,7 @@ class ModListCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('- Modyfikacja')
+            ->setEntityLabelInSingular('Modyfikacja')
             ->setEntityLabelInPlural('Modyfikacje');
     }
 

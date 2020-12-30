@@ -21,7 +21,7 @@ class ItemCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular(' - Przedmiot')
+            ->setEntityLabelInSingular('Przedmiot')
             ->setEntityLabelInPlural('Przedmioty');
     }
 

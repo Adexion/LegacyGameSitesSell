@@ -14,16 +14,13 @@ class RegulationRepository extends AbstractRepository
         parent::__construct($registry, Regulation::class);
     }
 
-    public function getRegulation(): array
+    public function getRegulationList(): array
     {
-       $builder = $this->_em->createQueryBuilder();
+        /** @var Regulation $regulation */
+        foreach ($this->findAll() as $regulation) {
+            $regulationList[$regulation->getCategory()->getName()][] = $regulation;
+        }
 
-        $builder
-           ->select('reg.description, cat.name as categoryName, cat.id as categoryId' )
-           ->from(Regulation::class, 'reg')
-           ->innerJoin(RegulationCategory::class, 'cat',Join::WITH, 'cat.id = reg.category')
-           ->orderBy('cat.id','ASC');
-
-       return $builder->getQuery()->execute();
+        return $regulationList ?? [];
     }
 }

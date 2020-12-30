@@ -9,12 +9,23 @@
     <div class="container-fluid">
         <div class="row">
             <div id="rules" class="col col-lg-7 col-sm-7 col-7">
-
+                {% for key, rule in ruleList %}
+                    <h3 id="{{ key }}" class="rule-category">{{ key }}</h3>
+                    <div class="rule-holder">
+                        {% for r in rule %}
+                            {{ r.description | raw }}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
             </div>
             <div id="rulesCategory" class="col col-lg-5 col-sm-5 col-5 right-0 position-fixed">
                 <div class="d-inline-block">
-                <h5 class="font-weight-bold">Regulamin</h5>
-                <ul class="rules"></ul>
+                    <h5 class="font-weight-bold">Regulamin</h5>
+                    <ul class="rules">
+                        {% for key, rule in ruleList %}
+                            <li><a href="#{{ key }}" class="nav-link">{{ key }}</a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <div class="hr border-right mr-2 float-left"></div>
             </div>

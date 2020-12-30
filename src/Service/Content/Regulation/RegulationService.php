@@ -8,8 +8,8 @@ use ModernGame\Database\Repository\RegulationCategoryRepository;
 use ModernGame\Database\Repository\RegulationRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Form\RegulationType;
-use ModernGame\Service\AbstractService;
 use ModernGame\Serializer\CustomSerializer;
+use ModernGame\Service\AbstractService;
 use ModernGame\Service\ServiceInterface;
 use ModernGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -20,7 +20,7 @@ class RegulationService extends AbstractService implements ServiceInterface
     private RegulationCategoryRepository $regulationCategoryRepository;
     private RegulationMapper $mapper;
 
-    /** @var AbstractRepository|RegulationRepository  */
+    /** @var AbstractRepository|RegulationRepository */
     protected AbstractRepository $repository;
 
     public function __construct(
@@ -35,15 +35,6 @@ class RegulationService extends AbstractService implements ServiceInterface
         $this->mapper = $mapper;
 
         parent::__construct($form, $formErrorHandler, $repository, $serializer);
-    }
-
-    public function getRules(): array
-    {
-        return $this->serializer->serialize(
-            $this->mapper->mapRules(
-                $this->repository->getRegulation()
-            )
-        )->toArray();
     }
 
     /**

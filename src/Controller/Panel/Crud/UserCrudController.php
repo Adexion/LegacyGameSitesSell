@@ -20,16 +20,25 @@ class UserCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('- Użytkownik')
+            ->setEntityLabelInSingular('Użytkownik')
             ->setEntityLabelInPlural('Użytkownicy');
     }
 
     public function configureFields(string $pageName): iterable
     {
+        if (Crud::PAGE_EDIT === $pageName || Crud::PAGE_NEW === $pageName) {
+             return [
+                 EmailField::new('email', 'E-mail'),
+                 TextField::new('username', 'Nick Minecraft'),
+                 TextField::new('password', 'Hasło (bcrypt)'),
+                 CollectionField::new('roles', 'Role'),
+                 BooleanField::new('rules', 'Regulamin')
+             ];
+        }
+
         return [
             EmailField::new('email', 'E-mail'),
             TextField::new('username', 'Nick Minecraft'),
-            TextField::new('password', 'Hasło (bcrypt)'),
             CollectionField::new('roles', 'Role'),
             BooleanField::new('rules', 'Regulamin')
         ];

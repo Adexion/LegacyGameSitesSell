@@ -19,7 +19,7 @@ class ArticleRepository extends AbstractRepository
         $builder = $this->getEntityManager()->createQueryBuilder();
 
         $builder
-            ->select('article.image, article.title, article.text, article.shortText, user.username as author')
+            ->select('article.id, article.image, article.subhead, article.title, article.text, article.shortText, user.username as author')
             ->from(Article::class, 'article')
             ->leftJoin(User::class, 'user', Join::WITH, 'user.id = article.author')
             ->orderBy('article.id', "DESC")

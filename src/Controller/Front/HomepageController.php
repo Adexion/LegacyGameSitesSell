@@ -4,10 +4,10 @@ namespace ModernGame\Controller\Front;
 
 use ModernGame\Controller\Backend\PlayerController;
 use ModernGame\Database\Entity\Article;
+use ModernGame\Database\Repository\RegulationRepository;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
 class HomepageController extends AbstractController
 {
     /**
@@ -16,6 +16,7 @@ class HomepageController extends AbstractController
     public function index(RCONService $RCONService)
     {
         return $this->render('front/page/index.html.twig', [
+            'articleList' => $this->getDoctrine()->getRepository(Article::class)->getLastArticles(),
             'playerListCount' => $RCONService->getServerStatus()['players'] ?? 0,
             'isOnline' => (bool)$RCONService->getServerStatus()
         ]);
@@ -38,8 +39,10 @@ class HomepageController extends AbstractController
     /**
      * @Route(name="rule", path="/rule")
      */
-    public function rule()
+    public function rule(RegulationRepository $repository)
     {
-        return $this->render('front/page/rule.html.twig');
+        return $this->render('front/page/rule.html.twig', [
+            'ruleList' => $repository->getRegulationList()
+        ]);
     }
 }

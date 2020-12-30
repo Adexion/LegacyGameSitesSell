@@ -61,6 +61,7 @@ class RCONService
     {
         $serverData = $this->container->getParameter('minecraft');
         $server = $serverData[$serverId] ?? current($serverData);
+        error_reporting(E_ALL & ~E_NOTICE);
 
         return MinecraftServerStatus::query($server['host'], $server['queryPort']) ?: null;
     }

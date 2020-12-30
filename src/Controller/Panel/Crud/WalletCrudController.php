@@ -19,7 +19,7 @@ class WalletCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('- Portfel ')
+            ->setEntityLabelInSingular('Portfel ')
             ->setEntityLabelInPlural('Portfele');
     }
 

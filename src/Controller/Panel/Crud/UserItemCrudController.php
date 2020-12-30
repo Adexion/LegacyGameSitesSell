@@ -22,7 +22,7 @@ class UserItemCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('- Zakupiony przedmiot ')
+            ->setEntityLabelInSingular('Zakupiony przedmiot ')
             ->setEntityLabelInPlural('Przedmioty');
     }
 

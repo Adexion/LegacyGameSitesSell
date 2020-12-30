@@ -22,7 +22,7 @@ class ArticleCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular(' - Artukuł')
+            ->setEntityLabelInSingular('Artukuł')
             ->setEntityLabelInPlural('Artykuły');
     }
 

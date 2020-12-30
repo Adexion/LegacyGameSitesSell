@@ -17,7 +17,7 @@ class RegulationCategoryCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('- Kategoria')
+            ->setEntityLabelInSingular('Kategoria')
             ->setEntityLabelInPlural('Kategorie regulaminu');
     }
 

@@ -136,18 +136,21 @@ class SecurityController extends AbstractController
 
         /** @var ResetPassword $resetToken */
         $resetToken = $this->getDoctrine()->getRepository(ResetPassword::class)->findOneBy(['token' => $token]);
+        if (!$resetToken) {
+            return $this->redirectToRoute('index');
+        }
 
-        $form = $this->createForm(ResetType::class);
+        $form = $this->createForm(ResetType::class, $resetToken->getUser());
         $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            $user = $form->getData();
+            $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
 
-        if ($form->isSubmitted() && $form->isValid() && $resetToken) {
-            $user = $resetToken->getUser();
-
-            $user->setPassword($passwordEncoder->encodePassword($user, $form->getData()['password']));
-
-            $this->getDoctrine()->getManager()->persist($user);
-            $this->getDoctrine()->getManager()->remove($resetToken);
-            $this->getDoctrine()->getManager()->flush();
+            $om = $this->getDoctrine()->getManager();
+            $om->persist($user);
+            $om->remove($resetToken);
+            $om->flush();
 
             return $this->redirectToRoute('login');
         }
