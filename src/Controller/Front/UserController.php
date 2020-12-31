@@ -32,21 +32,20 @@ class UserController extends AbstractController
         UserPasswordEncoderInterface $passwordEncoder,
         UserRepository $userRepository
     ) {
-        /** @var User $user */
-        $user = $this->getUser();
-        $form = $this->createForm(UserEditType::class, $user);
+        $lastPassword = $this->getUser()->getPassword();
+        $form = $this->createForm(UserEditType::class, $this->getUser());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userData = $form->getData();
-            $user->setUsername($userData['username']);
-            $user->setEmail($userData['email']);
-
-            if ($userData['password'] ?? '') {
+            /** @var User $user */
+            $user = $form->getData();
+            if ($user->getPassword() !== $lastPassword) {
                 $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
             }
 
-            $userRepository->update($user);
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute('user-profile');
         }
 

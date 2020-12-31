@@ -11,7 +11,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController as Ab
 use ModernGame\Controller\Panel\Crud\ArticleCrudController;
 use ModernGame\Controller\Panel\Crud\ItemCrudController;
 use ModernGame\Controller\Panel\Crud\ItemListCrudController;
-use ModernGame\Controller\Panel\Crud\ModListCrudController;
 use ModernGame\Controller\Panel\Crud\PaySafeCardCrudController;
 use ModernGame\Controller\Panel\Crud\PriceCrudController;
 use ModernGame\Controller\Panel\Crud\RegulationCategoryCrudController;
@@ -20,13 +19,14 @@ use ModernGame\Controller\Panel\Crud\TicketCrudController;
 use ModernGame\Controller\Panel\Crud\UserCrudController;
 use ModernGame\Controller\Panel\Crud\UserItemCrudController;
 use ModernGame\Controller\Panel\Crud\WalletCrudController;
+use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Entity\Item;
 use ModernGame\Database\Entity\ItemList;
-use ModernGame\Database\Entity\ModList;
 use ModernGame\Database\Entity\PaySafeCard;
 use ModernGame\Database\Entity\Price;
 use ModernGame\Database\Entity\Regulation;
 use ModernGame\Database\Entity\RegulationCategory;
+use ModernGame\Database\Entity\Ticket;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
 use ModernGame\Database\Entity\Wallet;
@@ -65,8 +65,6 @@ abstract class AbstractDashboardController extends AbstractBasicDashboardControl
 
             MenuItem::linkToCrud('Artykuły', 'fa fa-newspaper', Article::class)
                 ->setController(ArticleCrudController::class),
-            MenuItem::linkToCrud('Lista Modyfikacji', 'fa fa-wrench', ModList::class)
-                ->setController(ModListCrudController::class),
             MenuItem::linkToCrud('Zasady', 'fas fa-ruler-vertical', Regulation::class)
                 ->setController(RegulationCrudController::class),
             MenuItem::linkToCrud('Kategorie Regulaminu', 'fas fa-pencil-ruler', RegulationCategory::class)
