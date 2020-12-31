@@ -33,8 +33,7 @@ class Article
     private ?string $subhead = null;
 
     /**
-     * @ORM\Column(type="string", length=256)
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=256, nullable=true)
      * @Assert\Length(min="6")
      */
     private ?string $image = null;
