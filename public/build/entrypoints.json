@@ -2,88 +2,88 @@
   "entrypoints": {
     "paymentStatistic": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.2c87cd30.js",
-        "/build/1.56fc4a34.js",
-        "/build/paymentStatistic.268f96c1.js"
+        "/build/runtime.js",
+        "/build/vendors~app~paymentStatistic~shopStatistic.js",
+        "/build/vendors~paymentStatistic~shopStatistic.js",
+        "/build/paymentStatistic.js"
       ],
       "css": [
-        "/build/paymentStatistic.99c21d8d.css"
+        "/build/paymentStatistic.css"
       ]
     },
     "shopStatistic": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.2c87cd30.js",
-        "/build/1.56fc4a34.js",
-        "/build/shopStatistic.00d0aea3.js"
+        "/build/runtime.js",
+        "/build/vendors~app~paymentStatistic~shopStatistic.js",
+        "/build/vendors~paymentStatistic~shopStatistic.js",
+        "/build/shopStatistic.js"
       ],
       "css": [
-        "/build/shopStatistic.99c21d8d.css"
+        "/build/shopStatistic.css"
       ]
     },
     "app": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.2c87cd30.js",
-        "/build/2.8e240fca.js",
-        "/build/app.b8d5cd1e.js"
+        "/build/runtime.js",
+        "/build/vendors~app~paymentStatistic~shopStatistic.js",
+        "/build/vendors~app.js",
+        "/build/app.js"
       ]
     },
     "articleStyle": {
       "js": [
-        "/build/runtime.d94b3b43.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/articleStyle.0fe412fe.css"
+        "/build/articleStyle.css"
       ]
     },
     "ruleStyle": {
       "js": [
-        "/build/runtime.d94b3b43.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/ruleStyle.f56333b2.css"
+        "/build/ruleStyle.css"
       ]
     },
     "itemshopStyle": {
       "js": [
-        "/build/runtime.d94b3b43.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/itemshopStyle.de4574f8.css"
+        "/build/itemshopStyle.css"
       ]
     },
     "loginStyle": {
       "js": [
-        "/build/runtime.d94b3b43.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/loginStyle.35c3b35f.css"
+        "/build/loginStyle.css"
       ]
     },
     "userStyle": {
       "js": [
-        "/build/runtime.d94b3b43.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/userStyle.d432f0f6.css"
+        "/build/userStyle.css"
       ]
     },
     "main": {
       "js": [
-        "/build/runtime.d94b3b43.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/main.2c383723.css"
+        "/build/main.css"
       ]
     },
     "nav": {
       "js": [
-        "/build/runtime.d94b3b43.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/nav.332da6c5.css"
+        "/build/nav.css"
       ]
     }
   }

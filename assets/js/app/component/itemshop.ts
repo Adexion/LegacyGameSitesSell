@@ -16,14 +16,14 @@ export class ItemShopService implements ClassInterface {
 
     generate() {
         this.connection.get('shop/list').then(itemLists => this.itemLists = itemLists);
-        let collection: HTMLCollection = document.getElementsByClassName('open-modal');
+        let collection: HTMLCollection = document.getElementsByClassName('btn-payment');
 
-        Array.from(collection).forEach((element: HTMLButtonElement) => {
+        Array.from(collection).forEach((element: HTMLAnchorElement) => {
             element.addEventListener('click', (event) => {
                 document.querySelector('#paySafeCard-form').setAttribute('style', 'display: none;');
 
                 let target: EventTarget = event.currentTarget;
-                if (target instanceof HTMLButtonElement) {
+                if (target instanceof HTMLAnchorElement) {
                     let itemListId = Number(target.attributes.getNamedItem('data-item-list-id').value);
                     this.putScriptInsidePaypalContentModal(itemListId);
                 }
@@ -31,13 +31,7 @@ export class ItemShopService implements ClassInterface {
         });
 
         document.querySelector('#wallet').addEventListener('click', () => {
-            document.querySelector('#modal .modal-dialog .modal-content .modal-body .modal-form').innerHTML = `
-                <div class="form-group">
-                    <label for="money">Kwota doładowania</label>
-                    <input id="money" class="form-control" type="number" step="0.1" min="1" value="1"/>
-                </div>
-            `;
-
+            document.querySelector('#prepaid-price').setAttribute('style', 'display: block;');
             document.querySelector('#paySafeCard-form').setAttribute('style', 'display: block;');
 
             this.renderPaypalButton(1, 0);
@@ -60,7 +54,7 @@ export class ItemShopService implements ClassInterface {
     }
 
     private putScriptInsidePaypalContentModal(itemListId: number) {
-        document.querySelector('#modal .modal-dialog .modal-content .modal-body .modal-form').innerHTML = '';
+        document.querySelector('#prepaid-price').setAttribute('style', 'display: none;');
 
         let chooseItemList: ItemListInterface;
         this.itemLists.forEach((itemList: ItemListInterface) => {

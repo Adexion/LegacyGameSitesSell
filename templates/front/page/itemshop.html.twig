@@ -7,86 +7,101 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container pt-2">
-        <div class="row">
-            {% include 'front/component/notLogged.html.twig' %}
-            {% include 'front/component/wallet.html.twig' %}
-            <div class="w-100" id="error-container">
-            </div>
-            <div class="d-inline-flex w-100 flex-wrap flex-column">
-                {% for itemList in itemLists %}
-                    <div class="item-list bg-darker p-2">
-                        <div class="item-list-content">
-                            <img src="{{ itemList.sliderImage }}" alt="{{ itemList.name }}" class="item-list-image">
-                            <hr/>
-                            <div class="p-2">
-                                <p class="font-weight-bold h5">{{ itemList.name }}</p>
-                                {{ itemList.description | raw }}
-                            </div>
-                            <hr/>
-                        </div>
-                        <div>
-                            <p class="price float-left text-warning">
-                                <i class="fas fa-coins"></i>
-                                {% if itemList.promotion %}
-                                    <s class="text-danger">{{ itemList.price | number_format(2) }}</s>
-                                {% endif %}
-                                <span class="font-weight-bold text-warning">{{ itemList.afterPromotionPrice | number_format(2) }} zł</span>
-                            </p>
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <div class="float-right">
-                                    <form action="{{ path('prepaid-status') }}" method="post" class="d-inline-block">
-                                        <input type="hidden" name="itemListId" value="{{ itemList.id }}">
-                                        <button class="btn btn-info" id="prepaid" type="submit">
-                                            Zapłać z Prepaida
-                                        </button>
-                                    </form>
-                                    <button data-item-list-id="{{ itemList.id }}" type="button"
-                                            class="btn btn-primary  open-modal" data-toggle="modal"
-                                            data-target="#modal">
-                                        Zapłać
-                                    </button>
+    <div id="two-site-width" class="d-inline-flex flex-wrap">
+        <span id="step-one"></span>
+        <div class="container pt-2 w-50">
+            <div class="row">
+                {% include 'front/component/notLogged.html.twig' %}
+                {% include 'front/component/wallet.html.twig' %}
+                <div class="w-100" id="error-container">
+                </div>
+                <div class="d-inline-flex w-100 flex-wrap">
+                    {% for itemList in itemLists %}
+                        <div class="item-list bg-darker p-2">
+                            <div class="item-list-content">
+                                <img src="{{ itemList.sliderImage }}" alt="{{ itemList.name }}" class="item-list-image">
+                                <hr/>
+                                <div class="p-2">
+                                    <p class="font-weight-bold h5">{{ itemList.name }}</p>
+                                    {{ itemList.description | raw }}
                                 </div>
-                            {% endif %}
+                                <hr/>
+                            </div>
+                            <div class="btn-price-palace">
+                                <p class="price float-left text-warning">
+                                    <i class="fas fa-coins"></i>
+                                    {% if itemList.promotion %}
+                                        <s class="text-danger">{{ itemList.price | number_format(2) }}</s>
+                                    {% endif %}
+                                    <span class="font-weight-bold text-warning">{{ itemList.afterPromotionPrice | number_format(2) }} zł</span>
+                                </p>
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                    <div class="float-right ">
+                                        <a data-item-list-id="{{ itemList.id }}" type="button"
+                                           class="btn btn-success btn-payment" href="#step-two">
+                                            Przejdź do płatności
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div id="step-two" class="float-right w-50">
+            <div class="text-center">
+                <div class="d-inline-flex flex-wrap w-100">
+                    <div class="bank-payment-form w-50 m-auto">
+                        <h1>Wybierz sposób płatności</h1>
+                        <hr/>
+                        <div class="pb-2 bold">
+                            Po zakończeniu płatności prosimy o chwilę cierpliwości. Jeśli&nbsp;wszytko przebiegnie
+                            poprawnie,<br/>
+                            to zostaniesz przekierowany na stronę podsumowania.
+                        </div>
+                        <div id="prepaid-price" style="display: none">
+                            Jesteś w trakcie doładowywania konta prepaid.
+                            Podaj kwotę za którą chcesz doładować swoje konto.
+                            <br/>
+                            <br/>
+                            <div class="form-group">
+                                <label class="w-50">Kwota doładowania
+                                    <input id="money" class="form-control w-" type="number" step="0.1" min="1"
+                                           value="1"/>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="payment-form"></div>
+                        <div id="paypal-button-container"></div>
                     </div>
-                {% endfor %}
+                    <div id="paySafeCard-form" class="mb-3 w-50" style="display: none;">
+                        <form class="form-group" action="{{ path('paySafeCard-status') }}" method="POST">
+                            <h1>Doładownaie PaySafeCard</h1>
+                            <hr>
+                            Chcesz doładowac konto prepaid za pomoca paysafe card? Nic prostrzego! <br>
+                            Podaj kod PaySafeCard,a my przypiszemy całość kwoty z karty do twojego konta
+                            prepaid.*
+                            <br/>
+                            <br/>
+                            <div class="form-group">
+                                <label class="w-50">Kod PaySafeCard:
+                                    <input name="code" id="code" type="text" class="form-control" min="1"/>
+                                </label>
+                            </div>
+                            <input name="money" type="hidden" id="paySafeCardMoney" min="1"/>
+                            <button type="submit" class="btn btn-block btn-primary w-50 m-auto">
+                                <i class="fas fa-lock text-danger"></i> <strong>paysafe</strong>card
+                            </button>
+                            <p class="text-danger">* - kwota zostanie pomniejszona o 10% wartości</p>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+                <a href="#step-one" class="btn btn-warning w-75">Powrót</a>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Wybierz sposób płatności</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="pb-2 bold">Po zakończeniu płatności prosimy o chwilę cierpliwości. Jeśli&nbsp;wszytko
-                        przebiegnie poprawnie, to
-                        okno zostanie automatycznie zamknięte.<br/><br/>Dziękujemy!
-                        <hr/>
-                    </div>
-                    <div class="modal-form"></div>
-                    <div id="paypal-button-container"></div>
-                    <div id="paySafeCard-form" class="mb-3" style="display: none;">
-                        <form class="form-group" action="{{ path('paySafeCard-status') }}" method="POST">
-                            <div class="form-group">
-                                <label for="code">Kod PaySafeCard:</label>
-                                <input name="code" id="code" type="text" class="form-control" min="1"/>
-                            </div>
-                            <input name="money" type="hidden" id="paySafeCardMoney" min="1"/>
-                            <button type="submit" class="btn btn-block btn-primary">
-                                <i class="fas fa-lock text-danger"></i> <strong>paysafe</strong>card
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}
