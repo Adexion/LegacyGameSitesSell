@@ -1,12 +1,14 @@
-body {
-  overflow-x: hidden;
+html, body {
+  overflow-x:hidden
 }
 
 .item-list {
   width: calc(50% - 30px);
+  min-width: 360px;
   border: 1px solid rgba(0, 0, 0, .1);
   position: relative;
   margin: 15px;
+  justify-content: center;
 
   .btn-price-palace {
     width: calc(100% - 15px);
@@ -50,4 +52,28 @@ strong {
 
 #two-site-width {
   width: 200vw;
+}
+
+.btn-prepaid {
+  width: 100%;
+}
+
+#prepaid-payment-form {
+  min-width: 200px;
+  max-width: 750px;
+  width: 100%;
+  margin: auto auto 17px;
+}
+
+#payment-form {
+    div {
+      min-width: 360px;
+    }
+}
+
+.list-flex {
+  display: inline-flex;
+  flex-wrap: wrap !important;
+  justify-content: center;
+  width: 100%;
 }

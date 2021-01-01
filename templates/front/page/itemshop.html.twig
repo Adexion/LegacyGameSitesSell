@@ -15,7 +15,7 @@
                 {% include 'front/component/wallet.html.twig' %}
                 <div class="w-100" id="error-container">
                 </div>
-                <div class="d-inline-flex w-100 flex-wrap">
+                <div class="list-flex">
                     {% for itemList in itemLists %}
                         <div class="item-list bg-darker p-2">
                             <div class="item-list-content">
@@ -52,7 +52,7 @@
 
         <div id="step-two" class="float-right w-50">
             <div class="text-center">
-                <div class="d-inline-flex flex-wrap w-100">
+                <div id="payment-form" class="list-flex">
                     <div class="bank-payment-form w-50 m-auto">
                         <h1>Wybierz sposób płatności</h1>
                         <hr/>
@@ -74,7 +74,17 @@
                             </div>
                         </div>
                         <div id="payment-form"></div>
-                        <div id="paypal-button-container"></div>
+                        <div>
+                            <form action="{{ path('prepaid-status') }}" method="post" class="d-inline-block" id="prepaid-payment-form" style="display: none !important;">
+                                {% if wallet.cash > 0 %}
+                                    <input id="prepaid-payment-form-input" type="hidden" name="itemListId">
+                                    <button class="btn btn-info btn-lg btn-block btn-prepaid" id="prepaid" type="submit">
+                                        Zapłać z Prepaida
+                                    </button>
+                                {% endif %}
+                            </form>
+                            <div id="paypal-button-container"></div>
+                        </div>
                     </div>
                     <div id="paySafeCard-form" class="mb-3 w-50" style="display: none;">
                         <form class="form-group" action="{{ path('paySafeCard-status') }}" method="POST">

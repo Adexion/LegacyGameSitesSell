@@ -33,6 +33,7 @@ export class ItemShopService implements ClassInterface {
         document.querySelector('#wallet').addEventListener('click', () => {
             document.querySelector('#prepaid-price').setAttribute('style', 'display: block;');
             document.querySelector('#paySafeCard-form').setAttribute('style', 'display: block;');
+            document.querySelector('#prepaid-payment-form').setAttribute('style', 'display: none !important;');
 
             this.renderPaypalButton(1, 0);
             $('#money').bind('change keyup', (event: Event) => {
@@ -55,6 +56,10 @@ export class ItemShopService implements ClassInterface {
 
     private putScriptInsidePaypalContentModal(itemListId: number) {
         document.querySelector('#prepaid-price').setAttribute('style', 'display: none;');
+        document.querySelector('#prepaid-payment-form').setAttribute('style', 'display: block !important;');
+
+        const itemListIdInput: HTMLInputElement = document.querySelector('#prepaid-payment-form-input');
+        itemListIdInput.value = itemListId.toString();
 
         let chooseItemList: ItemListInterface;
         this.itemLists.forEach((itemList: ItemListInterface) => {
