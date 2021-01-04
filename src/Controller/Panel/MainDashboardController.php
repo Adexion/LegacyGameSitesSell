@@ -7,8 +7,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController as AbstractBasicDashboardController;
 use ModernGame\Controller\Panel\Crud\ArticleCrudController;
+use ModernGame\Controller\Panel\Crud\FAQCrudController;
 use ModernGame\Controller\Panel\Crud\ItemCrudController;
 use ModernGame\Controller\Panel\Crud\ItemListCrudController;
 use ModernGame\Controller\Panel\Crud\PaySafeCardCrudController;
@@ -16,10 +16,12 @@ use ModernGame\Controller\Panel\Crud\PriceCrudController;
 use ModernGame\Controller\Panel\Crud\RegulationCategoryCrudController;
 use ModernGame\Controller\Panel\Crud\RegulationCrudController;
 use ModernGame\Controller\Panel\Crud\TicketCrudController;
+use ModernGame\Controller\Panel\Crud\TutorialCrudController;
 use ModernGame\Controller\Panel\Crud\UserCrudController;
 use ModernGame\Controller\Panel\Crud\UserItemCrudController;
 use ModernGame\Controller\Panel\Crud\WalletCrudController;
 use ModernGame\Database\Entity\Article;
+use ModernGame\Database\Entity\FAQ;
 use ModernGame\Database\Entity\Item;
 use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\PaySafeCard;
@@ -27,12 +29,13 @@ use ModernGame\Database\Entity\Price;
 use ModernGame\Database\Entity\Regulation;
 use ModernGame\Database\Entity\RegulationCategory;
 use ModernGame\Database\Entity\Ticket;
+use ModernGame\Database\Entity\Tutorial;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
 use ModernGame\Database\Entity\Wallet;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-abstract class AbstractDashboardController extends AbstractBasicDashboardController
+trait MainDashboardController
 {
     public function configureAssets(): Assets
     {
@@ -65,6 +68,10 @@ abstract class AbstractDashboardController extends AbstractBasicDashboardControl
 
             MenuItem::linkToCrud('Artykuły', 'fa fa-newspaper', Article::class)
                 ->setController(ArticleCrudController::class),
+            MenuItem::linkToCrud('FAQ', 'fa fa-question-circle', FAQ::class)
+                ->setController(FAQCrudController::class),
+            MenuItem::linkToCrud('Poradniki', 'fa fa-chalkboard-teacher', Tutorial::class)
+                ->setController(TutorialCrudController::class),
             MenuItem::linkToCrud('Zasady', 'fas fa-ruler-vertical', Regulation::class)
                 ->setController(RegulationCrudController::class),
             MenuItem::linkToCrud('Kategorie Regulaminu', 'fas fa-pencil-ruler', RegulationCategory::class)
@@ -83,7 +90,7 @@ abstract class AbstractDashboardController extends AbstractBasicDashboardControl
 
             MenuItem::section(),
 
-            MenuItem::linkToLogout('Wyloguj', 'fas fa-sign-out-alt')
+            MenuItem::linkToLogout('Wyloguj', 'fas fa-sign-out-alt'),
         ];
     }
 

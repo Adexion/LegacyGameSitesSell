@@ -76,11 +76,13 @@
                         <div id="payment-form"></div>
                         <div>
                             <form action="{{ path('prepaid-status') }}" method="post" class="d-inline-block" id="prepaid-payment-form" style="display: none !important;">
-                                {% if wallet.cash > 0 %}
-                                    <input id="prepaid-payment-form-input" type="hidden" name="itemListId">
-                                    <button class="btn btn-info btn-lg btn-block btn-prepaid" id="prepaid" type="submit">
-                                        Zapłać z Prepaida
-                                    </button>
+                                {% if wallet.cash is defined %}
+                                    {% if wallet.cash > 0 %}
+                                        <input id="prepaid-payment-form-input" type="hidden" name="itemListId">
+                                        <button class="btn btn-info btn-lg btn-block btn-prepaid" id="prepaid" type="submit">
+                                            Zapłać z Prepaida
+                                        </button>
+                                    {% endif %}
                                 {% endif %}
                             </form>
                             <div id="paypal-button-container"></div>

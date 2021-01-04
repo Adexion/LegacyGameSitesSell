@@ -1,0 +1,50 @@
+{% extends 'front/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="m-3">
+        <div class="text-center">
+            <h1>Lista Tutoriali</h1>
+            <h5>Nagrałeś swój tutorial i chcesz go umieścin na naszej stronie?
+                Wyślij nam link do filmiku, oraz opis tekstowy całego poradnika!
+            </h5>
+            <hr/>
+        </div>
+
+        <div id="accordion" class="">
+            {% for tutorial in tutorialList %}
+                <div class="card">
+                    <div class="card-header bg-light position-relative" id="tutorialHead{{ tutorial.id }}">
+                        <label class="h5 mb-0 w-100">
+                            <a class="text-dark font-weight-bold w-100 d-block" data-toggle="collapse"
+                               data-target="#tutorial{{ tutorial.id }}"
+                               aria-expanded="true" aria-controls="tutorial{{ tutorial.id }}">
+                                {{ loop.index }}. {{ tutorial.question }}
+                                <span class="fa fa-chevron-down text-dark font-weight-bold right bottom-15 position-absolute"></span>
+                            </a>
+                        </label>
+                    </div>
+
+                    <div id="tutorial{{ tutorial.id }}" class="collapse" aria-labelledby="tutorialHead{{ tutorial.id }}"
+                         data-parent="#accordion">
+                        <div class="card-body">
+                            {% if tutorial.embed is defined %}
+                                <iframe id="player" type="text/html" width="640" height="360"
+                                        src="{{ tutorial.embed }}" class="m-auto d-block border-0"></iframe>
+                            {% endif %}
+                            <br/>
+                            {{ tutorial.text | raw }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -3,7 +3,7 @@
 namespace ModernGame\Controller\Panel;
 
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\DashboardControllerInterface;
-use ModernGame\Service\Connection\Minecraft\RCONService;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use ModernGame\Service\Connection\Minecraft\ServerConnectionService;
 use ReflectionClass;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController implements DashboardControllerInterface
 {
+    use MainDashboardController;
+
     /**
      * @Route("/panel", name="panel")
      * @Route("/admin", name="admin")
@@ -27,7 +29,7 @@ class DashboardController extends AbstractDashboardController implements Dashboa
     /**
      * @Route("/panel/command", name="panel-command")
      */
-    public function sendCommand(Request $request,  ServerConnectionService $connectionService)
+    public function sendCommand(Request $request,  ServerConnectionService $connectionService): Response
     {
         $client = $connectionService->getClient();
         $client->sendCommand(trim($request->request->get('command'), '/'));

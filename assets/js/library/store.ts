@@ -1,7 +1,5 @@
 import {Connection} from "./connection";
 import {CookieService} from "./cookie.service";
-import configuration from "../app/config/configuration";
-
 
 class Store {
     public connection: Connection;

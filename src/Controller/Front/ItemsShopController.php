@@ -22,12 +22,12 @@ class ItemsShopController extends AbstractController
     /**
      * @Route(name="item-shop", path="/itemshop")
      */
-    public function itemShop()
+    public function itemShop(): Response
     {
         return $this->render('front/page/itemshop.html.twig', [
             'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findAll(),
             'paypalClient' => $this->getParameter('paypal')['client'],
-            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()])
+            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
         ]);
     }
 
@@ -39,7 +39,7 @@ class ItemsShopController extends AbstractController
         ItemListRepository $itemListRepository,
         WalletService $walletService,
         RCONService $rcon
-    ) {
+    ): Response {
         /** @var ItemList $itemList */
         $itemList = $itemListRepository->find($request->request->getInt('itemListId'));
 
@@ -69,11 +69,13 @@ class ItemsShopController extends AbstractController
         ItemListRepository $itemListRepository,
         PayPalService $payment,
         RCONService $rcon
-    ) {
-        $paymentHistory = $this->getDoctrine()->getRepository(PaymentHistory::class)->findOneBy([
-            'paymentType' => 'paypal',
-            'paymentId' => $request->request->get('orderId') ?? 0
-        ]);
+    ): Response {
+        $paymentHistory = $this->getDoctrine()->getRepository(PaymentHistory::class)->findOneBy(
+            [
+                'paymentType' => 'paypal',
+                'paymentId' => $request->request->get('orderId') ?? 0,
+            ]
+        );
 
         if ($paymentHistory instanceof PaymentHistory) {
             return $this->render('front/page/payment.html.twig', [
@@ -102,7 +104,7 @@ class ItemsShopController extends AbstractController
     /**
      * @Route(name="paySafeCard-status", path="/paySafeCard/status")
      */
-    public function paySafeCardStatus(Request $request, MailSenderService $mailSenderService)
+    public function paySafeCardStatus(Request $request, MailSenderService $mailSenderService): Response
     {
         if (empty($request->request->get('code'))) {
             return $this->render('front/page/paySafeCard.html.twig', [

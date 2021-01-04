@@ -45,10 +45,6 @@ shop-get-items:
   path:       /shop/list
   controller: ModernGame\Controller\Backend\ItemShopController::getItemList
   methods:    [GET]
-paypal-execute:
-  path:       /paypal/execute
-  controller: ModernGame\Controller\Backend\ItemShopController::paypalPayment
-  methods:    [POST]
 
 # ---------- Player
 player-avatar:

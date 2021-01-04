@@ -3,6 +3,7 @@
 namespace ModernGame\Controller\Panel;
 
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\DashboardControllerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use ModernGame\Database\Entity\ItemListStatistic;
 use ModernGame\Database\Entity\PaymentHistory;
 use ReflectionClass;
@@ -11,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StatisticController extends AbstractDashboardController implements DashboardControllerInterface
 {
+    use MainDashboardController;
+
     /**
      * @Route("/panel/statistic/shop", name="shopStatistic")
      */
