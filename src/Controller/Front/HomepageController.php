@@ -2,6 +2,7 @@
 
 namespace ModernGame\Controller\Front;
 
+use ModernGame\Database\Entity\AdminServerUser;
 use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Repository\RegulationRepository;
 use ModernGame\Exception\ContentException;
@@ -26,7 +27,9 @@ class HomepageController extends AbstractController
             'articleList' => $this->getDoctrine()->getRepository(Article::class)->getLastArticles(),
             'playerListCount' => $RCONService->getServerStatus($serverProvider->getDefaultQueryServerId())['players'] ?? 0,
             'isOnline' => (bool)$RCONService->getServerStatus($serverProvider->getDefaultQueryServerId()),
-            'playerList' => $RCONService->getPlayerList()
+            'playerList' => $RCONService->getPlayerList(),
+            'admins' => $this->getDoctrine()->getRepository(AdminServerUser::class)
+                ->findBy(['serverId' => $serverProvider->getCookiesServer()])
         ]);
     }
 

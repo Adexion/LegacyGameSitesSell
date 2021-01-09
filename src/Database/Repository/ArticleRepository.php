@@ -6,12 +6,16 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Entity\User;
+use ModernGame\Service\ServerProvider;
 
 class ArticleRepository extends AbstractRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private ServerProvider $serverProvider;
+
+    public function __construct(ManagerRegistry $registry, ServerProvider $serverProvider)
     {
         parent::__construct($registry, Article::class);
+        $this->serverProvider = $serverProvider;
     }
 
     public function getLastArticles(): array
@@ -22,6 +26,8 @@ class ArticleRepository extends AbstractRepository
             ->select('article.id, article.image, article.subhead, article.title, article.text, article.shortText, user.username as author')
             ->from(Article::class, 'article')
             ->leftJoin(User::class, 'user', Join::WITH, 'user.id = article.author')
+            ->where('article.serverId = :serverId')
+            ->setParameter(':serverId', $this->serverProvider->getCookiesServer()['id'])
             ->orderBy('article.id', "DESC")
             ->setMaxResults(4);
 

@@ -18,21 +18,21 @@ class Tutorial
     public ?int $id = null;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
     private ?string $question = null;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @Assert\NotBlank()
      * @Assert\Length(min="6")
      */
     private ?string $text = null;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @Assert\Length(min="6")
      */
     private ?string $embed = null;

@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
+use ModernGame\Controller\Panel\Crud\AdminServerUserCrudController;
 use ModernGame\Controller\Panel\Crud\ArticleCrudController;
 use ModernGame\Controller\Panel\Crud\FAQCrudController;
 use ModernGame\Controller\Panel\Crud\ItemCrudController;
@@ -20,6 +21,7 @@ use ModernGame\Controller\Panel\Crud\TutorialCrudController;
 use ModernGame\Controller\Panel\Crud\UserCrudController;
 use ModernGame\Controller\Panel\Crud\UserItemCrudController;
 use ModernGame\Controller\Panel\Crud\WalletCrudController;
+use ModernGame\Database\Entity\AdminServerUser;
 use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Entity\FAQ;
 use ModernGame\Database\Entity\Item;
@@ -81,6 +83,8 @@ trait MainDashboardController
 
             MenuItem::linkToCrud('Użytkownicy', 'fa fa-users', User::class)
                 ->setController(UserCrudController::class),
+            MenuItem::linkToCrud('Admini na stronie', 'fa fa-users-cog', AdminServerUser::class)
+                ->setController(AdminServerUserCrudController::class),
             MenuItem::linkToCrud('Przedmioty Użytkowników', 'fa fa-shopping-bag', UserItem::class)
                 ->setController(UserItemCrudController::class),
             MenuItem::linkToCrud('Portfele', 'fa fa-wallet', Wallet::class)

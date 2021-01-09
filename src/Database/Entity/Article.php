@@ -62,6 +62,12 @@ class Article
      */
     private ?DateTime $createdAt;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     */
+    private ?string $serverId = null;
+
     public function __construct()
     {
         $this->createdAt = (new DateTime());
@@ -140,5 +146,15 @@ class Article
     public function setCreatedAt(?DateTime $createdAt)
     {
         $this->createdAt = $createdAt ?? new DateTime();
+    }
+
+    public function getServerId(): ?string
+    {
+        return $this->serverId;
+    }
+
+    public function setServerId(?string $serverId)
+    {
+        $this->serverId = $serverId;
     }
 }

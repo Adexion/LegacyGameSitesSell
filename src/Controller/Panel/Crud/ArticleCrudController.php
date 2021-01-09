@@ -11,9 +11,17 @@ use ModernGame\Database\Entity\Article;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use ModernGame\Database\Entity\User;
 use ModernGame\Field\EntityField;
+use ModernGame\Field\ServerChoiceFieldProvider;
 
 class ArticleCrudController extends AbstractCrudController
 {
+    private ServerChoiceFieldProvider $fieldProvider;
+
+    public function __construct(ServerChoiceFieldProvider $fieldProvider)
+    {
+        $this->fieldProvider = $fieldProvider;
+    }
+
     public static function getEntityFqcn(): string
     {
         return Article::class;
@@ -40,7 +48,8 @@ class ArticleCrudController extends AbstractCrudController
                 DateTimeField::new('createdAt', 'Data upublicznienia')
                     ->setFormat('y-MM-dd HH:mm')
                     ->setTimezone('Europe/Warsaw')
-                    ->renderAsNativeWidget(false)
+                    ->renderAsNativeWidget(false),
+                $this->fieldProvider->getChoiceField('serverId', 'Server')
             ];
         }
 
@@ -57,7 +66,8 @@ class ArticleCrudController extends AbstractCrudController
             DateTimeField::new('createdAt', 'Data upublicznienia')
                 ->setFormat('y-MM-dd HH:mm')
                 ->setTimezone('Europe/Warsaw')
-                ->renderAsNativeWidget(false)
+                ->renderAsNativeWidget(false),
+            $this->fieldProvider->getChoiceField('serverId', 'Serwer')
         ];
     }
 
