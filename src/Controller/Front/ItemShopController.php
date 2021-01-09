@@ -32,7 +32,7 @@ class ItemShopController extends AbstractController
         $server = $serverProvider->getCookiesServer();
 
         return $this->render('front/page/itemshop.html.twig', [
-            'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findAll(),
+            'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $serverProvider->getCookiesServer()['id']]),
             'paypalClient' => $server['paypal']['client'],
             'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
         ]);

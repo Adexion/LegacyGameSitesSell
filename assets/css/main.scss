@@ -203,3 +203,29 @@ a {
 .bg-darker {
   background-color: #2e353c;
 }
+
+.bg-black {
+  background: #000000;
+}
+
+.server-choosing {
+  min-width: 720px;
+  width: 33%;
+  margin: auto;
+  height: 25vh;
+  text-align: center;
+  font-size: 50pt;
+  display: block;
+  border: 1px solid rgba(0,0,0,.1);
+  min-height: 300px;
+  line-height: 300px;
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, .7);
+}
+
+.move-up {
+  margin-top: -20px;
+  padding-bottom: 30px;
+}

@@ -9,6 +9,8 @@ use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\ServerProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,8 +23,20 @@ class HomepageController extends AbstractController
      *
      * @throws ContentException
      */
-    public function index(RCONService $RCONService, ServerProvider $serverProvider): Response
+    public function index(RCONService $RCONService, ServerProvider $serverProvider, Request $request): Response
     {
+        $serverId = $request->request->get('serverId');
+        if ($serverId) {
+            $request->cookies->set('serverId', $serverId);
+
+            $response = new Response();
+            $response->headers->setCookie(Cookie::create('serverId', $serverId));
+        }
+
+        if (!$request->cookies->get('serverId')) {
+            return $this->render('front/serverSelect.html.twig');
+        }
+
         return $this->render('front/page/index.html.twig', [
             'articleList' => $this->getDoctrine()->getRepository(Article::class)->getLastArticles(),
             'playerListCount' => $RCONService->getServerStatus($serverProvider->getDefaultQueryServerId())['players'] ?? 0,
@@ -30,7 +44,7 @@ class HomepageController extends AbstractController
             'playerList' => $RCONService->getPlayerList(),
             'admins' => $this->getDoctrine()->getRepository(AdminServerUser::class)
                 ->findBy(['serverId' => $serverProvider->getCookiesServer()])
-        ]);
+        ], $response ?? new Response());
     }
 
     /**
