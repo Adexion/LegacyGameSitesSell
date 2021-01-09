@@ -2,56 +2,67 @@
 
 namespace ModernGame\Controller\Front;
 
+use GuzzleHttp\Exception\GuzzleException;
 use ModernGame\Database\Entity\ItemList;
 use ModernGame\Database\Entity\PaymentHistory;
 use ModernGame\Database\Entity\PaySafeCard;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\Wallet;
 use ModernGame\Database\Repository\ItemListRepository;
-use ModernGame\Service\Connection\Minecraft\RCONService;
+use ModernGame\Exception\ContentException;
+use ModernGame\Exception\ItemListNotFoundException;
+use ModernGame\Exception\PaymentProcessingException;
+use ModernGame\Service\Connection\Minecraft\ExecuteItemService;
 use ModernGame\Service\Connection\Payment\PayPal\PayPalService;
 use ModernGame\Service\Mail\MailSenderService;
+use ModernGame\Service\ServerProvider;
 use ModernGame\Service\User\WalletService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ItemsShopController extends AbstractController
+class ItemShopController extends AbstractController
 {
     /**
      * @Route(name="item-shop", path="/itemshop")
      */
-    public function itemShop(): Response
+    public function itemShop(ServerProvider $serverProvider): Response
     {
+        $server = $serverProvider->getCookiesServer();
+
         return $this->render('front/page/itemshop.html.twig', [
             'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findAll(),
-            'paypalClient' => $this->getParameter('paypal')['client'],
+            'paypalClient' => $server['paypal']['client'],
             'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
         ]);
     }
 
     /**
      * @Route(name="prepaid-status", path="/prepaid/status")
+     *
+     * @throws ContentException
      */
     public function prepaidStatus(
         Request $request,
         ItemListRepository $itemListRepository,
         WalletService $walletService,
-        RCONService $rcon
+        ExecuteItemService $executeItemService
     ): Response {
         /** @var ItemList $itemList */
         $itemList = $itemListRepository->find($request->request->getInt('itemListId'));
 
-        $code = $rcon->executeItemListInstant(
-            $walletService->changeCash(0, $this->getUser()),
-            $request->request->getInt('itemListId') ?? 0,
-            $this->getUser(),
-            true
-        );
-
-        if ($code !== Response::HTTP_PAYMENT_REQUIRED) {
-            $walletService->changeCash(-$itemList->getAfterPromotionPrice(), $this->getUser());
+        try {
+            $code = $executeItemService->executeItemListInstant(
+                $walletService->changeCash(0, $this->getUser()),
+                $request->request->getInt('itemListId') ?? 0,
+                $this->getUser(),
+                true
+            );
+        } catch (PaymentProcessingException $e) {
+            $code = Response::HTTP_PAYMENT_REQUIRED;
+        } catch (ItemListNotFoundException $e) {
+            $code = Response::HTTP_OK;
         }
 
         return $this->render('front/page/payment.html.twig', [
@@ -63,12 +74,16 @@ class ItemsShopController extends AbstractController
 
     /**
      * @Route(name="paypal-status", path="/paypal/status")
+     *
+     * @throws ContentException
+     * @throws PaymentProcessingException
+     * @throws GuzzleException
      */
     public function paypalStatus(
         Request $request,
         ItemListRepository $itemListRepository,
         PayPalService $payment,
-        RCONService $rcon
+        ExecuteItemService $executeItemService
     ): Response {
         $paymentHistory = $this->getDoctrine()->getRepository(PaymentHistory::class)->findOneBy(
             [
@@ -88,11 +103,17 @@ class ItemsShopController extends AbstractController
         $amount = $payment->executePayment($request->request->get('orderId') ?? '0', $this->getUser()->getUsername());
         $itemList = $itemListRepository->find($request->request->getInt('itemListId'));
 
-        $code = $rcon->executeItemListInstant(
-            $amount,
-            $request->request->getInt('itemListId') ?? 0,
-            $this->getUser()
-        );
+        try {
+            $code = $executeItemService->executeItemListInstant(
+                $amount,
+                $request->request->getInt('itemListId') ?? 0,
+                $this->getUser()
+            );
+        } catch (PaymentProcessingException $e) {
+            $code = Response::HTTP_PAYMENT_REQUIRED;
+        } catch (ItemListNotFoundException $e) {
+            $code = Response::HTTP_OK;
+        }
 
         return $this->render('front/page/payment.html.twig', [
             'itemList' => $itemList,

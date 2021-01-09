@@ -8,22 +8,23 @@ use ModernGame\Exception\ContentException;
 use ModernGame\Exception\PaymentProcessingException;
 use ModernGame\Service\Connection\Payment\AbstractPayment;
 use ModernGame\Service\Connection\Payment\PaymentInterface;
+use ModernGame\Service\ServerProvider;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class PayPalService extends AbstractPayment implements PaymentInterface
 {
     private PaypalClient $paypalClient;
-    private ContainerInterface $container;
+    private array $paypalData;
 
     public function __construct(
         PaymentHistoryRepository $repository,
-        ContainerInterface $container,
         PaypalClient $paypalClient,
-        UserProviderInterface $userProvider
+        UserProviderInterface $userProvider,
+        ServerProvider $serverProvider
     ) {
+        $this->paypalData = $serverProvider->getCookiesServer()['paypal'];
         $this->paypalClient = $paypalClient;
-        $this->container = $container;
 
         parent::__construct($repository, $userProvider);
     }
@@ -35,8 +36,7 @@ class PayPalService extends AbstractPayment implements PaymentInterface
      */
     public function executePayment(string $id, string $username): float
     {
-        $configuration = $this->container->getParameter('paypal');
-        $token = $this->paypalClient->tokenRequest($configuration['client'], $configuration['secret'])['access_token'] ?? '';
+        $token = $this->paypalClient->tokenRequest($this->paypalData['client'], $this->paypalData['secret'])['access_token'] ?? '';
         $response = $this->paypalClient->executeRequest($token, $id);
 
         $amount = $response['purchase_units'][0]['amount']['value'];

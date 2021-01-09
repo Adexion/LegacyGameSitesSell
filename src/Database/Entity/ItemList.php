@@ -65,6 +65,12 @@ class ItemList
      */
     private ?Price $smsPrice = null;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     */
+    private ?string $serverId = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -158,5 +164,15 @@ class ItemList
     public function getAfterPromotionPrice(): ?float
     {
         return round($this->getPrice() - ($this->getPrice() * $this->getPromotion()), 2);
+    }
+
+    public function getServerId(): ?string
+    {
+        return $this->serverId;
+    }
+
+    public function setServerId(?string $serverId)
+    {
+        $this->serverId = $serverId;
     }
 }

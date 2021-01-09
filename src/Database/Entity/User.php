@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Swagger\Annotations as SWG;
 
 /**
  * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\UserRepository")
@@ -44,10 +43,9 @@ class User implements UserInterface
     private ?string $password = null;
 
     /**
-     * @SWG\Property(type="array", @SWG\Items(type="string"))
      * @ORM\Column(type="array")
      */
-    private ?array $roles = [];
+    private ?array $roles;
 
     /**
      * @ORM\Column(type="boolean")
@@ -55,9 +53,6 @@ class User implements UserInterface
      */
     private ?bool $rules = false;
 
-    /**
-     * @SWG\Property(type="string")
-     */
     private ?string $reCaptcha = null;
 
     public function __construct()

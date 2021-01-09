@@ -4,29 +4,24 @@ namespace ModernGame\Service\Connection\Minecraft;
 
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\EnvironmentService;
+use ModernGame\Service\ServerProvider;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ServerConnectionService
 {
-    const PLAYER_NOT_FOUND = 'Player not found.';
-    const SEVER_NOT_RESPONDING = 'Nie można nawiązać połączenia, ponieważ komputer docelowy aktywnie go odmawia.';
+    private const SEVER_NOT_RESPONDING = 'Nie można nawiązać połączenia';
 
-    private ContainerInterface $container;
-    private EnvironmentService$environmentService;
+    private EnvironmentService $environmentService;
 
-    public function __construct(ContainerInterface $container, EnvironmentService $environmentService)
+    public function __construct(EnvironmentService $environmentService)
     {
-        $this->container = $container;
         $this->environmentService = $environmentService;
     }
 
-    public function getClient(string $serverId = null): RCONConnection
+    /** @throws ContentException */
+    public function getClient(array $server): RCONConnection
     {
-        $serverData = $this->container->getParameter('minecraft');
-        $server = $serverData[$serverId] ?? current($serverData);
-
-        $client = new RCONConnection($server['host'], $server['port'],
-            $server['password'], $this->environmentService->isProd(), 5);
+        $client = new RCONConnection($server['host'], $server['port'], $server['password'], $this->environmentService->isProd(), 5);
         @$client->connect();
 
         if (strpos($client->getResponse(), self::SEVER_NOT_RESPONDING) !== false) {

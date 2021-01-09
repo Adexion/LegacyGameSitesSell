@@ -5,7 +5,9 @@ namespace ModernGame\Controller\Front;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
 use ModernGame\Database\Repository\UserRepository;
+use ModernGame\Exception\ContentException;
 use ModernGame\Form\UserEditType;
+use ModernGame\Service\Connection\Minecraft\ExecuteItemService;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,21 +69,25 @@ class UserController extends AbstractController
 
     /**
      * @Route(name="item-profile", path="/user/item")
+     *
+     * @throws ContentException
      */
-    public function itemExecute(Request $request, RCONService $rcon, UserProviderInterface $userProvider)
+    public function itemExecute(Request $request, ExecuteItemService $executeItemService)
     {
         return $this->redirectToRoute('equipment-profile', [
-            'code' => $rcon->executeItem($request->request->getInt('itemId'), $this->getUser())
+            'code' => $executeItemService->executeItem($this->getUser(), $request->request->getInt('itemId'))
         ]);
     }
 
     /**
      * @Route(name="item-list-profile", path="/user/item/all")
+     *
+     * @throws ContentException
      */
-    public function itemListExecute(Request $request, RCONService $rcon, UserProviderInterface $userProvider)
+    public function itemListExecute(Request $request, ExecuteItemService $executeItemService)
     {
         return $this->redirectToRoute('equipment-profile', [
-            'code' => $rcon->executeItem(null, $this->getUser())
+            'code' => $executeItemService->executeItem($this->getUser())
         ]);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace ModernGame\Database\Repository;
 
+use ModernGame\Database\Entity\Item;
+use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\UserItem;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -10,6 +12,20 @@ class UserItemRepository extends AbstractRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UserItem::class);
+    }
+
+    public function createItem(User $user, Item $item)
+    {
+        $userItem = new UserItem();
+
+        $userItem->setUser($user);
+        $userItem->setItem($item);
+        $userItem->setQuantity(1);
+        $userItem->setName($item->getName());
+        $userItem->setIcon($item->getIcon());
+        $userItem->setCommand($item->getCommand());
+
+        return $this->insert($userItem);
     }
 
     public function deleteItem(UserItem $item)

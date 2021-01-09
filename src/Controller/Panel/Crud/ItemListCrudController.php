@@ -3,7 +3,6 @@
 namespace ModernGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
@@ -11,9 +10,17 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\PercentField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use ModernGame\Database\Entity\ItemList;
+use ModernGame\Field\ServerChoiceFieldProvider;
 
 class ItemListCrudController extends AbstractCrudController
 {
+    private ServerChoiceFieldProvider $fieldProvider;
+
+    public function __construct(ServerChoiceFieldProvider $fieldProvider)
+    {
+        $this->fieldProvider = $fieldProvider;
+    }
+
     public static function getEntityFqcn(): string
     {
         return ItemList::class;
@@ -36,7 +43,8 @@ class ItemListCrudController extends AbstractCrudController
             MoneyField::new('price', 'Cena')
                 ->setCurrency('PLN')
                 ->setStoredAsCents(false),
-            PercentField::new('promotion', 'Promocja')
+            PercentField::new('promotion', 'Promocja'),
+            $this->fieldProvider->getChoiceField('serverId', 'Serwer')
         ];
     }
 }

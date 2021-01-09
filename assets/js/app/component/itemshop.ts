@@ -1,21 +1,16 @@
 import {ClassInterface} from "../interface/class.interface";
-import {Connection} from "../../library/connection";
-import {ItemListInterface} from "../interface/itemList.interface";
 
 const $ = require('jquery');
 
 declare const window: any;
 
 export class ItemShopService implements ClassInterface {
-    private itemLists: ItemListInterface[];
     private buttonComponent: any;
     private timeout: NodeJS.Timeout;
 
-    constructor(private connection: Connection) {
-    }
+    constructor() {}
 
     generate() {
-        this.connection.get('shop/list').then(itemLists => this.itemLists = itemLists);
         let collection: HTMLCollection = document.getElementsByClassName('btn-payment');
 
         Array.from(collection).forEach((element: HTMLAnchorElement) => {
@@ -61,19 +56,8 @@ export class ItemShopService implements ClassInterface {
         const itemListIdInput: HTMLInputElement = document.querySelector('#prepaid-payment-form-input');
         itemListIdInput.value = itemListId.toString();
 
-        let chooseItemList: ItemListInterface;
-        this.itemLists.forEach((itemList: ItemListInterface) => {
-            if (itemList.id === itemListId) {
-                chooseItemList = itemList;
-            }
-        });
-
-        if (chooseItemList !== undefined) {
-            this.renderPaypalButton(
-                chooseItemList.price - (chooseItemList.promotion * chooseItemList.price),
-                itemListId
-            );
-        }
+        console.log(parseFloat(document.querySelector('#afterPromotion' + itemListId).innerHTML));
+        this.renderPaypalButton(parseFloat(document.querySelector('#afterPromotion' + itemListId).innerHTML), itemListId);
     }
 
     private renderPaypalButton(price: number, itemListId: number) {

@@ -1,8 +1,5 @@
 import {RecaptchaService} from "./recaptcha";
-
 import {PathInterface} from "../interface/path.interface";
-
-import store from "../../library/store";
 import {ItemShopService} from "./itemshop";
 
 export class Route {
@@ -21,7 +18,7 @@ export class Route {
         },
         {
             path: '/itemshop',
-            class: new ItemShopService(store.connection)
+            class: new ItemShopService()
         }
     ];
 

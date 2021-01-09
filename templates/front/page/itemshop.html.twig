@@ -33,7 +33,7 @@
                                     {% if itemList.promotion %}
                                         <s class="text-danger">{{ itemList.price | number_format(2) }}</s>
                                     {% endif %}
-                                    <span class="font-weight-bold text-warning">{{ itemList.afterPromotionPrice | number_format(2) }} zł</span>
+                                    <span class="font-weight-bold text-warning" id="afterPromotion{{ itemList.id }}">{{ itemList.afterPromotionPrice | number_format(2) }} zł</span>
                                 </p>
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                     <div class="float-right ">
