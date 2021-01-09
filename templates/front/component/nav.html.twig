@@ -1,7 +1,19 @@
 {{ encore_entry_link_tags('nav') }}
 
 <div class="nav-content w-100">
-    <a href="{{ path('index') }}" class="nav-link float-left left title title--small">MODERNGAME</a>
+    <div class="nav-item dropdown">
+        <a class="nav-link float-left left title title--small dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">MODERNGAME</a>
+        <div class="dropdown-menu left">
+            {% for s in server %}
+                {% if s.src is defined %}
+                    <form method="post" action="/">
+                        <input name="serverId" type="hidden" value="{{ s.id }}"/>
+                        <input class="nav-item bg-transparent border-0" type="submit" src="{{ s.src }}" alt="{{ s.name }}" value="{{ s.name }}"/>
+                    </form>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
     <nav class="nav right">
         <span class="nav-item"><a class="nav-link" href="{{ path('rule') }}">{% trans %}Rules{% endtrans %}</a></span>
         <span class="nav-item"><a class="nav-link" href="{{ path('item-shop') }}">{% trans %}Itemshop{% endtrans %}</a></span>

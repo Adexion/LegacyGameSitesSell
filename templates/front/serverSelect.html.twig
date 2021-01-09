@@ -17,7 +17,7 @@
         </div>
         {% for s in server %}
             {% if s.src is defined %}
-                <form method="post">
+                <form method="post" >
                     <input name="serverId" type="hidden" value="{{ s.id }}"/>
                     <input type="image" src="{{ s.src }}" alt="Serwer {{ s.name }}"
                            class="server-choosing text-light bg-darker "/>
