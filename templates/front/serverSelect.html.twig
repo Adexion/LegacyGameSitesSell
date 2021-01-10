@@ -9,11 +9,11 @@
 </head>
 <body class="bg-dark text-light">
 
-<div class="p-5 position-absolute w-100 z-index-1 text-shadow">
-    <h1 class="text-center">Wybierz serwer</h1>
+<div class="server-header">
+    <h1 class="text-center text-shadow">Wybierz serwer</h1>
 </div>
 
-<div class="d-flex bg-black">
+<div class="d-flex bg-black flex-dir">
     {% block body %}
         {% for s in server %}
             {% if loop.index - 1 < ((server | length - 1) / 2) %}
@@ -26,8 +26,7 @@
             {% if s.src is defined %}
                 <form method="post" class="flex-preset">
                     <input name="serverId" type="hidden" value="{{ s.id }}"/>
-                    <input type="image" src="{{ s.src }}" alt="Serwer {{ s.name }}"
-                           class="{{ class }} d-block w-100 vh-100"/>
+                    <input type="image" src="{{ s.src }}" alt="Serwer {{ s.name }}" class="{{ class }}"/>
                 </form>
             {% endif %}
         {% endfor %}
