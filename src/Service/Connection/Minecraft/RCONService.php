@@ -33,7 +33,7 @@ class RCONService
      */
     public function isUserLogged(UserInterface $user, string $serverId): bool
     {
-        return strstr($this->getPlayerList($serverId), $user->getUsername()) === false;
+        return strstr($this->getPlayerList($serverId), $user->getUsername()) !== false;
     }
 
     /**

@@ -24,8 +24,6 @@ class ExecuteItemService
     private UserItemRepository $userItemRepository;
     private ItemRepository $itemRepository;
     private ItemListRepository $itemListRepository;
-    private ServerConnectionService $connectionService;
-    private WalletService $walletService;
     private ItemListService $itemListService;
     private ServerProvider $serverProvider;
     private RCONService $RCONService;
@@ -102,6 +100,8 @@ class ExecuteItemService
             }
         }
 
+        $this->walletService->changeCash(-$itemList->getAfterPromotionPrice(), $user);
+
         if ($isSomeItemAssignedToEquipment ?? false) {
             return Response::HTTP_PARTIAL_CONTENT;
         }
@@ -144,9 +144,11 @@ class ExecuteItemService
      */
     private function handleError(float $amount, ItemList $itemList = null, UserInterface $user = null, bool $isFromWallet = null)
     {
-        if (!$itemList) {
+        if (!$itemList && !$isFromWallet) {
             $this->walletService->changeCash($amount, $user);
 
+            throw new ItemListNotFoundException();
+        } elseif (!$itemList && $isFromWallet) {
             throw new ItemListNotFoundException();
         }
 
