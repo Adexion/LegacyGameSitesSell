@@ -38,7 +38,7 @@ class ServerProvider
     public function getSessionServer(): array
     {
         return $this->getServerData($this->session->get('serverId') ?? null);
-}
+    }
 
     public function getDefaultQueryServerId(): string
     {
