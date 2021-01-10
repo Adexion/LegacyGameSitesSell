@@ -24,9 +24,9 @@
                 {% set class = "server server--right" %}
             {% endif %}
             {% if s.src is defined %}
-                <form method="post" class="flex-preset">
+                <form method="post" class="flex-preset position-relative">
                     <input name="serverId" type="hidden" value="{{ s.id }}"/>
-                    <input type="image" src="{{ s.src }}" alt="Serwer {{ s.name }}" class="{{ class }}"/>
+                    <div class="{{ class }}" style="background-image: url('{{ s.src }}')" onclick="this.parentNode.submit();"></div>
                 </form>
             {% endif %}
         {% endfor %}
