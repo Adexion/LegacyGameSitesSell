@@ -229,3 +229,37 @@ a {
   margin-top: -20px;
   padding-bottom: 30px;
 }
+
+.flex-preset {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+}
+
+.server {
+  filter: opacity(50%);
+  transition: filter .5s ease;
+
+  &:hover {
+    filter: opacity(100%);
+    transition: filter .5s ease;
+  }
+}
+
+.z-index {
+  &-1 {
+    z-index: 1;
+  }
+
+  &-10 {
+    z-index: 10;
+  }
+
+  &-100 {
+    z-index: 100;
+  }
+
+  &-999 {
+    z-index: 999;
+  }
+}

@@ -9,23 +9,29 @@
 </head>
 <body class="bg-dark text-light">
 
-<div class="pt-10">
+<div class="p-5 position-absolute w-100 z-index-1 text-shadow">
+    <h1 class="text-center">Wybierz serwer</h1>
+</div>
+
+<div class="d-flex bg-black">
     {% block body %}
-        <div class="bg-black w-100 align-content-center h-50">
-            <img src="{{ asset('assets/logotype.jpg') }}" alt="ModernGameLogo" class="w-50 d-block m-auto">
-            <h1 class="text-center text-light text-shadow move-up">Wybierz serwer by rozpocząć</h1>
-        </div>
         {% for s in server %}
+            {% if loop.index - 1 < ((server | length - 1) / 2) %}
+                {% set class = "server server--left" %}
+            {% elseif loop.index - 1 == ((server | length - 1) / 2) %}
+                {% set class = "server server--center" %}
+            {% else %}
+                {% set class = "server server--right" %}
+            {% endif %}
             {% if s.src is defined %}
-                <form method="post" >
+                <form method="post" class="flex-preset">
                     <input name="serverId" type="hidden" value="{{ s.id }}"/>
                     <input type="image" src="{{ s.src }}" alt="Serwer {{ s.name }}"
-                           class="server-choosing text-light bg-darker "/>
+                           class="{{ class }} d-block w-100 vh-100"/>
                 </form>
             {% endif %}
         {% endfor %}
     {% endblock %}
 </div>
-
 </body>
 </html>
