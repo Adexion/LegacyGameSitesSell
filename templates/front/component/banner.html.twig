@@ -1,6 +1,6 @@
 <div class="bg-image d-flex align-items-center flex-column position-relative top-space-100">
     {% for s in server %}
-        {% if s.id == app.request.cookies.get('serverId') %}
+        {% if s.id == app.session.get('serverId') %}
             <h1 class="font-weight-bold title--big text-shadow text-light">{{ s.name }}</h1>
         {% endif %}
     {% endfor %}

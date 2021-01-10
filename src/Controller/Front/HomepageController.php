@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomepageController extends AbstractController
@@ -23,17 +24,14 @@ class HomepageController extends AbstractController
      *
      * @throws ContentException
      */
-    public function index(RCONService $RCONService, ServerProvider $serverProvider, Request $request): Response
+    public function index(RCONService $RCONService, ServerProvider $serverProvider, Request $request, Session $session): Response
     {
         $serverId = $request->request->get('serverId');
         if ($serverId) {
-            $request->cookies->set('serverId', $serverId);
-
-            $response = new Response();
-            $response->headers->setCookie(Cookie::create('serverId', $serverId));
+            $session->set('serverId', $serverId);
         }
 
-        if (!$request->cookies->get('serverId')) {
+        if (!$session->get('serverId')) {
             return $this->render('front/serverSelect.html.twig');
         }
 
@@ -43,7 +41,7 @@ class HomepageController extends AbstractController
             'isOnline' => (bool)$RCONService->getServerStatus($serverProvider->getDefaultQueryServerId()),
             'playerList' => $RCONService->getPlayerList(),
             'admins' => $this->getDoctrine()->getRepository(AdminServerUser::class)
-                ->findBy(['serverId' => $serverProvider->getCookiesServer()])
+                ->findBy(['serverId' => $serverProvider->getSessionServer()])
         ], $response ?? new Response());
     }
 

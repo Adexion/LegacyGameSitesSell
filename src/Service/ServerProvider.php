@@ -3,20 +3,19 @@
 namespace ModernGame\Service;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use UnexpectedValueException;
 
 class ServerProvider
 {
     private array $serverList;
-    private ?Request $request;
+    private ?SessionInterface $session;
     private string $defaultQueryServerId;
     private string $defaultRCONServerId;
 
-    public function __construct(ContainerInterface $container, RequestStack $requestStack)
+    public function __construct(ContainerInterface $container, SessionInterface $session)
     {
-        $this->request = $requestStack->getCurrentRequest();
+        $this->session = $session;
         $this->serverList = $container->getParameter('server');
         $this->defaultQueryServerId = $container->getParameter('defaultQueryServerId');
         $this->defaultRCONServerId = $container->getParameter('defaultRconServerId');
@@ -36,9 +35,9 @@ class ServerProvider
         return $this->serverList;
     }
 
-    public function getCookiesServer(): array
+    public function getSessionServer(): array
     {
-        return $this->getServerData($this->request->cookies->get('serverId') ?? null);
+        return $this->getServerData($this->session->get('serverId') ?? null);
 }
 
     public function getDefaultQueryServerId(): string

@@ -29,10 +29,10 @@ class ItemShopController extends AbstractController
      */
     public function itemShop(ServerProvider $serverProvider): Response
     {
-        $server = $serverProvider->getCookiesServer();
+        $server = $serverProvider->getSessionServer();
 
         return $this->render('front/page/itemshop.html.twig', [
-            'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $serverProvider->getCookiesServer()['id']]),
+            'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $serverProvider->getSessionServer()['id']]),
             'paypalClient' => $server['paypal']['client'],
             'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
         ]);

@@ -23,7 +23,7 @@ class PayPalService extends AbstractPayment implements PaymentInterface
         UserProviderInterface $userProvider,
         ServerProvider $serverProvider
     ) {
-        $this->paypalData = $serverProvider->getCookiesServer()['paypal'];
+        $this->paypalData = $serverProvider->getSessionServer()['paypal'];
         $this->paypalClient = $paypalClient;
 
         parent::__construct($repository, $userProvider);
