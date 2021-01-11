@@ -4,6 +4,7 @@ namespace ModernGame\Controller\Front;
 
 use ModernGame\Database\Entity\AdminServerUser;
 use ModernGame\Database\Entity\Article;
+use ModernGame\Database\Repository\ArticleRepository;
 use ModernGame\Database\Repository\RegulationRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\Minecraft\RCONService;
@@ -47,9 +48,9 @@ class HomepageController extends AbstractController
     }
 
     /**
-     * @Route(path="/article/{slug}", name="show-article")
+     * @Route(path="/articl/show/{slug}", name="show-article")
      */
-    public function article(string $slug): Response
+    public function article(int $slug): Response
     {
         /** @var Article $article */
         $article = $this->getDoctrine()->getRepository(Article::class)->find($slug);
@@ -80,7 +81,10 @@ class HomepageController extends AbstractController
 
         return $this->render('front/page/articleList.html.twig', [
             'articleList' => $articleList,
-            'randomHexGenerator' => new RandomHexGenerator()
+            'randomHexGenerator' => new RandomHexGenerator(),
+            'count' => $this->getDoctrine()->getRepository(Article::class)->count([]),
+            'perPages' => ArticleRepository::ARTICLE_PER_PAGES,
+            'currentPage' => $slug
         ]);
     }
 }

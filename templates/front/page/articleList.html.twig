@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="container">
-        <div class="row pt-5">
+        <div class="row p-5">
             {% for article in articleList %}
                 <div style="background: {{ randomHexGenerator.randHexColor }};" class="p-4 text-shadow d-inline-block col-12 col-lg-6">
                     <p class="h4 font-weight-bold">{{ article.title | raw }}</p>
@@ -11,7 +11,7 @@
                     <span>{{ article.shortText | raw }}</span>
                     <div class="pt-2">
                         <span class="float-left text-small">
-                            <a class="text-light" href="article/{{ article.id }}">Czytaj więcej ...</a>
+                            <a class="text-light" href="{{ path('show-article', {slug: article.id }) }}">Czytaj więcej ...</a>
                         </span>
                         <span class="float-right text-small">
                             ~{{ article.author }}&nbsp
@@ -21,5 +21,13 @@
                 </div>
             {% endfor %}
         </div>
+        <ul class="pagination justify-content-center">
+            {% set maxPage = ((count / perPages) | round(0, 'ceil')) %}
+            <li class="page-item {% if currentPage == 1 %}disabled{% endif %}"><a class="page-link" href="{{ path('show-article-list', {slug: currentPage - 1}) }}">Poprzednia</a></li>
+            {% for index in 1 .. maxPage %}
+                <li class="page-item {% if index == currentPage %}active{% endif %}"><a class="page-link" href="{{ path('show-article-list', {slug: index}) }}">{{ index }}</a></li>
+            {% endfor %}
+            <li class="page-item  {% if currentPage == maxPage %}disabled{% endif %}"><a class="page-link" href="{{ path('show-article-list', {slug: currentPage + 1}) }}">Następna</a></li>
+        </ul>
     </div>
 {% endblock %}

@@ -11,6 +11,7 @@ use ModernGame\Service\ServerProvider;
 class ArticleRepository extends AbstractRepository
 {
     private ServerProvider $serverProvider;
+    public const ARTICLE_PER_PAGES = 20;
 
     public function __construct(ManagerRegistry $registry, ServerProvider $serverProvider)
     {
@@ -37,6 +38,7 @@ class ArticleRepository extends AbstractRepository
     public function getArticles(int $page): array
     {
         $builder = $this->getEntityManager()->createQueryBuilder();
+        $page = $page < 1 ? 1 : $page;
 
         $builder
             ->select('article.id, article.image, article.subhead, article.title, article.text, article.shortText, user.username as author')
@@ -45,8 +47,8 @@ class ArticleRepository extends AbstractRepository
             ->where('article.serverId = :serverId')
             ->setParameter(':serverId', $this->serverProvider->getSessionServer()['id'])
             ->orderBy('article.id', "DESC")
-            ->setMaxResults(20)
-            ->setFirstResult(20 * ($page - 1));
+            ->setMaxResults(self::ARTICLE_PER_PAGES)
+            ->setFirstResult(self::ARTICLE_PER_PAGES * ($page - 1));
 
         return $builder->getQuery()->execute();
     }
