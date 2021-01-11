@@ -7,9 +7,9 @@
         {% endif %}
 
         {% if userItemList | length > 1 %}
-        <form action="{{ path('item-list-profile') }}" method="post">
-            <button class="btn btn-success btn-block">{% trans %}Execute all{% endtrans %}</button>
-        </form>
+            <form action="{{ path('item-list-profile') }}" method="post">
+                <button class="btn btn-success btn-block">{% trans %}Execute all{% endtrans %}</button>
+            </form>
         {% elseif userItemList is empty %}
             <div class="alert alert-info">{% trans %}Nothing to do here{% endtrans %}</div>
         {% endif %}
@@ -21,7 +21,11 @@
                 </div>
                 <div class="item-information">
                     <h1 class="h4">{{ item.name }}</h1>
-                    <h2 class="h5 text-light">{{ item.command }}</h2>
+                    {% for s in server %}
+                        {% if s.id == item.item.itemList.serverId %}
+                            <h2 class="h5 text-light">Dotyczy serwera: {{ s.name }}</h2>
+                        {% endif %}
+                    {% endfor %}
                     <form action="{{ path('item-profile') }}" method="post">
                         <input type="hidden" name="itemId" value="{{ item.id }}"/>
                         <button class="btn btn-warning">{% trans %}Execute{% endtrans %}</button>

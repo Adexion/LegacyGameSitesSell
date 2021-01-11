@@ -8,6 +8,7 @@ use ModernGame\Database\Repository\RegulationRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\ServerProvider;
+use ModernGame\Util\RandomHexGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,15 +41,15 @@ class HomepageController extends AbstractController
             'playerListCount' => $RCONService->getServerStatus($serverProvider->getDefaultQueryServerId())['players'] ?? 0,
             'isOnline' => (bool)$RCONService->getServerStatus($serverProvider->getDefaultQueryServerId()),
             'playerList' => $RCONService->getPlayerList(),
-            'admins' => $this->getDoctrine()->getRepository(AdminServerUser::class)
-                ->findBy(['serverId' => $serverProvider->getSessionServer()])
+            'admins' => $this->getDoctrine()->getRepository(AdminServerUser::class)->findBy(['serverId' => $serverProvider->getSessionServer()]),
+            'randomHexGenerator' => new RandomHexGenerator()
         ], $response ?? new Response());
     }
 
     /**
      * @Route(path="/article/{slug}", name="show-article")
      */
-    public function article(string $slug)
+    public function article(string $slug): Response
     {
         /** @var Article $article */
         $article = $this->getDoctrine()->getRepository(Article::class)->find($slug);
@@ -62,7 +63,7 @@ class HomepageController extends AbstractController
     /**
      * @Route(name="rule", path="/rule")
      */
-    public function rule(RegulationRepository $repository)
+    public function rule(RegulationRepository $repository): Response
     {
         return $this->render('front/page/rule.html.twig', [
             'ruleList' => $repository->getRegulationList(),

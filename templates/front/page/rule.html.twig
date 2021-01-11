@@ -10,7 +10,7 @@
         <div class="row">
             <div id="rules" class="col col-lg-7 col-sm-7 col-7">
                 {% for key, rule in ruleList %}
-                    <h3 id="{{ key }}" class="rule-category">{{ key }}</h3>
+                    <h3 id="{{ key }}" class="rule-category mb-3">{{ key }}</h3>
                     <div class="rule-holder">
                         {% for r in rule %}
                             {{ r.description | raw }}

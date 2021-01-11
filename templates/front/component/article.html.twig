@@ -1,8 +1,9 @@
 <div class="container mt-5">
     <div class="row">
         <div id="article-list" class="col-md-7 pb-3">
+            <h1 class="text-info text-center">Nasze ostatnie artykuły</h1>
             {% for article in articleList %}
-                <div>
+                <div style="background: {{ randomHexGenerator.randHexColor  }};" class="p-4 text-shadow d-inline-block">
                     <p class="h4 font-weight-bold">{{ article.title | raw }}</p>
                     <p class="h5">{{ article.subhead | raw }}</p>
                     <hr/>
@@ -21,7 +22,9 @@
         </div>
 
         <div class="col-md-5">
-            <img class="border article-image" src="{{ asset('assets/images/image.jpg') }}" alt="image frame">
+            {% set article = (articleList | first) %}
+            <img class="border article-image"
+                 src="{% if article.image is defined and article.image is not empty %}{{ asset(article.image) }}{% else %}{{ asset('assets/images/image.jpg') }}{% endif %}" alt="image frame">
         </div>
     </div>
 
