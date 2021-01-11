@@ -33,4 +33,21 @@ class ArticleRepository extends AbstractRepository
 
         return $builder->getQuery()->execute();
     }
+
+    public function getArticles(int $page): array
+    {
+        $builder = $this->getEntityManager()->createQueryBuilder();
+
+        $builder
+            ->select('article.id, article.image, article.subhead, article.title, article.text, article.shortText, user.username as author')
+            ->from(Article::class, 'article')
+            ->leftJoin(User::class, 'user', Join::WITH, 'user.id = article.author')
+            ->where('article.serverId = :serverId')
+            ->setParameter(':serverId', $this->serverProvider->getSessionServer()['id'])
+            ->orderBy('article.id', "DESC")
+            ->setMaxResults(20)
+            ->setFirstResult(20 * ($page - 1));
+
+        return $builder->getQuery()->execute();
+    }
 }

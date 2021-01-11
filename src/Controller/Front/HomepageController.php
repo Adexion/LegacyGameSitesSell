@@ -69,4 +69,18 @@ class HomepageController extends AbstractController
             'ruleList' => $repository->getRegulationList(),
         ]);
     }
+
+    /**
+     * @Route(path="/article/list/{slug}", name="show-article-list")
+     */
+    public function articleList(int $slug = 1): Response
+    {
+        /** @var Article[] articleList */
+        $articleList = $this->getDoctrine()->getRepository(Article::class)->getArticles($slug);
+
+        return $this->render('front/page/articleList.html.twig', [
+            'articleList' => $articleList,
+            'randomHexGenerator' => new RandomHexGenerator()
+        ]);
+    }
 }
