@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    {% include 'new/component/head.html.twig' %}
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('main') }}
+    {% endblock %}
+</head>
+<body class="bg-dark text-light">
+
+<div class="pt-nav">
+    {% block body %}
+    {% endblock %}
+</div>
+
+<footer>
+    <div class="copyright">© Copyright 2020. All right reserved.</div>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</footer>
+</body>
+</html>

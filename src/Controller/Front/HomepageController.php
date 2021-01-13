@@ -9,6 +9,7 @@ use ModernGame\Database\Repository\RegulationRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Service\Connection\Minecraft\RCONService;
 use ModernGame\Service\ServerProvider;
+use ModernGame\Util\CookieProvider;
 use ModernGame\Util\RandomHexGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -20,31 +21,37 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomepageController extends AbstractController
 {
     private const PLAYER_AVATAR = 'https://minotar.net/avatar/';
+    private Response $cookieResponse;
 
     /**
      * @Route(name="index", path="/")
      *
      * @throws ContentException
      */
-    public function index(RCONService $RCONService, ServerProvider $serverProvider, Request $request, Session $session): Response
-    {
+    public function index(
+        RCONService $RCONService,
+        ServerProvider $serverProvider,
+        Request $request,
+        Session $session,
+        CookieProvider $cookieProvider
+    ): Response {
         $serverId = $request->request->get('serverId');
         if ($serverId) {
             $session->set('serverId', $serverId);
         }
 
         if (!$session->get('serverId')) {
-            return $this->render('front/serverSelect.html.twig');
+            return $this->render($cookieProvider->getVersionPrefix().'front/serverSelect.html.twig');
         }
 
-        return $this->render('front/page/index.html.twig', [
+        return $this->render($cookieProvider->getVersionPrefix().'front/page/index.html.twig', [
             'articleList' => $this->getDoctrine()->getRepository(Article::class)->getLastArticles(),
             'playerListCount' => $RCONService->getServerStatus($serverProvider->getDefaultQueryServerId())['players'] ?? 0,
             'isOnline' => (bool)$RCONService->getServerStatus($serverProvider->getDefaultQueryServerId()),
             'playerList' => $RCONService->getPlayerList(),
             'admins' => $this->getDoctrine()->getRepository(AdminServerUser::class)->findBy(['serverId' => $serverProvider->getSessionServer()]),
-            'randomHexGenerator' => new RandomHexGenerator()
-        ], $response ?? new Response());
+            'randomHexGenerator' => new RandomHexGenerator(),
+        ], $this->cookieResponse ?? null);
     }
 
     /**
@@ -57,7 +64,7 @@ class HomepageController extends AbstractController
 
         return $this->render('front/page/article.html.twig', [
             'article' => $article,
-            'avatar' => self::PLAYER_AVATAR . $article->getAuthor()->getUsername(),
+            'avatar' => self::PLAYER_AVATAR.$article->getAuthor()->getUsername(),
         ]);
     }
 
@@ -84,7 +91,25 @@ class HomepageController extends AbstractController
             'randomHexGenerator' => new RandomHexGenerator(),
             'count' => $this->getDoctrine()->getRepository(Article::class)->count([]),
             'perPages' => ArticleRepository::ARTICLE_PER_PAGES,
-            'currentPage' => $slug
+            'currentPage' => $slug,
         ]);
+    }
+
+    /**
+     * @Route(path="/new", name="set-new-style")
+     *
+     * @throws ContentException
+     */
+    public function new(
+        RCONService $RCONService,
+        ServerProvider $serverProvider,
+        Request $request,
+        Session $session,
+        CookieProvider $cookieProvider
+    ): Response {
+        $this->cookieResponse = new Response();
+        $this->cookieResponse->headers->setCookie(new Cookie('new', !$request->cookies->get('new')));
+
+        return $this->index($RCONService, $serverProvider, $request, $session, $cookieProvider);
     }
 }

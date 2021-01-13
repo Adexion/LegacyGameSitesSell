@@ -30,60 +30,12 @@
         "/build/app.291d997c.js"
       ]
     },
-    "articleStyle": {
-      "js": [
-        "/build/runtime.d94b3b43.js"
-      ],
-      "css": [
-        "/build/articleStyle.0fe412fe.css"
-      ]
-    },
-    "ruleStyle": {
-      "js": [
-        "/build/runtime.d94b3b43.js"
-      ],
-      "css": [
-        "/build/ruleStyle.f56333b2.css"
-      ]
-    },
-    "itemshopStyle": {
-      "js": [
-        "/build/runtime.d94b3b43.js"
-      ],
-      "css": [
-        "/build/itemshopStyle.6198af4f.css"
-      ]
-    },
-    "loginStyle": {
-      "js": [
-        "/build/runtime.d94b3b43.js"
-      ],
-      "css": [
-        "/build/loginStyle.35c3b35f.css"
-      ]
-    },
-    "userStyle": {
-      "js": [
-        "/build/runtime.d94b3b43.js"
-      ],
-      "css": [
-        "/build/userStyle.d432f0f6.css"
-      ]
-    },
     "main": {
       "js": [
         "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/main.b8798933.css"
-      ]
-    },
-    "nav": {
-      "js": [
-        "/build/runtime.d94b3b43.js"
-      ],
-      "css": [
-        "/build/nav.1883877e.css"
+        "/build/main.d022ebb1.css"
       ]
     }
   }

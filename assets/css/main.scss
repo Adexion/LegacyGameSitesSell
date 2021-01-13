@@ -1,9 +1,15 @@
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/brands';
-@import "~bootstrap";
+@import '../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
+@import '../../node_modules/@fortawesome/fontawesome-free/scss/regular';
+@import '../../node_modules/@fortawesome/fontawesome-free/scss/solid';
+@import '../../node_modules/@fortawesome/fontawesome-free/scss/brands';
+@import "../../node_modules/bootstrap";
+@import "articleStyle";
 @import "cutomButtons";
+@import "itemshopStyle";
+@import "loginStyle";
+@import "nav";
+@import "ruleStyle";
+@import "userStyle";
 
 html {
   scroll-behavior: smooth;
@@ -122,9 +128,9 @@ a {
 }
 
 .box-shadow {
-  -webkit-box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.5);
-  -moz-box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.5);
-  box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.5);
+  -webkit-box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 .media-container {
@@ -216,7 +222,7 @@ a {
   text-align: center;
   font-size: 50pt;
   display: block;
-  border: 1px solid rgba(0,0,0,.1);
+  border: 1px solid rgba(0, 0, 0, .1);
   min-height: 300px;
   line-height: 300px;
 }

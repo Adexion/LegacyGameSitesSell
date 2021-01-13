@@ -10,16 +10,9 @@ Encore
     .addEntry('paymentStatistic', './assets/js/panel/paymentStatistic.js')
     .addEntry('shopStatistic', './assets/js/panel/shopStatistic.js')
 
-    .addStyleEntry('articleStyle', './assets/css/articleStyle.scss')
-    .addStyleEntry('ruleStyle', './assets/css/ruleStyle.scss')
-    .addStyleEntry('itemshopStyle', './assets/css/itemshopStyle.scss')
-    .addStyleEntry('loginStyle', './assets/css/loginStyle.scss')
-    .addStyleEntry('userStyle', './assets/css/userStyle.scss')
-
     .addEntry('app', './assets/js/app/app.ts')
 
     .addStyleEntry('main', './assets/css/main.scss')
-    .addStyleEntry('nav', './assets/css/nav.scss')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()

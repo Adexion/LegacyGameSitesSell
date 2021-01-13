@@ -1,10 +1,5 @@
 {% extends "front/base.html.twig" %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('userStyle') }}
-{% endblock %}
-
 {% block body %}
     {% if message is defined %}
         <div class="alert alert-success m-3 p-3">
