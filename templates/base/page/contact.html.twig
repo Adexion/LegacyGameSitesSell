@@ -1,0 +1,42 @@
+{% extends "base/base.html.twig" %}
+
+{% block body %}
+    {% if message is defined %}
+        <div class="alert alert-success m-3 p-3">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    <div class="container pt-3">
+        <div class="row bg-darker pl-3 pr-3">
+            <div class="col-lg-6 col-12 mt-3 mb-3">
+                {{ form_start(contact_form) }}
+                {{ form_row(contact_form.name) }}
+                {{ form_row(contact_form.email) }}
+                {{ form_row(contact_form.subject) }}
+                {{ form_row(contact_form.type) }}
+                {{ form_row(contact_form.message) }}
+
+                <div id="recaptcha-component"></div>
+
+                <button class="btn btn-block btn-success" type="submit">Wyślij wiadomość</button>
+                {{ form_end(contact_form) }}
+            </div>
+            <div class="col-lg-6 col-12 mt-3 mb-3">
+                <h3>Chcesz się z nami skontaktować?</h3>
+                <h4>A może masz dla nas ważną wiadomość?</h4>
+                <hr/>
+                <p>Ten formularz kontaktowy ułatwi ci z nami konwersację.</p>
+                <p>Jeśli jesteś zarejestrowany i się zalogujesz, to wiadomość zostanie automatyczna przypisana do
+                    twojego konta. Umożliwi nam to szybki kontakt! Łatwiej dorwać ludzi na serwerze niż na emailu :P</p>
+                <br/>
+                <p>Nie chcesz się logować? Nie ma problemu. Po prostu wyślij do nas wiadomość i już! Postaramy się
+                    odpowiedzieć jak najszybciej.</p>
+                <p>Pamiętaj — my także jesteśmy ludźmi, ale mimo to staramy się jak najszybciej udzielić ci
+                    wsparcia!</p>
+                <hr/>
+                <h4>Dzięki, że jesteś z nami!</h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}

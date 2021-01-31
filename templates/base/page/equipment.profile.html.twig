@@ -1,0 +1,37 @@
+{% extends "base/page/user.html.twig" %}
+
+{% block content %}
+    <div class="user-equipment">
+        {% if code == 206 or code == 200 %}
+            <div class=" {% if code == 206 %}alert alert-warning{% else %}alert alert-success{% endif %}">{{ code | trans }}</div>
+        {% endif %}
+
+        {% if userItemList | length > 1 %}
+            <form action="{{ path('item-list-profile') }}" method="post">
+                <button class="btn btn-success btn-block">{% trans %}Execute all{% endtrans %}</button>
+            </form>
+        {% elseif userItemList is empty %}
+            <div class="alert alert-info">{% trans %}Nothing to do here{% endtrans %}</div>
+        {% endif %}
+        {% for item in userItemList %}
+            <div class="w-100">
+                <div class="user-item">
+                    <img src="{{ item.icon }}" class="item-image" alt="{{ item.name }}">
+                    <span class="quantity">{{ item.quantity }}</span>
+                </div>
+                <div class="item-information">
+                    <h1 class="h4">{{ item.name }}</h1>
+                    {% for s in server %}
+                        {% if s.id == item.item.itemList.serverId %}
+                            <h2 class="h5 text-light">Dotyczy serwera: {{ s.name }}</h2>
+                        {% endif %}
+                    {% endfor %}
+                    <form action="{{ path('item-profile') }}" method="post">
+                        <input type="hidden" name="itemId" value="{{ item.id }}"/>
+                        <button class="btn btn-warning">{% trans %}Execute{% endtrans %}</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

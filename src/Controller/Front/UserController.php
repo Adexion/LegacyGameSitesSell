@@ -8,13 +8,9 @@ use ModernGame\Database\Repository\UserRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Form\UserEditType;
 use ModernGame\Service\Connection\Minecraft\ExecuteItemService;
-use ModernGame\Service\Connection\Minecraft\RCONService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class UserController extends AbstractController
 {
@@ -23,7 +19,7 @@ class UserController extends AbstractController
      */
     public function userProfile()
     {
-        return $this->render('front/page/user.profile.html.twig');
+        return $this->render('base/page/user.profile.html.twig');
     }
 
     /**
@@ -51,8 +47,8 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user-profile');
         }
 
-        return $this->render('front/page/edit.profile.html.twig', [
-            'edit_form' => $form->createView()
+        return $this->render('base/page/edit.profile.html.twig', [
+            'edit_form' => $form->createView(),
         ]);
     }
 
@@ -61,9 +57,9 @@ class UserController extends AbstractController
      */
     public function equipmentProfile(Request $request)
     {
-        return $this->render('front/page/equipment.profile.html.twig', [
+        return $this->render('base/page/equipment.profile.html.twig', [
             'userItemList' => $this->getDoctrine()->getRepository(UserItem::class)->findBy(['user' => $this->getUser()]),
-            'code' => $request->query->getInt('code')
+            'code' => $request->query->getInt('code'),
         ]);
     }
 
@@ -75,7 +71,7 @@ class UserController extends AbstractController
     public function itemExecute(Request $request, ExecuteItemService $executeItemService)
     {
         return $this->redirectToRoute('equipment-profile', [
-            'code' => $executeItemService->executeItem($this->getUser(), $request->request->getInt('itemId'))
+            'code' => $executeItemService->executeItem($this->getUser(), $request->request->getInt('itemId')),
         ]);
     }
 
@@ -87,7 +83,7 @@ class UserController extends AbstractController
     public function itemListExecute(Request $request, ExecuteItemService $executeItemService)
     {
         return $this->redirectToRoute('equipment-profile', [
-            'code' => $executeItemService->executeItem($this->getUser())
+            'code' => $executeItemService->executeItem($this->getUser()),
         ]);
     }
 }

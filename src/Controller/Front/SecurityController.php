@@ -12,7 +12,6 @@ use ModernGame\Form\ResetPasswordType;
 use ModernGame\Form\ResetType;
 use ModernGame\Service\Mail\MailSenderService;
 use ModernGame\Service\User\WalletService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +43,7 @@ class SecurityController extends AbstractController
                 ->addError(new FormError('Login lub hasło jest nieprawidłowy.'));
         }
 
-        return $this->render('front/page/login.html.twig', [
+        return $this->render('base/page/login.html.twig', [
             'error' => $error,
             'last_username' => $lastUsername,
             'csrf_token_intention' => 'authenticate',
@@ -79,7 +78,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('front/page/register.html.twig', [
+        return $this->render('base/page/register.html.twig', [
             'register_form' => $form->createView(),
             'site_key' => $this->getParameter('google')['siteKey']
         ]);
@@ -119,7 +118,7 @@ class SecurityController extends AbstractController
             }
         }
 
-        return $this->render('front/page/forgotPassword.html.twig', [
+        return $this->render('base/page/forgotPassword.html.twig', [
             'send' => $send ?? false,
             'form' => $form->createView()
         ]);
@@ -155,7 +154,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('front/page/resetPassword.html.twig', [
+        return $this->render('base/page/resetPassword.html.twig', [
             'form' => $form->createView(),
             'link' => '/reset/' . $token
         ]);

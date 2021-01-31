@@ -1,0 +1,46 @@
+{% extends 'base/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="mt-3">
+        <div class="text-center">
+            <h1>Najczęściej zadawane pytania</h1>
+            <h5>Masz do nas jakieś pytanie, a nie ma go na poniższej liście? Napisz do nas w formularzu kontaktowym.
+                Być może się ono pojawi!
+            </h5>
+            <hr/>
+        </div>
+
+        <div id="accordion" class="p-2">
+            {% for faq in faqList %}
+                <div class="card">
+                    <div class="card-header bg-light position-relative" id="faqHead{{ faq.id }}">
+                        <label class="h5 mb-0 w-100">
+                            <a class="text-dark font-weight-bold w-100 d-block" data-toggle="collapse"
+                               data-target="#faq{{ faq.id }}"
+                               aria-expanded="true" aria-controls="faq{{ faq.id }}">
+                                {{ loop.index }}. {{ faq.question }}
+                                <span class="fa fa-chevron-down text-dark font-weight-bold right bottom-15 position-absolute"></span>
+                            </a>
+                        </label>
+
+                    </div>
+
+                    <div id="faq{{ faq.id }}" class="collapse" aria-labelledby="faqHead{{ faq.id }}"
+                         data-parent="#accordion">
+                        <div class="card-body">
+                            {{ faq.answer }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

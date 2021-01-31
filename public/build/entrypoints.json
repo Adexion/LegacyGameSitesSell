@@ -3,9 +3,9 @@
     "paymentStatistic": {
       "js": [
         "/build/runtime.d94b3b43.js",
-        "/build/0.2c87cd30.js",
-        "/build/1.56fc4a34.js",
-        "/build/paymentStatistic.268f96c1.js"
+        "/build/0.6a9f4f4b.js",
+        "/build/1.3dabc676.js",
+        "/build/paymentStatistic.178dce03.js"
       ],
       "css": [
         "/build/paymentStatistic.99c21d8d.css"
@@ -14,9 +14,9 @@
     "shopStatistic": {
       "js": [
         "/build/runtime.d94b3b43.js",
-        "/build/0.2c87cd30.js",
-        "/build/1.56fc4a34.js",
-        "/build/shopStatistic.00d0aea3.js"
+        "/build/0.6a9f4f4b.js",
+        "/build/1.3dabc676.js",
+        "/build/shopStatistic.51f28d72.js"
       ],
       "css": [
         "/build/shopStatistic.99c21d8d.css"
@@ -25,9 +25,9 @@
     "app": {
       "js": [
         "/build/runtime.d94b3b43.js",
-        "/build/0.2c87cd30.js",
-        "/build/2.d6dbd12b.js",
-        "/build/app.291d997c.js"
+        "/build/0.6a9f4f4b.js",
+        "/build/2.e5d8567f.js",
+        "/build/app.2d5086cc.js"
       ]
     },
     "main": {
@@ -35,7 +35,15 @@
         "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/main.d022ebb1.css"
+        "/build/main.a2334cf8.css"
+      ]
+    },
+    "new-main": {
+      "js": [
+        "/build/runtime.d94b3b43.js"
+      ],
+      "css": [
+        "/build/new-main.55ee6a01.css"
       ]
     }
   }

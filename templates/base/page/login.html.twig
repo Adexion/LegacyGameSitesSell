@@ -1,0 +1,31 @@
+{% extends 'base/base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid pt-5">
+        <div class="col-lg-6 col-12 m-auto bg-darker d-flex">
+            <div class="column column--left">
+                {{ form_start(login_form, {action: 'login'}) }}
+                {{ form_row(login_form._username) }}
+                {{ form_row(login_form._password) }}
+
+                <button class="btn btn-primary w-100" type="submit">{% trans %}Sign in{% endtrans %}</button>
+                <a class="text-white" href="{{ path('forgot-password') }}">{% trans %}Forgot password{% endtrans %}?</a>
+                {{ form_end(login_form) }}
+            </div>
+            <div class="column column--middle">
+                <span class="vertical-line"></span>
+                <p class="bg-darker">OR</p>
+            </div>
+            <div class="column column--right">
+                <a href="{{ path('register') }}" class="btn btn-secondary w-75 m-auto">
+                    <i class="fas fa-sign-in-alt"></i>
+                    {% trans %}Create account{% endtrans %}
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

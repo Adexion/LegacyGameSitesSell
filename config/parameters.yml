@@ -6,11 +6,13 @@ parameters:
   whitelistCommands: [ unban, pardon, ban ]
   defaultQueryServerId: 1
   defaultRconServerId: 1
+  defaultVersion: 'latest'
+  latest: 'new'
 
   server:
     1:
       id: 1
-      name: 'ModernGame'
+      name: 'MGame'
       host: '95.214.52.188'
       queryPort: '21370'
       port: '25576'

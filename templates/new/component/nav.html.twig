@@ -1,0 +1,13 @@
+<nav class="navbar w-100 col-lg-12">
+    <span type="button" id="sidebarCollapse">
+        <i class="fas fa-align-justify text-white"></i>
+    </span>
+
+    <script>
+        (function () {
+            document.querySelector('#sidebarCollapse').addEventListener('click', function () {
+                document.querySelector('#sidebar').classList.toggle('active');
+            });
+        })();
+    </script>
+</nav>

@@ -1,0 +1,133 @@
+{% extends 'new/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <script src="https://www.paypal.com/sdk/js?client-id={{ paypalClient }}&currency=PLN"></script>
+{% endblock %}
+
+{% block body %}
+    {% include 'base/component/notLogged.html.twig' %}
+    {% include 'base/component/wallet.html.twig' %}
+    <div class="w-100" id="error-container"></div>
+
+    <div class="list-flex">
+        {% for itemList in itemLists %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4 class="font-weight-bold">{{ itemList.name }}</h4>
+                </div>
+                <div class="card-body">
+                    <img src="{{ itemList.sliderImage }}" alt="{{ itemList.name }}" class="w-100">
+                    <p class="m-2">
+                        {{ itemList.description | raw }}
+                    </p>
+                    <div class="mb-2">
+                        <i class="fas fa-coins text-warning"></i>
+                        {% if itemList.promotion %}
+                            <s class="text-danger">{{ itemList.price | number_format(2) }}</s>
+                        {% endif %}
+                        <span class="font-weight-bold text-warning"
+                              id="afterPromotion{{ itemList.id }}">{{ itemList.afterPromotionPrice | number_format(2) }} zł</span>
+                    </div>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <div class="float-right ">
+                            <button
+                                    data-toggle="modal" data-target="#paymentModal"
+                                    data-item-list-id="{{ itemList.id }}" class="btn btn-success btn-payment">
+                                Przejdź do płatności
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="modal fade" tabindex="-1" id="prepaidModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Wybierz sposób płatności</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="paySafeCard-form" style="display: none;">
+                        Jesteś w trakcie doładowywania konta prepaid.
+                        Podaj kwotę za którą chcesz doładować swoje konto.
+
+                        <div class="form-group">
+                            <label class="w-100">Kwota doładowania
+                                <input id="money" class="form-control w-" type="number" step="0.1" min="1" value="1"/>
+                            </label>
+                            <button class="btn btn-block btn-primary m-auto" data-toggle="modal"
+                                    data-target="#paymentModal"
+                                    data-dismiss="modal">Przejdź do płatnośći
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-header">
+                    <h5 class="modal-title">Doładownaie PaySafeCard</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group" action="{{ path('paySafeCard-status') }}" method="POST">
+                        Chcesz doładowac konto prepaid za pomoca PaySafeCard? Nic prostrzego! <br>
+                        Podaj kod, a my przypiszemy całość kwoty z karty do twojego konta
+                        prepaid.*
+                        <br/>
+                        <br/>
+                        <div class="form-group">
+                            <label class="w-100">Kod PaySafeCard:
+                                <input name="code" id="code" type="text" class="form-control" min="1"/>
+                            </label>
+                            <button type="submit" class="btn btn-block btn-primary m-auto">
+                                <i class="fas fa-lock text-danger"></i> <strong>PaySafe</strong>Card
+                            </button>
+                        </div>
+                        <span class="text-danger">* - kwota zostanie pomniejszona o 10% wartości</span>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    Po zakończeniu płatności prosimy o chwilę cierpliwości. Jeśli&nbsp;wszytko przebiegnie
+                    poprawnie,<br/>
+                    to zostaniesz przekierowany na stronę podsumowania.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" id="paymentModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Wybierz sposób płatności</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="paypal-button-container"></div>
+                    <form action="{{ path('prepaid-status') }}" method="post" class="d-inline-block" id="prepaid-payment-form" style="display: none !important;">
+                        {% if wallet.cash is defined %}
+                            {% if wallet.cash > 0 %}
+                                <input id="prepaid-payment-form-input" type="hidden" name="itemListId">
+
+                                <button class="btn btn-info btn-lg btn-block btn-prepaid" id="prepaid"
+                                        type="submit">
+                                    Zapłać z Prepaida
+                                </button>
+                            {% endif %}
+                        {% endif %}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    Po zakończeniu płatności prosimy o chwilę cierpliwości. Jeśli&nbsp;wszytko przebiegnie
+                    poprawnie,<br/>
+                    to zostaniesz przekierowany na stronę podsumowania.
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

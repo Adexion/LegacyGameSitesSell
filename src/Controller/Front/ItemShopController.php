@@ -17,7 +17,6 @@ use ModernGame\Service\Connection\Payment\PayPal\PayPalService;
 use ModernGame\Service\Mail\MailSenderService;
 use ModernGame\Service\ServerProvider;
 use ModernGame\Service\User\WalletService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,7 +30,7 @@ class ItemShopController extends AbstractController
     {
         $server = $serverProvider->getSessionServer();
 
-        return $this->render('front/page/itemshop.html.twig', [
+        return $this->render('base/page/itemshop.html.twig', [
             'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $serverProvider->getSessionServer()['id']]),
             'paypalClient' => $server['paypal']['client'],
             'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
@@ -65,7 +64,7 @@ class ItemShopController extends AbstractController
             $code = Response::HTTP_OK;
         }
 
-        return $this->render('front/page/payment.html.twig', [
+        return $this->render('base/page/payment.html.twig', [
             'itemList' => $itemList,
             'responseType' => $code,
             'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
@@ -93,7 +92,7 @@ class ItemShopController extends AbstractController
         );
 
         if ($paymentHistory instanceof PaymentHistory) {
-            return $this->render('front/page/payment.html.twig', [
+            return $this->render('base/page/payment.html.twig', [
                 'itemList' => [],
                 'responseType' => Response::HTTP_TOO_MANY_REQUESTS,
                 'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
@@ -115,7 +114,7 @@ class ItemShopController extends AbstractController
             $code = Response::HTTP_OK;
         }
 
-        return $this->render('front/page/payment.html.twig', [
+        return $this->render('base/page/payment.html.twig', [
             'itemList' => $itemList,
             'responseType' => $code,
             'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
@@ -128,7 +127,7 @@ class ItemShopController extends AbstractController
     public function paySafeCardStatus(Request $request, MailSenderService $mailSenderService): Response
     {
         if (empty($request->request->get('code'))) {
-            return $this->render('front/page/paySafeCard.html.twig', [
+            return $this->render('base/page/paySafeCard.html.twig', [
                 'responseType' => Response::HTTP_BAD_REQUEST,
                 'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
             ]);
@@ -152,7 +151,7 @@ class ItemShopController extends AbstractController
             'moderngameservice@gmail.com'
         );
 
-        return $this->render('front/page/paySafeCard.html.twig', [
+        return $this->render('base/page/paySafeCard.html.twig', [
             'responseType' => Response::HTTP_OK,
             'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
         ]);

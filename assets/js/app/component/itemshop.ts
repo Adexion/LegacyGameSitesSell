@@ -13,12 +13,13 @@ export class ItemShopService implements ClassInterface {
     generate() {
         let collection: HTMLCollection = document.getElementsByClassName('btn-payment');
 
-        Array.from(collection).forEach((element: HTMLAnchorElement) => {
+        Array.from(collection).forEach((element: HTMLButtonElement) => {
             element.addEventListener('click', (event) => {
+
                 document.querySelector('#paySafeCard-form').setAttribute('style', 'display: none;');
 
                 let target: EventTarget = event.currentTarget;
-                if (target instanceof HTMLAnchorElement) {
+                if (target instanceof HTMLButtonElement) {
                     let itemListId = Number(target.attributes.getNamedItem('data-item-list-id').value);
                     this.putScriptInsidePaypalContentModal(itemListId);
                 }
@@ -26,7 +27,6 @@ export class ItemShopService implements ClassInterface {
         });
 
         document.querySelector('#wallet').addEventListener('click', () => {
-            document.querySelector('#prepaid-price').setAttribute('style', 'display: block;');
             document.querySelector('#paySafeCard-form').setAttribute('style', 'display: block;');
             document.querySelector('#prepaid-payment-form').setAttribute('style', 'display: none !important;');
 
@@ -50,7 +50,6 @@ export class ItemShopService implements ClassInterface {
     }
 
     private putScriptInsidePaypalContentModal(itemListId: number) {
-        document.querySelector('#prepaid-price').setAttribute('style', 'display: none;');
         document.querySelector('#prepaid-payment-form').setAttribute('style', 'display: block !important;');
 
         const itemListIdInput: HTMLInputElement = document.querySelector('#prepaid-payment-form-input');

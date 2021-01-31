@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    {% include 'new/component/head.html.twig' %}
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('new-main') }}
+    {% endblock %}
+</head>
+<body>
+
+<div class="card">
+    <div class="card-header">
+        <h1 class="text-center text-shadow">Wybierz serwer</h1>
+    </div>
+    <div class="card-body">
+        {% block body %}
+            {% for s in server | reverse %}
+                {% if s.src is defined %}
+                    <form method="post" class="flex-preset position-relative">
+                        <input name="serverId" type="hidden" value="{{ s.id }}"/>
+                        <div style="background-image: url('{{ s.src }}')" onclick="this.parentNode.submit();" class="server-selector"></div>
+                    </form>
+                {% endif %}
+            {% endfor %}
+        {% endblock %}
+    </div>
+</div>

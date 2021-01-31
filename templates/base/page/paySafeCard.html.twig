@@ -1,0 +1,25 @@
+{% extends 'base/base.html.twig' %}
+
+{% block body %}
+    <div class="container pt-2">
+        <div class="row">
+            {% include 'base/component/notLogged.html.twig' %}
+            <div class="wallet-container alert alert-success">
+                <i class="fas fa-wallet"></i>
+                Stan twojego konta wynosi: {{ wallet.cash | number_format(2) }} zł.
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center pt-5 mt-5">
+        {% if responseType == 200 %}
+            <h1 class="text-info">Otrzymaliśmy twój kod PaySafeCard</h1>
+            <h2 class="h3">Skontaktuj się z nami, lub poczekaj 24h w celu weryfikacji kodu!</h2>
+            <br/>
+            <h3 class="h3">Twoje konto automatycznie zostanie doładowane śrdokami, jeżeli są one dostępne.</h3>
+        {% else %}
+            <h1 class="text-danger">Wystąpił błąd podczas dodawania kodu PaySafeCard!</h1>
+            <h2>Sprawdź, czy na pewno uzupełniłeś odpowiednie pole!</h2>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -7,13 +7,23 @@ RUN pecl install apcu
 RUN apt update && \
 apt install -y \
 libzip-dev \
-nodejs \
-npm 
+libicu-dev \
+gnupg2
 
-RUN npm install -g yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt update && apt install -y yarn
+RUN yarn install
 
-RUN docker-php-ext-enable apcu
-RUN docker-php-ext-install zip pdo pdo_mysql sockets
+RUN touch /.yarnrc
+RUN chmod 777 /.yarnrc
+
+RUN mkdir -p /.cache/yarn && mkdir /.yarn
+RUN chmod 777 /.cache/yarn && chmod 777 /.yarn
+
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install zip pdo pdo_mysql sockets intl
+RUN docker-php-ext-enable apcu zip pdo pdo_mysql sockets intl
 
 WORKDIR /usr/src/app
 

@@ -37,6 +37,11 @@ class ActionSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
+        $setCookie = $request->query->get('new');
+        if (isset($setCookie)) {
+            $request->cookies->set('new', $setCookie);
+        }
+
         if (strpos($request->getContentType(), 'json') === false) {
             return;
         }

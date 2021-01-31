@@ -1,0 +1,39 @@
+{% extends "new/base.html.twig" %}
+
+{% block body %}
+    {% if message is defined %}
+        <div class="alert alert-success m-3 p-3">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="font-weight-bold">Chcesz się z nami skontaktować?
+                A może masz dla nas ważną wiadomość?</h4>
+        </div>
+        <div class="card-body">
+            <div class="dashed">
+                <p>Jeśli jesteś zarejestrowany i się zalogujesz, to wiadomość zostanie automatyczna przypisana do
+                    twojego konta. Umożliwi nam to szybki kontakt! Łatwiej dorwać ludzi na serwerze niż na emailu :P</p>
+                <p>Nie chcesz się logować? Nie ma problemu. Po prostu wyślij do nas wiadomość i już! Postaramy się
+                    odpowiedzieć jak najszybciej.</p>
+                <p>Pamiętaj — my także jesteśmy ludźmi, Staramy się jak najszybciej udzielić ci
+                    wsparcia!</p>
+            </div>
+            <div class="mb-2">
+                {{ form_start(contact_form) }}
+                {{ form_row(contact_form.name) }}
+                {{ form_row(contact_form.email) }}
+                {{ form_row(contact_form.subject) }}
+                {{ form_row(contact_form.type) }}
+                {{ form_row(contact_form.message) }}
+
+                <div id="recaptcha-component"></div>
+
+                <button class="btn btn-block btn-success" type="submit">Wyślij wiadomość</button>
+                {{ form_end(contact_form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

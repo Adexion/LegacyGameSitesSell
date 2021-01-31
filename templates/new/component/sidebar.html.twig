@@ -1,0 +1,47 @@
+<nav id="sidebar" class="box-shadow">
+    <div class="sidebar-header">
+        <h3>ModernGame</h3>
+        <strong>MG</strong>
+    </div>
+
+    <ul class="list-unstyled components">
+        <li class="active">
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-home"></i>Serwery
+            </a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+                {% for s in server %}
+                    {% if s.src is defined %}
+                        <form method="post" action="/">
+                            <input name="serverId" type="hidden" value="{{ s.id }}"/>
+                            <input class="bg-transparent border-0" type="submit" alt="{{ s.name }}" value="{{ s.name }}"/>
+                        </form>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <a href="{{ path('show-article-list') }}"><i class="fas fa-list"></i>Artykuły</a>
+            <a href="{{ path('tutorial-front') }}"><i class="fas fa-film"></i>Poradniki</a>
+            <a href="{{ path('rule') }}"><i class="fas fa-ruler-vertical"></i>Zasady</a>
+            <a href="{{ path('faq-front') }}"><i class="fas fa-question"></i>FAQ</a>
+            <a href="{{ path('contact-front') }}"><i class="fas fa-book"></i>Kontakt</a>
+
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-copy"></i>Panel
+            </a>
+            <ul class="list-unstyled collapse" id="pageSubmenu">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li><a href="{{ path('user-profile') }}">Ustawiena</a></li>
+                    <li><a href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a></li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a class="bg-warning" href="{{ path('panel') }}">Admin</a></li>
+                    {% endif %}
+                {% else %}
+                    <li><a href="{{ path('login') }}">Zaloguj</a></li>
+                    <li><a href="{{ path('register') }}">Zarejestruj</a></li>
+                {% endif %}
+            </ul>
+        </li>
+    </ul>
+</nav>

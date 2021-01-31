@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    {% include 'base/component/head.html.twig' %}
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('main') }}
+    {% endblock %}
+</head>
+<body class="bg-dark text-light">
+
+<div class="server-header">
+    <h1 class="text-center text-shadow">Wybierz serwer</h1>
+</div>
+
+<div class="d-flex bg-black flex-dir">
+    {% block body %}
+        {% for s in server %}
+            {% if loop.index - 1 < ((server | length - 1) / 2) %}
+                {% set class = "server server--left" %}
+            {% elseif loop.index - 1 == ((server | length - 1) / 2) %}
+                {% set class = "server server--center" %}
+            {% else %}
+                {% set class = "server server--right" %}
+            {% endif %}
+            {% if s.src is defined %}
+                <form method="post" class="flex-preset position-relative">
+                    <input name="serverId" type="hidden" value="{{ s.id }}"/>
+                    <div class="{{ class }}" style="background-image: url('{{ s.src }}')" onclick="this.parentNode.submit();"></div>
+                </form>
+            {% endif %}
+        {% endfor %}
+    {% endblock %}
+</div>
+</body>
+</html>

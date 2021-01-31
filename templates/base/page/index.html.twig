@@ -1,0 +1,11 @@
+{% extends 'base/base.html.twig' %}
+
+{% block body %}
+    {% include 'base/component/banner.html.twig' %}
+    {% include 'base/component/article.html.twig' %}
+    {% include 'base/component/information.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

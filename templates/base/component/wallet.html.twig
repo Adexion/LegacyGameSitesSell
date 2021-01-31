@@ -1,0 +1,24 @@
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4 class="font-weight-bold">Witamy w ItemShopie</h4>
+        </div>
+        <div class="card-body">
+            <span>Używając naszego systemu, możesz wykonywać płatności natychmiastowe
+            <span class="text-warning"><i class="fab fa-paypal">&nbsp;</i>PayPalem</span>,
+            <span class="text-danger"><i class="fa fa-exchange-alt">&nbsp;</i>przelewami</span>,
+            czy <span class="text-secondary"><i class="fa fa-credit-card">&nbsp;</i>kartami płatniczymi</span>.
+            </span><br/>
+            <span>Możesz także użyć ich, by doładować swój portfel.</span><br/>
+            <span>Istnieje możliwość doładowania portfela za pomocą  <span class="text-primary"><i class="fa fa-lock">&nbsp;</i>PaySafeCarda</span>, przy czym weryfikacja może potrwać do 24h.</span><br/>
+            <span>Każdy z kodów musimy weryfikować ręcznie, dlatego prosimy o kontakt z administracją serwera, jeżeli zależy Ci na czasie.</span><br/><br/>
+            <h5>Dzięki, ze jestes z nami!</h5>
+        </div>
+    </div>
+
+    <div class="wallet-container alert alert-success">
+        <i class="fas fa-wallet"></i>
+        Stan twojego konta wynosi: {{ wallet.cash | number_format(2) }} zł. Chcesz je doładować?
+        <button id="wallet" class="border-0 bg-transparent" data-toggle="modal" data-target="#prepaidModal">kliknij tutaj!</button>
+    </div>
+{% endif %}

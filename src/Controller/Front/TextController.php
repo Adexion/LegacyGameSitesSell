@@ -4,7 +4,6 @@ namespace ModernGame\Controller\Front;
 
 use ModernGame\Database\Repository\FAQRepository;
 use ModernGame\Database\Repository\TutorialRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,7 +14,7 @@ class TextController extends AbstractController
      */
     public function faq(FAQRepository $repository): Response
     {
-        return $this->render('front/page/faq.html.twig', [
+        return $this->render('base/page/faq.html.twig', [
             'faqList' => $repository->findAll()
         ]);
     }
@@ -25,7 +24,7 @@ class TextController extends AbstractController
      */
     public function tutorial(TutorialRepository $repository): Response
     {
-        return $this->render('front/page/tutorial.twig', [
+        return $this->render('base/page/tutorial.twig', [
             'tutorialList' => $repository->findAll()
         ]);
     }

@@ -1,0 +1,24 @@
+@import "variables";
+
+.card-header {
+  background: $bleach-green-bg !important;
+  text-shadow: $shadow;
+  color: $custom-text;
+  background: linear-gradient(45deg, $bleach-green-bg 0%, $bleach-blue-bg 100%) !important;
+}
+
+.card-body {
+  position: relative;
+
+  .author {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.25rem;
+
+    .avatar {
+      height: 25px;
+      border-radius: 25px;
+    }
+  }
+}
+
