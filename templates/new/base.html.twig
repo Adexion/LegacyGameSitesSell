@@ -16,7 +16,7 @@
             {% include 'new/component/nav.html.twig' %}
         </div>
         <div class="row content">
-            {% if path(app.request.attributes.get('_route')) == path('index') %}
+            {% if app.request.attributes.get('_route') == 'index' %}
                 {% for s in server %}
                     {% if s.src is defined and s.id == app.session.get('serverId')%}
                         <div style="background-image: url({{ asset(s.src) }})" class="site-image"></div>
