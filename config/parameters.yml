@@ -6,7 +6,7 @@ parameters:
   whitelistCommands: [ unban, pardon, ban ]
   defaultQueryServerId: 1
   defaultRconServerId: 1
-  defaultVersion: 'latest'
+  old: 'base'
   latest: 'new'
 
   server:
@@ -46,4 +46,4 @@ parameters:
         serviceId: 3235
       defaultCommand: 'list'
       playerNotFoundCommunicate: 'Player not found.'
-      src: 'assets/guildwar_logo.jpg'
+      src: 'assets/guildwar_logo.png'

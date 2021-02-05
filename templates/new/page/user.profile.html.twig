@@ -13,7 +13,7 @@
                             {% if is_granted('ROLE_ADMIN') %}
                                 <span class="text-danger">ADMINISTRATOR</span>
                             {% else %}
-                                <span class="text-success">GRACZ</span>
+                                <span class="text-info">GRACZ</span>
                             {% endif %}
                         </label>
                         <input id="username" type="text" class="form-control" value="{{ app.user.username }}" disabled/>

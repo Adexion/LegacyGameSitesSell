@@ -16,15 +16,22 @@
             {% include 'new/component/nav.html.twig' %}
         </div>
         <div class="row content">
+            {% if path(app.request.attributes.get('_route')) == path('index') %}
+                {% for s in server %}
+                    {% if s.src is defined and s.id == app.session.get('serverId')%}
+                        <div style="background-image: url({{ asset(s.src) }})" class="site-image"></div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
             <div class="col-2 col-lg-none col-md-none">
                 {% include 'new/component/shortcast.html.twig' %}
                 {% include 'new/component/toast.html.twig' %}
                 <span class="footer">© Copyright 2020. All right reserved.</span>
             </div>
-            <div class="col-xl-7 col-lg-12 col-md-12">
+            <div class="col-xl-8 col-lg-12 col-md-12">
                 {% block body %}{% endblock %}
             </div>
-            <div class="col-3 col-lg-none col-md-none">
+            <div class="col-2 col-lg-none col-md-none">
                 {% include 'new/component/additional.html.twig' %}
             </div>
         </div>

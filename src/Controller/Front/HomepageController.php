@@ -26,13 +26,9 @@ class HomepageController extends AbstractController
         Request $request,
         Session $session
     ): Response {
-        $serverId = $request->request->get('serverId');
+        $serverId = $request->request->get('serverId', 1);
         if ($serverId) {
             $session->set('serverId', $serverId);
-        }
-
-        if (!$session->get('serverId')) {
-            return $this->render('base/serverSelect.html.twig');
         }
 
         return $this->render('base/page/index.html.twig', [

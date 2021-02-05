@@ -5,10 +5,7 @@
         "/build/runtime.d94b3b43.js",
         "/build/0.6a9f4f4b.js",
         "/build/1.3dabc676.js",
-        "/build/paymentStatistic.178dce03.js"
-      ],
-      "css": [
-        "/build/paymentStatistic.99c21d8d.css"
+        "/build/paymentStatistic.9feaf570.js"
       ]
     },
     "shopStatistic": {
@@ -16,10 +13,7 @@
         "/build/runtime.d94b3b43.js",
         "/build/0.6a9f4f4b.js",
         "/build/1.3dabc676.js",
-        "/build/shopStatistic.51f28d72.js"
-      ],
-      "css": [
-        "/build/shopStatistic.99c21d8d.css"
+        "/build/shopStatistic.d48ede9c.js"
       ]
     },
     "app": {
@@ -35,7 +29,7 @@
         "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/main.a2334cf8.css"
+        "/build/main.3f03acb6.css"
       ]
     },
     "new-main": {
@@ -43,7 +37,7 @@
         "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/new-main.55ee6a01.css"
+        "/build/new-main.e50734d5.css"
       ]
     }
   }

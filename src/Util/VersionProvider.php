@@ -25,13 +25,13 @@ class VersionProvider
         $this->container = $container;
     }
 
-    public function getVersionOfView(string $view): string {
-        $defaultVersion = $this->container->getParameter('defaultVersion');
-        if ($this->cookies->getInt('new') === $defaultVersion) {
-            return $view;
-        }
+    public function getVersionOfView(string $view): string
+    {
+        $version = !$this->cookies->get('new')
+            ? $this->container->getParameter('latest')
+            : $this->container->getParameter($this->cookies->get('new', 'latest')) ?? $this->container->getParameter('latest');
 
-        return str_replace(self::OLD_VERSION, $this->container->getParameter($defaultVersion), $view);
+        return str_replace(self::OLD_VERSION, $version, $view);
     }
 
     public function isVersionTwigExist(string $view): bool
