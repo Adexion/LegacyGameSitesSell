@@ -18,7 +18,7 @@ final class EntityField implements FieldInterface
         return (new self())
             ->setProperty($propertyName)
             ->setLabel($label)
-            ->setTemplatePath('@ModernGame/field/entity.html.twig')
+            ->setTemplatePath('@ModernGame/panel/field/entity.html.twig')
             ->setFormType(EntityType::class)
             ->setRequired(true);
     }
