@@ -6,7 +6,7 @@
         <div class="card-body">
             <h5 class="card-title">{{ article.subhead | raw }}</h5>
             <p class="card-text">{{ article.shortText | raw }}</p>
-            <a href="{{ path('show-article', {slug: article.id }) }}" class="btn btn-outline-success">Czytaj więcej ...</a>
+            <a href="{{ path('show-article', {slug: article.id }) }}" class="btn btn-info">Czytaj więcej ...</a>
             <span class="author">
                 ~{{ article.author }}&nbsp;
                 <img class="avatar" src="https://minotar.net/avatar/{{ article.author }}" alt="{{ article.author }} avatar"/>
