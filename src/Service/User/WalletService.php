@@ -7,14 +7,17 @@ use ModernGame\Database\Entity\User;
 use ModernGame\Database\Entity\Wallet;
 use ModernGame\Exception\ContentException;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class WalletService
 {
     private EntityManagerInterface $em;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->em = $em;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     public function create(User $user): void
@@ -34,6 +37,10 @@ class WalletService
     public function changeCash(float $cash, UserInterface $user): float
     {
         $wallet = $this->em->getRepository(Wallet::class)->findOneBy(['user' => $user]);
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            return $wallet->getCash();
+        }
+
         $wallet->increaseCash($cash);
 
         if ($wallet->getCash() < 0) {

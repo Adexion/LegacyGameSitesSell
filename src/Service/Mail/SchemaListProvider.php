@@ -21,10 +21,15 @@ class SchemaListProvider
             'replace' => ['%username%', '%code%'],
             'text' => '<p>Użytkownik: %username% chce doładować konto!</p><p>Kod to: %code%</p>',
             'title' => 'Doładowanie konta prepaid przez PaySafeCard'
+        ],
+        'contact' => [
+            'replace' => ['%email%', '%content%'],
+            'text' => '<p>Osoba %email% wyłała do nas email<br/><p>%content%</p>',
+            'title' => 'Kontak przez formularz kontaktowy'
         ]
     ];
 
-    public function provide($schemaId): array
+    public function provide(string $schemaId): array
     {
         if (!isset($this->schemaList[$schemaId])) {
             throw new RuntimeException('Email schema not set.');

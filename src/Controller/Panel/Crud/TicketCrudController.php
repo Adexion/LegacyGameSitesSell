@@ -3,6 +3,7 @@
 namespace ModernGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -26,6 +27,7 @@ class TicketCrudController extends AbstractCrudController
             TextField::new('type', 'Typ wiadomości'),
             TextField::new('subject', 'Temat'),
             TextEditorField::new('message', 'Wiadomość'),
+            DateTimeField::new('datetime', 'Data dostarczenia'),
             EntityField::new('user', 'Użytkownik')
                 ->setClass(User::class, 'username')
         ];

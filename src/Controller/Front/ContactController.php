@@ -2,9 +2,11 @@
 
 namespace ModernGame\Controller\Front;
 
+use Exception;
 use ModernGame\Database\Entity\Ticket;
 use ModernGame\Database\Entity\User;
 use ModernGame\Form\ContactTicketType;
+use ModernGame\Service\Mail\MailSenderService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,8 +15,10 @@ class ContactController extends AbstractController
 {
     /**
      * @Route(name="contact-front", path="/contact")
+     *
+     * @throws Exception
      */
-    public function contact(Request $request): Response
+    public function contact(Request $request, MailSenderService $service): Response
     {
         $form = $this->createForm(ContactTicketType::class);
 
@@ -27,6 +31,7 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Ticket $ticket */
             $ticket = $form->getData();
+            $ticket->setDatetime();
 
             $user = $this->getUser();
             if ($user instanceof User) {
@@ -34,9 +39,10 @@ class ContactController extends AbstractController
             }
 
             $this->getDoctrine()->getRepository(Ticket::class)->insert($ticket);
+            $service->sendEmail('contact', [$ticket->getEmail(), $ticket->getMessage()]);
 
             return $this->render('base/page/contact.html.twig', [
-                'message' => 'wiadomość wysłana. Postaramy się odpowiedzieć w przeciągu 24h. Dziękujemy!',
+                'message' => 'Wiadomość wysłana. Postaramy się odpowiedzieć w przeciągu 24h. Dziękujemy!',
                 'contact_form' => $form->createView(),
             ]);
         }

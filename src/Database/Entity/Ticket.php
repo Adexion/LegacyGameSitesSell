@@ -2,6 +2,7 @@
 
 namespace ModernGame\Database\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use ModernGame\Enum\TicketStatusEnum;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -47,6 +48,11 @@ class Ticket
      * @Assert\NotBlank()
      */
     private ?string $message = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?DateTime $datetime = null;
 
     /**
      * @ORM\Column(type="string", length=128)
@@ -140,6 +146,16 @@ class Ticket
     public function setReCaptcha(?string $reCaptcha)
     {
         $this->reCaptcha = $reCaptcha;
+    }
+
+    public function getDatetime(): ?DateTime
+    {
+        return $this->datetime;
+    }
+
+    public function setDatetime(?DateTime $datetime = null): void
+    {
+        $this->datetime = $datetime ?? new DateTime();
     }
 
     public function getToken(): ?string
