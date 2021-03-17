@@ -16,7 +16,7 @@ use Throwable;
 
 class ExceptionListener
 {
-    const ERROR = 404;
+    public const ERROR = 404;
 
     private LoggerInterface $logger;
     private MailSenderService $service;
@@ -41,33 +41,28 @@ class ExceptionListener
             $response->setStatusCode($exception->getStatusCode());
             $response->headers->replace($exception->getHeaders());
             $response->setContent(json_encode(['error' => $exception->getMessage()]));
+        } elseif ($this->isClientSideError($exception)) {
+            $response->setContent($exception->getMessage());
+            $response->setStatusCode($exception->getCode());
         } else {
-            if ($this->isClientSideError($exception)) {
-                $response->setContent($exception->getMessage());
-                $response->setStatusCode($exception->getCode());
-            } else {
-                $this->logger->critical($exception);
+            $this->logger->critical($exception);
 
-                if ($this->env->isProd()) {
-                    $this->service->sendEmail(
-                        self::ERROR,
-                        $exception->getMessage() . ' ' . date('Y-m-d H:i:s'),
-                        'moderngameservice@gmail.com'
-                    );
-                } else {
-                    if ($this->env->isTest() || $this->env->isDev()) {
-                        throw $exception;
-                    }
-                }
-
-                $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            if ($this->env->isProd()) {
+                $this->service->sendEmail(
+                    self::ERROR,
+                    $exception->getMessage().' '.date('Y-m-d H:i:s')
+                );
+            } elseif ($this->env->isTest() || $this->env->isDev()) {
+                throw $exception;
             }
+
+            $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         $event->setResponse($response);
     }
 
-    private function isClientSideError(Throwable $e)
+    private function isClientSideError(Throwable $e): bool
     {
         return $e instanceof ContentException
             || $e instanceof BadCredentialsException

@@ -33,7 +33,7 @@ class ArticleService extends AbstractService implements ServiceInterface
     /**
      * @throws ContentException
      */
-    public function mapEntity(Request $request)
+    public function mapEntity(Request $request): Article
     {
         $request->request->set('author', $this->user->getUsername());
 
@@ -43,7 +43,7 @@ class ArticleService extends AbstractService implements ServiceInterface
     /**
      * @throws ContentException
      */
-    public function mapEntityById(Request $request)
+    public function mapEntityById(Request $request): Article
     {
         return $this->mapById($request, ArticleType::class);
     }

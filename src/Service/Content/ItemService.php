@@ -27,7 +27,7 @@ class ItemService extends AbstractService implements ServiceInterface
     /**
      * @throws ContentException
      */
-    public function mapEntity(Request $request)
+    public function mapEntity(Request $request): Item
     {
         return $this->map($request, new Item(), ItemType::class);
     }
@@ -35,7 +35,7 @@ class ItemService extends AbstractService implements ServiceInterface
     /**
      * @throws ContentException
      */
-    public function mapEntityById(Request $request)
+    public function mapEntityById(Request $request): Item
     {
         return $this->mapById($request, ItemType::class);
     }

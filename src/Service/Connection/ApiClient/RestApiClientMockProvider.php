@@ -4,7 +4,7 @@ namespace ModernGame\Service\Connection\ApiClient;
 
 use ModernGame\Exception\ContentException;
 
-class MockProvider
+class RestApiClientMockProvider
 {
     /**
      * @throws ContentException

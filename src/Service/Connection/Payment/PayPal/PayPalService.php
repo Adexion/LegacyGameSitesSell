@@ -9,7 +9,6 @@ use ModernGame\Exception\PaymentProcessingException;
 use ModernGame\Service\Connection\Payment\AbstractPayment;
 use ModernGame\Service\Connection\Payment\PaymentInterface;
 use ModernGame\Service\ServerProvider;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class PayPalService extends AbstractPayment implements PaymentInterface

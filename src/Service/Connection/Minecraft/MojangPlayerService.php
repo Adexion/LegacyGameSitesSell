@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MojangPlayerService
 {
-    const MOJANG_GET_UUID_URL = 'https://api.mojang.com/users/profiles/minecraft/';
-    const MOJANG_AUTH_URL = 'https://authserver.mojang.com/';
-    const STEVE_USER_UUID = '8667ba71b85a4004af54457a9734eed7';
+    public const MOJANG_GET_UUID_URL = 'https://api.mojang.com/users/profiles/minecraft/';
+    public const MOJANG_AUTH_URL = 'https://authserver.mojang.com/';
+    public const STEVE_USER_UUID = '8667ba71b85a4004af54457a9734eed7';
 
     private RestApiClient $client;
     private LoginUserService $loginUserService;
@@ -54,41 +54,6 @@ class MojangPlayerService
      * @throws GuzzleException
      * @throws ContentException
      */
-    public function getUUID(?string $userName): string
-    {
-        if (empty($userName)) {
-            throw new ContentException(['username' => 'Pole nie może być puste.']);
-        }
-
-        $mojangPlayer = json_decode($this->client->request(
-            RestApiClient::GET,
-            self::MOJANG_GET_UUID_URL . $userName
-        ), true);
-
-        return empty($mojangPlayer) ? self::STEVE_USER_UUID : $mojangPlayer['id'];
-    }
-
-    public function loginByMojangAPI(Request $request): ?array
-    {
-        return json_decode($this->client->request(
-            RestApiClient::POST,
-            self::MOJANG_AUTH_URL . 'authenticate', [
-                'body' => json_encode([
-                    'agent' => [
-                        'name' => "Minecraft",
-                        'version' => 1
-                    ],
-                    'username' => $request->request->get('username'),
-                    'password' => $request->request->get('password')
-                ])
-            ]
-        ), true);
-    }
-
-    /**
-     * @throws GuzzleException
-     * @throws ContentException
-     */
     public function additionalAccountAction(Request $request, $type): ?array
     {
         $response = json_decode($this->client->request(
@@ -106,6 +71,23 @@ class MojangPlayerService
         }
 
         return $response;
+    }
+
+    private function loginByMojangAPI(Request $request): ?array
+    {
+        return json_decode($this->client->request(
+            RestApiClient::POST,
+            self::MOJANG_AUTH_URL . 'authenticate', [
+                'body' => json_encode([
+                    'agent' => [
+                        'name' => "Minecraft",
+                        'version' => 1
+                    ],
+                    'username' => $request->request->get('username'),
+                    'password' => $request->request->get('password')
+                ])
+            ]
+        ), true);
     }
 
     private function buildNonPremiumProfile(string $username): array

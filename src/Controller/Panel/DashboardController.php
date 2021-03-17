@@ -4,7 +4,9 @@ namespace ModernGame\Controller\Panel;
 
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\DashboardControllerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use ModernGame\Service\Connection\Minecraft\ServerConnectionService;
+use ModernGame\Exception\ContentException;
+use ModernGame\Service\Connection\Client\ClientFactory;
+use ModernGame\Service\ServerProvider;
 use ReflectionClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,10 +30,13 @@ class DashboardController extends AbstractDashboardController implements Dashboa
 
     /**
      * @Route("/panel/command", name="panel-command")
+     * @throws ContentException
      */
-    public function sendCommand(Request $request,  ServerConnectionService $connectionService): Response
+    public function sendCommand(Request $request,  ClientFactory $clientFactory, ServerProvider $serverProvider): Response
     {
-        $client = $connectionService->getClient();
+        $client = $clientFactory->create(
+            $serverProvider->getServer($request->request->getInt('serverId'))
+        );
         $client->sendCommand(trim($request->request->get('command'), '/'));
 
         return new Response();

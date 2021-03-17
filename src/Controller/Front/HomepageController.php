@@ -6,7 +6,7 @@ use ModernGame\Database\Entity\AdminServerUser;
 use ModernGame\Database\Entity\Article;
 use ModernGame\Database\Repository\RegulationRepository;
 use ModernGame\Exception\ContentException;
-use ModernGame\Service\Connection\Minecraft\RCONService;
+use ModernGame\Service\Connection\Minecraft\ExecutionService;
 use ModernGame\Service\ServerProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,21 +21,18 @@ class HomepageController extends AbstractController
      * @throws ContentException
      */
     public function index(
-        RCONService $RCONService,
+        ExecutionService $executionService,
         ServerProvider $serverProvider,
         Request $request,
         Session $session
     ): Response {
-        $serverId = $request->request->get('serverId', 1);
-        if ($serverId) {
-            $session->set('serverId', $serverId);
-        }
+        $session->set('serverId', $request->request->get('serverId', 1));
 
         return $this->render('base/page/index.html.twig', [
             'articleList' => $this->getDoctrine()->getRepository(Article::class)->getLastArticles(),
-            'playerListCount' => $RCONService->getServerStatus($serverProvider->getDefaultQueryServerId())['players'] ?? 0,
-            'isOnline' => (bool)$RCONService->getServerStatus($serverProvider->getDefaultQueryServerId()),
-            'playerList' => $RCONService->getPlayerList(),
+            'playerListCount' => $executionService->getServerStatus($serverProvider->getDefaultQueryServerId())['players'] ?? 0,
+            'isOnline' => (bool)$executionService->getServerStatus($serverProvider->getDefaultQueryServerId()),
+            'playerList' => $executionService->getPlayerList(),
             'admins' => $this->getDoctrine()->getRepository(AdminServerUser::class)->findBy(['serverId' => $serverProvider->getSessionServer()])
         ]);
     }

@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
+        "cboden/ratchet": "^0.4.3",
         "easycorp/easyadmin-bundle": ">=3.1",
         "funnyitselmo/minecraftserverstatus": "^1.0",
         "google/recaptcha": ">=1.2",
@@ -28,14 +29,14 @@
         "symfony/twig-bundle": ">=4.4",
         "symfony/validator": ">=4.4",
         "symfony/webpack-encore-bundle": "^1.7",
-        "symfony/yaml": ">=4.4"
+        "symfony/yaml": ">=4.4",
+        "textalk/websocket": "^1.5"
     },
     "require-dev": {
         "behat/behat": ">=3.4",
         "friends-of-behat/symfony-extension": "*",
         "imbo/behat-api-extension": "*",
         "symfony/stopwatch": "^5.1",
-        "symfony/twig-bundle": "^5.1",
         "symfony/web-profiler-bundle": "^5.1"
     },
     "config": {
@@ -83,5 +84,7 @@
             "allow-contrib": false,
             "require": ">=4.4"
         }
-    }
+    },
+    "name": "moderngame/app",
+    "description": "App of ModernGame's Group"
 }

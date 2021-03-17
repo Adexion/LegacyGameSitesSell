@@ -40,7 +40,7 @@ class RegulationService extends AbstractService implements ServiceInterface
     /**
      * @throws ContentException
      */
-    public function mapEntity(Request $request)
+    public function mapEntity(Request $request): Regulation
     {
         return $this->map($request, new Regulation(), RegulationType::class, [
             'categories' => $this->regulationCategoryRepository->getCategoryList()
@@ -50,7 +50,7 @@ class RegulationService extends AbstractService implements ServiceInterface
     /**
      * @throws ContentException
      */
-    public function mapEntityById(Request $request)
+    public function mapEntityById(Request $request): Regulation
     {
         return $this->mapById($request, RegulationType::class, [
             'categories' => $this->regulationCategoryRepository->getCategoryList()

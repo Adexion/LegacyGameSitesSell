@@ -8,10 +8,10 @@ use UnexpectedValueException;
 
 class ServerProvider
 {
-    private array $serverList;
+    private $serverList;
     private ?SessionInterface $session;
-    private string $defaultQueryServerId;
-    private string $defaultRCONServerId;
+    private $defaultQueryServerId;
+    private $defaultRCONServerId;
 
     public function __construct(ContainerInterface $container, SessionInterface $session)
     {
@@ -21,7 +21,7 @@ class ServerProvider
         $this->defaultRCONServerId = $container->getParameter('defaultRconServerId');
     }
 
-    public function getServerData(int $serverId = null): array
+    public function getServer(int $serverId = null): array
     {
         if ($serverId !== null && !isset($this->serverList[$serverId])) {
             throw new UnexpectedValueException('Given server does not exist');
@@ -37,7 +37,7 @@ class ServerProvider
 
     public function getSessionServer(): array
     {
-        return $this->getServerData($this->session->get('serverId') ?? null);
+        return $this->getServer($this->session->get('serverId') ?? null);
     }
 
     public function getDefaultQueryServerId(): string

@@ -1,42 +1,42 @@
 <?php
 
-namespace ModernGame\Service\Connection\Minecraft;
+namespace ModernGame\Service\Connection\Client;
 
-class RCONConnection
+use Exception;
+
+class RCONClient implements ClientInterface
 {
     private string $host;
     private string $port;
     private string $password;
     private int $timeout;
-    private $socket;
-    private bool $authorized = false;
+    private ?resource $socket;
     private string $lastResponse;
-    private bool $isProd;
 
-    const PACKET_AUTHORIZE = 5;
-    const PACKET_COMMAND = 6;
-    const SERVER_DATA_AUTH = 3;
-    const SERVER_DATA_AUTH_RESPONSE = 2;
-    const SERVER_DATA_EXEC_COMMAND = 2;
-    const SERVER_DATA_RESPONSE_VALUE = 0;
+    private const PACKET_AUTHORIZE = 5;
+    private const PACKET_COMMAND = 6;
+    private const SERVER_DATA_AUTH_RESPONSE = 2;
+    private const SERVER_DATA_EXEC_COMMAND = 2;
+    private const SERVER_DATA_RESPONSE_VALUE = 0;
+    private const SERVER_DATA_AUTH = 3;
+    private bool $authorized = false;
 
-    public function __construct(string $host, string $port, string $password, bool $isProd, int $timeout = 10)
+    public function __construct(string $host, string $port, string $password, int $timeout = 10)
     {
         $this->host = $host;
         $this->port = $port;
         $this->password = $password;
         $this->timeout = $timeout;
-        $this->isProd = $isProd;
     }
 
-    public function getResponse()
+    public function getResponse(): string
     {
         return $this->lastResponse ?? '';
     }
 
-    public function connect()
+    public function connect(): bool
     {
-        $this->socket = fsockopen($this->host, $this->port, $errno, $errStr, $this->timeout);
+        $this->socket = fsockopen($this->host, $this->port, $errno, $errStr, $this->timeout) ?: null;
         if (!$this->socket) {
             $this->lastResponse = $errStr;
             return false;
@@ -47,30 +47,32 @@ class RCONConnection
         return $this->authorize();
     }
 
-    public function disconnect()
+    public function disconnect(): bool
     {
         if ($this->socket) {
-            fclose($this->socket);
+            return fclose($this->socket);
         }
+
+        return false;
     }
 
-    public function isConnected()
+    public function isConnected(): bool
     {
         return $this->authorized;
     }
 
-    public function sendCommand($command)
+    public function sendCommand(string $message): bool
     {
         if (!$this->isConnected()) {
             return false;
         }
 
-        $this->writePacket(self::PACKET_COMMAND, self::SERVER_DATA_EXEC_COMMAND, $command);
+        $this->writePacket(self::PACKET_COMMAND, self::SERVER_DATA_EXEC_COMMAND, $message);
 
         return $this->readPackets();
     }
 
-    private function readPackets()
+    private function readPackets(): bool
     {
         $response_packet = $this->readPacket();
 
@@ -126,14 +128,12 @@ class RCONConnection
             $size_data = fread($this->socket, 4);
             $size_pack = unpack('V1size', $size_data);
             $size = $size_pack['size'];
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return $this->readPacket();
         }
 
         $packet_data = fread($this->socket, $size);
-        $packet_pack = unpack('V1id/V1type/a*body', $packet_data);
 
-        return $packet_pack;
-
+        return unpack('V1id/V1type/a*body', $packet_data);
     }
 }

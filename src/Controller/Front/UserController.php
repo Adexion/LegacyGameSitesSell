@@ -9,6 +9,7 @@ use ModernGame\Exception\ContentException;
 use ModernGame\Form\UserEditType;
 use ModernGame\Service\Connection\Minecraft\ExecuteItemService;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -29,7 +30,7 @@ class UserController extends AbstractController
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
         UserRepository $userRepository
-    ) {
+    ): Response {
         $lastPassword = $this->getUser()->getPassword();
         $form = $this->createForm(UserEditType::class, $this->getUser());
         $form->handleRequest($request);
@@ -55,7 +56,7 @@ class UserController extends AbstractController
     /**
      * @Route(name="equipment-profile", path="/user/equipment")
      */
-    public function equipmentProfile(Request $request)
+    public function equipmentProfile(Request $request): Response
     {
         return $this->render('base/page/equipment.profile.html.twig', [
             'userItemList' => $this->getDoctrine()->getRepository(UserItem::class)->findBy(['user' => $this->getUser()]),
@@ -68,7 +69,7 @@ class UserController extends AbstractController
      *
      * @throws ContentException
      */
-    public function itemExecute(Request $request, ExecuteItemService $executeItemService)
+    public function itemExecute(Request $request, ExecuteItemService $executeItemService): Response
     {
         return $this->redirectToRoute('equipment-profile', [
             'code' => $executeItemService->executeItem($this->getUser(), $request->request->getInt('itemId')),
@@ -80,7 +81,7 @@ class UserController extends AbstractController
      *
      * @throws ContentException
      */
-    public function itemListExecute(Request $request, ExecuteItemService $executeItemService)
+    public function itemListExecute(Request $request, ExecuteItemService $executeItemService): Response
     {
         return $this->redirectToRoute('equipment-profile', [
             'code' => $executeItemService->executeItem($this->getUser()),

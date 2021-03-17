@@ -27,7 +27,7 @@ class RegulationCategoryService extends AbstractService implements ServiceInterf
     /**
      * @throws ContentException
      */
-    public function mapEntity(Request $request)
+    public function mapEntity(Request $request): RegulationCategory
     {
         return $this->map($request, new RegulationCategory(), RegulationCategoryType::class);
     }
@@ -35,7 +35,7 @@ class RegulationCategoryService extends AbstractService implements ServiceInterf
     /**
      * @throws ContentException
      */
-    public function mapEntityById(Request $request)
+    public function mapEntityById(Request $request): RegulationCategory
     {
         return $this->mapById($request, RegulationCategoryType::class);
     }

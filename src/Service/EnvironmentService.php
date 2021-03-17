@@ -4,9 +4,9 @@ namespace ModernGame\Service;
 
 class EnvironmentService
 {
-    const PROD = 'prod';
-    const DEV = 'dev';
-    const TEST = 'test';
+    public const PROD = 'prod';
+    public const DEV = 'dev';
+    public const TEST = 'test';
 
     private string $env;
 
@@ -15,22 +15,22 @@ class EnvironmentService
         $this->env = $env;
     }
 
-    public function getEnvironment()
+    public function getEnvironment(): string
     {
         return $this->env;
     }
 
-    public function isTest()
+    public function isTest(): bool
     {
         return $this->getEnvironment() === self::TEST;
     }
 
-    public function isProd()
+    public function isProd(): bool
     {
         return $this->getEnvironment() === self::PROD;
     }
 
-    public function isDev()
+    public function isDev(): bool
     {
         return $this->getEnvironment() === self::DEV;
     }

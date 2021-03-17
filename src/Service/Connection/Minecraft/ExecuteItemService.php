@@ -12,6 +12,7 @@ use ModernGame\Database\Repository\UserItemRepository;
 use ModernGame\Exception\ContentException;
 use ModernGame\Exception\ItemListNotFoundException;
 use ModernGame\Exception\PaymentProcessingException;
+use ModernGame\Service\Connection\Client\ClientFactory;
 use ModernGame\Service\Content\ItemListService;
 use ModernGame\Service\ServerProvider;
 use ModernGame\Service\User\WalletService;
@@ -26,28 +27,30 @@ class ExecuteItemService
     private ItemListRepository $itemListRepository;
     private ItemListService $itemListService;
     private ServerProvider $serverProvider;
-    private RCONService $RCONService;
+    private ExecutionService $executionService;
     private ContainerInterface $container;
+    private ClientFactory $clientFactory;
+    private WalletService $walletService;
 
     public function __construct(
         UserItemRepository $userItemRepository,
         ItemRepository $itemRepository,
         ItemListRepository $itemListRepository,
-        ServerConnectionService $connectionService,
+        ClientFactory $clientFactory,
         WalletService $walletService,
         ItemListService $itemListService,
         ServerProvider $serverProvider,
-        RCONService $RCONService,
+        ExecutionService $executionService,
         ContainerInterface $container
     ) {
-        $this->connectionService = $connectionService;
+        $this->clientFactory = $clientFactory;
         $this->userItemRepository = $userItemRepository;
         $this->itemRepository = $itemRepository;
         $this->itemListRepository = $itemListRepository;
         $this->walletService = $walletService;
         $this->itemListService = $itemListService;
         $this->serverProvider = $serverProvider;
-        $this->RCONService = $RCONService;
+        $this->executionService = $executionService;
         $this->container = $container;
     }
 
@@ -63,7 +66,7 @@ class ExecuteItemService
 
         foreach ($userItems ?? [] as $userItem) {
             for ($i = 0; $i < $userItem->getQuantity(); $i++) {
-                $server = $this->serverProvider->getServerData($userItem->getItem()->getItemList()->getServerId());
+                $server = $this->serverProvider->getServer($userItem->getItem()->getItemList()->getServerId());
                 $response = $this->request($userItem->getItem(), $user, $server);
 
                 if (strpos($response, $server['playerNotFoundCommunicate']) !== false) {
@@ -92,7 +95,7 @@ class ExecuteItemService
         $items = $this->itemRepository->findBy(['itemList' => $itemList]) ?? [];
 
         foreach ($items ?? [] as $item) {
-            $server = $this->serverProvider->getServerData($item->getItemList()->getServerId());
+            $server = $this->serverProvider->getServer($item->getItemList()->getServerId());
             $response = $this->request($item, $user, $server);
 
             if (strpos($response, $server['playerNotFoundCommunicate']) !== false) {
@@ -127,11 +130,12 @@ class ExecuteItemService
      */
     private function request(Item $item, UserInterface $user, array $server): string
     {
-        if (!$this->RCONService->isUserLogged($user, $server['id']) && !$this->isItemOnWhiteList($item->getCommand())) {
+        if (!$this->executionService->isUserLogged($user,
+                $server['id']) && !$this->isItemOnWhiteList($item->getCommand())) {
             return $server['playerNotFoundCommunicate'];
         }
 
-        $client = $this->connectionService->getClient($server);
+        $client = $this->clientFactory->create($server);
         $client->sendCommand(sprintf($item->getCommand(), $user->getUsername()));
 
         return $client->getResponse();
@@ -142,8 +146,7 @@ class ExecuteItemService
      * @throws PaymentProcessingException
      * @throws ContentException
      */
-    private function handleError(float $amount, ItemList $itemList = null, UserInterface $user = null, bool $isFromWallet = null)
-    {
+    private function handleError(float $amount, ItemList $itemList = null, UserInterface $user = null, bool $isFromWallet = null) {
         if (!$itemList && !$isFromWallet) {
             $this->walletService->changeCash($amount, $user);
 

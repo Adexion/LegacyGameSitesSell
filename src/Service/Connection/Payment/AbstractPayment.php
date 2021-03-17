@@ -2,6 +2,8 @@
 
 namespace ModernGame\Service\Connection\Payment;
 
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use ModernGame\Database\Entity\PaymentHistory;
 use ModernGame\Database\Entity\User;
 use ModernGame\Database\Repository\PaymentHistoryRepository;
@@ -19,6 +21,10 @@ abstract class AbstractPayment
         $this->userProvider = $userProvider;
     }
 
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
     protected function notePayment(float $amount, string $username, string $type, string $id) {
         $paymentHistory = new PaymentHistory();
 

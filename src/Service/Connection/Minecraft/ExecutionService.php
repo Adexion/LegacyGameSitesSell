@@ -4,25 +4,26 @@ namespace ModernGame\Service\Connection\Minecraft;
 
 use MinecraftServerStatus\MinecraftServerStatus;
 use ModernGame\Exception\ContentException;
+use ModernGame\Service\Connection\Client\ClientFactory;
 use ModernGame\Service\ServerProvider;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class RCONService
+class ExecutionService
 {
     private ServerProvider $serverProvider;
-    private ServerConnectionService $connectionService;
+    private ClientFactory $clientFactory;
 
     public function __construct(
         ServerProvider $serverProvider,
-        ServerConnectionService $connectionService
+        ClientFactory $clientFactory
     ) {
         $this->serverProvider = $serverProvider;
-        $this->connectionService = $connectionService;
+        $this->clientFactory = $clientFactory;
     }
 
     public function getServerStatus(string $serverId): ?array
     {
-        $server = $this->serverProvider->getServerData($serverId);
+        $server = $this->serverProvider->getServer($serverId);
         error_reporting(E_ALL & ~E_NOTICE);
 
         return MinecraftServerStatus::query($server['host'], $server['queryPort']) ?: null;
@@ -41,9 +42,8 @@ class RCONService
      */
     public function getPlayerList(string $serverId = null): string
     {
-        $server = $this->serverProvider->getServerData($serverId ?? $this->serverProvider->getDefaultRCONServerId());
-        $client = $this->connectionService->getClient($server);
-
+        $server = $this->serverProvider->getServer($serverId ?? $this->serverProvider->getDefaultRCONServerId());
+        $client = $this->clientFactory->create($server);
         $client->sendCommand($server['defaultCommand']);
 
         return $client->getResponse();

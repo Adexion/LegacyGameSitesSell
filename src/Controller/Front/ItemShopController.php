@@ -147,8 +147,7 @@ class ItemShopController extends AbstractController
 
         $mailSenderService->sendEmail(
             Response::HTTP_PAYMENT_REQUIRED,
-            [$this->getUser()->getUsername(), $request->request->get('code')],
-            'moderngameservice@gmail.com'
+            [$this->getUser()->getUsername(), $request->request->get('code')]
         );
 
         return $this->render('base/page/paySafeCard.html.twig', [

@@ -38,7 +38,7 @@ class RegisterService
     /**
      * @throws ContentException
      */
-    public function register(Request $request)
+    public function register(Request $request): ?int
     {
         $user = new User();
         $form = $this->form->create(RegisterType::class, $user);
