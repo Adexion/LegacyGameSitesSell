@@ -42,7 +42,7 @@ class ExecutionService
      */
     public function getPlayerList(string $serverId = null): string
     {
-        $server = $this->serverProvider->getServer($serverId ?? $this->serverProvider->getDefaultRCONServerId());
+        $server = $this->serverProvider->getServer($serverId ?? $this->serverProvider->getDefaultConnectionServerId());
         $client = $this->clientFactory->create($server);
         $client->sendCommand($server['defaultCommand']);
 

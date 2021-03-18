@@ -11,14 +11,14 @@ class ServerProvider
     private $serverList;
     private ?SessionInterface $session;
     private $defaultQueryServerId;
-    private $defaultRCONServerId;
+    private $defaultConnectionServerId;
 
     public function __construct(ContainerInterface $container, SessionInterface $session)
     {
         $this->session = $session;
         $this->serverList = $container->getParameter('server');
         $this->defaultQueryServerId = $container->getParameter('defaultQueryServerId');
-        $this->defaultRCONServerId = $container->getParameter('defaultRconServerId');
+        $this->defaultConnectionServerId = $container->getParameter('defaultConnectionServerId');
     }
 
     public function getServer(int $serverId = null): array
@@ -27,7 +27,7 @@ class ServerProvider
             throw new UnexpectedValueException('Given server does not exist');
         }
 
-        return $this->serverList[$serverId] ?? $this->serverList[$this->defaultRCONServerId];
+        return $this->serverList[$serverId] ?? $this->serverList[$this->defaultConnectionServerId];
     }
 
     public function getServerList(): array
@@ -45,8 +45,8 @@ class ServerProvider
         return $this->defaultQueryServerId;
     }
 
-    public function getDefaultRCONServerId(): string
+    public function getDefaultConnectionServerId(): string
     {
-        return $this->defaultRCONServerId;
+        return $this->defaultConnectionServerId;
     }
 }

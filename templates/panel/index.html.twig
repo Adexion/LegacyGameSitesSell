@@ -14,50 +14,73 @@
             margin: auto;
             background: #212121;
             color: #e2e2e2;
+            overflow-anchor: none;
         }
 
-        .console > p {
+        .console::after {
+             content: '';
+             height: 1px;
+             display: block;
+             overflow-anchor: auto;
+        }
+
+        .console > div {
             overflow-wrap: break-word;
             max-width: 800px;
         }
     </style>
 
-    <div class="console"></div>
+    <div class="console">
+        <div id="anchor"></div>
+    </div>
     <input id="send-command" class="command form-control mt-2" placeholder="Wpisz komende ..."/>
-    <button class="btn btn-info btn-block" onclick="sendCommand()">Wyślij</button>
+    <button class="btn btn-info btn-block" id="sendCommand">Wyślij</button>
+    <script src="{{ asset('assets/MinecraftColorCodes.min.3.7.js') }}"></script>
     <script type="text/javascript">
-        function readLog() {
-            fetch('https://play.mngame.pl/')
-                .then(response => response.text())
-                .then(text => {
-                    let el = document.querySelector('.console');
-                    el.innerHTML = text;
-                    el.scrollBy(0, el.scrollHeight);
-                    setTimeout(() => {
-                        readLog();
-                    }, 2000);
-                });
-        }
+        (() => {
+            const socket = new WebSocket("ws://{{ server.host }}:{{ server.port }}/");
 
-        document.querySelector('#send-command').addEventListener('keypress', (event) => {
-            if (event.code === 'Enter') {
-                sendCommand();
-                document.querySelector('.command').value = '';
-            }
-        });
+            socket.addEventListener("message", function (e) {
+                let o = JSON.parse(e.data);
+                if (o.type !== "inform") {
+                    return false;
+                }
 
-        function sendCommand() {
-            fetch('/panel/command', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    command: document.querySelector('.command').value
-                })
+                let p = document.createElement('div');
+                p.append(o.message.replaceColorCodes());
+                let out = document.querySelector('.console');
+                out.appendChild(p);
             });
-        }
 
-        readLog()
+            document.getElementById('sendCommand').addEventListener('keypress', (event) => {
+                if (event.code === 'Enter') {
+                    fetch('/panel/command', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            command: document.querySelector('.command').value
+                        })
+                    });
+
+                    document.querySelector('.command').value = '';
+                }
+            });
+
+            document.getElementById('sendCommand').addEventListener('click', () => {
+                fetch('/panel/command', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        command: document.querySelector('.command').value
+                    })
+                });
+
+                document.querySelector('.command').value = '';
+            });
+        })();
     </script>
 {% endblock %}
