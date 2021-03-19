@@ -13,7 +13,7 @@ parameters:
     1:
       id: 1
       name: 'MGame'
-      host: '127.0.0.1'
+      host: 'server710020.nazwa.pl'
       queryPort: '21370'
       port: '12345'
       password: '7d9aaEfbb73A'

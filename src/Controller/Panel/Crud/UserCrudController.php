@@ -2,16 +2,27 @@
 
 namespace ModernGame\Controller\Panel\Crud;
 
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use ModernGame\Database\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use ModernGame\Enum\RolesEnum;
+use ModernGame\Field\ServerChoiceFieldProvider;
 
 class UserCrudController extends AbstractCrudController
 {
+    private ServerChoiceFieldProvider $fieldProvider;
+
+    public function __construct(ServerChoiceFieldProvider $fieldProvider)
+    {
+        $this->fieldProvider = $fieldProvider;
+    }
+
     public static function getEntityFqcn(): string
     {
         return User::class;
@@ -24,23 +35,42 @@ class UserCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Użytkownicy');
     }
 
+    public function configureActions(Actions $actions): Actions
+    {
+        $actions
+            ->setPermission(Action::EDIT, RolesEnum::ROLE_ADMIN)
+            ->setPermission(Action::NEW, RolesEnum::ROLE_ADMIN)
+            ->setPermission(Action::DELETE, RolesEnum::ROLE_ADMIN);
+
+        return $actions;
+    }
+
     public function configureFields(string $pageName): iterable
     {
         if (Crud::PAGE_EDIT === $pageName || Crud::PAGE_NEW === $pageName) {
-             return [
-                 EmailField::new('email', 'E-mail'),
-                 TextField::new('username', 'Nick Minecraft'),
-                 TextField::new('password', 'Hasło (bcrypt)'),
-                 CollectionField::new('roles', 'Role'),
-                 BooleanField::new('rules', 'Regulamin')
-             ];
+            return [
+                EmailField::new('email', 'E-mail'),
+                TextField::new('username', 'Nick Minecraft'),
+                TextField::new('password', 'Hasło (bcrypt)'),
+                ChoiceField::new('roles', 'Rola')
+                    ->setChoices(RolesEnum::toArray())
+                    ->allowMultipleChoices(true)
+                    ->setPermission(RolesEnum::ROLE_ADMIN),
+                BooleanField::new('rules', 'Regulamin'),
+                $this->fieldProvider
+                    ->getChoiceField('assignedServerId', 'Przypisany serwer')
+            ];
         }
 
         return [
             EmailField::new('email', 'E-mail'),
             TextField::new('username', 'Nick Minecraft'),
-            CollectionField::new('roles', 'Role'),
+            ChoiceField::new('roles', 'Role')
+                ->setChoices(RolesEnum::toArray())
+                ->allowMultipleChoices(true)
+                ->setPermission(RolesEnum::ROLE_ADMIN),
             BooleanField::new('rules', 'Regulamin')
+                ->setPermission(RolesEnum::ROLE_ADMIN),
         ];
     }
 }

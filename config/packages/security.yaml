@@ -1,4 +1,10 @@
 security:
+  role_hierarchy:
+    ROLE_SUPER_ADMIN: [ ROLE_ADMIN ]
+    ROLE_ADMIN: [ ROLE_USER, ROLE_SERVER, ROLE_MODERATOR ]
+    ROLE_SERVER: [ ROLE_USER ]
+    ROLE_MODERATOR: [ ROLE_USER ]
+
   providers:
     ModernGame:
       entity:
@@ -25,24 +31,12 @@ security:
     ModernGame\Database\Entity\User: bcrypt
 
   access_control:
-    - { path: ^/ }
+    - { path: ^/panel, roles: [ ROLE_SERVER, ROLE_MODERATOR ] }
+    - { path: ^/panel/, roles: [ ROLE_SERVER, ROLE_MODERATOR ] }
+    - { path: ^/admin, roles: [ ROLE_SERVER, ROLE_MODERATOR ] }
+    - { path: ^/admin/, roles: [ ROLE_SERVER, ROLE_MODERATOR ] }
     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/v1/contact/list, roles: ROLE_USER, method: [GET] }
-    - { path: ^/v1/contact, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/v1/info, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/v1/shop, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/v1/rules, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/v1/article, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/v1/player, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/v1/documentation, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/v1/user/items, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
-    - { path: ^/v1/user/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/v1/user, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
-    - { path: ^/v1/, roles: ROLE_USER, method: [POST, GET, PUT, DELETE] }
     - { path: ^/user, roles: IS_AUTHENTICATED_FULLY }
     - { path: ^/user/, roles: IS_AUTHENTICATED_FULLY }
-    - { path: ^/panel, roles: ROLE_ADMIN }
-    - { path: ^/panel/, roles: ROLE_ADMIN }
-    - { path: ^/admin, roles: ROLE_ADMIN }
-    - { path: ^/admin/, roles: ROLE_ADMIN }
+    - { path: ^/ }

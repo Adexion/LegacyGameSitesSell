@@ -10,7 +10,6 @@ use ModernGame\Service\ServerProvider;
 use ReflectionClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController implements DashboardControllerInterface
@@ -26,7 +25,7 @@ class DashboardController extends AbstractDashboardController implements Dashboa
         return $this->render('@ModernGame/panel/index.html.twig', [
             'dashboard_controller_filepath' => (new ReflectionClass(static::class))->getFileName(),
             'dashboard_controller_class' => (new ReflectionClass(static::class))->getShortName(),
-            'server' => $serverProvider->getServer($serverProvider->getDefaultConnectionServerId())
+            'server' => $serverProvider->getServer($serverProvider->getDefaultConnectionServerId()),
         ]);
     }
 
@@ -34,12 +33,8 @@ class DashboardController extends AbstractDashboardController implements Dashboa
      * @Route("/panel/command", name="panel-command")
      * @throws ContentException
      */
-    public function sendCommand(Request $request,  ClientFactory $clientFactory, ServerProvider $serverProvider): Response
+    public function sendCommand(Request $request, ClientFactory $clientFactory, ServerProvider $serverProvider): Response
     {
-        if (!$this->isGranted('ROLE_ADMIN')) {
-            return new Response(null, Response::HTTP_UNAUTHORIZED);
-        }
-
         $client = $clientFactory->create(
             $serverProvider->getServer($serverProvider->getDefaultConnectionServerId())
         );

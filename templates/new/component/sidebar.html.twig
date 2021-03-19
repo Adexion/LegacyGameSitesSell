@@ -35,7 +35,7 @@
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li><a href="{{ path('user-profile') }}">Ustawiena</a></li>
                     <li><a href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a></li>
-                    {% if is_granted('ROLE_ADMIN') %}
+                    {% if is_granted('ROLE_SERVER') or is_granted('ROLE_MODERATOR') %}
                         <li><a class="bg-warning" href="{{ path('panel') }}">Admin</a></li>
                     {% endif %}
                 {% else %}

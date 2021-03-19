@@ -8,16 +8,19 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use ModernGame\Database\Entity\AdminServerUser;
 use ModernGame\Database\Entity\User;
+use ModernGame\Enum\RolesEnum;
 use ModernGame\Field\EntityField;
 use ModernGame\Field\ServerChoiceFieldProvider;
+use Symfony\Component\Security\Core\Security;
 
-class AdminServerUserCrudController extends AbstractCrudController
+class AdminServerUserCrudController extends AbstractRoleAccessCrudController
 {
     private ServerChoiceFieldProvider $fieldProvider;
 
-    public function __construct(ServerChoiceFieldProvider $fieldProvider)
+    public function __construct(ServerChoiceFieldProvider $fieldProvider, Security $security)
     {
         $this->fieldProvider = $fieldProvider;
+        parent::__construct($security);
     }
 
     public static function getEntityFqcn(): string
@@ -32,9 +35,11 @@ class AdminServerUserCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Admini na stronie');
     }
 
-
     public function configureFields(string $pageName): iterable
     {
+        /** @var User $user */
+        $user = $this->security->getUser();
+
         return [
             EntityField::new('user', 'Użytkownik')
                 ->setClass(User::class, 'username'),
@@ -42,6 +47,8 @@ class AdminServerUserCrudController extends AbstractCrudController
                 ->setRequired(false),
             TextEditorField::new('description', 'Opis'),
             $this->fieldProvider->getChoiceField('serverId', 'Serwer')
+                ->setCssClass('d-none')
+                ->setValue($user->getAssignedServerId())
         ];
     }
 

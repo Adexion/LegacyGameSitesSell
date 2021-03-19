@@ -53,6 +53,11 @@ class User implements UserInterface
      */
     private ?bool $rules = false;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private ?int $assignedServerId;
+
     private ?string $reCaptcha = null;
 
     public function __construct()
@@ -141,5 +146,14 @@ class User implements UserInterface
             'username' => $this->username,
             'email' => $this->email
         ];
+    }
+
+    public function getAssignedServerId(): ?int
+    {
+        return $this->assignedServerId;
+    }
+    public function setAssignedServerId(?int $assignedServerId)
+    {
+        $this->assignedServerId = $assignedServerId;
     }
 }

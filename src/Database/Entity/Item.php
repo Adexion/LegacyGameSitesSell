@@ -41,6 +41,12 @@ class Item
      */
     private ?ItemList $itemList = null;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     */
+    private ?string $serverId = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,5 +90,15 @@ class Item
     public function setItemList(?ItemList $itemList)
     {
         $this->itemList = $itemList;
+    }
+
+    public function getServerId(): ?string
+    {
+        return $this->serverId;
+    }
+
+    public function setServerId(?string $serverId)
+    {
+        $this->serverId = $serverId;
     }
 }

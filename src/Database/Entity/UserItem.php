@@ -55,6 +55,12 @@ class UserItem
      */
     private ?User $user = null;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     */
+    private ?string $serverId = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -118,5 +124,15 @@ class UserItem
     public function setUser(?User $user)
     {
         $this->user = $user;
+    }
+
+    public function getServerId(): ?string
+    {
+        return $this->serverId;
+    }
+
+    public function setServerId(?string $serverId)
+    {
+        $this->serverId = $serverId;
     }
 }

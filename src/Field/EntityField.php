@@ -12,6 +12,8 @@ final class EntityField implements FieldInterface
 
     public const OPTION_CLASS = 'class';
     public const OPTION_CHOICE_LABEL = 'choice_label';
+    private string $filteredBy;
+    private string $filteredValue;
 
     public static function new(string $propertyName, ?string $label = null): self
     {
@@ -36,8 +38,20 @@ final class EntityField implements FieldInterface
                     return null;
                 }
 
+                if (isset($this->filteredBy) && call_user_func([$entity, 'get' . ucfirst($this->filteredBy)]) == $this->filteredValue){
+                    return null;
+                }
+
                 return call_user_func([$entity, 'get' . ucfirst($choiceLabel)]);
             });
+
+        return $this;
+    }
+
+    public function setFilteredBy(string $filteredBy, string $value): self
+    {
+        $this->filteredBy = $filteredBy;
+        $this->filteredValue = $value;
 
         return $this;
     }
