@@ -13,6 +13,7 @@ use ModernGame\Database\Entity\User;
 use ModernGame\Enum\RolesEnum;
 use ModernGame\Field\EntityField;
 use ModernGame\Field\ServerChoiceFieldProvider;
+use ModernGame\Predicate\RolePredicate;
 use Symfony\Component\Security\Core\Security;
 
 class ArticleCrudController extends AbstractRoleAccessCrudController
@@ -41,8 +42,7 @@ class ArticleCrudController extends AbstractRoleAccessCrudController
     {
         /** @var User $user */
         $user = $this->security->getUser();
-
-        if (Crud::PAGE_INDEX === $pageName) {
+        if (Crud::PAGE_INDEX === $pageName || RolePredicate::isAdminRoleGranted($this->security)) {
             return [
                 TextField::new('title', 'Tytuł'),
                 TextField::new('subhead', 'Pod tytuł'),

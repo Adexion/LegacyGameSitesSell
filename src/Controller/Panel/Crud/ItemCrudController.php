@@ -50,7 +50,7 @@ class ItemCrudController extends AbstractRoleAccessCrudController
             $entityField = $entityField->setFilteredBy('serverId', $user->getAssignedServerId() ?: 0);
         }
 
-        if (Crud::PAGE_INDEX === $pageName) {
+        if (Crud::PAGE_INDEX === $pageName || RolePredicate::isAdminRoleGranted($this->security)) {
             return [
                 TextField::new('name', 'Nazwa'),
                 AvatarField::new('icon', 'Ikona'),

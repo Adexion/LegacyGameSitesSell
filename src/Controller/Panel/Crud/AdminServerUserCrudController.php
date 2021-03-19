@@ -4,6 +4,7 @@ namespace ModernGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use ModernGame\Database\Entity\AdminServerUser;
@@ -11,6 +12,7 @@ use ModernGame\Database\Entity\User;
 use ModernGame\Enum\RolesEnum;
 use ModernGame\Field\EntityField;
 use ModernGame\Field\ServerChoiceFieldProvider;
+use ModernGame\Predicate\RolePredicate;
 use Symfony\Component\Security\Core\Security;
 
 class AdminServerUserCrudController extends AbstractRoleAccessCrudController
@@ -39,6 +41,18 @@ class AdminServerUserCrudController extends AbstractRoleAccessCrudController
     {
         /** @var User $user */
         $user = $this->security->getUser();
+        if (Crud::PAGE_INDEX === $pageName || RolePredicate::isAdminRoleGranted($this->security)) {
+            return [
+                EntityField::new('user', 'Użytkownik')
+                    ->setClass(User::class, 'username'),
+                TextField::new('skinUrl', 'Adres url skina')
+                    ->setRequired(false),
+                TextEditorField::new('description', 'Opis'),
+                $this->fieldProvider->getChoiceField('serverId', 'Serwer')
+                    ->setPermission(RolesEnum::ROLE_ADMIN)
+                    ->setValue($user->getAssignedServerId())
+            ];
+        }
 
         return [
             EntityField::new('user', 'Użytkownik')
