@@ -49,7 +49,7 @@ parameters:
       executionType: 'ws'
     3:
       id: 3
-      name: 'Platinium Journey'
+      name: 'Platinum Journey'
       host: '95.214.52.188'
       port: '25576'
       password: 'uZrBMBbzfP'
