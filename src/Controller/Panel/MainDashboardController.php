@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ModernGame\Controller\Panel;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
@@ -111,6 +110,9 @@ trait MainDashboardController
                 ->setPermission(RolesEnum::ROLE_ADMIN),
             MenuItem::linkToCrud('Wiadomości', 'fa fa-reply', Ticket::class)
                 ->setController(TicketCrudController::class)
+                ->setPermission(RolesEnum::ROLE_MODERATOR)
+                ->setPermission(RolesEnum::ROLE_SERVER),
+            MenuItem::linktoRoute('Mailing', 'fas fa-envelope', 'mailing')
                 ->setPermission(RolesEnum::ROLE_MODERATOR)
                 ->setPermission(RolesEnum::ROLE_SERVER),
 

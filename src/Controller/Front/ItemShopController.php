@@ -145,7 +145,7 @@ class ItemShopController extends AbstractController
         $dm->persist($paySafeCard);
         $dm->flush();
 
-        $mailSenderService->sendEmail(
+        $mailSenderService->sendEmailBySchema(
             Response::HTTP_PAYMENT_REQUIRED,
             [$this->getUser()->getUsername(), $request->request->get('code')]
         );

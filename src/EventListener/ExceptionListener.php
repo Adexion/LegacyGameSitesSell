@@ -48,7 +48,7 @@ class ExceptionListener
             $this->logger->critical($exception);
 
             if ($this->env->isProd()) {
-                $this->service->sendEmail(
+                $this->service->sendEmailBySchema(
                     self::ERROR,
                     $exception->getMessage().' '.date('Y-m-d H:i:s')
                 );

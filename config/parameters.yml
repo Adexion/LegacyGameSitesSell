@@ -6,8 +6,9 @@ parameters:
   whitelistCommands: [ unban, pardon, ban ]
   defaultQueryServerId: 1
   defaultConnectionServerId: 1
-  old: 'base'
-  latest: 'new'
+  base: 'base'
+  old: '1.0'
+  latest: '2.0'
 
   server:
     1:

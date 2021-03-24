@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    {% include 'new/component/head.html.twig' %}
+    {% include '1.0/component/head.html.twig' %}
 
     {% block stylesheets %}
         {{ encore_entry_link_tags('new-main') }}
@@ -10,10 +10,10 @@
 <body>
 
 <div class="wrapper">
-    {% include 'new/component/sidebar.html.twig' %}
+    {% include '1.0/component/sidebar.html.twig' %}
     <div class="container-fluid">
         <div class="row">
-            {% include 'new/component/nav.html.twig' %}
+            {% include '1.0/component/nav.html.twig' %}
         </div>
         <div class="row content">
             {% if app.request.attributes.get('_route') == 'index' %}
@@ -24,15 +24,15 @@
                 {% endfor %}
             {% endif %}
             <div class="col-2 col-lg-none col-md-none">
-                {% include 'new/component/shortcast.html.twig' %}
-                {% include 'new/component/toast.html.twig' %}
+                {% include '1.0/component/shortcast.html.twig' %}
+                {% include '1.0/component/toast.html.twig' %}
                 <span class="footer">© Copyright 2020. All right reserved.</span>
             </div>
             <div class="col-xl-8 col-lg-12 col-md-12 mt-3">
                 {% block body %}{% endblock %}
             </div>
             <div class="col-2 col-lg-none col-md-none">
-                {% include 'new/component/additional.html.twig' %}
+                {% include '1.0/component/additional.html.twig' %}
             </div>
         </div>
     </div>

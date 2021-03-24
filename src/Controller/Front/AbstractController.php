@@ -17,12 +17,8 @@ abstract class AbstractController extends BaseAbstractController
 
     protected function render(string $view, array $parameters = [], Response $response = null): Response
     {
-        $newView = $this->versionProvider->getVersionOfView($view);
-
         return parent::render(
-            $this->versionProvider->isVersionTwigExist($newView)
-                ? $newView
-                : $view,
+            $this->versionProvider->getVersionOfView($view),
             $parameters,
             $this->versionProvider->getCookieResponse()
         );

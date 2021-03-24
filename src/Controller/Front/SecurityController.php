@@ -110,7 +110,7 @@ class SecurityController extends AbstractController
                 $resetPassword->setUser($user);
                 $resetPassword->setToken($token);
 
-                $send = $service->sendEmail('1', $token, $user->getEmail());
+                $send = $service->sendEmailBySchema('1', $token, $user->getEmail());
                 $this->getDoctrine()->getManager()->persist($resetPassword);
                 $this->getDoctrine()->getManager()->flush();
             } catch (UsernameNotFoundException $e) {

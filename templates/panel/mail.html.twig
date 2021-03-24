@@ -1,0 +1,37 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title 'Panel administracyjny!' %}
+
+{% block page_content %}
+    <style>
+        label {
+            text-align: left !important;
+        }
+    </style>
+    {% if mailSent is defined %}
+        <div class="alert alert-info">
+            Mailing został wykonany!
+        </div>
+    {% endif %}
+
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.content) }}
+    <p>Pamiętaj: Możesz wstawić zmienne jako pola z tablicy userów np. %email% czy %username% zostanie zamienione na dane z aznaczonych użytkowników</p>
+    <button class="btn btn-primary btn-block w-100" type="submit">{% trans %}Wyślij mailing{% endtrans %}</button>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="checkAll"> Zaznacz wszystkich użytkowników
+        </label>
+    </div>
+    {{ form_row(form.userList) }}
+    {{ form_end(form) }}
+    <script>
+        $("#checkAll").click(function () {
+            $(".form-check-input").prop('checked', $(this).prop('checked'));
+        });
+    </script>
+{% endblock %}

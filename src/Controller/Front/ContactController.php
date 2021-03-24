@@ -39,7 +39,7 @@ class ContactController extends AbstractController
             }
 
             $this->getDoctrine()->getRepository(Ticket::class)->insert($ticket);
-            $service->sendEmail('contact', [$ticket->getEmail(), $ticket->getMessage()]);
+            $service->sendEmailBySchema('contact', [$ticket->getEmail(), $ticket->getMessage()]);
 
             return $this->render('base/page/contact.html.twig', [
                 'message' => 'Wiadomość wysłana. Postaramy się odpowiedzieć w przeciągu 24h. Dziękujemy!',

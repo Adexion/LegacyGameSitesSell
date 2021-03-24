@@ -16,13 +16,23 @@ class MailSenderService
         $this->provider = new SchemaListProvider();
     }
 
-    public function sendEmail(string $schemaId, $data, string $email = 'moderngameservice@gmail.com'): int
+    public function sendEmailBySchema(string $schemaId, $data, string $email = 'moderngameservice@gmail.com'): int
     {
         $schema = $this->provider->provide($schemaId);
 
         $body = str_replace($schema['replace'], $data, $schema['text']);
-
         $message = (new Swift_Message($schema['title']))
+            ->setFrom('moderngameservice@gmail.com')
+            ->setTo($email)
+            ->setBody($body,'text/html');
+
+        return $this->mailer->send($message);
+    }
+
+    public function sendPublicEmail(string $tittle, string $content, $data, $replacement, string $email): int
+    {
+        $body = str_replace($replacement, $data, $content);
+        $message = (new Swift_Message($tittle))
             ->setFrom('moderngameservice@gmail.com')
             ->setTo($email)
             ->setBody($body,'text/html');
