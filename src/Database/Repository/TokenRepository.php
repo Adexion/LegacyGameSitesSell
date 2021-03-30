@@ -1,13 +1,13 @@
 <?php
 
-namespace ModernGame\Database\Repository;
+namespace MNGame\Database\Repository;
 
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
-use ModernGame\Database\Entity\Token;
-use ModernGame\Database\Entity\User;
+use MNGame\Database\Entity\Token;
+use MNGame\Database\Entity\User;
 
 class TokenRepository extends AbstractRepository
 {

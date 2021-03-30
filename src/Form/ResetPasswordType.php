@@ -1,9 +1,9 @@
 <?php
 
-namespace ModernGame\Form;
+namespace MNGame\Form;
 
-use ModernGame\Database\Entity\User;
-use ModernGame\Validator\ReCaptchaValidator;
+use MNGame\Database\Entity\User;
+use MNGame\Validator\ReCaptchaValidator;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -13,7 +13,8 @@ Encore
     .addEntry('app', './assets/js/app/app.ts')
 
     .addStyleEntry('main', './assets/css/base/main.scss')
-    .addStyleEntry('new-main', './assets/css/new/main.scss')
+    .addStyleEntry('main-1.0', './assets/css/1.0/main.scss')
+    .addStyleEntry('main-2.0', './assets/css/2.0/main.scss')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()

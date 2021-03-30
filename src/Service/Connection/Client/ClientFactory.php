@@ -1,10 +1,10 @@
 <?php
 
-namespace ModernGame\Service\Connection\Client;
+namespace MNGame\Service\Connection\Client;
 
-use ModernGame\Enum\ExecutionTypeEnum;
-use ModernGame\Exception\ContentException;
-use ModernGame\Service\EnvironmentService;
+use MNGame\Enum\ExecutionTypeEnum;
+use MNGame\Exception\ContentException;
+use MNGame\Service\EnvironmentService;
 
 class ClientFactory
 {

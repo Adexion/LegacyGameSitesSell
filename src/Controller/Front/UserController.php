@@ -1,13 +1,13 @@
 <?php
 
-namespace ModernGame\Controller\Front;
+namespace MNGame\Controller\Front;
 
-use ModernGame\Database\Entity\User;
-use ModernGame\Database\Entity\UserItem;
-use ModernGame\Database\Repository\UserRepository;
-use ModernGame\Exception\ContentException;
-use ModernGame\Form\UserEditType;
-use ModernGame\Service\Connection\Minecraft\ExecuteItemService;
+use MNGame\Database\Entity\User;
+use MNGame\Database\Entity\UserItem;
+use MNGame\Database\Repository\UserRepository;
+use MNGame\Exception\ContentException;
+use MNGame\Form\UserEditType;
+use MNGame\Service\Connection\Minecraft\ExecuteItemService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

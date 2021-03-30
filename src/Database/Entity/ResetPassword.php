@@ -1,13 +1,13 @@
 <?php
 
-namespace ModernGame\Database\Entity;
+namespace MNGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
- * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\ResetPasswordRepository")
+ * @ORM\Entity(repositoryClass="MNGame\Database\Repository\ResetPasswordRepository")
  */
 class ResetPassword
 {

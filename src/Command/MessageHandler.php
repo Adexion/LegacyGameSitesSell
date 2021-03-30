@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Command;
+namespace MNGame\Command;
 
 use Exception;
 use Ratchet\ConnectionInterface;

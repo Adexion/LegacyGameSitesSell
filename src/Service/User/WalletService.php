@@ -1,11 +1,11 @@
 <?php
 
-namespace ModernGame\Service\User;
+namespace MNGame\Service\User;
 
 use Doctrine\ORM\EntityManagerInterface;
-use ModernGame\Database\Entity\User;
-use ModernGame\Database\Entity\Wallet;
-use ModernGame\Exception\ContentException;
+use MNGame\Database\Entity\User;
+use MNGame\Database\Entity\Wallet;
+use MNGame\Exception\ContentException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 

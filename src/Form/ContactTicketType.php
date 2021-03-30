@@ -1,9 +1,9 @@
 <?php
 
-namespace ModernGame\Form;
+namespace MNGame\Form;
 
-use ModernGame\Database\Entity\Ticket;
-use ModernGame\Validator\ReCaptchaValidator;
+use MNGame\Database\Entity\Ticket;
+use MNGame\Validator\ReCaptchaValidator;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;

@@ -1,15 +1,15 @@
 <?php
 
-namespace ModernGame\Service\Content;
+namespace MNGame\Service\Content;
 
-use ModernGame\Database\Entity\RegulationCategory;
-use ModernGame\Database\Repository\RegulationCategoryRepository;
-use ModernGame\Exception\ContentException;
-use ModernGame\Form\RegulationCategoryType;
-use ModernGame\Service\AbstractService;
-use ModernGame\Serializer\CustomSerializer;
-use ModernGame\Service\ServiceInterface;
-use ModernGame\Validator\FormErrorHandler;
+use MNGame\Database\Entity\RegulationCategory;
+use MNGame\Database\Repository\RegulationCategoryRepository;
+use MNGame\Exception\ContentException;
+use MNGame\Form\RegulationCategoryType;
+use MNGame\Service\AbstractService;
+use MNGame\Serializer\CustomSerializer;
+use MNGame\Service\ServiceInterface;
+use MNGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 

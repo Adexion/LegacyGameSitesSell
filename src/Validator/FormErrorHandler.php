@@ -1,9 +1,9 @@
 <?php
 
-namespace ModernGame\Validator;
+namespace MNGame\Validator;
 
-use ModernGame\Dto\FormErrors;
-use ModernGame\Exception\ContentException;
+use MNGame\Dto\FormErrors;
+use MNGame\Exception\ContentException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace ModernGame\Field;
+namespace MNGame\Field;
 
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use ModernGame\Service\ServerProvider;
+use MNGame\Service\ServerProvider;
 
 class ServerChoiceFieldProvider
 {

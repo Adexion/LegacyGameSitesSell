@@ -1,10 +1,10 @@
 <?php
 
-namespace ModernGame\Database\Repository;
+namespace MNGame\Database\Repository;
 
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
-use ModernGame\Database\Entity\PaymentHistory;
+use MNGame\Database\Entity\PaymentHistory;
 
 class PaymentHistoryRepository extends AbstractRepository
 {

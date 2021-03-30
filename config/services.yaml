@@ -6,26 +6,26 @@ services:
     autowire: true
     autoconfigure: true
 
-  ModernGame\:
+  MNGame\:
     resource: '../src/*'
     exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
-  ModernGame\EventListener\ExceptionListener:
-    arguments: ['@logger', '@ModernGame\Service\Mail\MailSenderService']
+  MNGame\EventListener\ExceptionListener:
+    arguments: ['@logger', '@MNGame\Service\Mail\MailSenderService']
     tags:
       - { name: kernel.event_listener, event: kernel.exception }
 
-  ModernGame\Service\Connection\Minecraft\MojangPlayerService:
+  MNGame\Service\Connection\Minecraft\MojangPlayerService:
     autowire: true
 
   mojang.player.service:
-    class: ModernGame\Service\Connection\Minecraft\MojangPlayerService
+    class: MNGame\Service\Connection\Minecraft\MojangPlayerService
 
-  ModernGame\Controller\:
+  MNGame\Controller\:
     resource: '../src/Controller'
     tags: ['controller.service_arguments']
 
-  ModernGame\Service\EnvironmentService:
+  MNGame\Service\EnvironmentService:
     arguments: ['%kernel.environment%']
 
   get_set_method_normalizer:

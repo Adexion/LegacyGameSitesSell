@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Form;
+namespace MNGame\Form;
 
 use Symfony\Component\Form\AbstractType as BaseType;
 use Symfony\Component\OptionsResolver\OptionsResolver;

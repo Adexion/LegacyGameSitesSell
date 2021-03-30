@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Tests\Behat;
+namespace MNGame\Tests\Behat;
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
@@ -10,7 +10,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use Imbo\BehatApiExtension\Context\ApiContext;
-use ModernGame\Service\EnvironmentService;
+use MNGame\Service\EnvironmentService;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 abstract class AbstractContext extends ApiContext implements Context

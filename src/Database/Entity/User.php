@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Database\Entity;
+namespace MNGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="MNGame\Database\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="Email jest zajęty.")
  * @UniqueEntity(fields="username", message="Nick jest zajęty.")
  */

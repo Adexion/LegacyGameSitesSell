@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Serializer;
+namespace MNGame\Serializer;
 
 use Symfony\Component\Serializer\SerializerInterface;
 

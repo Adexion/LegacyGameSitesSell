@@ -1,0 +1,85 @@
+<div class="navbar-content">
+    <nav class="navbar navbar-expand-lg navbar-dark justify-content-center">
+        <div class="d-lg-none col-2">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+                    aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-toggler-widow col-12 col-lg-9 pr-lg-0 order-end">
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <div class="d-flex w-100">
+                    <div class="nav-icons d-none d-lg-flex col-lg-4 align-items-center">
+                        <a class="icon d-block" href="#"><span class="fab fa-discord"></span></a>
+                        <a class="icon d-block" href="#"><span class="fab fa-facebook"></span></a>
+                    </div>
+                    <ul class="navbar-nav pr-0 mt-2 mt-lg-0 col-lg-8 col-md-12 col-12 d-flex justify-content-center">
+                        <li class="nav-item dropdown">
+                            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link">
+                                <i class="fas fa-server"></i>Serwery
+                            </a>
+                            <ul class="collapse list-unstyled nav-item" id="homeSubmenu">
+                                {% for s in server %}
+                                    {% if s.src is defined %}
+                                        <form method="post" action="/">
+                                            <input name="serverId" type="hidden" value="{{ s.id }}"/>
+                                            <input class="bg-transparent border-0 nav-link w-100 text-center" type="submit" alt="{{ s.name }}" value="{{ s.name }}"/>
+                                        </form>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('show-article-list') }}"><i class="fas fa-list"></i>Artykuły</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('tutorial-front') }}"><i class="fas fa-film"></i>Poradniki</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('rule') }}"><i
+                                        class="fas fa-ruler-vertical"></i>Zasady</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('faq-front') }}"><i class="fas fa-question"></i>FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('contact-front') }}"><i
+                                        class="fas fa-book"></i>Kontakt</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('item-shop') }}"><i class="fas fa-shopping-cart"></i>ItemShop</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-10 col-lg-3 d-flex align-items-center justify-content-end">
+            <ul class="mb-0 mt-lg-0 d-flex justify-content-center">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user-profile') }}">Ustawiena</a>
+                    </li>
+                    {% if is_granted('ROLE_SERVER') or is_granted('ROLE_MODERATOR') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('panel') }}">Admin</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('login') }}">Zaloguj</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('register') }}">Zarejestruj</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="navbar-header">
+        <a href="/"><img src="{{ asset('assets/images/logotype.png') }}" alt="logotype"></a>
+    </div>
+</div>

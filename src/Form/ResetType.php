@@ -1,8 +1,8 @@
 <?php
 
-namespace ModernGame\Form;
+namespace MNGame\Form;
 
-use ModernGame\Database\Entity\User;
+use MNGame\Database\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;

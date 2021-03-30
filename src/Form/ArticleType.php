@@ -1,8 +1,8 @@
 <?php
 
-namespace ModernGame\Form;
+namespace MNGame\Form;
 
-use ModernGame\Database\Entity\Article;
+use MNGame\Database\Entity\Article;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

@@ -48,12 +48,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ModernGame\\": "src/"
+            "MNGame\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ModernGame\\Tests\\": "tests/"
+            "MNGame\\Tests\\": "tests/"
         }
     },
     "replace": {
@@ -85,6 +85,6 @@
             "require": ">=4.4"
         }
     },
-    "name": "moderngame/app",
-    "description": "App of ModernGame's Group"
+    "name": "mngame/app",
+    "description": "App of MNGame's Group"
 }

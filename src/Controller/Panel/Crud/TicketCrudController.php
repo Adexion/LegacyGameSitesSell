@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Controller\Panel\Crud;
+namespace MNGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -8,9 +8,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use ModernGame\Database\Entity\Ticket;
-use ModernGame\Database\Entity\User;
-use ModernGame\Field\EntityField;
+use MNGame\Database\Entity\Ticket;
+use MNGame\Database\Entity\User;
+use MNGame\Field\EntityField;
 
 class TicketCrudController extends AbstractCrudController
 {

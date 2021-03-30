@@ -1,13 +1,13 @@
 <?php
 
-namespace ModernGame\Controller\Panel\Crud;
+namespace MNGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use ModernGame\Database\Entity\Tutorial;
+use MNGame\Database\Entity\Tutorial;
 
 class TutorialCrudController extends AbstractCrudController
 {

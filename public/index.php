@@ -1,6 +1,6 @@
 <?php
 
-use ModernGame\Kernel;
+use MNGame\Kernel;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 

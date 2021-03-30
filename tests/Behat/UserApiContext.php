@@ -1,10 +1,10 @@
 <?php
 
-namespace ModernGame\Tests\Behat;
+namespace MNGame\Tests\Behat;
 
-use ModernGame\Database\Entity\Price;
-use ModernGame\Database\Entity\ResetPassword;
-use ModernGame\Database\Entity\User;
+use MNGame\Database\Entity\Price;
+use MNGame\Database\Entity\ResetPassword;
+use MNGame\Database\Entity\User;
 
 class UserApiContext extends AbstractContext
 {

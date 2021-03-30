@@ -1,12 +1,12 @@
 <?php
 
-namespace ModernGame\Database\Entity;
+namespace MNGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\RegulationCategoryRepository")
+ * @ORM\Entity(repositoryClass="MNGame\Database\Repository\RegulationCategoryRepository")
  */
 class RegulationCategory
 {

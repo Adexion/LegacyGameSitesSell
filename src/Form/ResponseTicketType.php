@@ -1,8 +1,8 @@
 <?php
 
-namespace ModernGame\Form;
+namespace MNGame\Form;
 
-use ModernGame\Database\Entity\Ticket;
+use MNGame\Database\Entity\Ticket;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

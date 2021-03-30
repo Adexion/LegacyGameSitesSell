@@ -1,12 +1,12 @@
 <?php
 
-namespace ModernGame\Service\Connection\Minecraft;
+namespace MNGame\Service\Connection\Minecraft;
 
 use DateTime;
 use GuzzleHttp\Exception\GuzzleException;
-use ModernGame\Exception\ContentException;
-use ModernGame\Service\Connection\ApiClient\RestApiClient;
-use ModernGame\Service\User\LoginUserService;
+use MNGame\Exception\ContentException;
+use MNGame\Service\Connection\ApiClient\RestApiClient;
+use MNGame\Service\User\LoginUserService;
 use Symfony\Component\HttpFoundation\Request;
 
 class MojangPlayerService

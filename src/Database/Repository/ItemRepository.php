@@ -1,9 +1,9 @@
 <?php
 
-namespace ModernGame\Database\Repository;
+namespace MNGame\Database\Repository;
 
 use Doctrine\Persistence\ManagerRegistry;
-use ModernGame\Database\Entity\Item;
+use MNGame\Database\Entity\Item;
 
 class ItemRepository extends AbstractRepository
 {

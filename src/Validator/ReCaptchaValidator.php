@@ -1,9 +1,9 @@
 <?php
 
-namespace ModernGame\Validator;
+namespace MNGame\Validator;
 
 use Exception;
-use ModernGame\Service\EnvironmentService;
+use MNGame\Service\EnvironmentService;
 use ReCaptcha\ReCaptcha;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;

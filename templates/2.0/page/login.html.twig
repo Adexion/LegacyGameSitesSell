@@ -1,0 +1,20 @@
+{% extends '2.0/base.html.twig' %}
+
+{% block body %}
+    <div class="card bg-mngame">
+        <div class="card-header">
+            <h4 class="font-weight-bold">
+                Logowanie
+            </h4>
+        </div>
+        <div class="card-body">
+            {{ form_start(login_form, {action: 'login'}) }}
+            {{ form_row(login_form._username) }}
+            {{ form_row(login_form._password) }}
+
+            <button class="btn btn-warning w-100" type="submit">{% trans %}Sign in{% endtrans %}</button>
+            <a href="{{ path('forgot-password') }}">{% trans %}Forgot password{% endtrans %}?</a>
+            {{ form_end(login_form) }}
+        </div>
+    </div>
+{% endblock %}

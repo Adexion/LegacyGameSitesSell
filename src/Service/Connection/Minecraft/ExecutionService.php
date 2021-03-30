@@ -1,11 +1,11 @@
 <?php
 
-namespace ModernGame\Service\Connection\Minecraft;
+namespace MNGame\Service\Connection\Minecraft;
 
 use MinecraftServerStatus\MinecraftServerStatus;
-use ModernGame\Exception\ContentException;
-use ModernGame\Service\Connection\Client\ClientFactory;
-use ModernGame\Service\ServerProvider;
+use MNGame\Exception\ContentException;
+use MNGame\Service\Connection\Client\ClientFactory;
+use MNGame\Service\ServerProvider;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class ExecutionService

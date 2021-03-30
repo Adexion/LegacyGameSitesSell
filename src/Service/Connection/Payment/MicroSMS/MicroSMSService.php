@@ -1,13 +1,13 @@
 <?php
 
-namespace ModernGame\Service\Connection\Payment\MicroSMS;
+namespace MNGame\Service\Connection\Payment\MicroSMS;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
-use ModernGame\Database\Repository\PaymentHistoryRepository;
-use ModernGame\Database\Repository\PriceRepository;
-use ModernGame\Service\Connection\Payment\AbstractPayment;
-use ModernGame\Service\Connection\Payment\PaymentInterface;
+use MNGame\Database\Repository\PaymentHistoryRepository;
+use MNGame\Database\Repository\PriceRepository;
+use MNGame\Service\Connection\Payment\AbstractPayment;
+use MNGame\Service\Connection\Payment\PaymentInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 

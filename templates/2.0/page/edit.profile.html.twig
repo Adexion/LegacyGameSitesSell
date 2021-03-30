@@ -1,0 +1,45 @@
+{% extends "2.0/page/user.html.twig" %}
+
+{% block content %}
+    <div class="card bg-mngame">
+        <div class="card-header">
+            <h4 class="font-weight-bold">Podgląd profilu</h4>
+        </div>
+        <div class="card-body container-fluid">
+            <div class="row">
+                <div class="col-9">
+                    {{ form_start(edit_form, {action: '/user/edit',}) }}
+                    {{ form_row(edit_form.username) }}
+                    {{ form_row(edit_form.email) }}
+                    {{ form_row(edit_form.password.first) }}
+                    {{ form_row(edit_form.password.second) }}
+                    <button class="btn btn-warning w-100" type="submit">{% trans %}Update account{% endtrans %}</button>
+                    {{ form_end(edit_form) }}
+                </div>
+                <div class="col-3">
+                    <div class="user-avatar w-100">
+                        <img id="avatar" class=" w-100" alt="{{ app.user.username }}"
+                             src="https://minotar.net/avatar/{{ app.user.username }}.png">
+                        <script>
+                            (() => {
+                                const username = document.querySelector('#username');
+                                let avatar = document.querySelector('#avatar');
+                                let timeout;
+
+                                username.addEventListener('keypress', () => {
+                                    if (timeout !== undefined) {
+                                        clearTimeout(timeout);
+                                    }
+
+                                    timeout = setTimeout(() => {
+                                        avatar.src = `https://minotar.net/avatar/${username.value}`;
+                                    }, 1000)
+                                })
+                            })()
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,9 +1,9 @@
 <?php
 
-namespace ModernGame\Controller\Front;
+namespace MNGame\Controller\Front;
 
-use ModernGame\Database\Repository\FAQRepository;
-use ModernGame\Database\Repository\TutorialRepository;
+use MNGame\Database\Repository\FAQRepository;
+use MNGame\Database\Repository\TutorialRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

@@ -6,9 +6,9 @@ security:
     ROLE_MODERATOR: [ ROLE_USER ]
 
   providers:
-    ModernGame:
+    MNGame:
       entity:
-        class: ModernGame\Database\Entity\User
+        class: MNGame\Database\Entity\User
         property: username
 
   firewalls:
@@ -25,10 +25,10 @@ security:
         check_path: login
       guard:
         authenticators:
-          - ModernGame\Security\TokenAuthenticator
+          - MNGame\Security\TokenAuthenticator
 
   encoders:
-    ModernGame\Database\Entity\User: bcrypt
+    MNGame\Database\Entity\User: bcrypt
 
   access_control:
     - { path: ^/panel, roles: [ ROLE_SERVER, ROLE_MODERATOR ] }

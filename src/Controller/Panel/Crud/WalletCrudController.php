@@ -1,13 +1,13 @@
 <?php
 
-namespace ModernGame\Controller\Panel\Crud;
+namespace MNGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
-use ModernGame\Database\Entity\User;
-use ModernGame\Database\Entity\Wallet;
-use ModernGame\Field\EntityField;
+use MNGame\Database\Entity\User;
+use MNGame\Database\Entity\Wallet;
+use MNGame\Field\EntityField;
 
 class WalletCrudController extends AbstractCrudController
 {

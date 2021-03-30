@@ -1,10 +1,10 @@
 <?php
 
-namespace ModernGame\Database\Repository;
+namespace MNGame\Database\Repository;
 
-use ModernGame\Database\Entity\Item;
-use ModernGame\Database\Entity\User;
-use ModernGame\Database\Entity\UserItem;
+use MNGame\Database\Entity\Item;
+use MNGame\Database\Entity\User;
+use MNGame\Database\Entity\UserItem;
 use Doctrine\Persistence\ManagerRegistry;
 
 class UserItemRepository extends AbstractRepository

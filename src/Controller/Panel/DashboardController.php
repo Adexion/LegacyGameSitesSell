@@ -1,12 +1,12 @@
 <?php
 
-namespace ModernGame\Controller\Panel;
+namespace MNGame\Controller\Panel;
 
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\DashboardControllerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use ModernGame\Exception\ContentException;
-use ModernGame\Service\Connection\Client\ClientFactory;
-use ModernGame\Service\ServerProvider;
+use MNGame\Exception\ContentException;
+use MNGame\Service\Connection\Client\ClientFactory;
+use MNGame\Service\ServerProvider;
 use ReflectionClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +22,7 @@ class DashboardController extends AbstractDashboardController implements Dashboa
      */
     public function main(ServerProvider $serverProvider): Response
     {
-        return $this->render('@ModernGame/panel/index.html.twig', [
+        return $this->render('@MNGame/panel/index.html.twig', [
             'dashboard_controller_filepath' => (new ReflectionClass(static::class))->getFileName(),
             'dashboard_controller_class' => (new ReflectionClass(static::class))->getShortName(),
             'server' => $serverProvider->getServer($serverProvider->getDefaultConnectionServerId()),

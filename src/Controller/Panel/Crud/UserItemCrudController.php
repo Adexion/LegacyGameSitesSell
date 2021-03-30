@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Controller\Panel\Crud;
+namespace MNGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
@@ -9,13 +9,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\PercentField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use ModernGame\Database\Entity\Item;
-use ModernGame\Database\Entity\User;
-use ModernGame\Database\Entity\UserItem;
-use ModernGame\Enum\RolesEnum;
-use ModernGame\Field\EntityField;
-use ModernGame\Field\ServerChoiceFieldProvider;
-use ModernGame\Predicate\RolePredicate;
+use MNGame\Database\Entity\Item;
+use MNGame\Database\Entity\User;
+use MNGame\Database\Entity\UserItem;
+use MNGame\Enum\RolesEnum;
+use MNGame\Field\EntityField;
+use MNGame\Field\ServerChoiceFieldProvider;
+use MNGame\Predicate\RolePredicate;
 use Symfony\Component\Security\Core\Security;
 
 class UserItemCrudController extends AbstractRoleAccessCrudController

@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Dto;
+namespace MNGame\Dto;
 
 class RuleListDto
 {

@@ -16,9 +16,9 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            ModernGame:
+            MNGame:
                 is_bundle: false
                 type: annotation
                 dir: '%kernel.project_dir%/src/Database/Entity'
-                prefix: 'ModernGame\Database\Entity'
-                alias: ModernGame
+                prefix: 'MNGame\Database\Entity'
+                alias: MNGame

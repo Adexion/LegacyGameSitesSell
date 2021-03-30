@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Util;
+namespace MNGame\Util;
 
 use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -25,18 +25,24 @@ class VersionProvider
         $this->request = $requestStack->getCurrentRequest();
         $this->loader = $twig->getLoader();
         $this->container = $container;
+
+        $this->version = $this->request->query->getAlnum('version');
+        if ($this->version) {
+            return;
+        }
+
+        $this->version = $this->request->cookies->get('version', 'latest');
     }
 
     public function getVersionOfView(string $view): string
     {
-        $this->getVersionByCookiesAndRequest();
-
         try {
             $first = $this->getVersionTwigPath($view, $this->version);
             if ($this->isVersionTwigExist($first)) {
                 return $first;
             }
-        } catch (Exception $ignored) {}
+        } catch (Exception $ignored) {
+        }
 
         $old = $this->getVersionTwigPath($view, 'old');
         if ($this->isVersionTwigExist($old)) {
@@ -62,15 +68,5 @@ class VersionProvider
         $response->headers->setCookie(new Cookie('version', $this->version));
 
         return $response;
-    }
-
-    private function getVersionByCookiesAndRequest()
-    {
-        $this->version = $this->request->query->getAlnum('version');
-        if ($this->version) {
-            return;
-        }
-
-        $this->version = $this->request->cookies->get('version', $this->container->getParameter('old'));
     }
 }

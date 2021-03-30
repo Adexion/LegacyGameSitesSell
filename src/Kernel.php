@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame;
+namespace MNGame;
 
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;

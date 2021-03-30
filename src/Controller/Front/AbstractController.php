@@ -1,8 +1,8 @@
 <?php
 
-namespace ModernGame\Controller\Front;
+namespace MNGame\Controller\Front;
 
-use ModernGame\Util\VersionProvider;
+use MNGame\Util\VersionProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseAbstractController;
 use Symfony\Component\HttpFoundation\Response;
 

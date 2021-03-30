@@ -1,19 +1,19 @@
 <?php
 
-namespace ModernGame\Controller\Panel\Crud;
+namespace MNGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use ModernGame\Database\Entity\Article;
+use MNGame\Database\Entity\Article;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use ModernGame\Database\Entity\User;
-use ModernGame\Enum\RolesEnum;
-use ModernGame\Field\EntityField;
-use ModernGame\Field\ServerChoiceFieldProvider;
-use ModernGame\Predicate\RolePredicate;
+use MNGame\Database\Entity\User;
+use MNGame\Enum\RolesEnum;
+use MNGame\Field\EntityField;
+use MNGame\Field\ServerChoiceFieldProvider;
+use MNGame\Predicate\RolePredicate;
 use Symfony\Component\Security\Core\Security;
 
 class ArticleCrudController extends AbstractRoleAccessCrudController

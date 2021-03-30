@@ -1,14 +1,14 @@
 <?php
 
-namespace ModernGame\Service\Connection\Payment\PayPal;
+namespace MNGame\Service\Connection\Payment\PayPal;
 
 use GuzzleHttp\Exception\GuzzleException;
-use ModernGame\Database\Repository\PaymentHistoryRepository;
-use ModernGame\Exception\ContentException;
-use ModernGame\Exception\PaymentProcessingException;
-use ModernGame\Service\Connection\Payment\AbstractPayment;
-use ModernGame\Service\Connection\Payment\PaymentInterface;
-use ModernGame\Service\ServerProvider;
+use MNGame\Database\Repository\PaymentHistoryRepository;
+use MNGame\Exception\ContentException;
+use MNGame\Exception\PaymentProcessingException;
+use MNGame\Service\Connection\Payment\AbstractPayment;
+use MNGame\Service\Connection\Payment\PaymentInterface;
+use MNGame\Service\ServerProvider;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class PayPalService extends AbstractPayment implements PaymentInterface

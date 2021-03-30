@@ -1,15 +1,15 @@
 <?php
 
-namespace ModernGame\Service\Content;
+namespace MNGame\Service\Content;
 
-use ModernGame\Database\Entity\Article;
-use ModernGame\Database\Repository\ArticleRepository;
-use ModernGame\Exception\ContentException;
-use ModernGame\Form\ArticleType;
-use ModernGame\Service\AbstractService;
-use ModernGame\Serializer\CustomSerializer;
-use ModernGame\Service\ServiceInterface;
-use ModernGame\Validator\FormErrorHandler;
+use MNGame\Database\Entity\Article;
+use MNGame\Database\Repository\ArticleRepository;
+use MNGame\Exception\ContentException;
+use MNGame\Form\ArticleType;
+use MNGame\Service\AbstractService;
+use MNGame\Serializer\CustomSerializer;
+use MNGame\Service\ServiceInterface;
+use MNGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

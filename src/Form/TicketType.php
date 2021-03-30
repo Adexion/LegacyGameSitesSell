@@ -1,10 +1,10 @@
 <?php
 
-namespace ModernGame\Form;
+namespace MNGame\Form;
 
-use ModernGame\Database\Entity\Ticket;
-use ModernGame\Database\Entity\User;
-use ModernGame\Validator\ReCaptchaValidator;
+use MNGame\Database\Entity\Ticket;
+use MNGame\Database\Entity\User;
+use MNGame\Validator\ReCaptchaValidator;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

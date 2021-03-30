@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Service\Mail;
+namespace MNGame\Service\Mail;
 
 use RuntimeException;
 
@@ -10,7 +10,7 @@ class SchemaListProvider
         '1' => [
             'replace' => '%token%',
             'text' => '<p>Link do resetu hasła: <a href="http://mngame.pl/reset/%token%">https://mngame.pl/reset/%token%</a></p>',
-            'title' => 'Resetowanie hasła ModernGame.pl'
+            'title' => 'Resetowanie hasła MNGame.pl'
         ],
         '404' => [
             'replace' => '%error%',

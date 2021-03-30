@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Controller\Panel\Crud;
+namespace MNGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -9,10 +9,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use ModernGame\Database\Entity\User;
+use MNGame\Database\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use ModernGame\Enum\RolesEnum;
-use ModernGame\Field\ServerChoiceFieldProvider;
+use MNGame\Enum\RolesEnum;
+use MNGame\Field\ServerChoiceFieldProvider;
 
 class UserCrudController extends AbstractCrudController
 {

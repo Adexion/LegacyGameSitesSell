@@ -2,19 +2,19 @@ default:
   suites:
     default:
       contexts:
-        - ModernGame\Tests\Behat\UserApiContext
+        - MNGame\Tests\Behat\UserApiContext
     dev:
       contexts:
-        - ModernGame\Tests\Behat\UserApiContext
+        - MNGame\Tests\Behat\UserApiContext
       filters:
         tags: '@dev'
 
   extensions:
     Imbo\BehatApiExtension:
       apiClient:
-        base_uri: http://moderngame.loc
+        base_uri: http://MNGame.loc
         timeout: 5.0
         verify: false
     FriendsOfBehat\SymfonyExtension:
       kernel:
-        class: 'ModernGame\Kernel'
+        class: 'MNGame\Kernel'

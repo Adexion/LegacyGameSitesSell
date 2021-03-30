@@ -1,15 +1,15 @@
 <?php
 
-namespace ModernGame\Controller\Panel;
+namespace MNGame\Controller\Panel;
 
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\DashboardControllerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use ModernGame\Database\Entity\User;
-use ModernGame\Exception\ContentException;
-use ModernGame\Form\MailingType;
-use ModernGame\Service\Connection\Client\ClientFactory;
-use ModernGame\Service\Mail\MailSenderService;
-use ModernGame\Service\ServerProvider;
+use MNGame\Database\Entity\User;
+use MNGame\Exception\ContentException;
+use MNGame\Form\MailingType;
+use MNGame\Service\Connection\Client\ClientFactory;
+use MNGame\Service\Mail\MailSenderService;
+use MNGame\Service\ServerProvider;
 use ReflectionClass;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +31,7 @@ class MailingController extends AbstractDashboardController implements Dashboard
            return $this->sendMail($form, $mailSenderService);
         }
 
-        return $this->render('@ModernGame/panel/mail.html.twig', [
+        return $this->render('@MNGame/panel/mail.html.twig', [
             'dashboard_controller_filepath' => (new ReflectionClass(static::class))->getFileName(),
             'dashboard_controller_class' => (new ReflectionClass(static::class))->getShortName(),
             'form' => $form->createView(),
@@ -60,7 +60,7 @@ class MailingController extends AbstractDashboardController implements Dashboard
             );
         }
 
-        return $this->render('@ModernGame/panel/mail.html.twig', [
+        return $this->render('@MNGame/panel/mail.html.twig', [
             'dashboard_controller_filepath' => (new ReflectionClass(static::class))->getFileName(),
             'dashboard_controller_class' => (new ReflectionClass(static::class))->getShortName(),
             'mailSent' => true,

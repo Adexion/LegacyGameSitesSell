@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Exception;
+namespace MNGame\Exception;
 
 use Exception;
 use Symfony\Component\HttpFoundation\Response;

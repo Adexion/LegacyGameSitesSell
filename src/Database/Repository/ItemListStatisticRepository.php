@@ -1,10 +1,10 @@
 <?php
 
-namespace ModernGame\Database\Repository;
+namespace MNGame\Database\Repository;
 
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
-use ModernGame\Database\Entity\ItemListStatistic;
+use MNGame\Database\Entity\ItemListStatistic;
 
 class ItemListStatisticRepository extends AbstractRepository
 {

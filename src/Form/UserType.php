@@ -1,9 +1,9 @@
 <?php
 
-namespace ModernGame\Form;
+namespace MNGame\Form;
 
 
-use ModernGame\Database\Entity\User;
+use MNGame\Database\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;

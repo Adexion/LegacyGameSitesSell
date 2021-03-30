@@ -1,15 +1,15 @@
 <?php
 
-namespace ModernGame\Controller\Panel\Crud;
+namespace MNGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use ModernGame\Database\Entity\PaySafeCard;
-use ModernGame\Database\Entity\User;
-use ModernGame\Enum\PaySafeCardStatusEnum;
-use ModernGame\Field\EntityField;
+use MNGame\Database\Entity\PaySafeCard;
+use MNGame\Database\Entity\User;
+use MNGame\Enum\PaySafeCardStatusEnum;
+use MNGame\Field\EntityField;
 
 class PaySafeCardCrudController extends AbstractCrudController
 {

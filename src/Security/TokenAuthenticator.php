@@ -1,8 +1,8 @@
 <?php
 
-namespace ModernGame\Security;
+namespace MNGame\Security;
 
-use ModernGame\Database\Repository\TokenRepository;
+use MNGame\Database\Repository\TokenRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

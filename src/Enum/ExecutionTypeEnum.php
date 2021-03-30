@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Enum;
+namespace MNGame\Enum;
 
 class ExecutionTypeEnum
 {

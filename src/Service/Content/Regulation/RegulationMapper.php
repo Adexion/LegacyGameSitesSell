@@ -1,9 +1,9 @@
 <?php
 
-namespace ModernGame\Service\Content\Regulation;
+namespace MNGame\Service\Content\Regulation;
 
-use ModernGame\Dto\RuleDto;
-use ModernGame\Dto\RuleListDto;
+use MNGame\Dto\RuleDto;
+use MNGame\Dto\RuleListDto;
 
 class RegulationMapper
 {

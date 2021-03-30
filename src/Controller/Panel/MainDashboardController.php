@@ -1,40 +1,40 @@
 <?php
 
-namespace ModernGame\Controller\Panel;
+namespace MNGame\Controller\Panel;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
-use ModernGame\Controller\Panel\Crud\AdminServerUserCrudController;
-use ModernGame\Controller\Panel\Crud\ArticleCrudController;
-use ModernGame\Controller\Panel\Crud\FAQCrudController;
-use ModernGame\Controller\Panel\Crud\ItemCrudController;
-use ModernGame\Controller\Panel\Crud\ItemListCrudController;
-use ModernGame\Controller\Panel\Crud\PaySafeCardCrudController;
-use ModernGame\Controller\Panel\Crud\PriceCrudController;
-use ModernGame\Controller\Panel\Crud\RegulationCategoryCrudController;
-use ModernGame\Controller\Panel\Crud\RegulationCrudController;
-use ModernGame\Controller\Panel\Crud\TicketCrudController;
-use ModernGame\Controller\Panel\Crud\TutorialCrudController;
-use ModernGame\Controller\Panel\Crud\UserCrudController;
-use ModernGame\Controller\Panel\Crud\UserItemCrudController;
-use ModernGame\Controller\Panel\Crud\WalletCrudController;
-use ModernGame\Database\Entity\AdminServerUser;
-use ModernGame\Database\Entity\Article;
-use ModernGame\Database\Entity\FAQ;
-use ModernGame\Database\Entity\Item;
-use ModernGame\Database\Entity\ItemList;
-use ModernGame\Database\Entity\PaySafeCard;
-use ModernGame\Database\Entity\Price;
-use ModernGame\Database\Entity\Regulation;
-use ModernGame\Database\Entity\RegulationCategory;
-use ModernGame\Database\Entity\Ticket;
-use ModernGame\Database\Entity\Tutorial;
-use ModernGame\Database\Entity\User;
-use ModernGame\Database\Entity\UserItem;
-use ModernGame\Database\Entity\Wallet;
-use ModernGame\Enum\RolesEnum;
+use MNGame\Controller\Panel\Crud\AdminServerUserCrudController;
+use MNGame\Controller\Panel\Crud\ArticleCrudController;
+use MNGame\Controller\Panel\Crud\FAQCrudController;
+use MNGame\Controller\Panel\Crud\ItemCrudController;
+use MNGame\Controller\Panel\Crud\ItemListCrudController;
+use MNGame\Controller\Panel\Crud\PaySafeCardCrudController;
+use MNGame\Controller\Panel\Crud\PriceCrudController;
+use MNGame\Controller\Panel\Crud\RegulationCategoryCrudController;
+use MNGame\Controller\Panel\Crud\RegulationCrudController;
+use MNGame\Controller\Panel\Crud\TicketCrudController;
+use MNGame\Controller\Panel\Crud\TutorialCrudController;
+use MNGame\Controller\Panel\Crud\UserCrudController;
+use MNGame\Controller\Panel\Crud\UserItemCrudController;
+use MNGame\Controller\Panel\Crud\WalletCrudController;
+use MNGame\Database\Entity\AdminServerUser;
+use MNGame\Database\Entity\Article;
+use MNGame\Database\Entity\FAQ;
+use MNGame\Database\Entity\Item;
+use MNGame\Database\Entity\ItemList;
+use MNGame\Database\Entity\PaySafeCard;
+use MNGame\Database\Entity\Price;
+use MNGame\Database\Entity\Regulation;
+use MNGame\Database\Entity\RegulationCategory;
+use MNGame\Database\Entity\Ticket;
+use MNGame\Database\Entity\Tutorial;
+use MNGame\Database\Entity\User;
+use MNGame\Database\Entity\UserItem;
+use MNGame\Database\Entity\Wallet;
+use MNGame\Enum\RolesEnum;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 trait MainDashboardController
@@ -125,7 +125,7 @@ trait MainDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('ModernGame');
+            ->setTitle('MNGame');
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu

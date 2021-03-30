@@ -1,11 +1,11 @@
 <?php
 
-namespace ModernGame\Service;
+namespace MNGame\Service;
 
-use ModernGame\Database\Repository\AbstractRepository;
-use ModernGame\Exception\ContentException;
-use ModernGame\Serializer\CustomSerializer;
-use ModernGame\Validator\FormErrorHandler;
+use MNGame\Database\Repository\AbstractRepository;
+use MNGame\Exception\ContentException;
+use MNGame\Serializer\CustomSerializer;
+use MNGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 

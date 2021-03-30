@@ -1,9 +1,9 @@
 <?php
 
-namespace ModernGame\Database\Repository;
+namespace MNGame\Database\Repository;
 
 use Doctrine\Persistence\ManagerRegistry;
-use ModernGame\Database\Entity\FAQ;
+use MNGame\Database\Entity\FAQ;
 
 class FAQRepository extends AbstractRepository
 {

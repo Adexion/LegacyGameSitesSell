@@ -1,8 +1,8 @@
 <?php
 
-namespace ModernGame\Predicate;
+namespace MNGame\Predicate;
 
-use ModernGame\Enum\RolesEnum;
+use MNGame\Enum\RolesEnum;
 use Symfony\Component\Security\Core\Security;
 
 class RolePredicate

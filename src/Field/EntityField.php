@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Field;
+namespace MNGame\Field;
 
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
@@ -20,7 +20,7 @@ final class EntityField implements FieldInterface
         return (new self())
             ->setProperty($propertyName)
             ->setLabel($label)
-            ->setTemplatePath('@ModernGame/panel/field/entity.html.twig')
+            ->setTemplatePath('@MNGame/panel/field/entity.html.twig')
             ->setFormType(EntityType::class)
             ->setRequired(true);
     }

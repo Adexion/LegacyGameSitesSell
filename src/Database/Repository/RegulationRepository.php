@@ -1,11 +1,11 @@
 <?php
 
-namespace ModernGame\Database\Repository;
+namespace MNGame\Database\Repository;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
-use ModernGame\Database\Entity\Regulation;
-use ModernGame\Database\Entity\RegulationCategory;
+use MNGame\Database\Entity\Regulation;
+use MNGame\Database\Entity\RegulationCategory;
 
 class RegulationRepository extends AbstractRepository
 {

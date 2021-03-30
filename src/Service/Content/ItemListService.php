@@ -1,22 +1,22 @@
 <?php
 
-namespace ModernGame\Service\Content;
+namespace MNGame\Service\Content;
 
-use ModernGame\Database\Entity\Item;
-use ModernGame\Database\Entity\ItemList;
-use ModernGame\Database\Entity\ItemListStatistic;
-use ModernGame\Database\Entity\User;
-use ModernGame\Database\Entity\UserItem;
-use ModernGame\Database\Repository\ItemListRepository;
-use ModernGame\Database\Repository\ItemListStatisticRepository;
-use ModernGame\Database\Repository\ItemRepository;
-use ModernGame\Database\Repository\UserItemRepository;
-use ModernGame\Exception\ContentException;
-use ModernGame\Form\ItemListType;
-use ModernGame\Service\AbstractService;
-use ModernGame\Serializer\CustomSerializer;
-use ModernGame\Service\ServiceInterface;
-use ModernGame\Validator\FormErrorHandler;
+use MNGame\Database\Entity\Item;
+use MNGame\Database\Entity\ItemList;
+use MNGame\Database\Entity\ItemListStatistic;
+use MNGame\Database\Entity\User;
+use MNGame\Database\Entity\UserItem;
+use MNGame\Database\Repository\ItemListRepository;
+use MNGame\Database\Repository\ItemListStatisticRepository;
+use MNGame\Database\Repository\ItemRepository;
+use MNGame\Database\Repository\UserItemRepository;
+use MNGame\Exception\ContentException;
+use MNGame\Form\ItemListType;
+use MNGame\Service\AbstractService;
+use MNGame\Serializer\CustomSerializer;
+use MNGame\Service\ServiceInterface;
+use MNGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

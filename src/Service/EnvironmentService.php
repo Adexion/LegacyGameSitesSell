@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Service;
+namespace MNGame\Service;
 
 class EnvironmentService
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Command;
+namespace MNGame\Command;
 
 use Ratchet\Http\HttpServer;
 use Ratchet\Server\IoServer;

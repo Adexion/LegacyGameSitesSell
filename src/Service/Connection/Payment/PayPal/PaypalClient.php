@@ -1,11 +1,11 @@
 <?php
 
-namespace ModernGame\Service\Connection\Payment\PayPal;
+namespace MNGame\Service\Connection\Payment\PayPal;
 
 use GuzzleHttp\Exception\GuzzleException;
-use ModernGame\Exception\ContentException;
-use ModernGame\Exception\PaymentProcessingException;
-use ModernGame\Service\Connection\ApiClient\RestApiClient;
+use MNGame\Exception\ContentException;
+use MNGame\Exception\PaymentProcessingException;
+use MNGame\Service\Connection\ApiClient\RestApiClient;
 
 class PaypalClient extends RestApiClient
 {

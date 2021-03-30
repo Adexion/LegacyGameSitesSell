@@ -3,5 +3,5 @@ services:
     autowire: true
     autoconfigure: true
 
-  ModernGame\Tests\:
+  MNGame\Tests\:
     resource: '../tests/*'

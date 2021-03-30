@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    {% include '2.0/component/head.html.twig' %}
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('main-2.0') }}
+    {% endblock %}
+</head>
+<body>
+<div id="particles-js"></div>
+
+<div id="content">
+    {% include '2.0/component/nav.html.twig' %}
+    <div class="container" id="body">
+        <div class="row">
+            <div class="col-12">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <span class="footer">© Copyright {{ "now"|date("Y") }}. All right reserved.</span>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    <script>
+        particlesJS.load('particles-js', '/assets/particles.json', function () {});
+    </script>
+</footer>
+</body>
+</html>

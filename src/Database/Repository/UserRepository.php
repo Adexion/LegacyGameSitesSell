@@ -1,8 +1,8 @@
 <?php
 
-namespace ModernGame\Database\Repository;
+namespace MNGame\Database\Repository;
 
-use ModernGame\Database\Entity\User;
+use MNGame\Database\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 
 class UserRepository extends AbstractRepository

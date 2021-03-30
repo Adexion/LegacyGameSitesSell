@@ -1,8 +1,8 @@
 <?php
 
-namespace ModernGame\Service\Connection\ApiClient;
+namespace MNGame\Service\Connection\ApiClient;
 
-use ModernGame\Exception\ContentException;
+use MNGame\Exception\ContentException;
 
 class RestApiClientMockProvider
 {

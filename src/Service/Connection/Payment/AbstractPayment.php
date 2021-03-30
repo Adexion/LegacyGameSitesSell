@@ -1,12 +1,12 @@
 <?php
 
-namespace ModernGame\Service\Connection\Payment;
+namespace MNGame\Service\Connection\Payment;
 
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use ModernGame\Database\Entity\PaymentHistory;
-use ModernGame\Database\Entity\User;
-use ModernGame\Database\Repository\PaymentHistoryRepository;
+use MNGame\Database\Entity\PaymentHistory;
+use MNGame\Database\Entity\User;
+use MNGame\Database\Repository\PaymentHistoryRepository;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 

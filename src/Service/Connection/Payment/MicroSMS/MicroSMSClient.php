@@ -1,10 +1,10 @@
 <?php
 
-namespace ModernGame\Service\Connection\Payment\MicroSMS;
+namespace MNGame\Service\Connection\Payment\MicroSMS;
 
 use GuzzleHttp\Exception\GuzzleException;
-use ModernGame\Exception\ContentException;
-use ModernGame\Service\Connection\ApiClient\RestApiClient;
+use MNGame\Exception\ContentException;
+use MNGame\Service\Connection\ApiClient\RestApiClient;
 
 class MicroSMSClient extends RestApiClient
 {

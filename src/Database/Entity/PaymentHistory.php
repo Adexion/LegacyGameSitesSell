@@ -1,12 +1,12 @@
 <?php
 
-namespace ModernGame\Database\Entity;
+namespace MNGame\Database\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\PaymentHistoryRepository")
+ * @ORM\Entity(repositoryClass="MNGame\Database\Repository\PaymentHistoryRepository")
  */
 class PaymentHistory
 {

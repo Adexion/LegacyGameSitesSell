@@ -1,0 +1,7 @@
+{% extends '2.0/base.html.twig' %}
+
+{% block body %}
+        {{ include('2.0/component/article.html.twig') }}
+        {% set path = 'show-article-list' %}
+        {{ include('2.0/component/pagination.html.twig') }}
+{% endblock %}

@@ -1,11 +1,11 @@
 <?php
 
-namespace ModernGame\EventListener;
+namespace MNGame\EventListener;
 
-use ModernGame\Exception\ContentException;
-use ModernGame\Exception\PaymentProcessingException;
-use ModernGame\Service\EnvironmentService;
-use ModernGame\Service\Mail\MailSenderService;
+use MNGame\Exception\ContentException;
+use MNGame\Exception\PaymentProcessingException;
+use MNGame\Service\EnvironmentService;
+use MNGame\Service\Mail\MailSenderService;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

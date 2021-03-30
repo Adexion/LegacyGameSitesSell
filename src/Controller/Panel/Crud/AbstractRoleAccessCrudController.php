@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Controller\Panel\Crud;
+namespace MNGame\Controller\Panel\Crud;
 
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
@@ -9,8 +9,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
-use ModernGame\Database\Entity\User;
-use ModernGame\Predicate\RolePredicate;
+use MNGame\Database\Entity\User;
+use MNGame\Predicate\RolePredicate;
 use Symfony\Component\Security\Core\Security;
 
 abstract class AbstractRoleAccessCrudController extends AbstractCrudController

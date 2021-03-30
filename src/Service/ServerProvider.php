@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Service;
+namespace MNGame\Service;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;

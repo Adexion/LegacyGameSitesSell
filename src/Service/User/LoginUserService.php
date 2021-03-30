@@ -1,16 +1,16 @@
 <?php
 
-namespace ModernGame\Service\User;
+namespace MNGame\Service\User;
 
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use ModernGame\Database\Entity\Token;
-use ModernGame\Database\Entity\User;
-use ModernGame\Database\Repository\TokenRepository;
-use ModernGame\Database\Repository\UserRepository;
-use ModernGame\Exception\ContentException;
-use ModernGame\Form\MojangLoginType;
-use ModernGame\Validator\FormErrorHandler;
+use MNGame\Database\Entity\Token;
+use MNGame\Database\Entity\User;
+use MNGame\Database\Repository\TokenRepository;
+use MNGame\Database\Repository\UserRepository;
+use MNGame\Exception\ContentException;
+use MNGame\Form\MojangLoginType;
+use MNGame\Validator\FormErrorHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;

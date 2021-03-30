@@ -1,11 +1,11 @@
 <?php
 
-namespace ModernGame\Controller\Panel\Crud;
+namespace MNGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use ModernGame\Database\Entity\RegulationCategory;
+use MNGame\Database\Entity\RegulationCategory;
 
 class RegulationCategoryCrudController extends AbstractCrudController
 {

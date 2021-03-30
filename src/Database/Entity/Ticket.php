@@ -1,14 +1,14 @@
 <?php
 
-namespace ModernGame\Database\Entity;
+namespace MNGame\Database\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use ModernGame\Enum\TicketStatusEnum;
+use MNGame\Enum\TicketStatusEnum;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\TicketRepository")
+ * @ORM\Entity(repositoryClass="MNGame\Database\Repository\TicketRepository")
  */
 class Ticket
 {

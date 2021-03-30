@@ -1,0 +1,16 @@
+{% extends "2.0/base.html.twig" %}
+
+{% block body %}
+    <div class="card bg-mngame mb-2">
+        <div class="card-header">
+            <h4 class="font-weight-bold">Wybierz podstrone</h4>
+        </div>
+        <div class="card-body">
+            {{ include('2.0/component/user.menu.html.twig') }}
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+{% endblock %}

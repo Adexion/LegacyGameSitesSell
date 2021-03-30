@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Service\Connection\Payment;
+namespace MNGame\Service\Connection\Payment;
 
 interface PaymentInterface
 {

@@ -1,17 +1,17 @@
 <?php
 
-namespace ModernGame\Controller\Front;
+namespace MNGame\Controller\Front;
 
 use LogicException;
-use ModernGame\Database\Entity\ResetPassword;
-use ModernGame\Database\Entity\User;
-use ModernGame\Database\Repository\UserRepository;
-use ModernGame\Form\LoginType;
-use ModernGame\Form\RegisterType;
-use ModernGame\Form\ResetPasswordType;
-use ModernGame\Form\ResetType;
-use ModernGame\Service\Mail\MailSenderService;
-use ModernGame\Service\User\WalletService;
+use MNGame\Database\Entity\ResetPassword;
+use MNGame\Database\Entity\User;
+use MNGame\Database\Repository\UserRepository;
+use MNGame\Form\LoginType;
+use MNGame\Form\RegisterType;
+use MNGame\Form\ResetPasswordType;
+use MNGame\Form\ResetType;
+use MNGame\Service\Mail\MailSenderService;
+use MNGame\Service\User\WalletService;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

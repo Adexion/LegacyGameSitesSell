@@ -1,22 +1,22 @@
 <?php
 
-namespace ModernGame\Controller\Front;
+namespace MNGame\Controller\Front;
 
 use GuzzleHttp\Exception\GuzzleException;
-use ModernGame\Database\Entity\ItemList;
-use ModernGame\Database\Entity\PaymentHistory;
-use ModernGame\Database\Entity\PaySafeCard;
-use ModernGame\Database\Entity\User;
-use ModernGame\Database\Entity\Wallet;
-use ModernGame\Database\Repository\ItemListRepository;
-use ModernGame\Exception\ContentException;
-use ModernGame\Exception\ItemListNotFoundException;
-use ModernGame\Exception\PaymentProcessingException;
-use ModernGame\Service\Connection\Minecraft\ExecuteItemService;
-use ModernGame\Service\Connection\Payment\PayPal\PayPalService;
-use ModernGame\Service\Mail\MailSenderService;
-use ModernGame\Service\ServerProvider;
-use ModernGame\Service\User\WalletService;
+use MNGame\Database\Entity\ItemList;
+use MNGame\Database\Entity\PaymentHistory;
+use MNGame\Database\Entity\PaySafeCard;
+use MNGame\Database\Entity\User;
+use MNGame\Database\Entity\Wallet;
+use MNGame\Database\Repository\ItemListRepository;
+use MNGame\Exception\ContentException;
+use MNGame\Exception\ItemListNotFoundException;
+use MNGame\Exception\PaymentProcessingException;
+use MNGame\Service\Connection\Minecraft\ExecuteItemService;
+use MNGame\Service\Connection\Payment\PayPal\PayPalService;
+use MNGame\Service\Mail\MailSenderService;
+use MNGame\Service\ServerProvider;
+use MNGame\Service\User\WalletService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

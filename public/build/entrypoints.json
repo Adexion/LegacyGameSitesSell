@@ -20,8 +20,8 @@
       "js": [
         "/build/runtime.d94b3b43.js",
         "/build/0.6a9f4f4b.js",
-        "/build/2.e5d8567f.js",
-        "/build/app.2d5086cc.js"
+        "/build/2.ce799cd1.js",
+        "/build/app.2e0240fe.js"
       ]
     },
     "main": {
@@ -32,12 +32,20 @@
         "/build/main.3f03acb6.css"
       ]
     },
-    "new-main": {
+    "main-1.0": {
       "js": [
         "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/new-main.e50734d5.css"
+        "/build/main-1.0.e50734d5.css"
+      ]
+    },
+    "main-2.0": {
+      "js": [
+        "/build/runtime.d94b3b43.js"
+      ],
+      "css": [
+        "/build/main-2.0.577d7288.css"
       ]
     }
   }

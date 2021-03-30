@@ -1,10 +1,10 @@
 <?php
 
-namespace ModernGame\Form;
+namespace MNGame\Form;
 
-use ModernGame\Database\Entity\User;
-use ModernGame\Service\Connection\Minecraft\MojangPlayerService;
-use ModernGame\Validator\ReCaptchaValidator;
+use MNGame\Database\Entity\User;
+use MNGame\Service\Connection\Minecraft\MojangPlayerService;
+use MNGame\Validator\ReCaptchaValidator;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;

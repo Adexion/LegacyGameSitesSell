@@ -1,0 +1,25 @@
+{% if itemList|length > 0 %}
+    <a href="{{ path('item-shop') }}">
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for item in itemList %}
+                    <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+                        <img src="{{ item.sliderImage }}" class="d-block w-100" alt="{{ item.name }}">
+                        <div class="carousel-caption d-none d-md-block text-shadow background-shadow">
+                            <h5>{{ item.name }}</h5>
+                            <div>{{ item.description | raw }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </a>
+{% endif %}

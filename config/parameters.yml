@@ -32,35 +32,3 @@ parameters:
       additionalCards:
         Download: 'launcher'
       executionType: 'ws'
-    2:
-      id: 2
-      name: 'GuildWar'
-      host: '95.214.52.188'
-      port: '25576'
-      password: 'uZrBMBbzfP'
-      paypal:
-        client: 'AcshzYPPq0YGpv0Trz5aysOQ-hx0jxNzMbjHZrSYYw6teXfAaScSde4XGaTuc5d3XTwJEtDqEozwRbFC'
-        secret: 'ENW0ij8yxYsbDWyEvwK4SZ3SR08V6eeP0tMYZLsoVAwYDxnP0xq-RKpKL3St3SoKsoQYi-V4AO63U9-5'
-      microSMS:
-        userId: 2003
-        serviceId: 3235
-      defaultCommand: 'list'
-      playerNotFoundCommunicate: 'Player not found.'
-      src: 'assets/guildwar_logo.png'
-      executionType: 'ws'
-    3:
-      id: 3
-      name: 'Platinum Journey'
-      host: '95.214.52.188'
-      port: '25576'
-      password: 'uZrBMBbzfP'
-      paypal:
-        client: 'AcshzYPPq0YGpv0Trz5aysOQ-hx0jxNzMbjHZrSYYw6teXfAaScSde4XGaTuc5d3XTwJEtDqEozwRbFC'
-        secret: 'ENW0ij8yxYsbDWyEvwK4SZ3SR08V6eeP0tMYZLsoVAwYDxnP0xq-RKpKL3St3SoKsoQYi-V4AO63U9-5'
-      microSMS:
-        userId: 2003
-        serviceId: 3235
-      defaultCommand: 'list'
-      playerNotFoundCommunicate: 'Player not found.'
-      src: 'assets/logotype.jpg'
-      executionType: 'ws'

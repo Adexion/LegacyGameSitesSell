@@ -1,10 +1,10 @@
 <?php
 
-namespace ModernGame\Database\Repository;
+namespace MNGame\Database\Repository;
 
 use Doctrine\Persistence\ManagerRegistry;
-use ModernGame\Database\Entity\Ticket;
-use ModernGame\Database\Entity\User;
+use MNGame\Database\Entity\Ticket;
+use MNGame\Database\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class TicketRepository extends AbstractRepository

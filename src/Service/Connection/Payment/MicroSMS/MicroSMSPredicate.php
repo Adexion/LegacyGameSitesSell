@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Service\Connection\Payment\MicroSMS;
+namespace MNGame\Service\Connection\Payment\MicroSMS;
 
 class MicroSMSPredicate
 {

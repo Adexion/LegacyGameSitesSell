@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\Service\Connection\Client;
+namespace MNGame\Service\Connection\Client;
 
 use Exception;
 

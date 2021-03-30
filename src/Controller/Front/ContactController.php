@@ -1,12 +1,12 @@
 <?php
 
-namespace ModernGame\Controller\Front;
+namespace MNGame\Controller\Front;
 
 use Exception;
-use ModernGame\Database\Entity\Ticket;
-use ModernGame\Database\Entity\User;
-use ModernGame\Form\ContactTicketType;
-use ModernGame\Service\Mail\MailSenderService;
+use MNGame\Database\Entity\Ticket;
+use MNGame\Database\Entity\User;
+use MNGame\Form\ContactTicketType;
+use MNGame\Service\Mail\MailSenderService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

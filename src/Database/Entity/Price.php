@@ -1,11 +1,11 @@
 <?php
 
-namespace ModernGame\Database\Entity;
+namespace MNGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="ModernGame\Database\Repository\PriceRepository")
+ * @ORM\Entity(repositoryClass="MNGame\Database\Repository\PriceRepository")
  */
 class Price
 {

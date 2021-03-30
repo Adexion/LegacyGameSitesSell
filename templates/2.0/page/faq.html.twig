@@ -1,0 +1,38 @@
+{% extends '2.0/base.html.twig' %}
+
+{% block body %}
+    <div class="card bg-mngame">
+        <div class="card-header">
+            <h4 class="font-weight-bold">Najczęściej zadawane pytania</h4>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Masz do nas jakieś pytanie, a nie ma go na poniższej liście? Napisz do nas w formularzu
+                kontaktowym.
+                Być może się ono pojawi!</p>
+        </div>
+    </div>
+
+    <div id="accordion" class="mt-2">
+        {% for faq in faqList %}
+            <div class="card bg-mngame">
+                <div class="card-header" id="faqHead{{ faq.id }}">
+                    <label class="h5 mb-0 w-100">
+                        <a class="position-relative font-weight-bold w-100 d-block" data-toggle="collapse"
+                           data-target="#faq{{ faq.id }}"
+                           aria-expanded="true" aria-controls="faq{{ faq.id }}">
+                            {{ loop.index }}. {{ faq.question }}&nbsp;
+                            <span class="fa fa-chevron-down font-weight-bold rb-0 position-absolute"></span>
+                        </a>
+                    </label>
+                </div>
+
+                <div id="faq{{ faq.id }}" class="collapse" aria-labelledby="faqHead{{ faq.id }}"
+                     data-parent="#accordion">
+                    <div class="card-body">
+                        {{ faq.answer | raw }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

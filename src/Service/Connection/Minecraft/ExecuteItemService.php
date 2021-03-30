@@ -1,21 +1,21 @@
 <?php
 
-namespace ModernGame\Service\Connection\Minecraft;
+namespace MNGame\Service\Connection\Minecraft;
 
-use ModernGame\Database\Entity\Item;
-use ModernGame\Database\Entity\ItemList;
-use ModernGame\Database\Entity\User;
-use ModernGame\Database\Entity\UserItem;
-use ModernGame\Database\Repository\ItemListRepository;
-use ModernGame\Database\Repository\ItemRepository;
-use ModernGame\Database\Repository\UserItemRepository;
-use ModernGame\Exception\ContentException;
-use ModernGame\Exception\ItemListNotFoundException;
-use ModernGame\Exception\PaymentProcessingException;
-use ModernGame\Service\Connection\Client\ClientFactory;
-use ModernGame\Service\Content\ItemListService;
-use ModernGame\Service\ServerProvider;
-use ModernGame\Service\User\WalletService;
+use MNGame\Database\Entity\Item;
+use MNGame\Database\Entity\ItemList;
+use MNGame\Database\Entity\User;
+use MNGame\Database\Entity\UserItem;
+use MNGame\Database\Repository\ItemListRepository;
+use MNGame\Database\Repository\ItemRepository;
+use MNGame\Database\Repository\UserItemRepository;
+use MNGame\Exception\ContentException;
+use MNGame\Exception\ItemListNotFoundException;
+use MNGame\Exception\PaymentProcessingException;
+use MNGame\Service\Connection\Client\ClientFactory;
+use MNGame\Service\Content\ItemListService;
+use MNGame\Service\ServerProvider;
+use MNGame\Service\User\WalletService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ModernGame\EventSubscriber;
+namespace MNGame\EventSubscriber;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
