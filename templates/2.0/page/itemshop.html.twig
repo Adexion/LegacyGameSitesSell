@@ -10,37 +10,23 @@
     {% include 'base/component/wallet.html.twig' %}
     <div class="w-100" id="error-container"></div>
 
-    <div class="list-flex">
-        {% for itemList in itemLists %}
-            <div class="card bg-mngame mb-3">
-                <div class="card-header">
-                    <h4 class="font-weight-bold">{{ itemList.name }}</h4>
-                </div>
-                <div class="card-body">
-                    <img src="{{ itemList.sliderImage }}" alt="{{ itemList.name }}" class="w-100">
-                    <p class="m-2">
-                        {{ itemList.description | raw }}
-                    </p>
-                    <div class="mb-2">
-                        <i class="fas fa-coins text-warning"></i>
-                        {% if itemList.promotion %}
-                            <s class="text-danger">{{ itemList.price | number_format(2) }}</s>
-                        {% endif %}
-                        <span class="font-weight-bold text-warning"
-                              id="afterPromotion{{ itemList.id }}">{{ itemList.afterPromotionPrice | number_format(2) }} zł</span>
-                    </div>
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <div class="float-right ">
-                            <button
-                                    data-toggle="modal" data-target="#paymentModal"
-                                    data-item-list-id="{{ itemList.id }}" class="btn btn-info btn-payment">
-                                Przejdź do płatności
-                            </button>
-                        </div>
+    <div class="item-list bg-mngame">
+        <div class="container">
+            <div class="row">
+                {% for itemList in itemLists %}
+                    {% if loop.index < 3 %}
+                        {% include '2.0/page/component/itemshop-recommended.twig' %}
+                    {% else %}
+                        {% include '2.0/page/component/itemshop-other.html.twig' %}
                     {% endif %}
-                </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+        </div>
+    </div>
+
+    <div class="alert alert-info mt-3">
+        Informacja: Rangi nie dają przewagi w grze. Są to tylko zmiany kosmetyczne, oraz takie, które ułatwiające rogrywkę indywidualną.
+        Więcej informacji znajdziesz w <a class="text-dark" href="{{ path('rule') }}">Regulaminie.</a>
     </div>
 
     <div class="modal fade" tabindex="-1" id="prepaidModal">
@@ -109,7 +95,8 @@
                 </div>
                 <div class="modal-body">
                     <div id="paypal-button-container"></div>
-                    <form action="{{ path('prepaid-status') }}" method="post" class="d-inline-block" id="prepaid-payment-form" style="display: none !important;">
+                    <form action="{{ path('prepaid-status') }}" method="post" class="d-inline-block"
+                          id="prepaid-payment-form" style="display: none !important;">
                         {% if wallet.cash is defined %}
                             {% if wallet.cash > 0 %}
                                 <input id="prepaid-payment-form-input" type="hidden" name="itemListId">
