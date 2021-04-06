@@ -18,8 +18,6 @@ class HomepageController extends AbstractController
 {
     /**
      * @Route(name="index", path="/")
-     *
-     * @throws ContentException
      */
     public function index(
         ExecutionService $executionService,
@@ -33,7 +31,6 @@ class HomepageController extends AbstractController
             'articleList' => $this->getDoctrine()->getRepository(Article::class)->getLastArticles(),
             'playerListCount' => $executionService->getServerStatus($serverProvider->getDefaultQueryServerId())['players'] ?? 0,
             'isOnline' => (bool)$executionService->getServerStatus($serverProvider->getDefaultQueryServerId()),
-            'playerList' => $executionService->getPlayerList(),
             'admins' => $this->getDoctrine()->getRepository(AdminServerUser::class)->findBy(['serverId' => $serverProvider->getSessionServer()['id']]),
             'itemList' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $serverProvider->getSessionServer()['id']])
         ]);

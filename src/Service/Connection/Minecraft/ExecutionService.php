@@ -34,18 +34,10 @@ class ExecutionService
      */
     public function isUserLogged(UserInterface $user, string $serverId): bool
     {
-        return strstr($this->getPlayerList($serverId), $user->getUsername()) !== false;
-    }
-
-    /**
-     * @throws ContentException
-     */
-    public function getPlayerList(string $serverId = null): string
-    {
         $server = $this->serverProvider->getServer($serverId ?? $this->serverProvider->getDefaultConnectionServerId());
         $client = $this->clientFactory->create($server);
-        $client->sendCommand($server['defaultCommand']);
+        $client->sendCommand(sprintf($server['defaultCommand'], $user->getUsername()));
 
-        return $client->getResponse();
+        return filter_var($client->getResponse(), FILTER_VALIDATE_BOOLEAN);
     }
 }
