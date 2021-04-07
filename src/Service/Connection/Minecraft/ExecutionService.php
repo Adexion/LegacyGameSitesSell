@@ -21,12 +21,12 @@ class ExecutionService
         $this->clientFactory = $clientFactory;
     }
 
-    public function getServerStatus(string $serverId): ?array
+    public function getServerStatus(): ?array
     {
-        $server = $this->serverProvider->getServer($serverId);
+        $server = $this->serverProvider->getQuery();
         error_reporting(E_ALL & ~E_NOTICE);
 
-        return MinecraftServerStatus::query($server['host'], $server['queryPort']) ?: null;
+        return MinecraftServerStatus::query($server['host'], $server['port']) ?: null;
     }
 
     /**

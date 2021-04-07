@@ -8,17 +8,18 @@ use UnexpectedValueException;
 
 class ServerProvider
 {
+    private const DEFAULT_SERVER_ID = 1;
+
     private $serverList;
     private ?SessionInterface $session;
-    private $defaultQueryServerId;
-    private $defaultConnectionServerId;
+    private $query;
 
     public function __construct(ContainerInterface $container, SessionInterface $session)
     {
         $this->session = $session;
+
+        $this->query = $container->getParameter('query');
         $this->serverList = $container->getParameter('server');
-        $this->defaultQueryServerId = $container->getParameter('defaultQueryServerId');
-        $this->defaultConnectionServerId = $container->getParameter('defaultConnectionServerId');
     }
 
     public function getServer(int $serverId = null): array
@@ -27,7 +28,7 @@ class ServerProvider
             throw new UnexpectedValueException('Given server does not exist');
         }
 
-        return $this->serverList[$serverId] ?? $this->serverList[$this->defaultConnectionServerId];
+        return $this->serverList[$serverId] ?? $this->serverList[self::DEFAULT_SERVER_ID];
     }
 
     public function getServerList(): array
@@ -40,13 +41,13 @@ class ServerProvider
         return $this->getServer($this->session->get('serverId') ?? null);
     }
 
-    public function getDefaultQueryServerId(): string
+    public function getQuery()
     {
-        return $this->defaultQueryServerId;
+        return $this->query;
     }
 
-    public function getDefaultConnectionServerId(): string
+    public function getDefaultConnectionServerId(): int
     {
-        return $this->defaultConnectionServerId;
+        return self::DEFAULT_SERVER_ID;
     }
 }

@@ -4,8 +4,9 @@ parameters:
     recaptcha: '6LfwhcQZAAAAAJBPmY2tgGvITdZbSSt692Zn9tHb'
     siteKey: '6LfwhcQZAAAAALY5FSmCcRdfDCE7quCozrzEyQIE'
   whitelistCommands: [ unban, pardon, ban ]
-  defaultQueryServerId: 1
-  defaultConnectionServerId: 1
+  query:
+    host: '95.214.54.83'
+    port: '25577'
   base: 'base'
   old: '1.0'
   latest: '2.0'
@@ -15,7 +16,6 @@ parameters:
       id: 1
       name: 'MGame'
       host: 'server710020.nazwa.pl'
-      queryPort: '21370'
       port: '12345'
       password: '7d9aaEfbb73A'
       paypal:

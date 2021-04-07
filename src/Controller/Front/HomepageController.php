@@ -29,8 +29,8 @@ class HomepageController extends AbstractController
 
         return $this->render('base/page/index.html.twig', [
             'articleList' => $this->getDoctrine()->getRepository(Article::class)->getLastArticles(),
-            'playerListCount' => $executionService->getServerStatus($serverProvider->getDefaultQueryServerId())['players'] ?? 0,
-            'isOnline' => (bool)$executionService->getServerStatus($serverProvider->getDefaultQueryServerId()),
+            'playerListCount' => $executionService->getServerStatus()['players'] ?? 0,
+            'isOnline' => (bool)$executionService->getServerStatus(),
             'admins' => $this->getDoctrine()->getRepository(AdminServerUser::class)->findBy(['serverId' => $serverProvider->getSessionServer()['id']]),
             'itemList' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $serverProvider->getSessionServer()['id']])
         ]);
