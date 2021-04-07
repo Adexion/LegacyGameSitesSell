@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
 {
-    private const PLAYER_AVATAR = 'https://minotar.net/avatar/';
+    private const PLAYER_AVATAR = 'https://cravatar.eu/avatar/';
 
     /**
      * @Route(path="/article/show/{slug}", name="show-article")

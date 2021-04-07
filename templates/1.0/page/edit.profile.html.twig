@@ -19,7 +19,7 @@
                 <div class="col-3">
                     <div class="user-avatar w-100">
                         <img id="avatar" class=" w-100" alt="{{ app.user.username }}"
-                             src="https://minotar.net/avatar/{{ app.user.username }}.png">
+                             src="https://cravatar.eu/avatar/{{ app.user.username }}.png">
                         <script>
                             (() => {
                                 const username = document.querySelector('#username');
@@ -32,7 +32,7 @@
                                     }
 
                                     timeout = setTimeout(() => {
-                                        avatar.src = `https://minotar.net/avatar/${username.value}`;
+                                        avatar.src = `https://cravatar.eu/avatar/${username.value}`;
                                     }, 1000)
                                 })
                             })()

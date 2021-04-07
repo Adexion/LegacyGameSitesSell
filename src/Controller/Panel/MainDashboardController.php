@@ -133,7 +133,7 @@ trait MainDashboardController
         /** @var User $user */
         return parent::configureUserMenu($user)
             ->setName($user->getUsername())
-            ->setAvatarUrl(sprintf('http://cravatar.eu/avatar/%s/64.png', $this->getUser()->getUsername()))
+            ->setAvatarUrl(sprintf('https://cravatar.eu/avatar/%s/64.png', $this->getUser()->getUsername()))
             ->displayUserName(true)
             ->displayUserAvatar(true);
     }
