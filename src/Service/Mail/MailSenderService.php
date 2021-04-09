@@ -16,13 +16,13 @@ class MailSenderService
         $this->provider = new SchemaListProvider();
     }
 
-    public function sendEmailBySchema(string $schemaId, $data, string $email = 'MNGameservice@gmail.com'): int
+    public function sendEmailBySchema(string $schemaId, $data, string $email = 'moderngameservice@gmail.com'): int
     {
         $schema = $this->provider->provide($schemaId);
 
         $body = str_replace($schema['replace'], $data, $schema['text']);
         $message = (new Swift_Message($schema['title']))
-            ->setFrom('MNGameservice@gmail.com')
+            ->setFrom('moderngameservice@gmail.com')
             ->setTo($email)
             ->setBody($body,'text/html');
 
@@ -33,7 +33,7 @@ class MailSenderService
     {
         $body = str_replace($replacement, $data, $content);
         $message = (new Swift_Message($tittle))
-            ->setFrom('MNGameservice@gmail.com')
+            ->setFrom('moderngameservice@gmail.com')
             ->setTo($email)
             ->setBody($body,'text/html');
 
