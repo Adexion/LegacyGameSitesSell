@@ -23,8 +23,8 @@ class ServerChoiceFieldProvider
 
     public function getServerListChoices(): array
     {
-        foreach ($this->serverProvider->getServerList() as $key => $value) {
-            $list[$value->getName()] = $key;
+        foreach ($this->serverProvider->getServerList() as $value) {
+            $list[$value->getName()] = $value->getId();
         }
 
         return $list ?? [];
