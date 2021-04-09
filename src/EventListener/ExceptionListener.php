@@ -8,6 +8,7 @@ use MNGame\Service\EnvironmentService;
 use MNGame\Service\Mail\MailSenderService;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -38,6 +39,13 @@ class ExceptionListener
         $response = new JsonResponse();
 
         if ($exception instanceof HttpExceptionInterface) {
+            if ($exception->getStatusCode() === Response::HTTP_NOT_FOUND) {
+                $response = new RedirectResponse('/');
+                $event->setResponse($response);
+
+                return;
+            }
+
             $response->setStatusCode($exception->getStatusCode());
             $response->headers->replace($exception->getHeaders());
             $response->setContent(json_encode(['error' => $exception->getMessage()]));

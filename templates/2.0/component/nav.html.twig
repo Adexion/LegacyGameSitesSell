@@ -27,26 +27,11 @@
                                 {% endfor %}
                             </ul>
                         </li>
+                        {% for key, link in module %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('show-article-list') }}"><i class="fas fa-list"></i>Artykuły</a>
+                            <a class="nav-link" href="{{ path(key) }}"><i class="{{ link.icon }}"></i>{{ link.name }}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('tutorial-front') }}"><i class="fas fa-film"></i>Poradniki</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('rule') }}"><i
-                                        class="fas fa-ruler-vertical"></i>Zasady</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('faq-front') }}"><i class="fas fa-question"></i>FAQ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('contact-front') }}"><i
-                                        class="fas fa-book"></i>Kontakt</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('item-shop') }}"><i class="fas fa-shopping-cart"></i>ItemShop</a>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
