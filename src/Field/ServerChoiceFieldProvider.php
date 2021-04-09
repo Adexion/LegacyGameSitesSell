@@ -18,7 +18,7 @@ class ServerChoiceFieldProvider
     {
         return ChoiceField::new($propertyName, $label)
             ->setChoices($this->getServerListChoices())
-            ->setRequired(true);
+            ->setRequired(false);
     }
 
     public function getServerListChoices(): array

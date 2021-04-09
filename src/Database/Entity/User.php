@@ -95,7 +95,7 @@ class User implements UserInterface
         $this->password = $password;
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -152,6 +152,7 @@ class User implements UserInterface
     {
         return $this->assignedServerId;
     }
+
     public function setAssignedServerId(?int $assignedServerId)
     {
         $this->assignedServerId = $assignedServerId;

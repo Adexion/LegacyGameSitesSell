@@ -28,7 +28,7 @@ class ArticleRepository extends AbstractRepository
             ->from(Article::class, 'article')
             ->leftJoin(User::class, 'user', Join::WITH, 'user.id = article.author')
             ->where('article.serverId = :serverId')
-            ->setParameter(':serverId', $this->serverProvider->getSessionServer()['id'])
+            ->setParameter(':serverId', $this->serverProvider->getSessionServer()->getId())
             ->orderBy('article.id', "DESC")
             ->setMaxResults(4);
 
@@ -45,7 +45,7 @@ class ArticleRepository extends AbstractRepository
             ->from(Article::class, 'article')
             ->leftJoin(User::class, 'user', Join::WITH, 'user.id = article.author')
             ->where('article.serverId = :serverId')
-            ->setParameter(':serverId', $this->serverProvider->getSessionServer()['id'])
+            ->setParameter(':serverId', $this->serverProvider->getSessionServer()->getId())
             ->orderBy('article.id', "DESC")
             ->setMaxResults(self::ARTICLE_PER_PAGES)
             ->setFirstResult(self::ARTICLE_PER_PAGES * ($page - 1));

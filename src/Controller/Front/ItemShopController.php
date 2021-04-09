@@ -9,6 +9,7 @@ use MNGame\Database\Entity\PaySafeCard;
 use MNGame\Database\Entity\User;
 use MNGame\Database\Entity\Wallet;
 use MNGame\Database\Repository\ItemListRepository;
+use MNGame\Dto\PaypalDto;
 use MNGame\Exception\ContentException;
 use MNGame\Exception\ItemListNotFoundException;
 use MNGame\Exception\PaymentProcessingException;
@@ -31,8 +32,8 @@ class ItemShopController extends AbstractController
         $server = $serverProvider->getSessionServer();
 
         return $this->render('base/page/itemshop.html.twig', [
-            'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $serverProvider->getSessionServer()['id']]),
-            'paypalClient' => $server['paypal']['client'],
+            'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $server->getId()]),
+            'paypalClient' => $server->getPaypal()->getClient(),
             'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
         ]);
     }

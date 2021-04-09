@@ -114,9 +114,9 @@ class ExecuteItemService
 
     private function isItemOnWhiteList(string $command): bool
     {
-        $whiteListCommands = $this->container->getParameter('whitelistCommands');
+        $executeImidiatellyCommands = $this->container->getParameter('executeImidiatellyCommands');
 
-        foreach ($whiteListCommands as $partialCommand) {
+        foreach ($executeImidiatellyCommands as $partialCommand) {
             if (strpos($command, $partialCommand) !== false) {
                 return true;
             }

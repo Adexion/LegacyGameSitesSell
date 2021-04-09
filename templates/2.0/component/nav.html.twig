@@ -20,12 +20,10 @@
                             </a>
                             <ul class="collapse list-unstyled nav-item" id="homeSubmenu">
                                 {% for s in server %}
-                                    {% if s.src is defined %}
-                                        <form method="post" action="/">
-                                            <input name="serverId" type="hidden" value="{{ s.id }}"/>
-                                            <input class="bg-transparent border-0 nav-link w-100 text-center" type="submit" alt="{{ s.name }}" value="{{ s.name }}"/>
-                                        </form>
-                                    {% endif %}
+                                    <form method="post" action="/">
+                                        <input name="serverId" type="hidden" value="{{ s.id }}"/>
+                                        <input class="bg-transparent border-0 nav-link w-100 text-center" type="submit" alt="{{ s.name }}" value="{{ s.name }}"/>
+                                    </form>
                                 {% endfor %}
                             </ul>
                         </li>

@@ -31,8 +31,8 @@ class HomepageController extends AbstractController
             'articleList' => $this->getDoctrine()->getRepository(Article::class)->getLastArticles(),
             'playerListCount' => $executionService->getServerStatus()['players'] ?? 0,
             'isOnline' => (bool)$executionService->getServerStatus(),
-            'admins' => $this->getDoctrine()->getRepository(AdminServerUser::class)->findBy(['serverId' => $serverProvider->getSessionServer()['id']]),
-            'itemList' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $serverProvider->getSessionServer()['id']])
+            'admins' => $this->getDoctrine()->getRepository(AdminServerUser::class)->findBy(['serverId' => $serverProvider->getSessionServer()->getId()]),
+            'itemList' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $serverProvider->getSessionServer()->getId()])
         ]);
     }
 

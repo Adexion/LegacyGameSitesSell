@@ -2,6 +2,7 @@
 
 namespace MNGame\Service\Connection\Client;
 
+use MNGame\Database\Entity\Server;
 use MNGame\Enum\ExecutionTypeEnum;
 use MNGame\Exception\ContentException;
 use MNGame\Service\EnvironmentService;
@@ -20,7 +21,7 @@ class ClientFactory
     /**
      * @throws ContentException
      */
-    public function create(array $server): ?ClientInterface
+    public function create(Server $server): ?ClientInterface
     {
         /** @var ClientInterface $client */
         switch ($server['executionType'] ?? ExecutionTypeEnum::WS) {

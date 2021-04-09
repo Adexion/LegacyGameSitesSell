@@ -4,6 +4,7 @@ namespace MNGame\Service\Connection\Payment\PayPal;
 
 use GuzzleHttp\Exception\GuzzleException;
 use MNGame\Database\Repository\PaymentHistoryRepository;
+use MNGame\Dto\PaypalDto;
 use MNGame\Exception\ContentException;
 use MNGame\Exception\PaymentProcessingException;
 use MNGame\Service\Connection\Payment\AbstractPayment;
@@ -22,7 +23,7 @@ class PayPalService extends AbstractPayment implements PaymentInterface
         UserProviderInterface $userProvider,
         ServerProvider $serverProvider
     ) {
-        $this->paypalData = $serverProvider->getSessionServer()['paypal'];
+        $this->paypalData = $serverProvider->getSessionServer()->getPaypal()->toArray();
         $this->paypalClient = $paypalClient;
 
         parent::__construct($repository, $userProvider);

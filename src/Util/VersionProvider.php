@@ -3,7 +3,7 @@
 namespace MNGame\Util;
 
 use Exception;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use MNGame\Service\Content\Parameter\ParameterProvider;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -14,13 +14,13 @@ use Twig\Loader\LoaderInterface;
 class VersionProvider
 {
     private LoaderInterface $loader;
-    private ContainerInterface $container;
+    private ParameterProvider $container;
 
     private const OLD_VERSION = 'base';
     private ?string $version;
     private ?Request $request;
 
-    public function __construct(RequestStack $requestStack, Environment $twig, ContainerInterface $container)
+    public function __construct(RequestStack $requestStack, Environment $twig, ParameterProvider $container)
     {
         $this->request = $requestStack->getCurrentRequest();
         $this->loader = $twig->getLoader();

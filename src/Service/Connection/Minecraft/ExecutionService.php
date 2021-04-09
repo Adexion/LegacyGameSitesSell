@@ -23,10 +23,10 @@ class ExecutionService
 
     public function getServerStatus(): ?array
     {
-        $server = $this->serverProvider->getQuery();
+        $q = $this->serverProvider->getQuery();
         error_reporting(E_ALL & ~E_NOTICE);
 
-        return MinecraftServerStatus::query($server['host'], $server['port']) ?: null;
+        return MinecraftServerStatus::query($q['host'], $q['port']) ?: null;
     }
 
     /**
@@ -36,7 +36,7 @@ class ExecutionService
     {
         $server = $this->serverProvider->getServer($serverId ?? $this->serverProvider->getDefaultConnectionServerId());
         $client = $this->clientFactory->create($server);
-        $client->sendCommand(sprintf($server['defaultCommand'], $user->getUsername()));
+        $client->sendCommand(sprintf($server['userOnlineCommand'], $user->getUsername()));
 
         return filter_var($client->getResponse(), FILTER_VALIDATE_BOOLEAN);
     }

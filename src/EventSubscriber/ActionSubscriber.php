@@ -2,6 +2,8 @@
 
 namespace MNGame\EventSubscriber;
 
+use MNGame\Database\Repository\ModuleEnabledRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -10,15 +12,25 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Routing\RouterInterface;
 
 class ActionSubscriber implements EventSubscriberInterface
 {
+    private ModuleEnabledRepository $repository;
+    private RouterInterface $router;
+
+    public function __construct(ModuleEnabledRepository $repository, RouterInterface $router)
+    {
+        $this->repository = $repository;
+        $this->router = $router;
+    }
+
     public static function getSubscribedEvents()
     {
         return [
             KernelEvents::REQUEST => 'onKernelRequest',
             KernelEvents::CONTROLLER => 'onKernelController',
-            KernelEvents::RESPONSE => 'onKernelResponse'
+            KernelEvents::RESPONSE => 'onKernelResponse',
         ];
     }
 
@@ -36,6 +48,13 @@ class ActionSubscriber implements EventSubscriberInterface
     public function onKernelController(ControllerEvent $event)
     {
         $request = $event->getRequest();
+
+        if ($this->shouldConnectionBeRedirectToHomepage($request->get('_route'))) {
+            $url = $this->router->generate('index');
+            $event->setController(function () use ($url) {
+                return new RedirectResponse($url);
+            });
+        }
 
         $setCookie = $request->query->get('new');
         if (isset($setCookie)) {
@@ -59,5 +78,12 @@ class ActionSubscriber implements EventSubscriberInterface
         $event->getResponse()->headers->set('Access-Control-Allow-Origin', '*');
         $event->getResponse()->headers->set('Access-Control-Allow-Methods', '*');
         $event->getResponse()->headers->set('Access-Control-Allow-Headers', 'x-auth-token, Content-Type');
+    }
+
+    private function shouldConnectionBeRedirectToHomepage(?string $route): bool
+    {
+        $moduleEnabled = $this->repository->findOneBy(['route' => $route]);
+
+        return $moduleEnabled ? !$moduleEnabled->isActive() : false;
     }
 }

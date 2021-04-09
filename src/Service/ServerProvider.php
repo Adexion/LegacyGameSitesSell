@@ -2,29 +2,31 @@
 
 namespace MNGame\Service;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use MNGame\Database\Entity\Server;
+use MNGame\Database\Repository\ServerRepository;
+use MNGame\Service\Content\Parameter\ParameterProvider;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use UnexpectedValueException;
 
 class ServerProvider
 {
-    private const DEFAULT_SERVER_ID = 1;
+    private const DEFAULT_SERVER_ID = 0;
 
-    private $serverList;
+    private array $serverList;
     private ?SessionInterface $session;
     private $query;
 
-    public function __construct(ContainerInterface $container, SessionInterface $session)
+    public function __construct(ParameterProvider $container, SessionInterface $session, ServerRepository $serverRepository)
     {
         $this->session = $session;
 
         $this->query = $container->getParameter('query');
-        $this->serverList = $container->getParameter('server');
+        $this->serverList = $serverRepository->findAll();
     }
 
-    public function getServer(int $serverId = null): array
+    public function getServer(int $serverId = null): Server
     {
-        if ($serverId !== null && !isset($this->serverList[$serverId])) {
+        if ($serverId !== null && !isset($this->serverList[$serverId - 1])) {
             throw new UnexpectedValueException('Given server does not exist');
         }
 
@@ -36,7 +38,7 @@ class ServerProvider
         return $this->serverList;
     }
 
-    public function getSessionServer(): array
+    public function getSessionServer(): Server
     {
         return $this->getServer($this->session->get('serverId') ?? null);
     }
