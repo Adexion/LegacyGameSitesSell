@@ -10,7 +10,7 @@ use UnexpectedValueException;
 
 class ServerProvider
 {
-    private const DEFAULT_SERVER_ID = 0;
+    private const DEFAULT_SERVER_ID = 1;
 
     private array $serverList;
     private ?SessionInterface $session;
@@ -26,11 +26,13 @@ class ServerProvider
 
     public function getServer(int $serverId = null): Server
     {
-        if ($serverId !== null && !isset($this->serverList[$serverId - 1])) {
-            throw new UnexpectedValueException('Given server does not exist');
+        foreach ($this->serverList as $server) {
+            if ($server->getId() === ($serverId ?: self::DEFAULT_SERVER_ID)) {
+                return $server;
+            }
         }
 
-        return $this->serverList[$serverId] ?? $this->serverList[self::DEFAULT_SERVER_ID];
+        throw new UnexpectedValueException('Given server does not exist');
     }
 
     public function getServerList(): array

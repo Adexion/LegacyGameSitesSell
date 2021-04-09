@@ -2,50 +2,50 @@
   "entrypoints": {
     "paymentStatistic": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors~app~paymentStatistic~shopStatistic.js",
-        "/build/vendors~paymentStatistic~shopStatistic.js",
-        "/build/paymentStatistic.js"
+        "/build/runtime.d94b3b43.js",
+        "/build/0.6a9f4f4b.js",
+        "/build/1.3dabc676.js",
+        "/build/paymentStatistic.9feaf570.js"
       ]
     },
     "shopStatistic": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors~app~paymentStatistic~shopStatistic.js",
-        "/build/vendors~paymentStatistic~shopStatistic.js",
-        "/build/shopStatistic.js"
+        "/build/runtime.d94b3b43.js",
+        "/build/0.6a9f4f4b.js",
+        "/build/1.3dabc676.js",
+        "/build/shopStatistic.d48ede9c.js"
       ]
     },
     "app": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors~app~paymentStatistic~shopStatistic.js",
-        "/build/vendors~app.js",
-        "/build/app.js"
+        "/build/runtime.d94b3b43.js",
+        "/build/0.6a9f4f4b.js",
+        "/build/3.9fad8471.js",
+        "/build/app.c51c5585.js"
       ]
     },
     "main": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/main.css"
+        "/build/main.3f03acb6.css"
       ]
     },
     "main-1.0": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/main-1.0.css"
+        "/build/main-1.0.e50734d5.css"
       ]
     },
     "main-2.0": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/main-2.0.css"
+        "/build/main-2.0.4aac74d6.css"
       ]
     }
   }
