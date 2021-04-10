@@ -38,7 +38,7 @@ class ExecutionService
     public function isUserLogged(UserInterface $user, Server $server): bool
     {
         $client = $this->clientFactory->create($server);
-        $client->sendCommand(sprintf($server['userOnlineCommand'], $user->getUsername()));
+        $client->sendCommand(sprintf($server->getUserOnlineCommand(), $user->getUsername()));
 
         return filter_var($client->getResponse(), FILTER_VALIDATE_BOOLEAN);
     }
