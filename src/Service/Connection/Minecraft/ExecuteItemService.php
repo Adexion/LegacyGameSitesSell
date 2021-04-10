@@ -15,10 +15,10 @@ use MNGame\Exception\ItemListNotFoundException;
 use MNGame\Exception\PaymentProcessingException;
 use MNGame\Service\Connection\Client\ClientFactory;
 use MNGame\Service\Content\ItemListService;
+use MNGame\Service\Content\Parameter\ParameterProvider;
 use MNGame\Service\ServerProvider;
 use MNGame\Service\User\WalletService;
 use ReflectionException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -30,7 +30,7 @@ class ExecuteItemService
     private ItemListService $itemListService;
     private ServerProvider $serverProvider;
     private ExecutionService $executionService;
-    private ContainerInterface $container;
+    private ParameterProvider $container;
     private ClientFactory $clientFactory;
     private WalletService $walletService;
 
@@ -43,7 +43,7 @@ class ExecuteItemService
         ItemListService $itemListService,
         ServerProvider $serverProvider,
         ExecutionService $executionService,
-        ContainerInterface $container
+        ParameterProvider $container
     ) {
         $this->clientFactory = $clientFactory;
         $this->userItemRepository = $userItemRepository;
@@ -58,6 +58,7 @@ class ExecuteItemService
 
     /**
      * @throws ContentException
+     * @throws ReflectionException
      */
     public function executeItem(UserInterface $user, ?int $itemId = null): int
     {
@@ -71,7 +72,7 @@ class ExecuteItemService
                 $server = $this->serverProvider->getServer($userItem->getItem()->getItemList()->getServerId());
                 $response = $this->request($userItem->getItem(), $user, $server);
 
-                if (strpos($response, $server['playerNotFoundCommunicate']) !== false) {
+                if (strpos($response, $server->getPlayerNotFoundCommunicate()) !== false) {
                     return Response::HTTP_PARTIAL_CONTENT;
                 }
 
@@ -101,7 +102,7 @@ class ExecuteItemService
             $server = $this->serverProvider->getServer($item->getItemList()->getServerId());
             $response = $this->request($item, $user, $server);
 
-            if (strpos($response, $server['playerNotFoundCommunicate']) !== false) {
+            if (strpos($response, $server->getPlayerNotFoundCommunicate()) !== false) {
                 $isSomeItemAssignedToEquipment = (bool)$this->userItemRepository->createItem($user, $item);
             }
         }
@@ -135,11 +136,16 @@ class ExecuteItemService
     private function request(Item $item, UserInterface $user, Server $server): string
     {
         if (!$this->executionService->isUserLogged($user, $server) && !$this->isItemOnWhiteList($item->getCommand())) {
-            return $server['playerNotFoundCommunicate'];
+            return $server->getPlayerNotFoundCommunicate();
         }
 
         $client = $this->clientFactory->create($server);
         $client->sendCommand(sprintf($item->getCommand(), $user->getUsername()));
+
+        $response = $client->getResponse();
+        if (!$response) {
+            return $server->getPlayerNotFoundCommunicate();
+        }
 
         return $client->getResponse();
     }

@@ -9,7 +9,6 @@ use MNGame\Database\Entity\PaySafeCard;
 use MNGame\Database\Entity\User;
 use MNGame\Database\Entity\Wallet;
 use MNGame\Database\Repository\ItemListRepository;
-use MNGame\Dto\PaypalDto;
 use MNGame\Exception\ContentException;
 use MNGame\Exception\ItemListNotFoundException;
 use MNGame\Exception\PaymentProcessingException;
@@ -18,6 +17,7 @@ use MNGame\Service\Connection\Payment\PayPal\PayPalService;
 use MNGame\Service\Mail\MailSenderService;
 use MNGame\Service\ServerProvider;
 use MNGame\Service\User\WalletService;
+use ReflectionException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -78,6 +78,7 @@ class ItemShopController extends AbstractController
      * @throws ContentException
      * @throws PaymentProcessingException
      * @throws GuzzleException
+     * @throws ReflectionException
      */
     public function paypalStatus(
         Request $request,

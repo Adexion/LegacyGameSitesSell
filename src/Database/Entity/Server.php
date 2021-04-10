@@ -76,6 +76,12 @@ class Server
      */
     private ?string $executionType = null;
 
+    /**
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     */
+    private ?string $playerNotFoundCommunicate = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -171,5 +177,15 @@ class Server
     public function setHost(?string $host)
     {
         $this->host = $host;
+    }
+
+    public function getPlayerNotFoundCommunicate(): ?string
+    {
+        return $this->playerNotFoundCommunicate;
+    }
+
+    public function setPlayerNotFoundCommunicate(?string $playerNotFoundCommunicate)
+    {
+        $this->playerNotFoundCommunicate = $playerNotFoundCommunicate;
     }
 }

@@ -26,27 +26,29 @@ export class ItemShopService implements ClassInterface {
             });
         });
 
-        document.querySelector('#wallet').addEventListener('click', () => {
-            document.querySelector('#paySafeCard-form').setAttribute('style', 'display: block;');
-            document.querySelector('#prepaid-payment-form').setAttribute('style', 'display: none !important;');
+        if (document.querySelector('#wallet') !== null) {
+            document.querySelector('#wallet').addEventListener('click', () => {
+                document.querySelector('#paySafeCard-form').setAttribute('style', 'display: block;');
+                document.querySelector('#prepaid-payment-form').setAttribute('style', 'display: none !important;');
 
-            this.renderPaypalButton(1, 0);
-            $('#money').bind('change keyup', (event: Event) => {
-                if (this.timeout !== undefined) {
-                    clearTimeout(this.timeout);
-                }
-                let paySafeCardInput: HTMLInputElement = document.querySelector('#paySafeCardMoney');
+                this.renderPaypalButton(1, 0);
+                $('#money').bind('change keyup', (event: Event) => {
+                    if (this.timeout !== undefined) {
+                        clearTimeout(this.timeout);
+                    }
+                    let paySafeCardInput: HTMLInputElement = document.querySelector('#paySafeCardMoney');
 
-                if (event.target instanceof HTMLInputElement) {
-                    let money = Number(event.target.value);
-                    paySafeCardInput.value = event.target.value;
+                    if (event.target instanceof HTMLInputElement) {
+                        let money = Number(event.target.value);
+                        paySafeCardInput.value = event.target.value;
 
-                    this.timeout = setTimeout(() => {
-                        this.renderPaypalButton(money, 0)
-                    }, 500)
-                }
+                        this.timeout = setTimeout(() => {
+                            this.renderPaypalButton(money, 0)
+                        }, 500)
+                    }
+                });
             });
-        });
+        }
     }
 
     private putScriptInsidePaypalContentModal(itemListId: number) {
