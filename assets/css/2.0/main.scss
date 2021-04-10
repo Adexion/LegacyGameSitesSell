@@ -370,8 +370,14 @@ button.bg-mngame:focus {
   margin: auto;
 }
 
+.item-icon-equipment {
+  display: block;
+  max-height: 168px;
+  margin: auto;
+}
+
 pre, code {
-  color: #c44c34;
+  color: #4f1508;
   display: inline-block;
   width: 100%;
   vertical-align: top;
