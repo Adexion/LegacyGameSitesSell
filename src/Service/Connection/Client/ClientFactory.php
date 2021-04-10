@@ -6,6 +6,7 @@ use MNGame\Database\Entity\Server;
 use MNGame\Enum\ExecutionTypeEnum;
 use MNGame\Exception\ContentException;
 use MNGame\Service\EnvironmentService;
+use ReflectionException;
 
 class ClientFactory
 {
@@ -20,17 +21,18 @@ class ClientFactory
 
     /**
      * @throws ContentException
+     * @throws ReflectionException
      */
     public function create(Server $server): ?ClientInterface
     {
         /** @var ClientInterface $client */
-        switch ($server['executionType'] ?? ExecutionTypeEnum::WS) {
+        switch ($server->getExecutionType()->getValue() ?? ExecutionTypeEnum::WS) {
             case ExecutionTypeEnum::WS:
-                $client = new WSClient($server['host'], $server['port'], $server['password']);
+                $client = new WSClient($server->getHost(), $server->getPort(), $server->getPassword());
                 break;
 
             case ExecutionTypeEnum::RCON:
-                $client = new RCONClient($server['host'], $server['port'], $server['password']);
+                $client = new RCONClient($server->getHost(), $server->getPort(), $server->getPassword());
                 break;
 
             default:

@@ -3,9 +3,11 @@
 namespace MNGame\Service\Connection\Minecraft;
 
 use MinecraftServerStatus\MinecraftServerStatus;
+use MNGame\Database\Entity\Server;
 use MNGame\Exception\ContentException;
 use MNGame\Service\Connection\Client\ClientFactory;
 use MNGame\Service\ServerProvider;
+use ReflectionException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class ExecutionService
@@ -31,10 +33,10 @@ class ExecutionService
 
     /**
      * @throws ContentException
+     * @throws ReflectionException
      */
-    public function isUserLogged(UserInterface $user, string $serverId): bool
+    public function isUserLogged(UserInterface $user, Server $server): bool
     {
-        $server = $this->serverProvider->getServer($serverId ?? $this->serverProvider->getDefaultConnectionServerId());
         $client = $this->clientFactory->create($server);
         $client->sendCommand(sprintf($server['userOnlineCommand'], $user->getUsername()));
 

@@ -27,6 +27,6 @@ class ParameterProvider
 
     public function getParameter(string $name)
     {
-        return $this->databaseParameterArrayObject[$name] ?? parent::getParameter($name);
+        return $this->databaseParameterArrayObject[$name] ?? $this->container->getParameter($name);
     }
 }

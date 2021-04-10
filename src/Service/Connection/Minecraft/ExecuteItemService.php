@@ -4,6 +4,7 @@ namespace MNGame\Service\Connection\Minecraft;
 
 use MNGame\Database\Entity\Item;
 use MNGame\Database\Entity\ItemList;
+use MNGame\Database\Entity\Server;
 use MNGame\Database\Entity\User;
 use MNGame\Database\Entity\UserItem;
 use MNGame\Database\Repository\ItemListRepository;
@@ -16,6 +17,7 @@ use MNGame\Service\Connection\Client\ClientFactory;
 use MNGame\Service\Content\ItemListService;
 use MNGame\Service\ServerProvider;
 use MNGame\Service\User\WalletService;
+use ReflectionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -84,6 +86,7 @@ class ExecuteItemService
      * @throws ContentException
      * @throws ItemListNotFoundException
      * @throws PaymentProcessingException
+     * @throws ReflectionException
      */
     public function executeItemListInstant(float $amount, int $itemListId = null, UserInterface $user = null, bool $isFromWallet = null): int {
         /** @var ItemList $itemList */
@@ -114,9 +117,9 @@ class ExecuteItemService
 
     private function isItemOnWhiteList(string $command): bool
     {
-        $executeImidiatellyCommands = $this->container->getParameter('executeImidiatellyCommands');
+        $executeImmediatelyCommands = $this->container->getParameter('executeImmediatelyCommands');
 
-        foreach ($executeImidiatellyCommands as $partialCommand) {
+        foreach ($executeImmediatelyCommands as $partialCommand) {
             if (strpos($command, $partialCommand) !== false) {
                 return true;
             }
@@ -127,11 +130,11 @@ class ExecuteItemService
 
     /**
      * @throws ContentException
+     * @throws ReflectionException
      */
-    private function request(Item $item, UserInterface $user, array $server): string
+    private function request(Item $item, UserInterface $user, Server $server): string
     {
-        if (!$this->executionService->isUserLogged($user,
-                $server['id']) && !$this->isItemOnWhiteList($item->getCommand())) {
+        if (!$this->executionService->isUserLogged($user, $server) && !$this->isItemOnWhiteList($item->getCommand())) {
             return $server['playerNotFoundCommunicate'];
         }
 
