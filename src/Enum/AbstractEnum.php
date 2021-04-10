@@ -7,7 +7,7 @@ use ReflectionException;
 
 abstract class AbstractEnum
 {
-    private ?mixed $value;
+    private $value;
 
     /**
      * @throws ReflectionException
@@ -37,7 +37,7 @@ abstract class AbstractEnum
         return array_values(self::toArray());
     }
 
-    public static function getValueByKey(string $key): ?mixed
+    public static function getValueByKey(string $key)
     {
         return constant(sprintf('%s::%s', get_called_class(), $key));
     }
