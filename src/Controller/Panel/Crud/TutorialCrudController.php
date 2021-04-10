@@ -5,9 +5,9 @@ namespace MNGame\Controller\Panel\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use MNGame\Database\Entity\Tutorial;
+use MNGame\Field\CKEditorField;
 
 class TutorialCrudController extends AbstractCrudController
 {
@@ -20,7 +20,8 @@ class TutorialCrudController extends AbstractCrudController
     {
         return $crud
             ->setEntityLabelInSingular('Poradnik')
-            ->setEntityLabelInPlural('Poradniki');
+            ->setEntityLabelInPlural('Poradniki')
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
     public function configureFields(string $pageName): iterable
@@ -34,7 +35,7 @@ class TutorialCrudController extends AbstractCrudController
 
         return [
             TextField::new('question', 'Tytuł'),
-            TextEditorField::new('text', 'Tekst'),
+            CKEditorField::new('text', 'Tekst')->hideOnIndex(),
             TextField::new('embed', 'Embed'),
         ];
     }

@@ -5,7 +5,7 @@ namespace MNGame\Controller\Panel\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use MNGame\Field\CKEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use MNGame\Database\Entity\Item;
 use MNGame\Database\Entity\ItemList;

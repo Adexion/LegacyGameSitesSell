@@ -7,7 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\PercentField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use MNGame\Field\CKEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use MNGame\Database\Entity\Item;
 use MNGame\Database\Entity\User;

@@ -6,7 +6,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\PercentField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use MNGame\Field\CKEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use MNGame\Database\Entity\ItemList;
 use MNGame\Database\Entity\User;
@@ -34,7 +34,8 @@ class ItemListCrudController extends AbstractRoleAccessCrudController
     {
         return $crud
             ->setEntityLabelInSingular('Lista przedmiotów')
-            ->setEntityLabelInPlural('Listy przedmiotów');
+            ->setEntityLabelInPlural('Listy przedmiotów')
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
     public function configureFields(string $pageName): iterable
@@ -45,7 +46,7 @@ class ItemListCrudController extends AbstractRoleAccessCrudController
         if (Crud::PAGE_INDEX === $pageName || RolePredicate::isAdminRoleGranted($this->security)) {
             return [
                 TextField::new('name', 'Nazwa'),
-                TextEditorField::new('description', 'Opis'),
+                CKEditorField::new('description', 'Opis')->hideOnIndex(),
                 AvatarField::new('icon', 'Ikona'),
                 AvatarField::new('sliderImage', 'Opraz prezentacji'),
                 MoneyField::new('price', 'Cena')
@@ -60,7 +61,7 @@ class ItemListCrudController extends AbstractRoleAccessCrudController
 
         return [
             TextField::new('name', 'Nazwa'),
-            TextEditorField::new('description', 'Opis'),
+            CKEditorField::new('description', 'Opis')->hideOnIndex(),
             AvatarField::new('icon', 'Ikona'),
             AvatarField::new('sliderImage', 'Opraz prezentacji'),
             MoneyField::new('price', 'Cena')

@@ -5,7 +5,7 @@ namespace MNGame\Controller\Panel\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use MNGame\Field\CKEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use MNGame\Database\Entity\AdminServerUser;
 use MNGame\Database\Entity\User;
@@ -34,7 +34,8 @@ class AdminServerUserCrudController extends AbstractRoleAccessCrudController
     {
         return $crud
             ->setEntityLabelInSingular('Admin na stronie')
-            ->setEntityLabelInPlural('Admini na stronie');
+            ->setEntityLabelInPlural('Admini na stronie')
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
     public function configureFields(string $pageName): iterable
@@ -47,7 +48,7 @@ class AdminServerUserCrudController extends AbstractRoleAccessCrudController
                     ->setClass(User::class, 'username'),
                 TextField::new('skinUrl', 'Adres url skina')
                     ->setRequired(false),
-                TextEditorField::new('description', 'Opis'),
+                CKEditorField::new('description', 'Opis')->hideOnIndex(),
                 $this->fieldProvider->getChoiceField('serverId', 'Serwer')
                     ->setPermission(RolesEnum::ROLE_ADMIN)
                     ->setValue($user->getAssignedServerId())
@@ -59,7 +60,7 @@ class AdminServerUserCrudController extends AbstractRoleAccessCrudController
                 ->setClass(User::class, 'username'),
             TextField::new('skinUrl', 'Adres url skina')
                 ->setRequired(false),
-            TextEditorField::new('description', 'Opis'),
+            CKEditorField::new('description', 'Opis')->hideOnIndex(),
             $this->fieldProvider->getChoiceField('serverId', 'Serwer')
                 ->setCssClass('d-none')
                 ->setValue($user->getAssignedServerId())

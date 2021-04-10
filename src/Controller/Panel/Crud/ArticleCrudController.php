@@ -5,7 +5,7 @@ namespace MNGame\Controller\Panel\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use MNGame\Field\CKEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use MNGame\Database\Entity\Article;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -35,7 +35,8 @@ class ArticleCrudController extends AbstractRoleAccessCrudController
     {
         return $crud
             ->setEntityLabelInSingular('Artukuł')
-            ->setEntityLabelInPlural('Artykuły');
+            ->setEntityLabelInPlural('Artykuły')
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
     public function configureFields(string $pageName): iterable
@@ -46,8 +47,8 @@ class ArticleCrudController extends AbstractRoleAccessCrudController
             return [
                 TextField::new('title', 'Tytuł'),
                 TextField::new('subhead', 'Pod tytuł'),
-                TextEditorField::new('text', 'Artykuł'),
-                TextEditorField::new('shortText', 'Krótki opis'),
+                CKEditorField::new('text', 'Artykuł')->hideOnIndex(),
+                CKEditorField::new('shortText', 'Krótki opis')->hideOnIndex(),
                 EntityField::new('author', 'Autor')
                     ->setClass(User::class, 'username'),
                 DateTimeField::new('createdAt', 'Data upublicznienia')
@@ -65,8 +66,8 @@ class ArticleCrudController extends AbstractRoleAccessCrudController
             TextField::new('subhead', 'Pod tytuł'),
             AvatarField::new('image', 'Obraz artykułu')
                 ->setRequired(false),
-            TextEditorField::new('text', 'Artykuł'),
-            TextEditorField::new('shortText', 'Krótki opis'),
+            CKEditorField::new('text', 'Artykuł')->hideOnIndex(),
+            CKEditorField::new('shortText', 'Krótki opis')->hideOnIndex(),
             EntityField::new('author', 'Autor')
                 ->setClass(User::class, 'username')
                 ->setRequired(true),

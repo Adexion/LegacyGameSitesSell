@@ -4,7 +4,7 @@ namespace MNGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use MNGame\Field\CKEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use MNGame\Database\Entity\FAQ;
 
@@ -19,14 +19,15 @@ class FAQCrudController extends AbstractCrudController
     {
         return $crud
             ->setEntityLabelInSingular('FAQ')
-            ->setEntityLabelInPlural('FAQ');
+            ->setEntityLabelInPlural('FAQ')
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
             TextField::new('question', 'Pytanie'),
-            TextEditorField::new('answer', 'Odpowiedź')
+            CKEditorField::new('answer', 'Odpowiedź')->hideOnIndex()
         ];
     }
 }

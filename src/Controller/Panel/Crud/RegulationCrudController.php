@@ -3,7 +3,7 @@
 namespace MNGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use MNGame\Field\CKEditorField;
 use MNGame\Database\Entity\Regulation;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use MNGame\Database\Entity\RegulationCategory;
@@ -20,13 +20,14 @@ class RegulationCrudController extends AbstractCrudController
     {
         return $crud
             ->setEntityLabelInSingular('Zasada')
-            ->setEntityLabelInPlural('Zasady');
+            ->setEntityLabelInPlural('Zasady')
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextEditorField::new('description'),
+            CKEditorField::new('description')->hideOnIndex(),
             EntityField::new('category', 'Kategoria')
                 ->setClass(RegulationCategory::class, 'name')
         ];
