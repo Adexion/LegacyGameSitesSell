@@ -1,6 +1,5 @@
 <?php
 
-
 namespace MNGame\Util;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,37 +11,12 @@ use Twig\Extension\GlobalsInterface;
 class DatabaseGlobalTwigExtension extends AbstractExtension implements GlobalsInterface
 {
     private EntityManagerInterface $em;
-    private array $routes = [
-        'show-article-list' => [
-            'name' => 'Artykuły',
-            'icon' => 'fas fa-list',
-        ],
-        'tutorial-front' => [
+    private array $routes;
 
-            'name' => 'Poradniki',
-            'icon' => 'fas fa-film',
-        ],
-        'rule' => [
-            'name' => 'Zasady',
-            'icon' => 'fas fa-ruler-vertical',
-        ],
-        'faq-front' => [
-            'name' => 'FAQ',
-            'icon' => 'fas fa-question',
-        ],
-        'contact-front' => [
-            'name' => 'Kontakt',
-            'icon' => 'fas fa-book',
-        ],
-        'item-shop' => [
-            'name' => 'ItemShop',
-            'icon' => 'fas fa-shopping-cart',
-        ],
-    ];
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, RouterDataProvider $routerDataProvider)
     {
         $this->em = $em;
+        $this->routes = $routerDataProvider->getRouteList();
     }
 
     public function getGlobals(): array
