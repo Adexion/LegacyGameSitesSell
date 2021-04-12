@@ -13,6 +13,7 @@ use MNGame\Exception\ContentException;
 use MNGame\Exception\ItemListNotFoundException;
 use MNGame\Exception\PaymentProcessingException;
 use MNGame\Service\Connection\Minecraft\ExecuteItemService;
+use MNGame\Service\Connection\Payment\MicroSMS\MicroSMSService;
 use MNGame\Service\Connection\Payment\PayPal\PayPalService;
 use MNGame\Service\Mail\MailSenderService;
 use MNGame\Service\ServerProvider;
@@ -154,6 +155,37 @@ class ItemShopController extends AbstractController
 
         return $this->render('base/page/paySafeCard.html.twig', [
             'responseType' => Response::HTTP_OK,
+            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+        ]);
+    }
+
+
+    /**
+     * @Route(name="sms-status", path="/sms/status")
+     *
+     * @throws GuzzleException
+     * @throws ContentException
+     */
+    public function smsStatus(Request $request, MicroSMSService $microSMSService, WalletService $walletService): Response {
+        $paymentHistory = $this->getDoctrine()->getRepository(PaymentHistory::class)->findOneBy(
+            [
+                'paymentType' => 'microsms',
+                'paymentId' => $request->request->get('orderId') ?? 0,
+            ]
+        );
+
+        if ($paymentHistory instanceof PaymentHistory) {
+            return $this->render('base/page/payment.html.twig', [
+                'responseType' => Response::HTTP_TOO_MANY_REQUESTS,
+                'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+            ]);
+        }
+
+        $amount = $microSMSService->executePayment($request->request->get('orderId') ?? 0, $this->getUser()->getUsername());
+        $walletService->changeCash($amount, $this->getUser());
+
+        return $this->render('base/page/payment.html.twig', [
+            'responseType' => HTTP::OK,
             'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
         ]);
     }

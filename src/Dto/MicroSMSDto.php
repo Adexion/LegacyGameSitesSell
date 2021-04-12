@@ -4,26 +4,33 @@ namespace MNGame\Dto;
 
 class MicroSMSDto
 {
-    private ?int $userID = null;
-    private ?int $ServiceID = null;
+    private ?int $userId = null;
+    private ?int $serviceId = null;
 
-    public function getUserID(): ?int
+    public function getUserId(): ?int
     {
-        return $this->userID;
+        return $this->userId;
     }
 
-    public function setUserID(?int $userID)
+    public function setUserId(?int $userId)
     {
-        $this->userID = $userID;
+        $this->userId = $userId;
     }
 
-    public function getServiceID(): ?int
+    public function getServiceId(): ?int
     {
-        return $this->ServiceID;
+        return $this->serviceId;
     }
 
-    public function setServiceID(?int $ServiceID)
+    public function setServiceId(?int $serviceId)
     {
-        $this->ServiceID = $ServiceID;
+        $this->serviceId = $serviceId;
+    }
+
+    public function toArray(): array {
+        return [
+            'serviceId' => $this->serviceId,
+            'userId' => $this->userId
+        ];
     }
 }

@@ -55,6 +55,23 @@
                     </div>
                 </div>
                 <div class="modal-header">
+                    <h5 class="modal-title">Doładownaie SMS</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group" action="{{ path('sms-status') }}" method="POST">
+                        Forma płatności w trakcie przygotowywania.
+                        Za trudności przepraszamy!
+                        <div class="form-group">
+                            <label class="w-100">Kod SMS:
+                                <input name="code" id="code" type="text" class="form-control" min="1"/>
+                            </label>
+                            <button type="submit" class="btn btn-block btn-warning m-auto">
+                                <i class="fas fa-mobile-alt"></i>&nbsp;Doładuj SMS'em
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-header">
                     <h5 class="modal-title">Doładownaie PaySafeCard</h5>
                 </div>
                 <div class="modal-body">

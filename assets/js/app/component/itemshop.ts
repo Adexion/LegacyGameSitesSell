@@ -36,11 +36,9 @@ export class ItemShopService implements ClassInterface {
                     if (this.timeout !== undefined) {
                         clearTimeout(this.timeout);
                     }
-                    let paySafeCardInput: HTMLInputElement = document.querySelector('#paySafeCardMoney');
 
                     if (event.target instanceof HTMLInputElement) {
                         let money = Number(event.target.value);
-                        paySafeCardInput.value = event.target.value;
 
                         this.timeout = setTimeout(() => {
                             this.renderPaypalButton(money, 0)
