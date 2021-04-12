@@ -1,6 +1,6 @@
 <?php
 
-namespace MNGame\Util;
+namespace MNGame\Service\Route;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use MNGame\Controller\Panel\Crud\ArticleCrudController;

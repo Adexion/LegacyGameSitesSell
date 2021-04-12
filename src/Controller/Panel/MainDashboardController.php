@@ -9,9 +9,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use MNGame\Controller\Panel\Crud\AdminServerUserCrudController;
 use MNGame\Controller\Panel\Crud\UserCrudController;
 use MNGame\Database\Entity\AdminServerUser;
+use MNGame\Service\Route\ModuleRouteBuilder;
 use MNGame\Database\Entity\User;
 use MNGame\Enum\RolesEnum;
-use MNGame\Util\ModuleRouteBuilder;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 trait MainDashboardController

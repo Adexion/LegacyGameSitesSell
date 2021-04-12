@@ -4,6 +4,7 @@ namespace MNGame\Util;
 
 use Doctrine\ORM\EntityManagerInterface;
 use MNGame\Database\Entity\ModuleEnabled;
+use MNGame\Service\Route\RouterDataProvider;
 use MNGame\Database\Entity\Server;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;

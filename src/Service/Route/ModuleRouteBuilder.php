@@ -1,6 +1,6 @@
 <?php
 
-namespace MNGame\Util;
+namespace MNGame\Service\Route;
 
 use MNGame\Database\Repository\ModuleEnabledRepository;
 
@@ -17,7 +17,8 @@ class ModuleRouteBuilder
         $this->routerDataProvider = $routerDataProvider;
     }
 
-    public function getData() {
+    public function getData(): array
+    {
         $moduleLinks = [];
         foreach ($this->moduleEnabledRepository->findAll() as $module){
             $foundedModule[$module->getRoute()] = $module->isActive();
