@@ -3,13 +3,13 @@
 namespace MNGame\Service\Connection\Client;
 
 use Exception;
+use MNGame\Database\Entity\Server;
 
 class RCONClient implements ClientInterface
 {
-    private string $host;
-    private string $port;
-    private string $password;
-    private int $timeout;
+    private ?string $host;
+    private ?string $port;
+    private ?string $password;
     private ?resource $socket;
     private string $lastResponse;
 
@@ -21,12 +21,11 @@ class RCONClient implements ClientInterface
     private const SERVER_DATA_AUTH = 3;
     private bool $authorized = false;
 
-    public function __construct(string $host, string $port, string $password, int $timeout = 10)
+    public function __construct(Server $server)
     {
-        $this->host = $host;
-        $this->port = $port;
-        $this->password = $password;
-        $this->timeout = $timeout;
+        $this->host = $server->getHost();
+        $this->port = $server->getPort();
+        $this->password = $server->getPassword();
     }
 
     public function getResponse(): string
@@ -36,7 +35,7 @@ class RCONClient implements ClientInterface
 
     public function connect(): bool
     {
-        $this->socket = fsockopen($this->host, $this->port, $errno, $errStr, $this->timeout) ?: null;
+        $this->socket = fsockopen($this->host, $this->port, $errno, $errStr) ?: null;
         if (!$this->socket) {
             $this->lastResponse = $errStr;
             return false;

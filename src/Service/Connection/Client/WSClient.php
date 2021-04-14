@@ -2,23 +2,24 @@
 
 namespace MNGame\Service\Connection\Client;
 
+use MNGame\Database\Entity\Server;
 use Throwable;
 use WebSocket\Client;
 
 class WSClient implements ClientInterface
 {
-    private string $host;
-    private string $port;
-    private string $password;
-    private int $timeout;
+    private ?string $host;
+    private ?string $port;
+    private ?string $password;
     private Client $client;
+    private ?int $serverId;
 
-    public function __construct(string $host, string $port, string $password, int $timeout = 10)
+    public function __construct(Server $server)
     {
-        $this->host = $host;
-        $this->port = $port;
-        $this->password = $password;
-        $this->timeout = $timeout;
+        $this->host = $server->getHost();
+        $this->port = $server->getPort();
+        $this->password = $server->getPassword();
+        $this->serverId = $server->getId();
     }
 
     public function connect(): bool
@@ -42,6 +43,7 @@ class WSClient implements ClientInterface
             'type' => 'execute',
             'message' => $message,
             'player' => 'CONSOLE',
+            'serverId' => $this->serverId
         ]));
 
         return true;

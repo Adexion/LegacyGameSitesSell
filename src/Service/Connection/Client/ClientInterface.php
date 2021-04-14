@@ -2,9 +2,11 @@
 
 namespace MNGame\Service\Connection\Client;
 
+use MNGame\Database\Entity\Server;
+
 interface ClientInterface
 {
-    public function __construct(string $host, string $port, string $password, int $timeout = 10);
+    public function __construct(Server $server);
 
     public function connect(): bool;
 

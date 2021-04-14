@@ -108,7 +108,6 @@ class ExecuteItemService
         }
 
         $this->walletService->changeCash(-$itemList->getAfterPromotionPrice(), $user);
-
         if ($isSomeItemAssignedToEquipment ?? false) {
             return Response::HTTP_PARTIAL_CONTENT;
         }

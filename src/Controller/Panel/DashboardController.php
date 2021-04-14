@@ -8,6 +8,7 @@ use MNGame\Exception\ContentException;
 use MNGame\Service\Connection\Client\ClientFactory;
 use MNGame\Service\ServerProvider;
 use ReflectionClass;
+use ReflectionException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,7 +32,9 @@ class DashboardController extends AbstractDashboardController implements Dashboa
 
     /**
      * @Route("/panel/command", name="panel-command")
+     *
      * @throws ContentException
+     * @throws ReflectionException
      */
     public function sendCommand(Request $request, ClientFactory $clientFactory, ServerProvider $serverProvider): Response
     {

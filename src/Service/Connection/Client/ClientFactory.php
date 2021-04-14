@@ -28,11 +28,11 @@ class ClientFactory
         /** @var ClientInterface $client */
         switch ($server->getExecutionType()->getValue() ?? ExecutionTypeEnum::WS) {
             case ExecutionTypeEnum::WS:
-                $client = new WSClient($server->getHost(), $server->getPort(), $server->getPassword());
+                $client = new WSClient($server);
                 break;
 
             case ExecutionTypeEnum::RCON:
-                $client = new RCONClient($server->getHost(), $server->getPort(), $server->getPassword());
+                $client = new RCONClient($server);
                 break;
 
             default:
