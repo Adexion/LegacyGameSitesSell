@@ -34,6 +34,7 @@ class ItemShopController extends AbstractController
         $server = $serverProvider->getSessionServer();
 
         return $this->render('base/page/itemshop.html.twig', [
+            'serverName' => $server->getName(),
             'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $server->getId()]),
             'paypalClient' => $server->getPaypal()->getClient(),
             'amount' => $repository->getThisMountMoney(),
