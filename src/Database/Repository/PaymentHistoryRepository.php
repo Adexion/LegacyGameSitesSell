@@ -13,7 +13,7 @@ class PaymentHistoryRepository extends AbstractRepository
         parent::__construct($registry, PaymentHistory::class);
     }
 
-    public function getStatistic($userId = null)
+    public function getStatistic($userId = null): array
     {
         $qb = $this->createQueryBuilder('ph')
             ->select('ph')
@@ -35,5 +35,20 @@ class PaymentHistoryRepository extends AbstractRepository
         }
 
         return $statistics ?? [];
+    }
+
+    public function getThisMountMoney(): float
+    {
+        $qb = $this->createQueryBuilder('ph')
+            ->select('ph')
+            ->where('MONTH(ph.date) = :date')
+            ->setParameter('date', (new DateTime())->format('m'));
+
+        /** @var PaymentHistory $statistic */
+        foreach ($qb->getQuery()->execute() as $statistic) {
+            $statistic = +$statistic->getAmount();
+        }
+
+        return $statistic;
     }
 }
