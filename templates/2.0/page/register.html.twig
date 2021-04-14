@@ -7,29 +7,30 @@
                 Lubisz miłą atmosferę i dobrą zabawę?</h4>
         </div>
         <div class="card-body">
+            <h5 class="font-weight-bold">Jesteś graczem premium?</h5>
+            <p>Pamiętaj, że nie przechowujemy danych konta premium! Logowanie do strony nie wymaga tych samych
+                danych co do minecrafta!</p>
+            <p>Mimo to na serwerze zagrasz ze swojego konta premium!</p>
+            <p>Jest to zasługa specjalnych plug-inów, które pozwalają na grę tzw. Semi-Premium</p>
+            <p>Na naszym serwerze zagrasz bez żadnych przeszkód. </p>
+
+            <h5 class="font-weight-bold">Życzymy dobrej zabawy!</h5>
+        </div>
+        <div class="card-footer">
             {{ form_start(register_form, {action: 'register'}) }}
             {{ form_row(register_form.username) }}
             {{ form_row(register_form.password.first) }}
             {{ form_row(register_form.password.second) }}
             {{ form_row(register_form.email) }}
+            {{ form_row(register_form.referral) }}
             {{ form_row(register_form.rules) }}
+            {{ form_row(register_form.commercial) }}
             {{ form_row(register_form.reCaptcha) }}
 
             <div id="recaptcha-component"></div>
 
             <button class="btn btn-warning w-100" type="submit">{% trans %}Create account{% endtrans %}</button>
             {{ form_end(register_form) }}
-            <br />
-
-            <h5 class="font-weight-bold">Jesteś graczem premium?</h5>
-            <p>Pamiętaj, że nie przechowujemy danych konta premium! Logowanie do strony nie wymaga tych samych
-                danych co do minecrafta!</p>
-            <p>Mimo to na serwerze zagrasz ze swojego konta premium!</p>
-            <p>Jest to zasługa specjalnych plug-inów, które pozwalają na grę tzw. Semi-Premium</p>
-            <p>Na naszym serwerze zagrasz bez żadnych przeszkód. Posiadając konto premium, jak i jej go nie
-                posiadając</p>
-
-            <h5 class="font-weight-bold">Życzymy dobrej zabawy!</h5>
         </div>
     </div>
 {% endblock %}

@@ -53,6 +53,13 @@ class RegisterType extends AbstractType
                 ],
                 'label' => 'Rule text'
             ])
+            ->add('commercial', CheckboxType::class, [
+                'required' => false,
+                'label' => 'Commercial text'
+            ])
+            ->add('referral', TextType::class, [
+                'required' => false
+            ])
             ->add('reCaptcha', HiddenType::class)
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
     }

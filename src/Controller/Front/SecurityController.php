@@ -6,6 +6,7 @@ use LogicException;
 use MNGame\Database\Entity\ResetPassword;
 use MNGame\Database\Entity\User;
 use MNGame\Database\Repository\UserRepository;
+use MNGame\Exception\ContentException;
 use MNGame\Form\LoginType;
 use MNGame\Form\RegisterType;
 use MNGame\Form\ResetPasswordType;
@@ -54,10 +55,13 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/register", name="register")
+     *
+     * @throws ContentException
      */
     public function register(
         Request $request,
         UserRepository $userRepository,
+        UserProviderInterface $userProvider,
         WalletService $walletService,
         UserPasswordEncoderInterface $passwordEncoder
     ): Response {
@@ -74,6 +78,13 @@ class SecurityController extends AbstractController
 
             $userRepository->registerUser($user);
             $walletService->create($user);
+
+            if ($user->getReferral()) {
+                try {
+                    $referral = $userProvider->loadUserByUsername($user->getReferral());
+                    $walletService->changeCash(1, $referral);
+                } catch (UsernameNotFoundException $ignored) {}
+            }
 
             return $this->redirectToRoute('login');
         }

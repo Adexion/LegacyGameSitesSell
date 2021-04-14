@@ -56,7 +56,7 @@ class UserCrudController extends AbstractCrudController
                     ->setChoices(RolesEnum::toArray())
                     ->allowMultipleChoices(true)
                     ->setPermission(RolesEnum::ROLE_ADMIN),
-                BooleanField::new('rules', 'Regulamin'),
+                BooleanField::new('commercial', 'Zgody marketingowe'),
                 $this->fieldProvider
                     ->getChoiceField('assignedServerId', 'Przypisany serwer')
             ];
@@ -69,7 +69,7 @@ class UserCrudController extends AbstractCrudController
                 ->setChoices(RolesEnum::toArray())
                 ->allowMultipleChoices(true)
                 ->setPermission(RolesEnum::ROLE_ADMIN),
-            BooleanField::new('rules', 'Regulamin')
+            BooleanField::new('commercial', 'Zgody marketingowe')
                 ->setPermission(RolesEnum::ROLE_ADMIN),
         ];
     }

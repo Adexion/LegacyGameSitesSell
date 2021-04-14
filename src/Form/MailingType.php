@@ -2,6 +2,7 @@
 
 namespace MNGame\Form;
 
+use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use MNGame\Database\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -28,6 +29,11 @@ class MailingType extends AbstractType
                 'expanded' => true,
                 'label' => 'Lista użytkowników',
                 'attr' => ['class' => 'check'],
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.commercial = true')
+                        ->orderBy('u.username', 'ASC');
+                },
                 'constraints' => [
                     new NotBlank(),
                     new Count(['min' => 1])

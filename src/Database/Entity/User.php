@@ -54,6 +54,17 @@ class User implements UserInterface
     private ?bool $rules = false;
 
     /**
+     * @ORM\Column(type="boolean",  options={"default" : true})
+     */
+    private ?bool $commercial = false;
+
+    /**
+     * @ORM\Column(type="string", length=16, nullable=true)
+     * @Assert\Length(min="3", max="16")
+     */
+    private ?string $referral = null;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private ?int $assignedServerId;
@@ -156,5 +167,25 @@ class User implements UserInterface
     public function setAssignedServerId(?int $assignedServerId)
     {
         $this->assignedServerId = $assignedServerId;
+    }
+
+    public function getCommercial(): ?bool
+    {
+        return $this->commercial;
+    }
+
+    public function setCommercial(?bool $commercial)
+    {
+        $this->commercial = $commercial;
+    }
+
+    public function getReferral(): ?string
+    {
+        return $this->referral;
+    }
+
+    public function setReferral(?string $referral): void
+    {
+        $this->referral = $referral;
     }
 }

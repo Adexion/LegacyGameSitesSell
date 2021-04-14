@@ -8,6 +8,7 @@ use MNGame\Database\Repository\UserRepository;
 use MNGame\Exception\ContentException;
 use MNGame\Form\UserEditType;
 use MNGame\Service\Connection\Minecraft\ExecuteItemService;
+use ReflectionException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -68,6 +69,7 @@ class UserController extends AbstractController
      * @Route(name="item-profile", path="/user/item")
      *
      * @throws ContentException
+     * @throws ReflectionException
      */
     public function itemExecute(Request $request, ExecuteItemService $executeItemService): Response
     {
@@ -80,6 +82,7 @@ class UserController extends AbstractController
      * @Route(name="item-list-profile", path="/user/item/all")
      *
      * @throws ContentException
+     * @throws ReflectionException
      */
     public function itemListExecute(Request $request, ExecuteItemService $executeItemService): Response
     {
