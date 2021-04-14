@@ -43,7 +43,7 @@ class WSClient implements ClientInterface
             'type' => 'execute',
             'message' => $message,
             'player' => 'CONSOLE',
-            'serverId' => $this->serverId
+            'id' => $this->serverId
         ]));
 
         return true;
