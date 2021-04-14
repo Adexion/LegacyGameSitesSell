@@ -1,0 +1,91 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title 'Terminal' %}
+
+{% block page_content %}
+    <style>
+        .console {
+            height: 500px;
+            border: 1px solid #9fa9b7;
+            overflow-y: auto;
+            margin: auto;
+            background: #212121;
+            color: #e2e2e2;
+        }
+
+        .console > div {
+            overflow-wrap: break-word;
+            max-width: 800px;
+        }
+    </style>
+
+    <div class="console"></div>
+    <input id="send-command" class="command form-control mt-2" placeholder="Wpisz komende ..."/>
+    <select class="server form-control mt-2">
+        {% for server in serverList %}
+            <option value="{{ server.id }}">{{ server.name }}</option>
+        {% endfor %}
+    </select>
+    <button class="btn btn-info btn-block mt-2" id="sendCommand">Wyślij</button>
+    <script src="{{ asset('assets/MinecraftColorCodes.min.3.7.js') }}"></script>
+    <script type="text/javascript">
+        (() => {
+            const socket = new WebSocket("wss://ws.mngame.pl/");
+
+            socket.addEventListener("message", function (e) {
+                let o = JSON.parse(e.data);
+                if (o.type !== "inform") {
+                    return false;
+                }
+
+                if (!o.message.includes("ServerId: " + document.querySelector('.server').value)) {
+                    return false;
+                }
+
+                let p = document.createElement('div');
+                p.append(o.message.replaceColorCodes());
+                let out = document.querySelector('.console');
+                out.appendChild(p);
+            });
+
+            document.querySelector('.server').addEventListener('change', () => {
+                document.querySelector('.console').innerHTML = '';
+            })
+
+            document.getElementById('send-command').addEventListener('keypress', (event) => {
+                if (event.code === 'Enter') {
+                    fetch('/panel/command', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            id: document.querySelector('.server').value,
+                            command: document.querySelector('.command').value
+                        })
+                    });
+
+                    document.querySelector('.command').value = '';
+                }
+            });
+
+            document.getElementById('sendCommand').addEventListener('click', () => {
+                fetch('/panel/command', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: document.querySelector('.server').value,
+                        command: document.querySelector('.command').value
+                    })
+                });
+
+                document.querySelector('.command').value = '';
+            });
+        })();
+    </script>
+{% endblock %}

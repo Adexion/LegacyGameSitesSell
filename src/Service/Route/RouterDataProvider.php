@@ -36,6 +36,14 @@ class RouterDataProvider
     public function __construct()
     {
         $this->data = [
+            'console' => [
+                'menuLinks' => [
+                    MenuItem::linktoRoute('Terminal', 'fas fa-terminal', 'console')
+                        ->setPermission(RolesEnum::ROLE_SERVER),
+
+                    MenuItem::section(),
+                ]
+            ],
             'show-article-list' => [
                 'name' => 'Artykuły',
                 'icon' => 'fas fa-list',
