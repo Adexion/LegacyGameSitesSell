@@ -1,0 +1,28 @@
+<div class="other col-12 col-md-6 col-lg-3" style="background-image: url({{ itemList.sliderImage }})">
+    <div class="item-shop-holder">
+        <a class="h4 font-weight-bold" data-toggle="collapse" href="#collapse{{ loop.index }}" role="button" aria-expanded="false" aria-controls="collapse{{ loop.index }}">{{ itemList.name }}</a>
+        <div class="collapse" id="collapse{{ loop.index }}">
+            {{ itemList.description | raw }}
+        </div>
+
+        <div class="item-shop-content-holder">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <button data-toggle="modal" data-target="#paymentModal" data-item-list-id="{{ itemList.id }}" class="btn btn-block btn-mngame btn-payment">
+                    <i class="fas fa-coins text-warning"></i>
+                    {% if itemList.promotion %}
+                        <s class="text-danger">{{ itemList.price | number_format(2) }}</s>
+                    {% endif %}
+                    <span class="font-weight-bold text-warning" id="afterPromotion{{ itemList.id }}">{{ itemList.afterPromotionPrice | number_format(2) }} zł</span>
+                </button>
+            {% else %}
+                <div>
+                    <i class="fas fa-coins text-warning"></i>
+                    {% if itemList.promotion %}
+                        <s class="text-danger">{{ itemList.price | number_format(2) }}</s>
+                    {% endif %}
+                    <span class="font-weight-bold text-warning" id="afterPromotion{{ itemList.id }}">{{ itemList.afterPromotionPrice | number_format(2) }} zł</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

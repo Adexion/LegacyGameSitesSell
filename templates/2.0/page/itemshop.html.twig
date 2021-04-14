@@ -22,9 +22,9 @@
             <div class="row">
                 {% for itemList in itemLists %}
                     {% if loop.index < 3 %}
-                        {% include '2.0/page/component/itemshop-recommended.twig' %}
+                        {% include '2.0/component/itemshop-recommended.html.twig' %}
                     {% else %}
-                        {% include '2.0/page/component/itemshop-other.html.twig' %}
+                        {% include '2.0/component/itemshop-other.html.twig' %}
                     {% endif %}
                 {% endfor %}
             </div>
