@@ -33,6 +33,7 @@ class MessageHandler implements MessageComponentInterface
     public function onMessage(ConnectionInterface $from, $msg): void
     {
         $message = json_decode($msg, true);
+        $this->output->writeln($msg);
         if (($message['header']['password'] ?? null) !== self::PASSWORD) {
             $message['message'] = self::INVALID_PASSWORD;
             $message['type'] = self::INVALID_PASSWORD_TYPE;
@@ -42,7 +43,7 @@ class MessageHandler implements MessageComponentInterface
         }
 
         foreach ($this->connections as $connection) {
-            if (!($message['self'] ?? 0) && $from === $connection) {
+            if ($from === $connection) {
                 continue;
             }
 

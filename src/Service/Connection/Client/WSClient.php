@@ -12,14 +12,14 @@ class WSClient implements ClientInterface
     private ?string $port;
     private ?string $password;
     private Client $client;
-    private ?int $serverId;
+    private ?int $id;
 
     public function __construct(Server $server)
     {
         $this->host = $server->getHost();
         $this->port = $server->getPort();
         $this->password = $server->getPassword();
-        $this->serverId = $server->getId();
+        $this->id = $server->getId();
     }
 
     public function connect(): bool
@@ -43,7 +43,7 @@ class WSClient implements ClientInterface
             'type' => 'execute',
             'message' => $message,
             'player' => 'CONSOLE',
-            'id' => $this->serverId
+            'id' => $this->id
         ]));
 
         return true;
