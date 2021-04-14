@@ -26,7 +26,7 @@ class DashboardController extends AbstractDashboardController implements Dashboa
         return $this->render('@MNGame/panel/index.html.twig', [
             'dashboard_controller_filepath' => (new ReflectionClass(static::class))->getFileName(),
             'dashboard_controller_class' => (new ReflectionClass(static::class))->getShortName(),
-            'server' => $serverProvider->getServer($serverProvider->getDefaultConnectionServerId()),
+            'serverList' => $serverProvider->getServerList(),
         ]);
     }
 
@@ -38,9 +38,7 @@ class DashboardController extends AbstractDashboardController implements Dashboa
      */
     public function sendCommand(Request $request, ClientFactory $clientFactory, ServerProvider $serverProvider): Response
     {
-        $client = $clientFactory->create(
-            $serverProvider->getServer($serverProvider->getDefaultConnectionServerId())
-        );
+        $client = $clientFactory->create($serverProvider->getServer($request->request->get('id')));
         $client->sendCommand(trim($request->request->get('command'), '/'));
 
         return new Response();
