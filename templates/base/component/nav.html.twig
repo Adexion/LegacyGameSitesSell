@@ -16,9 +16,9 @@
         <span class="nav-item"><a class="nav-link" href="{{ path('show-article-list') }}">{% trans %}Artykuły{% endtrans %}</a></span>
         <span class="nav-item"><a class="nav-link" href="{{ path('rule') }}">{% trans %}Rules{% endtrans %}</a></span>
         <span class="nav-item"><a class="nav-link" href="{{ path('item-shop') }}">{% trans %}Itemshop{% endtrans %}</a></span>
-        <span class="nav-item"><a class="nav-link" href="{{ path('faq-front') }}">{% trans %}FAQ{% endtrans %}</a></span>
-        <span class="nav-item"><a class="nav-link" href="{{ path('tutorial-front') }}">{% trans %}Tutorial{% endtrans %}</a></span>
-        <span class="nav-item"><a class="nav-link" href="{{ path('contact-front') }}">{% trans %}Contact{% endtrans %}</a></span>
+        <span class="nav-item"><a class="nav-link" href="{{ path('faq') }}">{% trans %}FAQ{% endtrans %}</a></span>
+        <span class="nav-item"><a class="nav-link" href="{{ path('tutorial') }}">{% trans %}Tutorial{% endtrans %}</a></span>
+        <span class="nav-item"><a class="nav-link" href="{{ path('contact') }}">{% trans %}Contact{% endtrans %}</a></span>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <span class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"

@@ -3,6 +3,7 @@
 namespace MNGame\EventSubscriber;
 
 use MNGame\Database\Repository\ModuleEnabledRepository;
+use MNGame\Service\Route\ModuleProvider;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,9 +81,12 @@ class ActionSubscriber implements EventSubscriberInterface
         $event->getResponse()->headers->set('Access-Control-Allow-Headers', 'x-auth-token, Content-Type');
     }
 
-    private function shouldConnectionBeRedirectToHomepage(?string $route): bool
+    private function shouldConnectionBeRedirectToHomepage(?string $name): bool
     {
-        $moduleEnabled = $this->repository->findOneBy(['route' => $route]);
+        $moduleProvider = new ModuleProvider();
+        $module = $moduleProvider->getModules()[$name];
+
+        $moduleEnabled = $this->repository->findOneBy(['name' => $module['name'] ?? '']);
 
         return $moduleEnabled ? !$moduleEnabled->isActive() : false;
     }

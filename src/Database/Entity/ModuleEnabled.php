@@ -21,7 +21,7 @@ class ModuleEnabled
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private ?string $route = null;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="boolean")
@@ -34,14 +34,14 @@ class ModuleEnabled
         return $this->id;
     }
 
-    public function getRoute(): ?string
+    public function getName(): ?string
     {
-        return $this->route;
+        return $this->name;
     }
 
-    public function setRoute(?string $route)
+    public function setName(?string $name)
     {
-        $this->route = $route;
+        $this->name = $name;
     }
 
     public function isActive(): ?string

@@ -27,10 +27,10 @@
                                 {% endfor %}
                             </ul>
                         </li>
-                        {% for key, link in module %}
-                            {% if link.name is defined %}
+                        {% for link in module %}
+                            {% if link.route is defined %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path(key) }}"><i class="{{ link.icon }}"></i>{{ link.name }}</a>
+                                    <a class="nav-link" href="{{ path(link.route) }}"><i class="{{ link.icon }}"></i>{{ link.name }}</a>
                                 </li>
                             {% endif %}
                         {% endfor %}

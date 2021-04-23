@@ -7,11 +7,11 @@ use MNGame\Database\Repository\ModuleEnabledRepository;
 class ModuleRouteBuilder
 {
     private ModuleEnabledRepository $moduleEnabledRepository;
-    private RouterDataProvider $routerDataProvider;
+    private ModuleProvider $routerDataProvider;
 
     public function __construct(
         ModuleEnabledRepository $moduleEnabledRepository,
-        RouterDataProvider $routerDataProvider
+        ModuleProvider $routerDataProvider
     ) {
         $this->moduleEnabledRepository = $moduleEnabledRepository;
         $this->routerDataProvider = $routerDataProvider;
@@ -21,10 +21,10 @@ class ModuleRouteBuilder
     {
         $moduleLinks = [];
         foreach ($this->moduleEnabledRepository->findAll() as $module){
-            $foundedModule[$module->getRoute()] = $module->isActive();
+            $foundedModule[$module->getName()] = $module->isActive();
         }
 
-        foreach ($this->routerDataProvider->getRouteList() as $key => $value) {
+        foreach ($this->routerDataProvider->getModules() as $key => $value) {
             if (isset($foundedModule[$key]) && !$foundedModule[$key]) {
                 continue;
             }

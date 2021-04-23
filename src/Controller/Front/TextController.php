@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TextController extends AbstractController
 {
     /**
-     * @Route(name="faq-front", path="/faq")
+     * @Route(name="faq", path="/faq")
      */
     public function faq(FAQRepository $repository): Response
     {
@@ -20,7 +20,7 @@ class TextController extends AbstractController
     }
 
     /**
-     * @Route(name="tutorial-front", path="/tutorial")
+     * @Route(name="tutorial", path="/tutorial")
      */
     public function tutorial(TutorialRepository $repository): Response
     {

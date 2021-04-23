@@ -29,13 +29,14 @@ use MNGame\Database\Entity\UserItem;
 use MNGame\Database\Entity\Wallet;
 use MNGame\Enum\RolesEnum;
 
-class RouterDataProvider
+class ModuleProvider
 {
     private array $data;
 
     public function __construct()
     {
         $this->data = [
+            'index' => [],
             'console' => [
                 'menuLinks' => [
                     MenuItem::linktoRoute('Terminal', 'fas fa-terminal', 'console')
@@ -44,27 +45,27 @@ class RouterDataProvider
                     MenuItem::section(),
                 ]
             ],
-            'show-article-list' => [
-                'name' => 'Artykuły',
-                'icon' => 'fas fa-list',
+            'article' => [
                 'menuLinks' => [
                     MenuItem::linkToCrud('Artykuły', 'fa fa-newspaper', Article::class)
                         ->setController(ArticleCrudController::class)
                         ->setPermission(RolesEnum::ROLE_SERVER),
-                ]
+                ],
+                'name' => 'Artykuły',
+                'icon' => 'fas fa-list',
+                'route' => 'show-article-list'
             ],
-            'tutorial-front' => [
-                'name' => 'Poradniki',
-                'icon' => 'fas fa-film',
+            'tutorial' => [
                 'menuLinks' => [
                     MenuItem::linkToCrud('Poradniki', 'fa fa-chalkboard-teacher', Tutorial::class)
                         ->setController(TutorialCrudController::class)
                         ->setPermission(RolesEnum::ROLE_MODERATOR),
-                ]
+                ],
+                'name' => 'Poradniki',
+                'icon' => 'fas fa-film',
+                'route' => 'tutorial'
             ],
             'rule' => [
-                'name' => 'Zasady',
-                'icon' => 'fas fa-ruler-vertical',
                 'menuLinks' => [
                     MenuItem::linkToCrud('Kategorie Regulaminu', 'fas fa-pencil-ruler', RegulationCategory::class)
                         ->setController(RegulationCategoryCrudController::class)
@@ -72,22 +73,24 @@ class RouterDataProvider
                     MenuItem::linkToCrud('Zasady', 'fas fa-ruler-vertical', Regulation::class)
                         ->setController(RegulationCrudController::class)
                         ->setPermission(RolesEnum::ROLE_MODERATOR),
-                ]
+                ],
+                'name' => 'Zasady',
+                'icon' => 'fas fa-ruler-vertical',
+                'route' => 'rule'
             ],
-            'faq-front' => [
-                'name' => 'FAQ',
-                'icon' => 'fas fa-question',
+            'faq' => [
                 'menuLinks' => [
                     MenuItem::linkToCrud('FAQ', 'fa fa-question-circle', FAQ::class)
                         ->setController(FAQCrudController::class)
                         ->setPermission(RolesEnum::ROLE_MODERATOR),
 
                     MenuItem::section(),
-                ]
+                ],
+                'name' => 'FAQ',
+                'icon' => 'fas fa-question',
+                'route' => 'faq'
             ],
-            'contact-front' => [
-                'name' => 'Kontakt',
-                'icon' => 'fas fa-book',
+            'contact' => [
                 'menuLinks' => [
                     MenuItem::linkToCrud('Wiadomości', 'fa fa-reply', Ticket::class)
                         ->setController(TicketCrudController::class)
@@ -98,11 +101,12 @@ class RouterDataProvider
                         ->setPermission(RolesEnum::ROLE_SERVER),
 
                     MenuItem::section(),
-                ]
+                ],
+                'name' => 'Kontakt',
+                'icon' => 'fas fa-book',
+                'route' => 'contact'
             ],
-            'item-shop' => [
-                'name' => 'ItemShop',
-                'icon' => 'fas fa-shopping-cart',
+            'itemShop' => [
                 'menuLinks' => [
                     MenuItem::linktoRoute('Statystyki Sprzedaży', 'fas fa-chart-pie', 'shopStatistic')
                         ->setPermission(RolesEnum::ROLE_ADMIN),
@@ -132,11 +136,14 @@ class RouterDataProvider
 
                     MenuItem::section(),
                 ],
+                'name' => 'ItemShop',
+                'icon' => 'fas fa-shopping-cart',
+                'route' => 'item-shop'
             ],
         ];
     }
 
-    public function getRouteList(): array
+    public function getModules(): array
     {
         return $this->data;
     }

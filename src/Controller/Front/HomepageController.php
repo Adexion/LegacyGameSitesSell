@@ -6,7 +6,6 @@ use MNGame\Database\Entity\AdminServerUser;
 use MNGame\Database\Entity\Article;
 use MNGame\Database\Entity\ItemList;
 use MNGame\Database\Repository\RegulationRepository;
-use MNGame\Exception\ContentException;
 use MNGame\Service\Connection\Minecraft\ExecutionService;
 use MNGame\Service\ServerProvider;
 use Symfony\Component\HttpFoundation\Request;

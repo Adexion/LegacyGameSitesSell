@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContactController extends AbstractController
 {
     /**
-     * @Route(name="contact-front", path="/contact")
+     * @Route(name="contact", path="/contact")
      *
      * @throws Exception
      */

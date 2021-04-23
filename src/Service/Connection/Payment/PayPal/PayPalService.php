@@ -4,7 +4,6 @@ namespace MNGame\Service\Connection\Payment\PayPal;
 
 use GuzzleHttp\Exception\GuzzleException;
 use MNGame\Database\Repository\PaymentHistoryRepository;
-use MNGame\Dto\PaypalDto;
 use MNGame\Exception\ContentException;
 use MNGame\Exception\PaymentProcessingException;
 use MNGame\Service\Connection\Payment\AbstractPayment;

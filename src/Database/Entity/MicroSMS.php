@@ -1,10 +1,32 @@
 <?php
 
-namespace MNGame\Dto;
+namespace MNGame\Database\Entity;
 
-class MicroSMSDto
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity()
+ */
+class MicroSMS
 {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    public ?int $id = null;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     */
     private ?int $userId = null;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     */
     private ?int $serviceId = null;
 
     public function getUserId(): ?int

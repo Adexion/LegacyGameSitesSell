@@ -4,7 +4,8 @@ namespace MNGame\Util;
 
 use Doctrine\ORM\EntityManagerInterface;
 use MNGame\Database\Entity\ModuleEnabled;
-use MNGame\Service\Route\RouterDataProvider;
+use MNGame\Database\Entity\Parameter;
+use MNGame\Service\Route\ModuleProvider;
 use MNGame\Database\Entity\Server;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
@@ -12,12 +13,12 @@ use Twig\Extension\GlobalsInterface;
 class DatabaseGlobalTwigExtension extends AbstractExtension implements GlobalsInterface
 {
     private EntityManagerInterface $em;
-    private array $routes;
+    private array $modules;
 
-    public function __construct(EntityManagerInterface $em, RouterDataProvider $routerDataProvider)
+    public function __construct(EntityManagerInterface $em, ModuleProvider $moduleProvider)
     {
         $this->em = $em;
-        $this->routes = $routerDataProvider->getRouteList();
+        $this->modules = $moduleProvider->getModules();
     }
 
     public function getGlobals(): array
@@ -26,7 +27,8 @@ class DatabaseGlobalTwigExtension extends AbstractExtension implements GlobalsIn
 
         return [
             'server' => $this->em->getRepository(Server::class)->findAll(),
-            'module' => $this->routes,
+            'global' => $this->em->getRepository(Parameter::class)->findAll(),
+            'module' => $this->modules,
         ];
     }
 
@@ -37,7 +39,7 @@ class DatabaseGlobalTwigExtension extends AbstractExtension implements GlobalsIn
         /** @var ModuleEnabled $moduleEnabled */
         foreach ($modulesEnabledList as $moduleEnabled) {
             if (!$moduleEnabled->isActive()) {
-                unset($this->routes[$moduleEnabled->getRoute()]);
+                unset($this->modules[$moduleEnabled->getName()]);
             }
         }
     }

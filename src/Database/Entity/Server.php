@@ -3,8 +3,6 @@
 namespace MNGame\Database\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use MNGame\Dto\MicroSMSDto;
-use MNGame\Dto\PaypalDto;
 use MNGame\Enum\ExecutionTypeEnum;
 use ReflectionException;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -47,16 +45,16 @@ class Server
     private ?string $password = null;
 
     /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="Paypal", fetch="EAGER")
+     * @ORM\JoinColumn(name="paypal", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private ?string $paypal = null;
+    private ?Paypal $paypal = null;
 
     /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="MicroSMS", fetch="EAGER")
+     * @ORM\JoinColumn(name="microsms", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private ?string $microSMS = null;
+    private ?MicroSMS $microSMS = null;
 
     /**
      * @ORM\Column(type="text")
@@ -101,6 +99,7 @@ class Server
     {
         return $this->port;
     }
+
     public function setPort(?int $port)
     {
         $this->port = $port;
@@ -116,24 +115,24 @@ class Server
         $this->password = $password;
     }
 
-    public function getPaypal(): ?PaypalDto
+    public function getPaypal(): ?Paypal
     {
-        return $this->paypal ? unserialize($this->paypal) : new PaypalDto();
+        return $this->paypal;
     }
 
-    public function setPaypal(PaypalDto $paypal)
+    public function setPaypal(Paypal $paypal)
     {
-        $this->paypal = serialize($paypal);
+        $this->paypal = $paypal;
     }
 
-    public function getMicroSMS(): ?MicroSMSDto
+    public function getMicroSMS(): ?MicroSMS
     {
-        return $this->microSMS ? unserialize($this->microSMS) : new MicroSMSDto();
+        return $this->microSMS;
     }
 
-    public function setMicroSMS(?MicroSMSDto $microSMS)
+    public function setMicroSMS(?MicroSMS $microSMS)
     {
-        $this->microSMS = serialize($microSMS);
+        $this->microSMS = $microSMS;
     }
 
     public function getUserOnlineCommand(): ?string
