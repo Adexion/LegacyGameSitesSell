@@ -20,7 +20,7 @@ use MNGame\Database\Entity\FAQ;
 use MNGame\Database\Entity\Item;
 use MNGame\Database\Entity\ItemList;
 use MNGame\Database\Entity\PaySafeCard;
-use MNGame\Database\Entity\Price;
+use MNGame\Database\Entity\SMSPrice;
 use MNGame\Database\Entity\Regulation;
 use MNGame\Database\Entity\RegulationCategory;
 use MNGame\Database\Entity\Ticket;
@@ -115,7 +115,7 @@ class ModuleProvider
                     MenuItem::linkToCrud('PaySafeCard', 'fa fa-lock', PaySafeCard::class)
                         ->setController(PaySafeCardCrudController::class)
                         ->setPermission(RolesEnum::ROLE_ADMIN),
-                    MenuItem::linkToCrud('Cennik SMS', 'fa fa-tags', Price::class)
+                    MenuItem::linkToCrud('Cennik SMS', 'fa fa-tags', SMSPrice::class)
                         ->setController(PriceCrudController::class)
                         ->setPermission(RolesEnum::ROLE_ADMIN),
                     MenuItem::linkToCrud('Przedmioty', 'fas fa-cube', Item::class)
@@ -146,5 +146,15 @@ class ModuleProvider
     public function getModules(): array
     {
         return $this->data;
+    }
+
+    public function getModuleNameByRoute($route): string {
+        foreach ($this->data as $key => $value) {
+            if (isset($value['route']) && $value['route'] === $route) {
+                return $key;
+            }
+        }
+
+        return 'index';
     }
 }

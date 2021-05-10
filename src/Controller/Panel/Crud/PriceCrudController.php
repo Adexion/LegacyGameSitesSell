@@ -5,14 +5,14 @@ namespace MNGame\Controller\Panel\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
-use MNGame\Database\Entity\Price;
+use MNGame\Database\Entity\SMSPrice;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class PriceCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Price::class;
+        return SMSPrice::class;
     }
 
     public function configureCrud(Crud $crud): Crud

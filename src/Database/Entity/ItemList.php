@@ -60,10 +60,10 @@ class ItemList
     private ?float $promotion = 0;
 
     /**
-     * @ORM\OneToOne(targetEntity="Price", fetch="EAGER")
+     * @ORM\OneToOne(targetEntity="SMSPrice", fetch="EAGER")
      * @ORM\JoinColumn(name="sms_price_id", referencedColumnName="id")
      */
-    private ?Price $smsPrice = null;
+    private ?SMSPrice $smsPrice = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -151,12 +151,12 @@ class ItemList
         $this->howManyBuyers = $howManyBuyers;
     }
 
-    public function getSmsPrice(): ?Price
+    public function getSmsPrice(): ?SMSPrice
     {
         return $this->smsPrice;
     }
 
-    public function setSmsPrice(?Price $smsPrice)
+    public function setSmsPrice(?SMSPrice $smsPrice)
     {
         $this->smsPrice = $smsPrice;
     }

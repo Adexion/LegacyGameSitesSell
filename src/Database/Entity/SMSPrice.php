@@ -5,21 +5,15 @@ namespace MNGame\Database\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="MNGame\Database\Repository\PriceRepository")
+ * @ORM\Entity(repositoryClass="MNGame\Database\Repository\SMSPriceRepository")
  */
-class Price
+class SMSPrice
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="string")
      */
-    public ?int $id = null;
-
-    /**
-     * @ORM\Column(type="integer", unique=true, length=5)
-     */
-    private ?string $phoneNumber = null;
+    private ?string $id = null;
 
     /**
      * @ORM\Column(type="float")
@@ -34,16 +28,6 @@ class Price
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPhoneNumber(): ?int
-    {
-        return $this->phoneNumber;
-    }
-
-    public function setPhoneNumber(?int $phoneNumber)
-    {
-        $this->phoneNumber = $phoneNumber;
     }
 
     public function getAmount(): ?float

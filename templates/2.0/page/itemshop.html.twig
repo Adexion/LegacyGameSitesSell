@@ -1,10 +1,5 @@
 {% extends '2.0/base.html.twig' %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <script src="https://www.paypal.com/sdk/js?client-id={{ paypalClient }}&currency=PLN"></script>
-{% endblock %}
-
 {% block body %}
     <div class="alert alert-dark mt-3">
         Pomóż nam uzyskać niezbędne środki. Do utrzymanie tego serwera potrzebujemy jeszcze: <strong>{{ (116 - amount) | format_currency('PLN') }}</strong>

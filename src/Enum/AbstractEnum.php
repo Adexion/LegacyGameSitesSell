@@ -72,17 +72,11 @@ abstract class AbstractEnum
         $this->value = $value;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string)$this->getValue();
     }
 
-    /**
-     * @return string
-     */
     public function getValue()
     {
         return $this->value;

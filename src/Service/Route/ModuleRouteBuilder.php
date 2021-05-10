@@ -29,6 +29,10 @@ class ModuleRouteBuilder
                 continue;
             }
 
+            if (!isset($value['menuLinks'])) {
+                continue;
+            }
+
             $moduleLinks = array_merge($moduleLinks, $value['menuLinks']);
         }
 

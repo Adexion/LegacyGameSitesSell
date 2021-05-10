@@ -2,7 +2,7 @@
 
 namespace MNGame\Tests\Behat;
 
-use MNGame\Database\Entity\Price;
+use MNGame\Database\Entity\SMSPrice;
 use MNGame\Database\Entity\ResetPassword;
 use MNGame\Database\Entity\User;
 
@@ -77,13 +77,13 @@ class UserApiContext extends AbstractContext
      */
     public function setPriceForPhoneNumber(float $price, int $number, float $amount = 1)
     {
-        $entity = new Price();
+        $entity = new SMSPrice();
 
         $entity->setAmount($amount);
-        $entity->setPhoneNumber($number);
+        $entity->setNumber($number);
         $entity->setPrice($price);
 
-        $this->getManager()->getRepository(Price::class)->insert($entity);
+        $this->getManager()->getRepository(SMSPrice::class)->insert($entity);
     }
 
     /**

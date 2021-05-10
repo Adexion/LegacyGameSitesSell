@@ -3,12 +3,12 @@
 namespace MNGame\Database\Repository;
 
 use Doctrine\Persistence\ManagerRegistry;
-use MNGame\Database\Entity\Price;
+use MNGame\Database\Entity\SMSPrice;
 
-class PriceRepository extends AbstractRepository
+class SMSPriceRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Price::class);
+        parent::__construct($registry, SMSPrice::class);
     }
 }

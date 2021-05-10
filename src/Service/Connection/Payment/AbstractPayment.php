@@ -2,7 +2,6 @@
 
 namespace MNGame\Service\Connection\Payment;
 
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use MNGame\Database\Entity\PaymentHistory;
 use MNGame\Database\Entity\User;
@@ -14,18 +13,23 @@ abstract class AbstractPayment
 {
     private PaymentHistoryRepository $repository;
     private UserProviderInterface $userProvider;
+    protected PaymentClientFactory $clientFactory;
 
-    public function __construct(PaymentHistoryRepository $repository, UserProviderInterface $userProvider)
-    {
+    public function __construct(
+        PaymentHistoryRepository $repository,
+        UserProviderInterface $userProvider,
+        PaymentClientFactory $clientFactory
+    ) {
         $this->repository = $repository;
         $this->userProvider = $userProvider;
+        $this->clientFactory = $clientFactory;
     }
 
     /**
      * @throws ORMException
-     * @throws OptimisticLockException
      */
-    protected function notePayment(float $amount, string $username, string $type, string $id) {
+    protected function notePayment(float $amount, string $username, string $type, string $id)
+    {
         $paymentHistory = new PaymentHistory();
 
         try {

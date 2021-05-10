@@ -2,6 +2,8 @@
 
 namespace MNGame\Database\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use MNGame\Enum\ExecutionTypeEnum;
 use ReflectionException;
@@ -45,16 +47,10 @@ class Server
     private ?string $password = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Paypal", fetch="EAGER")
-     * @ORM\JoinColumn(name="paypal", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ORM\JoinTable(name="server_payment")
+     * @Assert\NotBlank
      */
-    private ?Paypal $paypal = null;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="MicroSMS", fetch="EAGER")
-     * @ORM\JoinColumn(name="microsms", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     */
-    private ?MicroSMS $microSMS = null;
+    private ?Collection $payments = null;
 
     /**
      * @ORM\Column(type="text")
@@ -115,26 +111,6 @@ class Server
         $this->password = $password;
     }
 
-    public function getPaypal(): ?Paypal
-    {
-        return $this->paypal;
-    }
-
-    public function setPaypal(Paypal $paypal)
-    {
-        $this->paypal = $paypal;
-    }
-
-    public function getMicroSMS(): ?MicroSMS
-    {
-        return $this->microSMS;
-    }
-
-    public function setMicroSMS(?MicroSMS $microSMS)
-    {
-        $this->microSMS = $microSMS;
-    }
-
     public function getUserOnlineCommand(): ?string
     {
         return $this->userOnlineCommand;
@@ -186,5 +162,15 @@ class Server
     public function setPlayerNotFoundCommunicate(?string $playerNotFoundCommunicate)
     {
         $this->playerNotFoundCommunicate = $playerNotFoundCommunicate;
+    }
+
+    public function getPayments(): ?ArrayCollection
+    {
+        return $this->payments;
+    }
+
+    public function setPayments(?ArrayCollection $payments)
+    {
+        $this->payments = $payments;
     }
 }

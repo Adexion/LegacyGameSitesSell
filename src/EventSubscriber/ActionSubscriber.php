@@ -81,12 +81,12 @@ class ActionSubscriber implements EventSubscriberInterface
         $event->getResponse()->headers->set('Access-Control-Allow-Headers', 'x-auth-token, Content-Type');
     }
 
-    private function shouldConnectionBeRedirectToHomepage(?string $name): bool
+    private function shouldConnectionBeRedirectToHomepage(?string $route): bool
     {
         $moduleProvider = new ModuleProvider();
-        $module = $moduleProvider->getModules()[$name];
+        $moduleName = $moduleProvider->getModuleNameByRoute($route);
 
-        $moduleEnabled = $this->repository->findOneBy(['name' => $module['name'] ?? '']);
+        $moduleEnabled = $this->repository->findOneBy(['name' => $moduleName ?? '']);
 
         return $moduleEnabled ? !$moduleEnabled->isActive() : false;
     }

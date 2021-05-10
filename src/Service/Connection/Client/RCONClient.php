@@ -10,7 +10,7 @@ class RCONClient implements ClientInterface
     private ?string $host;
     private ?string $port;
     private ?string $password;
-    private ?resource $socket;
+    private $socket;
     private string $lastResponse;
 
     private const PACKET_AUTHORIZE = 5;

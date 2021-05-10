@@ -3,7 +3,7 @@
 namespace MNGame\Form;
 
 use MNGame\Database\Entity\ItemList;
-use MNGame\Database\Entity\Price;
+use MNGame\Database\Entity\SMSPrice;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -27,7 +27,7 @@ class ItemListType extends AbstractType
             ->add('price', NumberType::class)
             ->add('promotion', NumberType::class)
             ->add('smsPrice', EntityType::class, [
-                'class' => Price::class,
+                'class' => SMSPrice::class,
                 'choice_label' => 'id'
             ]);
     }

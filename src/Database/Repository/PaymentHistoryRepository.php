@@ -37,7 +37,7 @@ class PaymentHistoryRepository extends AbstractRepository
         return $statistics ?? [];
     }
 
-    public function getThisMountMoney(): float
+    public function getThisMonthMoney(): float
     {
         $qb = $this->createQueryBuilder('ph')
             ->select('ph')
@@ -49,6 +49,6 @@ class PaymentHistoryRepository extends AbstractRepository
             $statistic = +$statistic->getAmount();
         }
 
-        return $statistic;
+        return $statistic ?? 0;
     }
 }
