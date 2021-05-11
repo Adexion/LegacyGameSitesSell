@@ -1,8 +1,6 @@
 {
   "build/app.js": "/build/app.js",
-  "build/main.css": "/build/main.css",
-  "build/main-1.0.css": "/build/main-1.0.css",
-  "build/main-2.0.css": "/build/main-2.0.css",
+  "build/main-base.css": "/build/main-base.css",
   "build/paymentStatistic.js": "/build/paymentStatistic.js",
   "build/runtime.js": "/build/runtime.js",
   "build/shopStatistic.js": "/build/shopStatistic.js",

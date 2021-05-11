@@ -9,7 +9,7 @@ use MNGame\Exception\ContentException;
 use MNGame\Service\Connection\ApiClient\RestApiClient;
 use MNGame\Service\EnvironmentService;
 
-class HotPaySmsClient extends RestApiClient implements ClientInterface
+class HotPaySmsPaymentClient extends RestApiClient implements PaymentClientInterface
 {
     private const URL = 'https://api.hotpay.pl/check_sms.php?';
     private SMSPriceRepository $smsPriceRepository;

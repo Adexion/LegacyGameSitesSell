@@ -9,7 +9,7 @@ use MNGame\Exception\ContentException;
 use MNGame\Service\Connection\ApiClient\RestApiClient;
 use MNGame\Service\EnvironmentService;
 
-class MicroSmsClient extends RestApiClient implements ClientInterface
+class MicroSmsPaymentClient extends RestApiClient implements PaymentClientInterface
 {
     private const URL = 'https://microsms.pl/api/v2/multi.php?';
     private SMSPriceRepository $smsPriceRepository;

@@ -2,11 +2,12 @@
 
 namespace MNGame\Database\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use MNGame\Enum\ExecutionTypeEnum;
+use MNGame\Enum\PaymentTypeEnum;
 use ReflectionException;
+use RuntimeException;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -164,13 +165,28 @@ class Server
         $this->playerNotFoundCommunicate = $playerNotFoundCommunicate;
     }
 
-    public function getPayments(): ?ArrayCollection
+    public function getPayments(): ?Collection
     {
         return $this->payments;
     }
 
-    public function setPayments(?ArrayCollection $payments)
+    public function setPayments(?Collection $payments)
     {
         $this->payments = $payments;
+    }
+
+    /**
+     * @throws ReflectionException
+     * @throws RuntimeException
+     */
+    public function getPaymentByType(PaymentTypeEnum $paymentTypeEnum): Payment {
+        /** @var Payment $payment */
+        foreach ($this->payments->getValues() as $payment) {
+            if ($payment->getType() === $paymentTypeEnum) {
+                return $payment;
+            }
+        }
+
+        throw new RuntimeException('Payment '.$paymentTypeEnum->getKey().' was not found');
     }
 }

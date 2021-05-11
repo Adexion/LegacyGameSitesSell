@@ -24,28 +24,12 @@
         "/build/app.js"
       ]
     },
-    "main": {
+    "main-base": {
       "js": [
         "/build/runtime.js"
       ],
       "css": [
-        "/build/main.css"
-      ]
-    },
-    "main-1.0": {
-      "js": [
-        "/build/runtime.js"
-      ],
-      "css": [
-        "/build/main-1.0.css"
-      ]
-    },
-    "main-2.0": {
-      "js": [
-        "/build/runtime.js"
-      ],
-      "css": [
-        "/build/main-2.0.css"
+        "/build/main-base.css"
       ]
     }
   }

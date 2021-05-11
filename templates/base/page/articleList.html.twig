@@ -1,33 +1,7 @@
 {% extends 'base/base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="row p-5">
-            {% for article in articleList %}
-                <div class="p-4 text-shadow d-inline-block col-12 col-lg-6">
-                    <p class="h4 font-weight-bold">{{ article.title | raw }}</p>
-                    <p class="h5">{{ article.subhead | raw }}</p>
-                    <hr/>
-                    <span>{{ article.shortText | raw }}</span>
-                    <div class="pt-2">
-                        <span class="float-left text-small">
-                            <a class="text-light" href="{{ path('show-article', {slug: article.id }) }}">Czytaj więcej ...</a>
-                        </span>
-                        <span class="float-right text-small">
-                            ~{{ article.author }}&nbsp
-                            <img class="avatar" src="https://cravatar.eu/avatar/{{ article.author }}" alt="{{ article.author }} avatar"/>
-                        </span>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <ul class="pagination justify-content-center">
-            {% set maxPage = ((count / perPages) | round(0, 'ceil')) %}
-            <li class="page-item {% if currentPage == 1 %}disabled{% endif %}"><a class="page-link" href="{{ path('show-article-list', {slug: currentPage - 1}) }}">Poprzednia</a></li>
-            {% for index in 1 .. maxPage %}
-                <li class="page-item {% if index == currentPage %}active{% endif %}"><a class="page-link" href="{{ path('show-article-list', {slug: index}) }}">{{ index }}</a></li>
-            {% endfor %}
-            <li class="page-item  {% if currentPage == maxPage %}disabled{% endif %}"><a class="page-link" href="{{ path('show-article-list', {slug: currentPage + 1}) }}">Następna</a></li>
-        </ul>
-    </div>
+        {{ include('base/component/article.html.twig') }}
+        {% set path = 'show-article-list' %}
+        {{ include('base/component/pagination.html.twig') }}
 {% endblock %}

@@ -1,46 +1,70 @@
-<div class="nav-content w-100">
-    <div class="nav-item dropdown">
-        <a class="nav-link float-left left title title--small dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">MNGame</a>
-        <div class="dropdown-menu left">
-            {% for s in server %}
-                {% if s.src is defined %}
-                    <form method="post" action="/">
-                        <input name="serverId" type="hidden" value="{{ s.id }}"/>
-                        <input class="nav-item bg-transparent border-0" type="submit" src="{{ s.src }}" alt="{{ s.name }}" value="{{ s.name }}"/>
-                    </form>
-                {% endif %}
-            {% endfor %}
+<div class="navbar-content">
+    <nav class="navbar navbar-expand-lg navbar-dark justify-content-center">
+        <div class="d-lg-none col-2">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+                    aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
-    </div>
-    <nav class="nav right">
-        <span class="nav-item"><a class="nav-link" href="{{ path('show-article-list') }}">{% trans %}Artykuły{% endtrans %}</a></span>
-        <span class="nav-item"><a class="nav-link" href="{{ path('rule') }}">{% trans %}Rules{% endtrans %}</a></span>
-        <span class="nav-item"><a class="nav-link" href="{{ path('item-shop') }}">{% trans %}Itemshop{% endtrans %}</a></span>
-        <span class="nav-item"><a class="nav-link" href="{{ path('faq') }}">{% trans %}FAQ{% endtrans %}</a></span>
-        <span class="nav-item"><a class="nav-link" href="{{ path('tutorial') }}">{% trans %}Tutorial{% endtrans %}</a></span>
-        <span class="nav-item"><a class="nav-link" href="{{ path('contact') }}">{% trans %}Contact{% endtrans %}</a></span>
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <span class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                   aria-expanded="false">
-                    <img class="avatar" src="https://cravatar.eu/avatar/{{ app.user.username }}"
-                         alt="{{ app.user.username }} avatar">
-                    <span id="username">{{ app.user.username }}</span>
-                </a>
-                <span class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ path('user-profile') }}">{% trans %}User panel{% endtrans %}</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a class="dropdown-item bg-warning" href="{{ path('panel') }}">Panel Administracyjny</a>
+        <div class="navbar-toggler-widow col-12 col-lg-9 pr-lg-0 order-end">
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <div class="d-flex w-100">
+                    <div class="nav-icons d-none d-lg-flex col-lg-4 align-items-center">
+                        <a class="icon d-block" href="//discord.gg/cjBeqCX" target="_blank"><span class="fab fa-discord"></span></a>
+                        <a class="icon d-block" href="//www.facebook.com/MNGameSerwer/" target="_blank"><span class="fab fa-facebook"></span></a>
+                    </div>
+                    <ul class="navbar-nav pr-0 mt-2 mt-lg-0 col-lg-8 col-md-12 col-12 d-flex justify-content-center">
+                        <li class="nav-item dropdown">
+                            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link">
+                                <i class="fas fa-server"></i>Serwery
+                            </a>
+                            <ul class="collapse list-unstyled nav-item" id="homeSubmenu">
+                                {% for s in server %}
+                                    <form method="post" action="/">
+                                        <input name="serverId" type="hidden" value="{{ s.id }}"/>
+                                        <input class="bg-transparent border-0 nav-link w-100 text-center" type="submit" alt="{{ s.name }}" value="{{ s.name }}"/>
+                                    </form>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% for link in module %}
+                            {% if link.route is defined %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path(link.route) }}"><i class="{{ link.icon }}"></i>{{ link.name }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-10 col-lg-3 d-flex align-items-center justify-content-end">
+            <ul class="mb-0 mt-lg-0 d-flex justify-content-center">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user-profile') }}">Ustawiena</a>
+                    </li>
+                    {% if is_granted('ROLE_SERVER') or is_granted('ROLE_MODERATOR') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('panel') }}">Admin</a>
+                        </li>
                     {% endif %}
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a>
-                </span>
-            </span>
-        {% else %}
-            <span class="nav-item"><a class="nav-link" href="{{ path('register') }}">{% trans %}Register{% endtrans %}</a>
-            </span>
-            <span class="nav-item"><a class="nav-link" href="{{ path('login') }}">{% trans %}Sign in{% endtrans %}</a>
-            </span>
-        {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('login') }}">Zaloguj</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('register') }}">Zarejestruj</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
     </nav>
+
+    <div class="navbar-header">
+        <a href="/"><img src="{{ asset('assets/images/logotype.png') }}" alt="logotype"></a>
+    </div>
 </div>

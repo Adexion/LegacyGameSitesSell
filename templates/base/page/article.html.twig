@@ -1,17 +1,25 @@
 {% extends 'base/base.html.twig' %}
 
 {% block body %}
-    <div class="container mt-5">
-        <div class="row">
-            <div class="w-100">
-                <h4 class="font-weight-bold">{{ article.title }}</h4>
-                <p class="h5">{{ article.subhead }}</p>
-                <hr/>
-                {{ article.text  | raw }}
-                <div class="pt-2">
-                    <span class="float-right text-small">{{ article.author.username }}&nbsp;<img class="avatar" src="{{ avatar }}" alt="{{ article.author.username }} avatar"/></span>
+    <div class="card bg-mngame">
+        <div class="card-header d-flex align-items-center">
+            <img class="avatar" src="https://cravatar.eu/avatar/{{ article.author.username }}"
+                 alt="{{ article.author.username }} avatar"/>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">{{ article.title | raw }}</span>
+                <div class="d-flex flex-row">
+                    <span class="fas fa-user">&nbsp;{{ article.author.username }}&nbsp;</span>
+                    <span class="fas fa-comment">&nbsp;{{ article.createdAt|date('d.m.Y') }}&nbsp;</span>
                 </div>
             </div>
+        </div>
+        <div class="card-body">
+            {% if article.image is defined %}
+                <div class="d-flex justify-content-center">
+                    <img src="{{ article.image }}" alt="{{ article.subhead }}"/>
+                </div>
+            {% endif %}
+            <p class="card-text text-center">{{ article.text | raw }}</p>
         </div>
     </div>
 {% endblock %}

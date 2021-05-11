@@ -4,9 +4,9 @@ namespace MNGame\Controller\Front;
 
 use GuzzleHttp\Exception\GuzzleException;
 use MNGame\Database\Entity\ItemList;
+use MNGame\Database\Entity\Payment;
 use MNGame\Database\Entity\PaymentHistory;
 use MNGame\Database\Entity\PaySafeCard;
-use MNGame\Database\Entity\User;
 use MNGame\Database\Entity\Wallet;
 use MNGame\Database\Repository\ItemListRepository;
 use MNGame\Database\Repository\PaymentHistoryRepository;
@@ -15,8 +15,7 @@ use MNGame\Exception\ContentException;
 use MNGame\Exception\ItemListNotFoundException;
 use MNGame\Exception\PaymentProcessingException;
 use MNGame\Service\Connection\Minecraft\ExecuteItemService;
-use MNGame\Service\Connection\Payment\SMS\SMSService;
-use MNGame\Service\Mail\MailSenderService;
+use MNGame\Service\Connection\Payment\PaymentService;
 use MNGame\Service\ServerProvider;
 use MNGame\Service\User\WalletService;
 use ReflectionException;
@@ -38,7 +37,20 @@ class ItemShopController extends AbstractController
             'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
             'amount' => $repository->getThisMonthMoney(),
             'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $server->getId()]),
-            'payments' => $server->getPayments()
+        ]);
+    }
+
+    public function formList(ServerProvider $serverProvider, Request $request) {
+        /** @var Payment $payment */
+        foreach ($serverProvider->getSessionServer()->getPayments() as $payment) {
+
+        }
+
+        return $this->render('base/page/itemshopItemForm.html.twig', [
+            'serverName' => $server->getName(),
+            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+            'amount' => $repository->getThisMonthMoney(),
+            'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $server->getId()]),
         ]);
     }
 
@@ -78,17 +90,19 @@ class ItemShopController extends AbstractController
     }
 
     /**
-     * @Route(name="sms-status", path="/sms/status")
+     * @Route(name="payment-status", path="/payment/status")
      *
      * @throws GuzzleException
      * @throws ContentException
+     * @throws ReflectionException
      */
-    public function smsStatus(Request $request, SMSService $smsService, WalletService $walletService): Response
+    public function paymentStatus(Request $request, PaymentService $paymentService, WalletService $walletService, ServerProvider $serverProvider): Response
     {
+        $paymentType = new PaymentTypeEnum($request->request->get('paymentType'));
         $paymentHistory = $this->getDoctrine()->getRepository(PaymentHistory::class)->findOneBy(
             [
-                'paymentType' => PaymentTypeEnum::SMS,
-                'paymentId' => $request->request->get('orderId') ?? 0,
+                'paymentType' => $paymentType->getKey(),
+                'paymentId' => $request->request->get('paymentId') ?? 0,
             ]
         );
 
@@ -99,7 +113,9 @@ class ItemShopController extends AbstractController
             ]);
         }
 
-        $amount = $smsService->executePayment($request->request->get('orderId') ?? 0, $this->getUser()->getUsername());
+        $payment = $serverProvider->getSessionServer()->getPaymentByType($paymentType);
+
+        $amount = $paymentService->executePayment($request->request->all(), $this->getUser()->getUsername(), $payment);
         $walletService->changeCash($amount, $this->getUser());
 
         return $this->render('base/page/payment.html.twig', [

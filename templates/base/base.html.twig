@@ -4,24 +4,30 @@
     {% include 'base/component/head.html.twig' %}
 
     {% block stylesheets %}
-        {{ encore_entry_link_tags('main') }}
+        {{ encore_entry_link_tags('main-base') }}
     {% endblock %}
 </head>
-<body class="bg-dark text-light">
-{% include 'base/component/nav.html.twig' %}
-{% include 'base/component/media.html.twig' %}
+<body>
+<div id="particles-js"></div>
 
-<div class="pt-nav">
-    {% block body %}
-    {% endblock %}
+<div id="content">
+    {% include 'base/component/nav.html.twig' %}
+    <div class="container" id="body">
+        <div class="row">
+            <div class="col-12">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </div>
 </div>
-
 <footer>
-    <div class="bg-darker copyright">© Copyright 2020. All right reserved.</div>
+    <span class="footer">© Copyright {{ "now"|date("Y") }}. All right reserved.</span>
     {% block javascripts %}
-        <script defer src="https://friconix.com/cdn/friconix.js"></script>
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
+    <script>
+        particlesJS.load('particles-js', '/assets/particles.json', function () {});
+    </script>
 </footer>
 </body>
 </html>

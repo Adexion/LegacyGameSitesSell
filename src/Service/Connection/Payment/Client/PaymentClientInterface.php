@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use MNGame\Database\Repository\SMSPriceRepository;
 use MNGame\Service\EnvironmentService;
 
-interface ClientInterface
+interface PaymentClientInterface
 {
     public function __construct(SMSPriceRepository $smsPriceRepository, ArrayCollection $arrayCollection, EnvironmentService $env, ?string $className = null);
 

@@ -1,17 +1,16 @@
 {% extends "base/base.html.twig" %}
 
 {% block body %}
-    <div class="container-fluid pt-3">
-        <div class="row">
-            <div class="menu col-lg-3 col-sm-12">{{ include('base/component/user.menu.html.twig') }}</div>
-            <div class="content col-lg-6 col-sm-12">
-                <div class="user-data bg-darker text-warning container-fluid">
-                    <div class="row h-100">
-                        {% block content %}
-                        {% endblock %}
-                    </div>
-                </div>
-            </div>
+    <div class="card bg-mngame mb-2">
+        <div class="card-header">
+            <h4 class="font-weight-bold">Wybierz podstrone</h4>
+        </div>
+        <div class="card-body">
+            {{ include('base/component/user.menu.html.twig') }}
         </div>
     </div>
+
+    {% block content %}
+    {% endblock %}
+
 {% endblock %}

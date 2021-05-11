@@ -1,44 +1,26 @@
-<div class="container mt-5">
-    <div class="row">
-        <div id="article-list" class="col-md-7 pb-3">
-            <h1 class="text-info text-center">Nasze ostatnie artykuły</h1>
-            {% for article in articleList %}
-                <div class="p-4 text-shadow d-inline-block">
-                    <p class="h4 font-weight-bold">{{ article.title | raw }}</p>
-                    <p class="h5">{{ article.subhead | raw }}</p>
-                    <hr/>
-                    <span>{{ article.shortText | raw }}</span>
-                    <div class="pt-2">
-                        <span class="float-left text-small">
-                            <a class="text-light" href="{{ path('show-article', {slug: article.id }) }}">Czytaj więcej ...</a>
-                        </span>
-                        <span class="float-right text-small">
-                            ~{{ article.author }}&nbsp;
-                            <img class="avatar" src="https://cravatar.eu/avatar/{{ article.author }}" alt="{{ article.author }} avatar"/>
-                        </span>
-                    </div>
+{% for article in articleList %}
+    <div class="card bg-mngame">
+        <div class="card-header d-flex align-items-center">
+            <img class="avatar" src="https://cravatar.eu/avatar/{{ article.author }}"
+                 alt="{{ article.author }} avatar"/>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">{{ article.title | raw }}</span>
+                <div class="d-flex flex-row">
+                    <span class="fas fa-user">&nbsp;{{ article.author }}&nbsp;</span>
+                    <span class="fas fa-comment">&nbsp;{{ article.createdAt|date('d.m.Y') }}&nbsp;</span>
                 </div>
-            {% endfor %}
+            </div>
         </div>
-
-        <div class="col-md-5">
-            {% set article = (articleList | first) %}
-            <img class="border article-image"
-                 src="{% if article.image is defined and article.image is not empty %}{{ asset(article.image) }}{% else %}{{ asset('assets/images/image.jpg') }}{% endif %}" alt="image frame">
+        <div class="card-body">
+            {% if article.image is defined %}
+                <div class="d-flex justify-content-center">
+                    <img src="{{ article.image }}" alt="{{ article.subhead }}"/>
+                </div>
+            {% endif %}
+            <p class="card-text text-center">{{ article.shortText | raw }}</p>
+        </div>
+        <div class="card-footer">
+            <a href="{{ path('show-article', {slug: article.id }) }}" class="link">Czytaj więcej ...</a>
         </div>
     </div>
-
-    <div class="progress">
-        {% if isOnline %}
-            <div class="progress-bar bg-primary title--mid"
-                 role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                Graczy online: {{ playerListCount }}/100
-            </div>
-        {% else %}
-            <div class="progress-bar bg-danger title--mid"
-                 role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                Serwer jest offline!
-            </div>
-        {% endif %}
-    </div>
-</div>
+{% endfor %}

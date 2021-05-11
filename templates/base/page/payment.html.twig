@@ -1,44 +1,60 @@
 {% extends 'base/base.html.twig' %}
 
 {% block body %}
-    <div class="container pt-2">
-        <div class="row">
-            {% include 'base/component/notLogged.html.twig' %}
-            <div class="wallet-container alert alert-success">
-                <i class="fas fa-wallet"></i>
-                Stan twojego konta wynosi: {{ wallet.cash | number_format(2) }} zł.
-            </div>
+    {% include 'base/component/notLogged.html.twig' %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="wallet-container alert alert-success">
+            <i class="fas fa-wallet"></i>
+            Stan twojego konta wynosi: {{ wallet.cash | number_format(2) }} zł.
         </div>
-    </div>
+    {% endif %}
 
-    <div class="text-center pt-5 mt-5">
+    <div class="card bg-mngame">
         {% if responseType != 402 %}
             {% if itemList is not empty %}
-                <h1 class="text-success">Kupiono {{ itemList.name }} za {{ itemList.afterPromotionPrice }} zł</h1>
-                <img src="{{ itemList.icon }}" alt="{{ itemList.name }}"/>
-                <br/>
-                <p>Zapraszamy do zabawy z nowo zakupionym pakietem!!!</p>
+                <div class="card-header">
+                    <h4 class="font-weight-bold">Kupiono {{ itemList.name }} za {{ itemList.afterPromotionPrice }}
+                        zł</h4>
+                </div>
+                <div class="card-body">
+                    <img src="{{ itemList.icon }}" alt="{{ itemList.name }}" class="item-icon-payment"/>
+                    <br/>
+                    <p>Zapraszamy do zabawy z nowo zakupionym pakietem!!!</p>
+                </div>
             {% elseif responseType != 429 %}
-                <h1 class="text-success">Doładowałeś swoje konto!</h1>
-                <h2>Możesz teraz wykorzystać środki ze swojego konta prepaid!</h2>
-                <br/>
+                <div class="card-header">
+                    <h4 class="font-weight-bold">Doładowałeś swoje konto!</h4>
+                </div>
+                <div class="card-body">
+                    <span>Możesz teraz wykorzystać środki ze swojego konta prepaid!</span>
+                </div>
             {% endif %}
             {% if responseType == 206 %}
-                <p>Nie udało sie wypłacić wszystkich przedmiotów. Zostaną one przypisane do twojego ekwipunku</p>
-                <a href="{{ path('equipment-profile') }}" class="btn btn-block btn-info w-50 m-auto">Sprzawdź swój
-                    ekwipunek</a>
-                <br/>
+                <div class="card-header">
+                    <h4 class="font-weight-bold">Nie udało sie wypłacić wszystkich przedmiotów. Zostaną one przypisane do twojego ekwipunku</h4>
+                </div>
+                <div class="card-body">
+                    <a href="{{ path('equipment-profile') }}" class="btn btn-block btn-info w-50 m-auto">Sprzawdź swój
+                        ekwipunek</a>
+                </div>
             {% elseif responseType == 429 %}
-                <h1 class="text-danger">Ta płatnośc została już wykonana</h1>
-                <h3>Wybrana opcja płatności została już zarejetrowana w systemie. Nie można wykonac jej ponownie!</h3>
-                <br/>
-                <a href="{{ path('equipment-profile') }}" class="btn btn-block btn-info w-50 m-auto">Sprzawdź swój
-                    ekwipunek</a>
-                <br/>
+                <div class="card-header">
+                    <h4 class="font-weight-bold">Ta płatnośc została już wykonana</h4>
+                </div>
+                <div class="card-body">
+                    <h3>Wybrana opcja płatności została już zarejetrowana w systemie. Nie można wykonac jej ponownie!</h3>
+                    <br/>
+                    <a href="{{ path('equipment-profile') }}" class="btn btn-block btn-info w-50 m-auto">Sprzawdź swój
+                        ekwipunek</a>
+                </div>
             {% endif %}
         {% else %}
-            <h1 class="text-danger">Wystąpił błąd podczas kupowania przedmiotu!</h1>
-            <p>Nie masz wystarczającej ilości środków na koncie</p>
+            <div class="card-header">
+                <h4 class="font-weight-bold">Wystąpił błąd podczas kupowania przedmiotu!</h4>
+            </div>
+            <div class="card-body">
+                <p>Nie masz wystarczającej ilości środków na koncie</p>
+            </div>
         {% endif %}
     </div>
 {% endblock %}
