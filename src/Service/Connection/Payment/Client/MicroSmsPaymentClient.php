@@ -2,12 +2,12 @@
 
 namespace MNGame\Service\Connection\Payment\Client;
 
-use Doctrine\Common\Collections\Collection;
-use GuzzleHttp\Exception\GuzzleException;
-use MNGame\Database\Repository\SMSPriceRepository;
 use MNGame\Exception\ContentException;
-use MNGame\Service\Connection\ApiClient\RestApiClient;
 use MNGame\Service\EnvironmentService;
+use GuzzleHttp\Exception\GuzzleException;
+use Doctrine\Common\Collections\Collection;
+use MNGame\Database\Repository\SMSPriceRepository;
+use MNGame\Service\Connection\ApiClient\RestApiClient;
 
 class MicroSmsPaymentClient extends RestApiClient implements PaymentClientInterface
 {
@@ -23,7 +23,7 @@ class MicroSmsPaymentClient extends RestApiClient implements PaymentClientInterf
     ) {
         parent::__construct($env, $className);
         $this->paymentConfiguration = $paymentConfiguration;
-        $this->smsPriceRepository = $smsPriceRepository;
+        $this->smsPriceRepository   = $smsPriceRepository;
     }
 
     /**
@@ -33,12 +33,12 @@ class MicroSmsPaymentClient extends RestApiClient implements PaymentClientInterf
     public function executeRequest(array $data)
     {
         $request = [
-            'userid' => $this->paymentConfiguration->get('userId'),
+            'userid'    => $this->paymentConfiguration->get('userId'),
             'serviceid' => $this->paymentConfiguration->get('serviceId'),
-            'code' => $data['paymentId'],
+            'code'      => $data['paymentId'],
         ];
 
-        $response = json_decode($this->request(RestApiClient::GET, self::URL.http_build_query($request)), true);
+        $response = json_decode($this->request(RestApiClient::GET, self::URL . http_build_query($request)), true);
         $this->handleError($response);
 
         return $this->smsPriceRepository->findOneBy(['id' => $response['data']['number']])->getAmount();
@@ -56,7 +56,7 @@ class MicroSmsPaymentClient extends RestApiClient implements PaymentClientInterf
             throw new ContentException(['error' => 'Nie można odczytać informacji o płatności.']);
         }
         if (isset($response['error']) && $response['error']) {
-            throw new ContentException(['error' => 'Kod błędu: '.$response['error']['errorCode'].' - '.$response['error']['message']]);
+            throw new ContentException(['error' => 'Kod błędu: ' . $response['error']['errorCode'] . ' - ' . $response['error']['message']]);
         }
         if ((bool)$response['connect'] === false) {
             throw new ContentException(['smsCode' => 'Nieprawidłowy format kodu sms.']);

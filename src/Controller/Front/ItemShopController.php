@@ -2,26 +2,26 @@
 
 namespace MNGame\Controller\Front;
 
-use GuzzleHttp\Exception\GuzzleException;
-use MNGame\Database\Entity\ItemList;
-use MNGame\Database\Entity\Payment;
-use MNGame\Database\Entity\PaymentHistory;
-use MNGame\Database\Entity\PaySafeCard;
-use MNGame\Database\Entity\Wallet;
-use MNGame\Database\Repository\ItemListRepository;
-use MNGame\Database\Repository\PaymentHistoryRepository;
-use MNGame\Enum\PaymentTypeEnum;
-use MNGame\Exception\ContentException;
-use MNGame\Exception\ItemListNotFoundException;
-use MNGame\Exception\PaymentProcessingException;
-use MNGame\Service\Connection\Minecraft\ExecuteItemService;
-use MNGame\Service\Connection\Payment\PaymentService;
-use MNGame\Service\ServerProvider;
-use MNGame\Service\User\WalletService;
 use ReflectionException;
+use MNGame\Enum\PaymentTypeEnum;
+use MNGame\Database\Entity\Wallet;
+use MNGame\Service\ServerProvider;
+use MNGame\Database\Entity\Payment;
+use MNGame\Database\Entity\ItemList;
+use MNGame\Exception\ContentException;
+use MNGame\Service\User\WalletService;
+use GuzzleHttp\Exception\GuzzleException;
+use MNGame\Database\Entity\PaymentHistory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use MNGame\Exception\ItemListNotFoundException;
 use Symfony\Component\Routing\Annotation\Route;
+use MNGame\Exception\PaymentProcessingException;
+use MNGame\Database\Repository\ItemListRepository;
+use MNGame\Service\Connection\Payment\PaymentService;
+use MNGame\Database\Repository\PaymentHistoryRepository;
+use MNGame\Service\Connection\Minecraft\ExecuteItemService;
+use MNGame\Service\Connection\Payment\PaymentTypeFormFactory;
 
 class ItemShopController extends AbstractController
 {
@@ -34,38 +34,36 @@ class ItemShopController extends AbstractController
 
         return $this->render('base/page/itemshop.html.twig', [
             'serverName' => $server->getName(),
-            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
-            'amount' => $repository->getThisMonthMoney(),
-            'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $server->getId()]),
+            'wallet'     => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+            'amount'     => $repository->getThisMonthMoney(),
+            'itemLists'  => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $server->getId()]),
         ]);
     }
 
-    public function formList(ServerProvider $serverProvider, Request $request) {
+    /**
+     * @Route(name="item-shop", path="/item/form")
+     */
+    public function itemFormList(ServerProvider $serverProvider, Request $request, PaymentTypeFormFactory $paymentTypeFormFactory): Response
+    {
         /** @var Payment $payment */
         foreach ($serverProvider->getSessionServer()->getPayments() as $payment) {
+            $type = $paymentTypeFormFactory->create($payment->getType()->getKey());
 
+            $formList[] = $this->createForm($type);
         }
 
         return $this->render('base/page/itemshopItemForm.html.twig', [
-            'serverName' => $server->getName(),
-            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
-            'amount' => $repository->getThisMonthMoney(),
-            'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $server->getId()]),
+            'formList' => $formList ?? [],
         ]);
     }
 
     /**
      * @Route(name="prepaid-status", path="/prepaid/status")
-     *
      * @throws ContentException
      * @throws ReflectionException
      */
-    public function prepaidStatus(
-        Request $request,
-        ItemListRepository $itemListRepository,
-        WalletService $walletService,
-        ExecuteItemService $executeItemService
-    ): Response {
+    public function prepaidStatus(Request $request, ItemListRepository $itemListRepository, WalletService $walletService, ExecuteItemService $executeItemService): Response
+    {
         /** @var ItemList $itemList */
         $itemList = $itemListRepository->find($request->request->getInt('itemListId'));
 
@@ -83,33 +81,32 @@ class ItemShopController extends AbstractController
         }
 
         return $this->render('base/page/payment.html.twig', [
-            'itemList' => $itemList,
+            'itemList'     => $itemList,
             'responseType' => $code,
-            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+            'wallet'       => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
         ]);
     }
 
     /**
      * @Route(name="payment-status", path="/payment/status")
-     *
-     * @throws GuzzleException
      * @throws ContentException
      * @throws ReflectionException
+     * @throws GuzzleException
      */
     public function paymentStatus(Request $request, PaymentService $paymentService, WalletService $walletService, ServerProvider $serverProvider): Response
     {
-        $paymentType = new PaymentTypeEnum($request->request->get('paymentType'));
+        $paymentType    = new PaymentTypeEnum($request->request->get('paymentType'));
         $paymentHistory = $this->getDoctrine()->getRepository(PaymentHistory::class)->findOneBy(
             [
                 'paymentType' => $paymentType->getKey(),
-                'paymentId' => $request->request->get('paymentId') ?? 0,
+                'paymentId'   => $request->request->get('paymentId') ?? 0,
             ]
         );
 
         if ($paymentHistory instanceof PaymentHistory) {
             return $this->render('base/page/payment.html.twig', [
                 'responseType' => Response::HTTP_TOO_MANY_REQUESTS,
-                'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+                'wallet'       => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
             ]);
         }
 
@@ -119,8 +116,8 @@ class ItemShopController extends AbstractController
         $walletService->changeCash($amount, $this->getUser());
 
         return $this->render('base/page/payment.html.twig', [
-            'responseType' => HTTP::OK,
-            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+            'responseType' => Response::HTTP_OK,
+            'wallet'       => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
         ]);
     }
 }

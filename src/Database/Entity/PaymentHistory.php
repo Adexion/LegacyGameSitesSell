@@ -39,7 +39,7 @@ class PaymentHistory
     private ?string $paymentId = null;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="ENUM('paypal', 'sms')")
+     * @ORM\Column(type="string", columnDefinition="ENUM('hot_pay_sms', 'direct_bill', 'hot_pay', 'pay_safe_card', 'voucher', 'micro_sms')")
      */
     private ?string $paymentType = null;
 

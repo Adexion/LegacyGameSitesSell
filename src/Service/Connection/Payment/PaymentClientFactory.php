@@ -2,12 +2,12 @@
 
 namespace MNGame\Service\Connection\Payment;
 
+use RuntimeException;
+use ReflectionException;
 use MNGame\Database\Entity\Payment;
-use MNGame\Database\Repository\SMSPriceRepository;
-use MNGame\Enum\PaymentTypeEnum;
 use MNGame\Service\EnvironmentService;
 use MNGame\Util\EnumKeyToCamelCaseConverter;
-use ReflectionException;
+use MNGame\Database\Repository\SMSPriceRepository;
 
 class PaymentClientFactory
 {
@@ -26,14 +26,10 @@ class PaymentClientFactory
     public function create(Payment $payment)
     {
         $camelCase = EnumKeyToCamelCaseConverter::getCamelCase($payment->getType()->getKey());
-        $className = 'MNGame\\Service\\Connection\\Payment\\Client\\'.$camelCase.'Client';
+        $className = 'MNGame\\Service\\Connection\\Payment\\Client\\' . $camelCase . 'Client';
 
         if (!class_exists($className)) {
-            throw new RuntimeException('Class '.$className.' does not exist');
-        }
-
-        if ($payment->getType()->getValue() === PaymentTypeEnum::MICRO_SMS || $payment->getType()->getValue() === PaymentTypeEnum::HOT_PAY_SMS) {
-            return new $className($this->smsPriceRepository, $payment->getConfigurations(), $this->environmentService, $camelCase);
+            throw new RuntimeException('Class ' . $className . ' does not exist');
         }
 
         return new $className($this->smsPriceRepository, $payment->getConfigurations(), $this->environmentService, $camelCase);

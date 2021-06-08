@@ -112,9 +112,6 @@ class ModuleProvider
                         ->setPermission(RolesEnum::ROLE_ADMIN),
                     MenuItem::linktoRoute('Statystyki Płatności', 'fas fa-chart-pie', 'paymentStatistic')
                         ->setPermission(RolesEnum::ROLE_ADMIN),
-                    MenuItem::linkToCrud('PaySafeCard', 'fa fa-lock', PaySafeCard::class)
-                        ->setController(PaySafeCardCrudController::class)
-                        ->setPermission(RolesEnum::ROLE_ADMIN),
                     MenuItem::linkToCrud('Cennik SMS', 'fa fa-tags', SMSPrice::class)
                         ->setController(PriceCrudController::class)
                         ->setPermission(RolesEnum::ROLE_ADMIN),
