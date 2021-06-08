@@ -28,7 +28,7 @@ abstract class AbstractPayment
     /**
      * @throws ORMException
      */
-    protected function notePayment(float $amount, string $username, string $type, string $id)
+    protected function notePayment(float $amount, string $username, string $type, string $id, string $status)
     {
         $paymentHistory = new PaymentHistory();
 
@@ -45,6 +45,7 @@ abstract class AbstractPayment
         $paymentHistory->setAmount($amount);
         $paymentHistory->setPaymentId($id);
         $paymentHistory->setPaymentType($type);
+        $paymentHistory->setPaymentStatus($status);
 
         $this->repository->insert($paymentHistory);
     }

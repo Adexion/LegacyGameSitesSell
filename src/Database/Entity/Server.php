@@ -48,6 +48,7 @@ class Server
     private ?string $password = null;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Payment", inversedBy="id")
      * @ORM\JoinTable(name="server_payment")
      * @Assert\NotBlank
      */

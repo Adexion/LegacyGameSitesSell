@@ -28,6 +28,10 @@ class ExecutionService
         $q = $this->serverProvider->getQuery();
         error_reporting(E_ALL & ~E_NOTICE);
 
+        if (!@fsockopen($q['host'], $q['port'],$err ,$err , 0.05)) {
+            return null;
+        }
+
         return MinecraftServerStatus::query($q['host'], $q['port']) ?: null;
     }
 

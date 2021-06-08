@@ -30,7 +30,7 @@ class MicroSmsPaymentClient extends RestApiClient implements PaymentClientInterf
      * @throws ContentException
      * @throws GuzzleException
      */
-    public function executeRequest(array $data)
+    public function executeRequest(array $data): ?float
     {
         $request = [
             'userid'    => $this->paymentConfiguration->get('userId'),

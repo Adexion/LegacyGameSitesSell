@@ -2,15 +2,16 @@
 
 namespace MNGame\Controller\Front;
 
+use Exception;
 use ReflectionException;
 use MNGame\Enum\PaymentTypeEnum;
 use MNGame\Database\Entity\Wallet;
 use MNGame\Service\ServerProvider;
+use MNGame\Enum\PaymentStatusEnum;
 use MNGame\Database\Entity\Payment;
 use MNGame\Database\Entity\ItemList;
 use MNGame\Exception\ContentException;
 use MNGame\Service\User\WalletService;
-use GuzzleHttp\Exception\GuzzleException;
 use MNGame\Database\Entity\PaymentHistory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,18 +42,20 @@ class ItemShopController extends AbstractController
     }
 
     /**
-     * @Route(name="item-shop", path="/item/form")
+     * @Route(name="item-shop-form", path="/item/form/{itemId}")
+     * @throws ReflectionException
      */
-    public function itemFormList(ServerProvider $serverProvider, Request $request, PaymentTypeFormFactory $paymentTypeFormFactory): Response
+    public function itemFormList(ServerProvider $serverProvider, string $itemId, PaymentTypeFormFactory $paymentTypeFormFactory, ItemListRepository $itemListRepository): Response
     {
-        /** @var Payment $payment */
-        foreach ($serverProvider->getSessionServer()->getPayments() as $payment) {
-            $type = $paymentTypeFormFactory->create($payment->getType()->getKey());
+        $itemList = $itemListRepository->find($itemId);
 
-            $formList[] = $this->createForm($type);
+        /** @var Payment $payment */
+        foreach ($serverProvider->getSessionServer()->getPayments() ?? [] as $payment) {
+            $formList[] = $paymentTypeFormFactory->create($payment, $itemList);
         }
 
         return $this->render('base/page/itemshopItemForm.html.twig', [
+            '$itemList',
             'formList' => $formList ?? [],
         ]);
     }
@@ -91,19 +94,17 @@ class ItemShopController extends AbstractController
      * @Route(name="payment-status", path="/payment/status")
      * @throws ContentException
      * @throws ReflectionException
-     * @throws GuzzleException
+     * @throws Exception
      */
     public function paymentStatus(Request $request, PaymentService $paymentService, WalletService $walletService, ServerProvider $serverProvider): Response
     {
         $paymentType    = new PaymentTypeEnum($request->request->get('paymentType'));
-        $paymentHistory = $this->getDoctrine()->getRepository(PaymentHistory::class)->findOneBy(
-            [
-                'paymentType' => $paymentType->getKey(),
-                'paymentId'   => $request->request->get('paymentId') ?? 0,
-            ]
-        );
+        $paymentHistory = $this->getDoctrine()->getRepository(PaymentHistory::class)->findOneBy([
+            'paymentType' => $paymentType->getKey(),
+            'paymentId'   => $request->request->get('paymentId') ?? 0,
+        ]);
 
-        if ($paymentHistory instanceof PaymentHistory) {
+        if ($paymentHistory instanceof PaymentHistory && $paymentHistory->getPaymentStatus() === PaymentStatusEnum::SUCCESS) {
             return $this->render('base/page/payment.html.twig', [
                 'responseType' => Response::HTTP_TOO_MANY_REQUESTS,
                 'wallet'       => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
@@ -113,7 +114,9 @@ class ItemShopController extends AbstractController
         $payment = $serverProvider->getSessionServer()->getPaymentByType($paymentType);
 
         $amount = $paymentService->executePayment($request->request->all(), $this->getUser()->getUsername(), $payment);
-        $walletService->changeCash($amount, $this->getUser());
+        if ($request->request->get('status') === PaymentStatusEnum::SUCCESS) {
+            $walletService->changeCash($amount, $this->getUser());
+        }
 
         return $this->render('base/page/payment.html.twig', [
             'responseType' => Response::HTTP_OK,

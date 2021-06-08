@@ -5,7 +5,7 @@ namespace MNGame\Service\Content;
 use MNGame\Database\Entity\Article;
 use MNGame\Database\Repository\ArticleRepository;
 use MNGame\Exception\ContentException;
-use MNGame\Form\ArticleType;
+use MNGame\Form\HotPayType;
 use MNGame\Service\AbstractService;
 use MNGame\Serializer\CustomSerializer;
 use MNGame\Service\ServiceInterface;
@@ -37,7 +37,7 @@ class ArticleService extends AbstractService implements ServiceInterface
     {
         $request->request->set('author', $this->user->getUsername());
 
-        return $this->map($request, new Article(), ArticleType::class);
+        return $this->map($request, new Article(), HotPayType::class);
     }
 
     /**
@@ -45,6 +45,6 @@ class ArticleService extends AbstractService implements ServiceInterface
      */
     public function mapEntityById(Request $request): Article
     {
-        return $this->mapById($request, ArticleType::class);
+        return $this->mapById($request, HotPayType::class);
     }
 }

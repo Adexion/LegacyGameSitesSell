@@ -39,9 +39,14 @@ class PaymentHistory
     private ?string $paymentId = null;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="ENUM('hot_pay_sms', 'direct_bill', 'hot_pay', 'pay_safe_card', 'voucher', 'micro_sms')")
+     * @ORM\Column(type="string", columnDefinition="ENUM('HOT_PAY_SMS', 'DIRECT_BILL', 'HOT_PAY', 'PAY_SAFE_CARD', 'VOUCHER', 'MICRO_SMS')")
      */
     private ?string $paymentType = null;
+
+    /**
+     * @ORM\Column(type="string", columnDefinition="ENUM('SUCCESS', 'PENDING', 'FAILURE')")
+     */
+    private ?string $paymentStatus = null;
 
     public function __construct()
     {
@@ -96,5 +101,15 @@ class PaymentHistory
     public function setPaymentType(?string $paymentType)
     {
         $this->paymentType = $paymentType;
+    }
+
+    public function getPaymentStatus(): ?string
+    {
+        return $this->paymentStatus;
+    }
+
+    public function setPaymentStatus(?string $paymentStatus)
+    {
+        $this->paymentStatus = $paymentStatus;
     }
 }

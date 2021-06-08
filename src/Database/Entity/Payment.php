@@ -27,6 +27,7 @@ class Payment
     private ?Collection $servers = null;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Configuration", inversedBy="id")
      * @ORM\JoinTable(name="payment_configuration")
      */
     private ?Collection $configurations = null;

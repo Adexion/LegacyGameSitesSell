@@ -10,7 +10,6 @@ use MNGame\Service\Connection\Payment\Client\PaymentClientInterface;
 class PaymentService extends AbstractPayment
 {
     /**
-     * @throws GuzzleException
      * @throws Exception
      */
     public function executePayment(array $data, string $username, Payment $payment): float
@@ -19,7 +18,7 @@ class PaymentService extends AbstractPayment
         $client = $this->clientFactory->create($payment);
         $amount = $client->executeRequest($data);
 
-        $this->notePayment($amount, $username, $payment->getType()->getKey(), $data['paymentId']);
+        $this->notePayment($amount, $username, $payment->getType()->getKey(), $data['paymentId'], $data['status']);
 
         return (float)$amount;
     }

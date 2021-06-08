@@ -22,35 +22,35 @@ class Configuration
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private ?int $value = null;
+    private ?string $value = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private ?int $name = null;
+    private ?string $name = null;
 
     /**
      * @ORM\ManyToMany(targetEntity="Payment", mappedBy="id")
      */
     private ?Collection $payment = null;
 
-    public function getValue(): ?int
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
-    public function setValue(?int $value)
+    public function setValue(?string $value)
     {
         $this->value = $value;
     }
 
-    public function getName(): ?int
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(?int $name)
+    public function setName(?string $name)
     {
         $this->name = $name;
     }
