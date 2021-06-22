@@ -4,7 +4,7 @@ namespace MNGame\Util;
 
 use RuntimeException;
 
-class EnumKeyToCamelCaseConverter
+class UnderscoreToCamelCaseConverter
 {
     /**
      * @throws RuntimeException

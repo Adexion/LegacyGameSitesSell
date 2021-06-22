@@ -1,7 +1,6 @@
 {% extends 'base/base.html.twig' %}
 
 {% block body %}
-    {% include 'base/component/notLogged.html.twig' %}
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="wallet-container alert alert-success">
             <i class="fas fa-wallet"></i>

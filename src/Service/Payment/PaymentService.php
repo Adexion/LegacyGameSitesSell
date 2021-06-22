@@ -1,10 +1,10 @@
 <?php
 
-namespace MNGame\Service\Connection\Payment;
+namespace MNGame\Service\Payment;
 
 use Exception;
 use MNGame\Database\Entity\Payment;
-use MNGame\Service\Connection\Payment\Client\PaymentClientInterface;
+use MNGame\Service\Payment\Client\PaymentClientInterface;
 
 class PaymentService extends AbstractPayment
 {

@@ -4,25 +4,30 @@ namespace MNGame\Controller\Front;
 
 use Exception;
 use ReflectionException;
+use Doctrine\ORM\ORMException;
 use MNGame\Enum\PaymentTypeEnum;
 use MNGame\Database\Entity\Wallet;
 use MNGame\Service\ServerProvider;
 use MNGame\Enum\PaymentStatusEnum;
-use MNGame\Database\Entity\Payment;
 use MNGame\Database\Entity\ItemList;
 use MNGame\Exception\ContentException;
 use MNGame\Service\User\WalletService;
+use MNGame\Database\Entity\Configuration;
+use MNGame\Enum\PaymentConfigurationType;
+use Doctrine\ORM\OptimisticLockException;
 use MNGame\Database\Entity\PaymentHistory;
+use MNGame\Service\Payment\PaymentService;
 use Symfony\Component\HttpFoundation\Request;
+use MNGame\Service\Payment\PaymentFormFactory;
 use Symfony\Component\HttpFoundation\Response;
 use MNGame\Exception\ItemListNotFoundException;
 use Symfony\Component\Routing\Annotation\Route;
 use MNGame\Exception\PaymentProcessingException;
+use MNGame\Service\Minecraft\ExecuteItemService;
+use MNGame\Service\Payment\AcceptPaymentService;
+use MNGame\Database\Repository\PaymentRepository;
 use MNGame\Database\Repository\ItemListRepository;
-use MNGame\Service\Connection\Payment\PaymentService;
 use MNGame\Database\Repository\PaymentHistoryRepository;
-use MNGame\Service\Connection\Minecraft\ExecuteItemService;
-use MNGame\Service\Connection\Payment\PaymentTypeFormFactory;
 
 class ItemShopController extends AbstractController
 {
@@ -44,17 +49,11 @@ class ItemShopController extends AbstractController
     /**
      * @Route(name="item-shop-form", path="/item/form/{itemId}")
      */
-    public function itemFormList(ServerProvider $serverProvider, string $itemId, PaymentTypeFormFactory $paymentTypeFormFactory): Response
+    public function itemFormList(PaymentFormFactory $formFactory, string $itemId): Response
     {
-        /** @var Payment $payment */
-        $uniqId = uniqid();
-        foreach ($serverProvider->getSessionServer()->getPayments() ?? [] as $payment) {
-            $formList[] = $paymentTypeFormFactory->create($payment, $itemId, $uniqId);
-        }
-
         return $this->render('base/page/itemshopItemForm.html.twig', [
             '$itemList',
-            'formList' => $formList ?? [],
+            'formList' => $formFactory->create(uniqid(), $itemId),
         ]);
     }
 
@@ -123,12 +122,26 @@ class ItemShopController extends AbstractController
     }
 
     /**
-     * @Route(name="paymentAccept", path="/payment/{paymentId}")
+     * @Route(name="paymentAccept", path="/payment/{paymentType}")
+     *
+     * @throws ContentException
+     * @throws ReflectionException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
-    public function paymentAccept(Request $request, string $paymentId): Response
+    public function paymentAccept(Request $request, string $paymentType, ExecuteItemService $executeItemService, WalletService $walletService, AcceptPaymentService $acceptPaymentService): Response
     {
-        if ($request->request->get('STATUS') === PaymentStatusEnum::SUCCESS) {
-
+        if ($request->request->get('STATUS') !== PaymentStatusEnum::SUCCESS && $request->request->get('status') !== PaymentStatusEnum::SUCCESS) {
+            return $this->render('base/page/payment.html.twig', [
+                'responseType' => Response::HTTP_PAYMENT_REQUIRED
+            ]);
         }
+
+        $paymentHistory = $acceptPaymentService->accept($paymentType, $request->request->all());
+        return $this->render('base/page/payment.html.twig', [
+            'responseType' => $executeItemService->executeItem($paymentHistory->getUser(), $paymentHistory->getItemList()->getId()),
+            'wallet' => $walletService->changeCash(0, $paymentHistory->getUser()),
+            'itemList' => $paymentHistory->getItemList()
+        ]);
     }
 }

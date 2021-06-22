@@ -1,11 +1,11 @@
 <?php
 
-namespace MNGame\Service\Connection\Minecraft;
+namespace MNGame\Service\Minecraft;
 
 use MinecraftServerStatus\MinecraftServerStatus;
 use MNGame\Database\Entity\Server;
 use MNGame\Exception\ContentException;
-use MNGame\Service\Connection\Client\ClientFactory;
+use MNGame\Service\Client\ClientFactory;
 use MNGame\Service\ServerProvider;
 use ReflectionException;
 use Symfony\Component\Security\Core\User\UserInterface;

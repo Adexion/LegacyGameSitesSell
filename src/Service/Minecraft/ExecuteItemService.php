@@ -1,6 +1,6 @@
 <?php
 
-namespace MNGame\Service\Connection\Minecraft;
+namespace MNGame\Service\Minecraft;
 
 use MNGame\Database\Entity\Item;
 use MNGame\Database\Entity\ItemList;
@@ -13,7 +13,7 @@ use MNGame\Database\Repository\UserItemRepository;
 use MNGame\Exception\ContentException;
 use MNGame\Exception\ItemListNotFoundException;
 use MNGame\Exception\PaymentProcessingException;
-use MNGame\Service\Connection\Client\ClientFactory;
+use MNGame\Service\Client\ClientFactory;
 use MNGame\Service\Content\ItemListService;
 use MNGame\Service\Content\Parameter\ParameterProvider;
 use MNGame\Service\ServerProvider;

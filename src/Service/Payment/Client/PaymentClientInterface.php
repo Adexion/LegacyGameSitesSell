@@ -1,6 +1,6 @@
 <?php
 
-namespace MNGame\Service\Connection\Payment\Client;
+namespace MNGame\Service\Payment\Client;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use MNGame\Database\Repository\SMSPriceRepository;

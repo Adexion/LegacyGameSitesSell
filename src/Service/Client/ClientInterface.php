@@ -1,6 +1,6 @@
 <?php
 
-namespace MNGame\Service\Connection\Client;
+namespace MNGame\Service\Client;
 
 use MNGame\Database\Entity\Server;
 

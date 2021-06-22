@@ -7,7 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use MNGame\Database\Entity\User;
 use MNGame\Exception\ContentException;
 use MNGame\Form\MailingType;
-use MNGame\Service\Connection\Client\ClientFactory;
+use MNGame\Service\Client\ClientFactory;
 use MNGame\Service\Mail\MailSenderService;
 use MNGame\Service\ServerProvider;
 use ReflectionClass;

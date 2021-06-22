@@ -15,11 +15,11 @@ services:
     tags:
       - { name: kernel.event_listener, event: kernel.exception }
 
-  MNGame\Service\Connection\Minecraft\MojangPlayerService:
+  MNGame\Service\Minecraft\MojangPlayerService:
     autowire: true
 
   mojang.player.service:
-    class: MNGame\Service\Connection\Minecraft\MojangPlayerService
+    class: MNGame\Service\Minecraft\MojangPlayerService
 
   MNGame\Controller\:
     resource: '../src/Controller'

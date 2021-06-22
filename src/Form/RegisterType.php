@@ -3,7 +3,7 @@
 namespace MNGame\Form;
 
 use MNGame\Database\Entity\User;
-use MNGame\Service\Connection\Minecraft\MojangPlayerService;
+use MNGame\Service\Minecraft\MojangPlayerService;
 use MNGame\Validator\ReCaptchaValidator;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

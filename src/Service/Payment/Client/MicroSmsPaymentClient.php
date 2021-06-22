@@ -1,13 +1,13 @@
 <?php
 
-namespace MNGame\Service\Connection\Payment\Client;
+namespace MNGame\Service\Payment\Client;
 
 use MNGame\Exception\ContentException;
 use MNGame\Service\EnvironmentService;
 use GuzzleHttp\Exception\GuzzleException;
 use Doctrine\Common\Collections\Collection;
 use MNGame\Database\Repository\SMSPriceRepository;
-use MNGame\Service\Connection\ApiClient\RestApiClient;
+use MNGame\Service\ApiClient\RestApiClient;
 
 class MicroSmsPaymentClient extends RestApiClient implements PaymentClientInterface
 {

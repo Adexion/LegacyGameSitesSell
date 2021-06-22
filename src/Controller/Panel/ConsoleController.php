@@ -6,7 +6,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\DashboardControllerInte
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use MNGame\Exception\ContentException;
 use MNGame\Predicate\RolePredicate;
-use MNGame\Service\Connection\Client\ClientFactory;
+use MNGame\Service\Client\ClientFactory;
 use MNGame\Service\ServerProvider;
 use ReflectionClass;
 use ReflectionException;

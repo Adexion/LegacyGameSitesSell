@@ -39,7 +39,7 @@ class PaymentHistory
     private ?string $paymentId = null;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="ENUM('HOT_PAY_SMS', 'DIRECT_BILL', 'HOT_PAY', 'PAY_SAFE_CARD', 'VOUCHER', 'MICRO_SMS')")
+     * @ORM\Column(type="string", columnDefinition="ENUM('HOT_PAY_SMS', 'DIRECT_BILL', 'HOT_PAY', 'PAY_SAFE_CARD', 'VOUCHER', 'MICRO_SMS')", nullable=true)
      */
     private ?string $paymentType = null;
 
@@ -52,7 +52,7 @@ class PaymentHistory
      * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER")
      * @ORM\JoinColumn(name="item_list_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private ?ItemList $itemListId = null;
+    private ?ItemList $itemList = null;
 
     public function __construct()
     {
@@ -119,13 +119,13 @@ class PaymentHistory
         $this->paymentStatus = $paymentStatus;
     }
 
-    public function getItemListId(): ?ItemList
+    public function getItemList(): ?ItemList
     {
-        return $this->itemListId;
+        return $this->itemList;
     }
 
-    public function setItemListId(?ItemList $itemListId)
+    public function setItemList(?ItemList $itemList)
     {
-        $this->itemListId = $itemListId;
+        $this->itemList = $itemList;
     }
 }

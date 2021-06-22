@@ -1,6 +1,6 @@
 <?php
 
-namespace MNGame\Service\Connection\Payment;
+namespace MNGame\Service\Payment;
 
 use Doctrine\ORM\ORMException;
 use MNGame\Database\Entity\PaymentHistory;

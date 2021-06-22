@@ -1,12 +1,12 @@
 <?php
 
-namespace MNGame\Service\Connection\Payment;
+namespace MNGame\Service\Payment;
 
 use RuntimeException;
 use ReflectionException;
 use MNGame\Database\Entity\Payment;
 use MNGame\Service\EnvironmentService;
-use MNGame\Util\EnumKeyToCamelCaseConverter;
+use MNGame\Util\UnderscoreToCamelCaseConverter;
 use MNGame\Database\Repository\SMSPriceRepository;
 
 class PaymentClientFactory
@@ -25,7 +25,7 @@ class PaymentClientFactory
      */
     public function create(Payment $payment)
     {
-        $camelCase = EnumKeyToCamelCaseConverter::getCamelCase($payment->getType()->getKey());
+        $camelCase = UnderscoreToCamelCaseConverter::getCamelCase($payment->getType()->getKey());
         $className = 'MNGame\\Service\\Connection\\Payment\\Client\\' . $camelCase . 'Client';
 
         if (!class_exists($className)) {

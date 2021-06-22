@@ -1,12 +1,12 @@
 <?php
 
-namespace MNGame\Service\Connection\Payment\Client;
+namespace MNGame\Service\Payment\Client;
 
 use Doctrine\Common\Collections\Collection;
 use GuzzleHttp\Exception\GuzzleException;
 use MNGame\Database\Repository\SMSPriceRepository;
 use MNGame\Exception\ContentException;
-use MNGame\Service\Connection\ApiClient\RestApiClient;
+use MNGame\Service\ApiClient\RestApiClient;
 use MNGame\Service\EnvironmentService;
 
 class HotPaySmsPaymentClient extends RestApiClient implements PaymentClientInterface

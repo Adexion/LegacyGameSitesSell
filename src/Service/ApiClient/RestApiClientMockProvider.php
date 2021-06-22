@@ -1,6 +1,6 @@
 <?php
 
-namespace MNGame\Service\Connection\ApiClient;
+namespace MNGame\Service\ApiClient;
 
 use MNGame\Exception\ContentException;
 

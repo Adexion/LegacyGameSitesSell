@@ -1,11 +1,11 @@
 <?php
 
-namespace MNGame\Service\Connection\Minecraft;
+namespace MNGame\Service\Minecraft;
 
 use DateTime;
 use GuzzleHttp\Exception\GuzzleException;
 use MNGame\Exception\ContentException;
-use MNGame\Service\Connection\ApiClient\RestApiClient;
+use MNGame\Service\ApiClient\RestApiClient;
 use MNGame\Service\User\LoginUserService;
 use Symfony\Component\HttpFoundation\Request;
 

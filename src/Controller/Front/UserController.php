@@ -7,7 +7,7 @@ use MNGame\Database\Entity\UserItem;
 use MNGame\Database\Repository\UserRepository;
 use MNGame\Exception\ContentException;
 use MNGame\Form\UserEditType;
-use MNGame\Service\Connection\Minecraft\ExecuteItemService;
+use MNGame\Service\Minecraft\ExecuteItemService;
 use ReflectionException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
