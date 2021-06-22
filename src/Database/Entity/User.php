@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="MNGame\Database\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="Email jest zajęty.")
  * @UniqueEntity(fields="username", message="Nick jest zajęty.")
+ * @method string getUserIdentifier()
  */
 class User implements UserInterface
 {
@@ -187,5 +188,10 @@ class User implements UserInterface
     public function setReferral(?string $referral): void
     {
         $this->referral = $referral;
+    }
+
+    public function __call(string $name, array $arguments)
+    {
+        // TODO: Implement @method string getUserIdentifier()
     }
 }

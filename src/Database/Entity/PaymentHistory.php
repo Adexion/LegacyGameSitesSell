@@ -48,6 +48,12 @@ class PaymentHistory
      */
     private ?string $paymentStatus = null;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER")
+     * @ORM\JoinColumn(name="item_list_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     */
+    private ?ItemList $itemListId = null;
+
     public function __construct()
     {
         $this->date = new DateTime();
@@ -111,5 +117,15 @@ class PaymentHistory
     public function setPaymentStatus(?string $paymentStatus)
     {
         $this->paymentStatus = $paymentStatus;
+    }
+
+    public function getItemListId(): ?ItemList
+    {
+        return $this->itemListId;
+    }
+
+    public function setItemListId(?ItemList $itemListId)
+    {
+        $this->itemListId = $itemListId;
     }
 }

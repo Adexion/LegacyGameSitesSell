@@ -43,15 +43,13 @@ class ItemShopController extends AbstractController
 
     /**
      * @Route(name="item-shop-form", path="/item/form/{itemId}")
-     * @throws ReflectionException
      */
-    public function itemFormList(ServerProvider $serverProvider, string $itemId, PaymentTypeFormFactory $paymentTypeFormFactory, ItemListRepository $itemListRepository): Response
+    public function itemFormList(ServerProvider $serverProvider, string $itemId, PaymentTypeFormFactory $paymentTypeFormFactory): Response
     {
-        $itemList = $itemListRepository->find($itemId);
-
         /** @var Payment $payment */
+        $uniqId = uniqid();
         foreach ($serverProvider->getSessionServer()->getPayments() ?? [] as $payment) {
-            $formList[] = $paymentTypeFormFactory->create($payment, $itemList);
+            $formList[] = $paymentTypeFormFactory->create($payment, $itemId, $uniqId);
         }
 
         return $this->render('base/page/itemshopItemForm.html.twig', [
@@ -77,9 +75,9 @@ class ItemShopController extends AbstractController
                 $this->getUser(),
                 true
             );
-        } catch (PaymentProcessingException $e) {
+        } catch (PaymentProcessingException) {
             $code = Response::HTTP_PAYMENT_REQUIRED;
-        } catch (ItemListNotFoundException $e) {
+        } catch (ItemListNotFoundException) {
             $code = Response::HTTP_OK;
         }
 
@@ -122,5 +120,15 @@ class ItemShopController extends AbstractController
             'responseType' => Response::HTTP_OK,
             'wallet'       => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
         ]);
+    }
+
+    /**
+     * @Route(name="paymentAccept", path="/payment/{paymentId}")
+     */
+    public function paymentAccept(Request $request, string $paymentId): Response
+    {
+        if ($request->request->get('STATUS') === PaymentStatusEnum::SUCCESS) {
+
+        }
     }
 }

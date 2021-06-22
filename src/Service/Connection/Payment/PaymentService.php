@@ -3,7 +3,6 @@
 namespace MNGame\Service\Connection\Payment;
 
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
 use MNGame\Database\Entity\Payment;
 use MNGame\Service\Connection\Payment\Client\PaymentClientInterface;
 

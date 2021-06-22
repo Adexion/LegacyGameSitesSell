@@ -19,8 +19,7 @@ class Configuration
     public ?int $id = null;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $value = null;
 
@@ -29,6 +28,12 @@ class Configuration
      * @Assert\NotBlank()
      */
     private ?string $name = null;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private ?string $type = null;
 
     /**
      * @ORM\ManyToMany(targetEntity="Payment", mappedBy="id")
@@ -63,5 +68,15 @@ class Configuration
     public function setPayment(?Collection $payment)
     {
         $this->payment = $payment;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type)
+    {
+        $this->type = $type;
     }
 }
