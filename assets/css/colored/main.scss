@@ -1,0 +1,180 @@
+@import "~bootstrap";
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html, body {
+  background: #242424;
+  margin: 0;
+  padding: 0;
+
+  font-family: Montserrat, serif;
+  font-style: normal;
+  font-weight: bold;
+  color: white;
+}
+
+a {
+  color: white !important;
+}
+
+footer {
+  font-weight: normal;
+  height: 415px;
+  background: #0D0D0D url("/assets/images/footer_map.png") no-repeat;
+
+  .information {
+    img {
+      height: 50%;
+      width: auto;
+    }
+  }
+}
+
+.container-fluid {
+  background-image: url("/assets/images/main.png");
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.navbar-content {
+  position: absolute;
+  padding: 25px;
+  width: 100%;
+  z-index: 999;
+}
+
+.colored {
+  color: #00FF76;
+}
+
+.white-shadow {
+  text-shadow: 0 0 5px #FFFFFF;
+}
+
+.offline {
+  color: #CD4646;
+  text-shadow: 0 0 5px #CD4646;
+}
+
+.think {
+  background: url('/assets/images/thinking_guy.png') no-repeat center;
+  background-size: 353px 478px;
+  height: 478px;
+}
+
+.information {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    padding: 0 15px;
+    width: 70%;
+    max-width: 444px;
+  }
+}
+
+.whats-up {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.lightning {
+  background: url("/assets/images/lightning.png") no-repeat;
+  background-size: cover;
+}
+
+.social-wrapper {
+  font-size: 80%;
+  font-weight: 400;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.youtube-content {
+  border-style: none;
+  width: 40vw;
+  min-width: 410px;
+  max-width: 670px;
+  height: 100vh;
+  min-height: 250px;
+  max-height: 385px;
+}
+
+.navbar-content {
+  span.offline, span.colored {
+    display: block;
+    padding: 0.5rem;
+    margin-right: 3rem;
+  }
+}
+
+.social {
+  display: inline-block;
+  width: 60px; //+ 20px
+  height: 61px; //+ 20px
+
+  &--facebook { // - 15  * -1, * -1
+    background: url("/assets/images/social.svg") 5px -2px;
+    background-size: cover;
+  }
+
+  &--youtube { // - 15  * -1, * -1
+    background: url("/assets/images/social.svg") -55px -2px;
+    background-size: cover;
+  }
+
+  &--instagram { // - 15  * -1, * -1
+    background: url("/assets/images/social.svg") -115px -2px;
+    background-size: cover;
+  }
+
+  &--discord { // - 15  * -1, * -1
+    background: url("/assets/images/social.svg") -175px -2px;
+    background-size: cover;
+  }
+
+  &--tiktok { // - 15  * -1, * -1
+    background: url("/assets/images/social.svg") -235px -2px;
+    background-size: cover;
+  }
+
+  &--teamspeak { // - 15  * -1, * -1
+    background: url("/assets/images/social.svg") -295px -2px;
+    background-size: cover;
+  }
+}
+
+@media (max-width: 991px) {
+  .container-fluid {
+    padding-top: 70px;
+  }
+
+  footer {
+    .information {
+      img {
+        display: none;
+      }
+    }
+  }
+
+  .navbar-content {
+    background-color: #0D0D0D;
+
+    ul {
+      display: block;
+
+      .nav-item {
+        display: inline-block;
+        padding: 0 5px;
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 parameters:
   locale: 'pl'
+  colored: 'colored'
 
 services:
   _defaults:

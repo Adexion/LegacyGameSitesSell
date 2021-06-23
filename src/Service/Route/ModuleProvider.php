@@ -133,7 +133,7 @@ class ModuleProvider
 
                     MenuItem::section(),
                 ],
-                'name' => 'ItemShop',
+                'name' => 'Sklep',
                 'icon' => 'fas fa-shopping-cart',
                 'route' => 'item-shop'
             ],

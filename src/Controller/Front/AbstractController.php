@@ -3,16 +3,16 @@
 namespace MNGame\Controller\Front;
 
 use MNGame\Service\Content\Parameter\ParameterProvider;
-use MNGame\Util\VersionProvider;
+use MNGame\Util\ViewVersionProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseAbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractController extends BaseAbstractController
 {
-    private VersionProvider $versionProvider;
+    private ViewVersionProvider $versionProvider;
     private ParameterProvider $parameterProvider;
 
-    public function __construct(VersionProvider $versionProvider, ParameterProvider $parameterProvider)
+    public function __construct(ViewVersionProvider $versionProvider, ParameterProvider $parameterProvider)
     {
         $this->versionProvider = $versionProvider;
         $this->parameterProvider = $parameterProvider;

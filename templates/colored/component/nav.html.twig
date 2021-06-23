@@ -1,0 +1,45 @@
+<div class="navbar-content">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+                aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarToggler">
+            <div class="w-100 d-flex justify-content-between align-items-center">
+                {% if isOnline %}
+                    <span class="colored white-shadow">ONLINE</span><span class="white-shadow">{{ playerCountList }}</span>
+                {% else %}
+                    <span class="offline">OFFLINE</span>
+                {% endif %}
+                <ul class="navbar-nav">
+                    {% for link in module %}
+                        {% if link.route is defined %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path(link.route) }}">{{ link.name }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('user-profile') }}">Ustawiena</a>
+                        </li>
+                        {% if is_granted('ROLE_SERVER') or is_granted('ROLE_MODERATOR') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('panel') }}">Admin</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('login') }}">Zaloguj</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

@@ -31,6 +31,14 @@
       "css": [
         "/build/main-base.e0380d69.css"
       ]
+    },
+    "main-colored": {
+      "js": [
+        "/build/runtime.d94b3b43.js"
+      ],
+      "css": [
+        "/build/main-colored.d85d776b.css"
+      ]
     }
   }
 }

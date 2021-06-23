@@ -1,13 +1,6 @@
 {% extends 'base/base.html.twig' %}
 
 {% block body %}
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <div class="wallet-container alert alert-success">
-            <i class="fas fa-wallet"></i>
-            Stan twojego konta wynosi: {{ wallet.cash | number_format(2) }} zł.
-        </div>
-    {% endif %}
-
     <div class="card bg-mngame">
         {% if responseType != 402 %}
             {% if itemList is not empty %}

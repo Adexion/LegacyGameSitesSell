@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Twig\Loader\LoaderInterface;
 
-class VersionProvider
+class ViewVersionProvider
 {
     private LoaderInterface $loader;
     private ParameterProvider $container;
@@ -41,8 +41,7 @@ class VersionProvider
             if ($this->isVersionTwigExist($first)) {
                 return $first;
             }
-        } catch (Exception $ignored) {
-        }
+        } catch (Exception) {}
 
         $old = $this->getVersionTwigPath($view, 'old');
         if ($this->isVersionTwigExist($old)) {
@@ -52,7 +51,7 @@ class VersionProvider
         return $view;
     }
 
-    public function getVersionTwigPath($view, $version)
+    public function getVersionTwigPath($view, $version): string
     {
         return str_replace(self::OLD_VERSION, $this->container->getParameter($version), $view);
     }
