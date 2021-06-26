@@ -1,0 +1,51 @@
+{% extends "colored/base.html.twig" %}
+
+{% block body %}
+    {{ encore_entry_link_tags('navbar-colored') }}
+    <div class="container-fluid">
+        <div class="row justify-content-center m-4">
+            <div class="col-lg-12 mb-5 mt-5 text-center">
+                <h1>Zasady rozgrywki nas naszych serwerach</h1>
+                <h2 class="colored">Przestrzegaj zasad, dzięki temu rozgrywka będzie fair play!</h2>
+            </div>
+            {% if message is defined %}
+                <div class="alert alert-success m-3 p-3">
+                    {{ message }}
+                </div>
+            {% endif %}
+
+            <div class="col-md-12 col-lg-7 pr-5">
+                {{ form_start(contact_form) }}
+                {{ form_row(contact_form.name) }}
+                {{ form_row(contact_form.email) }}
+                {{ form_row(contact_form.subject) }}
+                {{ form_row(contact_form.type) }}
+                {{ form_row(contact_form.message) }}
+
+                <div id="recaptcha-component"></div>
+
+                <button class="gs-submit" type="submit">WYŚLIJ</button>
+                {{ form_end(contact_form) }}
+            </div>
+
+            <div class="col-md-12 col-lg-4 bg-light w-100 p-4">
+                <div class="mb-2 font-weight-normal mb-5 pb-5">
+                    <h5>Dział obsługi klienta</h5>
+                    {% if global.mail1 is defined %}
+                        <a href="mailto:{{ global.mail1  }}"><span class="d-flex align-items-center"><i class="far fa-envelope"></i>&nbsp;{{ global.mail1 }}</span></a>
+                    {% endif %}
+                    {% if global.mail2 is defined %}
+                        <a href="mailto:{{ global.mail2  }}"><span class="d-flex align-items-center"><i class="far fa-envelope"></i>&nbsp;{{ global.mail2 }}</span></a>
+                    {% endif %}
+                    {% if global.mail3 is defined %}
+                        <a href="mailto:{{ global.mail3  }}"><span class="d-flex align-items-center"><i class="far fa-envelope"></i>&nbsp;{{ global.mail3 }}</span></a>
+                    {% endif %}
+                </div>
+                <h4>Dane kontaktowe</h4>
+                <span class="font-weight-normal">
+                    {{ global.siteContact | raw }}
+                </span>
+            </div>
+        </div>
+    </div>
+{% endblock %}

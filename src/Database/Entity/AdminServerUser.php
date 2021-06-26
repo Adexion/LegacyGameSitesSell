@@ -37,6 +37,12 @@ class AdminServerUser
     private ?string $description = null;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(min="6")
+     */
+    private ?string $rank = null;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank()
      */
@@ -80,5 +86,15 @@ class AdminServerUser
     public function setServerId(?string $serverId)
     {
         $this->serverId = $serverId;
+    }
+
+    public function getRank(): ?string
+    {
+        return $this->rank;
+    }
+
+    public function setRank(?string $rank)
+    {
+        $this->rank = $rank;
     }
 }

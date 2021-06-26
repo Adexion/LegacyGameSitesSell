@@ -14,6 +14,7 @@ Encore
 
     .addStyleEntry('main-base', './assets/css/base/main.scss')
     .addStyleEntry('main-colored', './assets/css/colored/main.scss')
+    .addStyleEntry('navbar-colored', './assets/css/colored/navbar.scss')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()

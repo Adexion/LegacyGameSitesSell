@@ -34,7 +34,7 @@ class User implements UserInterface
      * @Assert\NotBlank()
      * @Assert\Length(min="3", max="16")
      */
-    private ?string  $username = null;
+    private ?string $username = null;
 
     /**
      * @ORM\Column(type="string", length=64)

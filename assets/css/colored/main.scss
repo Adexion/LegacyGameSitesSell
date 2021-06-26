@@ -33,9 +33,13 @@ footer {
   }
 }
 
-.container-fluid {
+.container-fluid-bg {
   background-image: url("/assets/images/main.png");
   background-repeat: no-repeat;
+}
+
+.container-fluid {
+  padding-top: 186px;
   width: 100%;
   min-height: 100vh;
 }
@@ -45,6 +49,7 @@ footer {
   padding: 25px;
   width: 100%;
   z-index: 999;
+  background: url("/assets/images/main.png");
 }
 
 .colored {
@@ -66,6 +71,12 @@ footer {
   height: 478px;
 }
 
+.cool {
+  background: url('/assets/images/cool_guy.png') no-repeat center;
+  background-size: 584px 549px;
+  height: 549px;
+}
+
 .information {
   display: flex;
   align-items: center;
@@ -78,9 +89,22 @@ footer {
   }
 }
 
+.gs-card {
+
+  .gs-body {
+    height: 410px;
+    border-radius: 15px;
+    background: #0D0D0D;
+    box-shadow: 0 0 23px 15px rgba(0, 0, 0, 0.5);
+
+    img {
+      height: 70%;
+    }
+  }
+}
+
 .whats-up {
   min-height: 100vh;
-  width: 100%;
   display: flex;
   align-items: center;
 }
@@ -106,6 +130,8 @@ footer {
   height: 100vh;
   min-height: 250px;
   max-height: 385px;
+  box-shadow: 0 0 19px 23px rgba(0, 0, 0, 0.25);
+  margin-bottom: 40px;
 }
 
 .navbar-content {
@@ -152,11 +178,16 @@ footer {
   }
 }
 
-@media (max-width: 991px) {
+@media (min-width: 990px) {
   .container-fluid {
-    padding-top: 70px;
+    padding-top: 106px;
   }
+  .information .lightning {
+    margin-top: -106px;
+  }
+}
 
+@media (max-width: 991px) {
   footer {
     .information {
       img {
@@ -176,5 +207,62 @@ footer {
         padding: 0 5px;
       }
     }
+  }
+}
+
+.bg-dark {
+  background: #0D0D0D !important;
+}
+
+.bg-light {
+  background: #474747 !important;
+}
+
+.gs-submit {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(180deg, #474747 0%, #313131 100%);
+  box-shadow: -8px 12px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 15px 50px;
+}
+
+.form-group {
+  .form-control {
+    background: #474747;
+    border: none;
+    border-radius: 0;
+    color: white;
+    padding: 15px;
+    height: 50px;
+
+    &:focus {
+      background: #474747;
+      color: #ffffff;
+    }
+  }
+
+  textarea {
+    min-height: 120px;
+  }
+}
+
+i.fa-envelope {
+  font-size: 25px;
+}
+
+.link {
+  font-size: 10pt;
+}
+
+.page-link {
+  background: #474747 !important;
+  border: none;
+}
+
+.active {
+  .page-link {
+    background: #0D0D0D !important;
   }
 }
