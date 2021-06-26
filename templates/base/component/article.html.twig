@@ -1,0 +1,26 @@
+{% for article in articleList %}
+    <div class="card bg-mngame">
+        <div class="card-header d-flex align-items-center">
+            <img class="avatar" src="https://cravatar.eu/avatar/{{ article.author }}"
+                 alt="{{ article.author }} avatar"/>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">{{ article.title | raw }}</span>
+                <div class="d-flex flex-row">
+                    <span class="fas fa-user">&nbsp;{{ article.author }}&nbsp;</span>
+                    <span class="fas fa-comment">&nbsp;{{ article.createdAt|date('d.m.Y') }}&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if article.image is defined %}
+                <div class="d-flex justify-content-center">
+                    <img src="{{ article.image }}" alt="{{ article.subhead }}"/>
+                </div>
+            {% endif %}
+            <p class="card-text text-center">{{ article.shortText | raw }}</p>
+        </div>
+        <div class="card-footer">
+            <a href="{{ path('show-article', {slug: article.id }) }}" class="link">Czytaj więcej ...</a>
+        </div>
+    </div>
+{% endfor %}
