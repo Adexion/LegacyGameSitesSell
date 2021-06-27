@@ -1,0 +1,59 @@
+{% extends 'colored/base.html.twig' %}
+
+{% block body %}
+    {{ encore_entry_link_tags('navbar-colored') }}
+    <div class="container-fluid">
+        <div class="row justify-content-center m-4">
+            <div class="col-12">
+
+            </div>
+
+            <div class="col-lg-8 col-md-12 row justify-content-center font-weight-normal">
+                {% for itemList in itemLists %}
+                    <div class="is-item">
+                        <a class="is-link" href="{{ path('item-shop-form', { itemId: itemList.id }) }}">
+                            <div class="is-item-content text-center d-flex flex-column justify-content-center">
+                                <img src="{{ itemList.sliderImage }}" alt=""/>
+                                <div class="mt-4">
+                                    <h4 class="font-weight-bold">{{ itemList.name }}</h4>
+                                    {{ itemList.afterPromotionPrice | number_format(2) }} zł
+                                    <div class="is-item-desc">{{ itemList.description | raw }}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-lg-4 col-md-12 is-info-container">
+                <div class="is-info">
+                    <h3>Ostatnie zmówienia</h3>
+                    {% if lastBuyerList.userBought is defined %}
+                        {% set minotar = "https://minotar.net/avatar/" %}
+                        {% for count in lastBuyerList.userBought %}
+                            <img class="is-info-head" src="{{ minotar }}{{ loop.index }}" alt="{{ loop.index }}"/>
+                        {% endfor %}
+                    {% else %}
+                        <h4>Brak zamówień w tym miesiącu</h4>
+                    {% endif %}
+                </div>
+
+                <div class="is-info font-weight-normal">
+                    <h3>Cel serwera</h3>
+                    <div class="progress">
+                        {% set progress = (100 - ((global.neddedAmount - amount) / global.neddedAmount * 100)) | round(2) %}
+                        <div class="progress-bar bg-progress" style="width: {{ progress }}%">{{ progress }}%</div>
+
+                    </div>
+                    <span>Na opłacenie serwera i rozwój</span>
+                </div>
+            </div>
+
+            <div class="alert mt-3 bg-light">
+                * Informacja: Rangi nie dają przewagi w grze. Są to tylko zmiany kosmetyczne, oraz takie, które
+                ułatwiające rogrywkę indywidualną.
+                Więcej informacji na ten temat znajdziesz w <strong><a class="text-light" href="{{ path('rule') }}">Regulaminie</a></strong>.
+            </div>
+        </div>
+    </div>
+{% endblock %}

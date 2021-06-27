@@ -12,8 +12,6 @@ use MNGame\Enum\PaymentStatusEnum;
 use MNGame\Database\Entity\ItemList;
 use MNGame\Exception\ContentException;
 use MNGame\Service\User\WalletService;
-use MNGame\Database\Entity\Configuration;
-use MNGame\Enum\PaymentConfigurationType;
 use Doctrine\ORM\OptimisticLockException;
 use MNGame\Database\Entity\PaymentHistory;
 use MNGame\Service\Payment\PaymentService;
@@ -25,24 +23,25 @@ use Symfony\Component\Routing\Annotation\Route;
 use MNGame\Exception\PaymentProcessingException;
 use MNGame\Service\Minecraft\ExecuteItemService;
 use MNGame\Service\Payment\AcceptPaymentService;
-use MNGame\Database\Repository\PaymentRepository;
 use MNGame\Database\Repository\ItemListRepository;
 use MNGame\Database\Repository\PaymentHistoryRepository;
+use MNGame\Database\Repository\ItemListStatisticRepository;
 
 class ItemShopController extends AbstractController
 {
     /**
      * @Route(name="item-shop", path="/itemshop")
      */
-    public function itemShop(ServerProvider $serverProvider, PaymentHistoryRepository $repository): Response
+    public function itemShop(ServerProvider $serverProvider, PaymentHistoryRepository $paymentHistoryRepository, ItemListStatisticRepository $listStatisticRepository): Response
     {
         $server = $serverProvider->getSessionServer();
 
         return $this->render('base/page/itemshop.html.twig', [
-            'serverName' => $server->getName(),
-            'wallet'     => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
-            'amount'     => $repository->getThisMonthMoney(),
-            'itemLists'  => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $server->getId()]),
+            'serverName'    => $server->getName(),
+            'wallet'        => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+            'amount'        => $paymentHistoryRepository->getThisMonthMoney(),
+            'lastBuyerList' => $listStatisticRepository->getStatistic(),
+            'itemLists'     => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $server->getId()]),
         ]);
     }
 
@@ -123,7 +122,6 @@ class ItemShopController extends AbstractController
 
     /**
      * @Route(name="paymentAccept", path="/payment/{paymentType}")
-     *
      * @throws ContentException
      * @throws ReflectionException
      * @throws ORMException
@@ -133,15 +131,16 @@ class ItemShopController extends AbstractController
     {
         if ($request->request->get('STATUS') !== PaymentStatusEnum::SUCCESS && $request->request->get('status') !== PaymentStatusEnum::SUCCESS) {
             return $this->render('base/page/payment.html.twig', [
-                'responseType' => Response::HTTP_PAYMENT_REQUIRED
+                'responseType' => Response::HTTP_PAYMENT_REQUIRED,
             ]);
         }
 
         $paymentHistory = $acceptPaymentService->accept($paymentType, $request->request->all());
+
         return $this->render('base/page/payment.html.twig', [
             'responseType' => $executeItemService->executeItem($paymentHistory->getUser(), $paymentHistory->getItemList()->getId()),
-            'wallet' => $walletService->changeCash(0, $paymentHistory->getUser()),
-            'itemList' => $paymentHistory->getItemList()
+            'wallet'       => $walletService->changeCash(0, $paymentHistory->getUser()),
+            'itemList'     => $paymentHistory->getItemList(),
         ]);
     }
 }

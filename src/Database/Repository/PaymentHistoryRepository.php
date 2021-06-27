@@ -3,6 +3,7 @@
 namespace MNGame\Database\Repository;
 
 use DateTime;
+use MNGame\Enum\PaymentStatusEnum;
 use Doctrine\Persistence\ManagerRegistry;
 use MNGame\Database\Entity\PaymentHistory;
 
@@ -27,14 +28,18 @@ class PaymentHistoryRepository extends AbstractRepository
 
         /** @var PaymentHistory $statistic */
         foreach ($qb->getQuery()->execute() as $statistic) {
+            if ($statistic->getPaymentStatus() !== PaymentStatusEnum::SUCCESS) {
+                continue;
+            }
+
             $moneyMonth = (new DateTime($statistic->getDate()))->format('Y-m');
             $userMoney = $statistic->getUser() ? $statistic->getUser()->getUsername() : 'Nie zalogowany';
 
-            $statistics['moneyMonth'][$moneyMonth] = ($statistics['moneyMonth'][$moneyMonth] ?? 0) + $statistic->getAmount();
-            $statistics['userMoney'][$userMoney] = ($statistics['userMoney'][$userMoney] ?? 0) + $statistic->getAmount();
+            $stats['moneyMonth'][$moneyMonth] = ($stats['moneyMonth'][$moneyMonth] ?? 0) + $statistic->getAmount();
+            $stats['userMoney'][$userMoney] = ($stats['userMoney'][$userMoney] ?? 0) + $statistic->getAmount();
         }
 
-        return $statistics ?? [];
+        return $stats ?? [];
     }
 
     public function getThisMonthMoney(): float
@@ -46,9 +51,13 @@ class PaymentHistoryRepository extends AbstractRepository
 
         /** @var PaymentHistory $statistic */
         foreach ($qb->getQuery()->execute() as $statistic) {
-            $statistic = +$statistic->getAmount();
+            if ($statistic->getPaymentStatus() !== PaymentStatusEnum::SUCCESS) {
+                continue;
+            }
+
+            $amount = +$statistic->getAmount();
         }
 
-        return $statistic ?? 0;
+        return $amount ?? 0;
     }
 }

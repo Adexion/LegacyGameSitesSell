@@ -36,6 +36,7 @@ footer {
 .container-fluid-bg {
   background-image: url("/assets/images/main.png");
   background-repeat: no-repeat;
+  background-size: 100vw;
 }
 
 .container-fluid {
@@ -49,7 +50,8 @@ footer {
   padding: 25px;
   width: 100%;
   z-index: 999;
-  background: url("/assets/images/main.png");
+  background: url("/assets/images/main.png") no-repeat;
+  background-size: 100vw;
 }
 
 .colored {
@@ -111,7 +113,7 @@ footer {
 
 .lightning {
   background: url("/assets/images/lightning.png") no-repeat;
-  background-size: cover;
+  background-size: 100vw 100%;
 }
 
 .social-wrapper {
@@ -144,37 +146,43 @@ footer {
 
 .social {
   display: inline-block;
-  width: 60px; //+ 20px
-  height: 61px; //+ 20px
+  width: 60px;
+  height: 61px;
 
-  &--facebook { // - 15  * -1, * -1
-    background: url("/assets/images/social.svg") 5px -2px;
+  &--facebook {
+    background: url("/assets/images/social.svg") 5px -1px;
     background-size: cover;
   }
 
-  &--youtube { // - 15  * -1, * -1
-    background: url("/assets/images/social.svg") -55px -2px;
+  &--youtube {
+    background: url("/assets/images/social.svg") -57px -1px;
     background-size: cover;
   }
 
-  &--instagram { // - 15  * -1, * -1
-    background: url("/assets/images/social.svg") -115px -2px;
+  &--instagram {
+    background: url("/assets/images/social.svg") -117px -1px;
     background-size: cover;
   }
 
-  &--discord { // - 15  * -1, * -1
-    background: url("/assets/images/social.svg") -175px -2px;
+  &--discord {
+    background: url("/assets/images/social.svg") -177px -1px;
     background-size: cover;
   }
 
-  &--tiktok { // - 15  * -1, * -1
-    background: url("/assets/images/social.svg") -235px -2px;
+  &--tiktok {
+    background: url("/assets/images/social.svg") -237px -1px;
     background-size: cover;
   }
 
-  &--teamspeak { // - 15  * -1, * -1
-    background: url("/assets/images/social.svg") -295px -2px;
+  &--teamspeak {
+    background: url("/assets/images/social.svg") -297px -1px;
     background-size: cover;
+  }
+}
+
+@media (max-width: 1920px) {
+  .container-fluid-bg, .navbar-content {
+    background-size: 1920px auto;
   }
 }
 
@@ -218,6 +226,12 @@ footer {
   background: #474747 !important;
 }
 
+.progress {
+  background-color: #474747;
+  .bg-progress {
+    background: linear-gradient(90deg, #00FF76 0%, #214A34 100%);
+  }
+}
 .gs-submit {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(180deg, #474747 0%, #313131 100%);
   box-shadow: -8px 12px 16px rgba(0, 0, 0, 0.2);
@@ -265,4 +279,71 @@ i.fa-envelope {
   .page-link {
     background: #0D0D0D !important;
   }
+}
+
+.is-item {
+  background: linear-gradient(#00FF76 0%, #214A34 100%);
+  width: 500px;
+  height: 500px;
+  text-align: justify;
+  border-radius: 20px;
+  padding: 10px;
+  display: inline-block;
+  margin: 40px;
+
+    .is-link:hover {
+      text-decoration: none;
+    }
+
+    .is-item-content {
+      height: 480px;
+      width: 480px;
+      background-color: #242424;
+      border-radius: 10px;
+      padding: 20px;
+      transition: background-color 1s;
+
+      &:hover {
+        background-color: #0D0D0D;
+        transition: background-color 1s;
+        cursor: pointer;
+      }
+
+      .is-item-desc {
+        margin-top: 20px;
+        font-size: 10pt;
+
+        pre {
+          color: #d01111;
+        }
+
+        ul {
+          padding: 0;
+        }
+      }
+    }
+}
+
+.is-info-container {
+  padding-top: 40px;
+}
+
+.is-info {
+  background: #0D0D0D;
+  box-shadow: 0 0 23px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 20px;
+
+  &-head {
+    width: 80px;
+    height: 80px;
+    margin: 15px ;
+  }
+}
+
+.alert {
+  width: 100%;
 }
