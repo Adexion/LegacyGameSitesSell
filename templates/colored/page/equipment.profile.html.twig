@@ -35,6 +35,7 @@
                                         <h5>Dotyczy serwera: {{ s.name }}</h5>
                                     {% endif %}
                                 {% endfor %}
+                                <p>Sztuk: {{ item.quantity }}</p>
                                 <form action="{{ path('item-profile') }}" method="post">
                                     <input type="hidden" name="itemId" value="{{ item.id }}"/>
                                     <button class="gs-accept float-right">Odbierz</button>
