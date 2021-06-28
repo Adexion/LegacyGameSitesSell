@@ -59,7 +59,7 @@ class PaymentFormFactory
     private function generateForm(ItemList $itemList, string $uniqId): array
     {
         foreach ($this->serverProvider->getSessionServer()->getPayments() ?? [] as $payment) {
-            $formList[] = $this->paymentTypeFormFactory->create($payment, $itemList, $uniqId);
+            $formList[$payment->getName()] = $this->paymentTypeFormFactory->create($payment, $itemList, $uniqId);
         }
 
         return $formList ?? [];

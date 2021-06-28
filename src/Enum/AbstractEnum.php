@@ -4,6 +4,8 @@ namespace MNGame\Enum;
 
 use ReflectionClass;
 use ReflectionException;
+use UnexpectedValueException;
+use MNGame\Util\UnderscoreToCamelCaseConverter;
 
 abstract class AbstractEnum
 {
@@ -102,5 +104,16 @@ abstract class AbstractEnum
     public function isEqual(AbstractEnum $enum): bool
     {
         return $this->value == (string)$enum;
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    public static function getValueByCamelCaseKey($camelCaseKey) {
+        foreach (self::toArray() as $key => $type) {
+            if (UnderscoreToCamelCaseConverter::getCamelCase($key) === $camelCaseKey) {
+                return $type;
+            }
+        }
     }
 }

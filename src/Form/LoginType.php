@@ -14,15 +14,23 @@ class LoginType extends AbstractType
     {
         $builder
             ->add('_username', TextType::class, [
+                'label' => false,
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 3, 'max' => 16])
+                ],
+                'attr' => [
+                    'placeholder' => 'Twój nick*'
                 ]
             ])
             ->add('_password', PasswordType::class, [
+                'label' => false,
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 6])
+                ],
+                'attr' => [
+                    'placeholder' => 'Hasło*'
                 ]
             ]);
     }

@@ -45,8 +45,8 @@ class PaymentConfigurationFormBuilder
 
     public function getMethod(Payment $payment)
     {
-        return array_filter($payment->getConfigurations()->toArray(), function (Configuration $conf) {
+        return current(array_filter($payment->getConfigurations()->toArray(), function (Configuration $conf) {
             return $conf->getType() === PaymentConfigurationType::METHOD;
-        })[0]->getValue();
+        }))->getValue();
     }
 }

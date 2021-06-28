@@ -1,0 +1,26 @@
+<button type="button" class="gs-voucher" data-toggle="modal" data-target="#voucherModal">
+    ZREALIZUJ VOUCHER&nbsp;<i class="fas fa-ticket-alt"></i>
+</button>
+
+<div class="modal fade" id="voucherModal" tabindex="-1" role="dialog" aria-labelledby="voucherModal" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content bg-medium">
+            <div class="modal-bod">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times text-white"></i></span>
+                </button>
+                <div class="text-white text-center voucher-container">
+                    <h4 class="modal-title mb-2 font-weight-bold">ZREALIZUJ VOUCHER</h4>
+                    <form action="{{ path('paymentAccept', {paymentType: 'voucher'}) }}" method="post">
+                        <div class="form-group w-100">
+                            <input type="text" class="form-control" placeholder="Kod z Vouchera" name="paymentId">
+                        </div>
+                        <button type="submit" class="gs-accept mt-2">
+                            ZATWIERDŹ
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -49,7 +49,8 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername,
             'csrf_token_intention' => 'authenticate',
             'target_path' => $this->generateUrl('index'),
-            'login_form' => $form->createView()
+            'login_form' => $form->createView(),
+            'register_form' => $this->createForm(RegisterType::class)->createView()
         ]);
     }
 

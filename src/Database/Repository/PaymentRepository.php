@@ -2,13 +2,13 @@
 
 namespace MNGame\Database\Repository;
 
+use MNGame\Database\Entity\Payment;
 use Doctrine\Persistence\ManagerRegistry;
-use MNGame\Database\Entity\Parameter;
 
 class PaymentRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Parameter::class);
+        parent::__construct($registry, Payment::class);
     }
 }

@@ -48,10 +48,10 @@ class ItemShopController extends AbstractController
     /**
      * @Route(name="item-shop-form", path="/item/form/{itemId}")
      */
-    public function itemFormList(PaymentFormFactory $formFactory, string $itemId): Response
+    public function itemFormList(PaymentFormFactory $formFactory, string $itemId, ItemListRepository $itemListRepository): Response
     {
         return $this->render('base/page/itemshopItemForm.html.twig', [
-            '$itemList',
+            'itemList' => $itemListRepository->find($itemId),
             'formList' => $formFactory->create(uniqid(), $itemId),
         ]);
     }
@@ -129,13 +129,19 @@ class ItemShopController extends AbstractController
      */
     public function paymentAccept(Request $request, string $paymentType, ExecuteItemService $executeItemService, WalletService $walletService, AcceptPaymentService $acceptPaymentService): Response
     {
-        if ($request->request->get('STATUS') !== PaymentStatusEnum::SUCCESS && $request->request->get('status') !== PaymentStatusEnum::SUCCESS) {
+        if ($request->request->get('STATUS') !== PaymentStatusEnum::SUCCESS && $request->request->get('status',PaymentStatusEnum::SUCCESS) !== PaymentStatusEnum::SUCCESS) {
             return $this->render('base/page/payment.html.twig', [
                 'responseType' => Response::HTTP_PAYMENT_REQUIRED,
             ]);
         }
 
-        $paymentHistory = $acceptPaymentService->accept($paymentType, $request->request->all());
+        try {
+            $paymentHistory = $acceptPaymentService->accept($paymentType, $request->request->all());
+        } catch (PaymentProcessingException) {
+            return $this->render('base/page/payment.html.twig', [
+                'responseType' => Response::HTTP_PAYMENT_REQUIRED,
+            ]);
+        }
 
         return $this->render('base/page/payment.html.twig', [
             'responseType' => $executeItemService->executeItem($paymentHistory->getUser(), $paymentHistory->getItemList()->getId()),

@@ -8,6 +8,10 @@ export class Route {
             class: new RecaptchaService()
         },
         {
+            path: '/login',
+            class: new RecaptchaService()
+        },
+        {
             path: '/contact',
             class: new RecaptchaService()
         },

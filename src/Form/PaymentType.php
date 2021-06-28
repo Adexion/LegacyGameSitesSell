@@ -15,7 +15,6 @@ class PaymentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('submit', SubmitType::class)
             ->setMethod('POST')
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
     }

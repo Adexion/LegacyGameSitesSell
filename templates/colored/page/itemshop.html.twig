@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center m-4">
             <div class="col-12">
-
+                {% include 'colored/component/voucher.html.twig' %}
             </div>
 
             <div class="col-lg-8 col-md-12 row justify-content-center font-weight-normal">
@@ -15,7 +15,7 @@
                             <div class="is-item-content text-center d-flex flex-column justify-content-center">
                                 <img src="{{ itemList.sliderImage }}" alt=""/>
                                 <div class="mt-4">
-                                    <h4 class="font-weight-bold">{{ itemList.name }}</h4>
+                                    <h4 class="font-weight-bold">{{ itemList.name | upper }}</h4>
                                     {{ itemList.afterPromotionPrice | number_format(2) }} zł
                                     <div class="is-item-desc">{{ itemList.description | raw }}</div>
                                 </div>
