@@ -20,20 +20,38 @@ class UserEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class)
+            ->add('username', TextType::class, [
+                'label' => false,
+                'disabled' => true,
+                'attr'  => [
+                    'placeholder' => 'Podaj nick minecraft*',
+                ],
+            ])
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank(),
-                    new Email(['mode' => 'strict'])
-                ]
+                    new Email(['mode' => 'strict']),
+                ],
+                'disabled' => true,
+                'label'       => false,
+                'attr'        => [
+                    'placeholder' => 'Podaj adres e-mail*',
+                ],
             ])
             ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'required' => false,
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['min' => 6])
-                ]
+                'type'           => PasswordType::class,
+                'first_options'  => [
+                    'label' => false,
+                    'attr'  => [
+                        'placeholder' => 'Podaj hasło*',
+                    ],
+                ],
+                'second_options' => [
+                    'label' => false,
+                    'attr'  => [
+                        'placeholder' => 'Powtórz hasło*',
+                    ],
+                ],
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
     }

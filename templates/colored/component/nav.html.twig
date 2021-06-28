@@ -9,7 +9,8 @@
         <div class="collapse navbar-collapse" id="navbarToggler">
             <div class="w-100 d-flex justify-content-between align-items-center">
                 {% if isOnline %}
-                    <span class="colored white-shadow">ONLINE</span><span class="white-shadow">{{ playerCountList }}</span>
+                    <span class="colored white-shadow">ONLINE</span><span
+                        class="white-shadow">{{ playerCountList }}</span>
                 {% else %}
                     <span class="offline">OFFLINE</span>
                 {% endif %}
@@ -19,14 +20,19 @@
                     </li>
                     {% for link in module %}
                         {% if link.route is defined %}
+                            {% if link.route == 'item-shop' %}
+                                {% set class = ' shop' %}
+                            {% else %}
+                                {% set class = '' %}
+                            {% endif %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path(link.route) }}">{{ link.name }}</a>
+                                <a class="nav-link{{ class }}" href="{{ path(link.route) }}">{{ link.name }}</a>
                             </li>
                         {% endif %}
                     {% endfor %}
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('user-profile') }}">Ustawiena</a>
+                            <a class="nav-link" href="{{ path('user') }}">Ustawiena</a>
                         </li>
                         {% if is_granted('ROLE_SERVER') or is_granted('ROLE_MODERATOR') %}
                             <li class="nav-item">
@@ -34,7 +40,12 @@
                             </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a>
+                            <a class="nav-link logout" href="{{ path('logout') }}">
+                                <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.29412 13L2.76471 13C1.79009 13 1 12.3284 1 11.5L1 2.5C1 1.67157 1.79009 1 2.76471 1L6.29412 1M16 7L5.41176 7M16 7L12.4706 10M16 7L12.4706 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                &nbsp;Wyloguj
+                            </a>
                         </li>
                     {% else %}
                         <li class="nav-item">

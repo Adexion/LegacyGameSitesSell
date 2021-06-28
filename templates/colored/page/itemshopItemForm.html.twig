@@ -11,9 +11,9 @@
             <div class="col-12 row justify-content-center font-weight-normal">
                 {% for key, form in formList %}
                     {% if form is not null %}
-                        <div class="is-item is-item-sm">
+                        <div class="gs-item gs-item-sm">
                             {{ form_start(form) }}
-                            <div class="is-item-content text-center d-flex flex-column justify-content-center">
+                            <div class="gs-item-content text-center d-flex flex-column justify-content-center">
                                 <img src="{{ asset('assets/images/payment/' ~ key ~ '.png') }}" alt="" class="mb-4"/>
 
                             </div>

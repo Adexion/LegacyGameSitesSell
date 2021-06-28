@@ -12,14 +12,22 @@ use ReflectionException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
     /**
+     * @Route(name="user", path="/user")
+     */
+    public function userAction(): Response
+    {
+        return $this->render('base/page/user.html.twig');
+    }
+
+    /**
      * @Route(name="user-profile", path="/user/profile")
      */
-    public function userProfile()
+    public function userProfile(): Response
     {
         return $this->render('base/page/user.profile.html.twig');
     }
@@ -29,7 +37,7 @@ class UserController extends AbstractController
      */
     public function updateProfile(
         Request $request,
-        UserPasswordEncoderInterface $passwordEncoder,
+        UserPasswordHasherInterface $passwordEncoder,
         UserRepository $userRepository
     ): Response {
         $lastPassword = $this->getUser()->getPassword();
@@ -40,7 +48,7 @@ class UserController extends AbstractController
             /** @var User $user */
             $user = $form->getData();
             if ($user->getPassword() !== $lastPassword) {
-                $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
+                $user->setPassword($passwordEncoder->hashPassword($user, $user->getPassword()));
             }
 
             $this->getDoctrine()->getManager()->persist($user);

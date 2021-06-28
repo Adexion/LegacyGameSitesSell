@@ -136,6 +136,10 @@ footer {
   margin-bottom: 40px;
 }
 
+.nav-link {
+  padding: 4px 1rem !important;
+}
+
 .navbar-content {
   span.offline, span.colored {
     display: block;
@@ -287,10 +291,8 @@ i.fa-envelope {
   }
 }
 
-.is-item {
+.gs-item {
   background: linear-gradient(#00FF76 0%, #214A34 100%);
-  width: 340px;
-  min-height: 400px;
   text-align: justify;
   border-radius: 20px;
   padding: 10px;
@@ -298,21 +300,41 @@ i.fa-envelope {
   margin: 40px;
 
   &-sm {
-
-    .is-item-content {
+    .gs-item-content {
+      width: 360px;
       cursor: initial;
       background-color: #0D0D0D !important;
       height: 280px !important;
     }
   }
 
-  .is-link:hover {
+  &-settings {
+
+    .gs-item-content {
+      height: 320px;
+      width: 320px;
+      cursor: initial;
+      height: 320px !important;
+      font-size: 24pt;
+
+      span.far {
+        font-size: 86pt;
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+
+  .gs-link:hover {
     text-decoration: none;
   }
 
-  .is-item-content {
+  .gs-item-content-shop {
     height: 420px;
     width: 320px;
+  }
+
+  .gs-item-content, .gs-item-content-shop {
     background-color: #242424;
     border-radius: 10px;
     padding: 20px;
@@ -324,7 +346,7 @@ i.fa-envelope {
       cursor: pointer;
     }
 
-    .is-item-desc {
+    .gs-item-desc {
       margin-top: 20px;
       font-size: 10pt;
 
@@ -419,4 +441,55 @@ i.fa-envelope {
 
 .story {
   font-size: 24pt;
+}
+
+.shop {
+  margin-top: -3px;
+  border: 3px solid #00FF76;
+  box-sizing: border-box;
+  filter: drop-shadow(-8px 12px 16px rgba(0, 255, 118, 0.2));
+  border-radius: 5px;
+}
+
+.logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #CC2C2C 0%, #7C3E3E 100%);
+  box-shadow: -8px 12px 16px rgba(167, 47, 47, 0.2);
+  border-radius: 5px;
+}
+
+h1 {
+  font-weight: bold;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+p {
+  font-size: 14pt;
+  font-weight: 300;
+  margin: 0;
+}
+
+.user > img {
+  width: 300px;
+  height: 600px;
+}
+
+.item {
+  height: 402px;
+
+  background: linear-gradient(108.2deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%, rgba(255, 255, 255, 0.3) 100%);
+  border: 3px solid #BEBEBE;
+  box-sizing: border-box;
+  backdrop-filter: blur(40px);
+  border-radius: 30px;
+
+  img {
+    max-width: 216px;
+    max-height: 216px;
+  }
 }
