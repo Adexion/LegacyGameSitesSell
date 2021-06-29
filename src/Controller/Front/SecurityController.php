@@ -90,7 +90,8 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('base/page/register.html.twig', [
+        return $this->render('base/page/login.html.twig', [
+            'login_form' => $this->createForm(LoginType::class)->createView(),
             'register_form' => $form->createView(),
             'site_key' => $this->getParameter('google')['siteKey']
         ]);
