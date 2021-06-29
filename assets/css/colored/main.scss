@@ -236,6 +236,7 @@ footer {
 
 .progress {
   background-color: #474747;
+  position: relative;
 
   .bg-progress {
     background: linear-gradient(90deg, #00FF76 0%, #214A34 100%);
@@ -250,6 +251,11 @@ footer {
   color: white;
   font-weight: bold;
   padding: 15px 50px;
+  height: 65px;
+
+  img {
+    max-height: 100%;
+  }
 }
 
 .form-group {
@@ -298,6 +304,9 @@ i.fa-envelope {
   padding: 10px;
   display: inline-block;
   margin: 40px;
+  width: 90%;
+  max-width: 430px;
+  min-width: 340px;
 
   &-sm {
     .gs-item-content {
@@ -312,9 +321,7 @@ i.fa-envelope {
 
     .gs-item-content {
       height: 320px;
-      width: 320px;
       cursor: initial;
-      height: 320px !important;
       font-size: 24pt;
 
       span.far {
@@ -324,14 +331,15 @@ i.fa-envelope {
     }
   }
 
-
   .gs-link:hover {
     text-decoration: none;
   }
 
   .gs-item-content-shop {
     height: 420px;
-    width: 320px;
+    min-width: 320px;
+    max-width: 500px;
+    width: 100%;
   }
 
   .gs-item-content, .gs-item-content-shop {
@@ -361,8 +369,21 @@ i.fa-envelope {
   }
 }
 
+.progress-percentage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 16px;
+}
+
 .is-info-container {
   padding-top: 40px;
+}
+
+.gs-buttons {
+  padding: 40px;
 }
 
 .is-info {
@@ -375,8 +396,8 @@ i.fa-envelope {
   margin-bottom: 20px;
 
   &-head {
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
     margin: 15px;
   }
 }
@@ -402,6 +423,10 @@ i.fa-envelope {
 
   i {
     font-size: 24pt;
+  }
+
+  img {
+    height: 30px;
   }
 }
 

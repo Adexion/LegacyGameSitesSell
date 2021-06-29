@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-7 d-flex align-items-center">
-                        <div class="gs-item w-100 h-75">
+                        <div class="gs-item w-100 h-75 mw-100">
                             <div class="gs-item-content d-flex justify-content-center flex-column h-100">
                                 {% if is_granted('ROLE_ADMIN') %}
                                     {% set role = "ADMINISTRATOR" %}
@@ -25,7 +25,7 @@
                                     <input type="text" class="form-control" value="Email: {{ app.user.email }}" disabled/>
                                 </div>
                                 <div class="form-group w-100">
-                                    <input type="text" class="form-control" value="Nick {{ app.user.username }}"
+                                    <input type="text" class="form-control" value="Nick: {{ app.user.username }}"
                                            disabled/>
                                 </div>
                             </div>

@@ -11,15 +11,14 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-7 d-flex align-items-center">
-                        <div class="gs-item w-100 h-75">
+                        <div class="gs-item w-100 h-75 mw-100">
                             <div class="gs-item-content d-flex justify-content-center flex-column h-100">
                                 {{ form_start(edit_form, {action: '/user/edit',}) }}
                                 {{ form_row(edit_form.username) }}
                                 {{ form_row(edit_form.email) }}
                                 {{ form_row(edit_form.password.first) }}
                                 {{ form_row(edit_form.password.second) }}
-                                <button class="gs-accept w-100"
-                                        type="submit">Edytuj konto</button>
+                                <button class="gs-accept w-100" type="submit">Edytuj konto</button>
                                 {{ form_end(edit_form) }}
                             </div>
                         </div>

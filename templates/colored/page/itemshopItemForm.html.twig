@@ -9,20 +9,32 @@
                 <h2 class="colored">Wybierz formę płatności której chcesz użyć</h2>
             </div>
             <div class="col-12 row justify-content-center font-weight-normal">
-                {% for key, form in formList %}
-                    {% if form is not null %}
-                        <div class="gs-item gs-item-sm">
-                            {{ form_start(form) }}
-                            <div class="gs-item-content text-center d-flex flex-column justify-content-center">
-                                <img src="{{ asset('assets/images/payment/' ~ key ~ '.png') }}" alt="" class="mb-4"/>
+                <div class="gs-item col-lg-7">
 
-                            </div>
-                            <button type="submit" class="gs-submit mt-4 w-100">Przejdź do płatności</button>
-                            {{ form_end(form) }}
+                    <div class="gs-item-content-shop text-center d-flex flex-column justify-content-center w-100">
+                        <img src="{{ itemList.sliderImage }}" alt=""/>
+                        <div class="mt-4">
+                            <h4 class="font-weight-bold">{{ itemList.name | upper }}</h4>
+                            {{ itemList.afterPromotionPrice | number_format(2) }} zł
+                            <div class="gs-item-desc">{{ itemList.description | raw }}</div>
                         </div>
+                    </div>
 
-                    {% endif %}
-                {% endfor %}
+                </div>
+                <div class="col-lg-4 gs-buttons">
+                    {% for category, form in formList %}
+                        <h5>{{ category | trans }}</h5>
+                        {% for key, payment in form %}
+                            {% if payment is not null %}
+                                {{ form_start(payment) }}
+                                <button type="submit" class="gs-voucher mb-4 w-100">
+                                    <img src="{{ asset('assets/images/payment/' ~ key ~ '.png') }}" alt=""/>
+                                </button>
+                                {{ form_end(payment) }}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

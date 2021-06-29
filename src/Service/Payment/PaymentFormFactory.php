@@ -4,11 +4,14 @@ namespace MNGame\Service\Payment;
 
 use Doctrine\ORM\ORMException;
 use MNGame\Database\Entity\User;
+use MNGame\Enum\PaymentTypeEnum;
 use MNGame\Service\ServerProvider;
 use MNGame\Enum\PaymentStatusEnum;
 use MNGame\Database\Entity\ItemList;
+use MNGame\Enum\PaymentCategoryEnum;
 use Doctrine\ORM\OptimisticLockException;
 use MNGame\Database\Entity\PaymentHistory;
+use http\Exception\UnexpectedValueException;
 use MNGame\Database\Repository\ItemListRepository;
 use MNGame\Database\Repository\PaymentHistoryRepository;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -59,9 +62,25 @@ class PaymentFormFactory
     private function generateForm(ItemList $itemList, string $uniqId): array
     {
         foreach ($this->serverProvider->getSessionServer()->getPayments() ?? [] as $payment) {
-            $formList[$payment->getName()] = $this->paymentTypeFormFactory->create($payment, $itemList, $uniqId);
+            $formList[$this->getCategoryByPaymentName($payment->getType())][$payment->getName()]
+                = $this->paymentTypeFormFactory->create($payment, $itemList, $uniqId);
         }
 
         return $formList ?? [];
+    }
+
+    private function getCategoryByPaymentName(PaymentTypeEnum $type): string
+    {
+        switch ($type->getValue()) {
+            case PaymentTypeEnum::HOTPAY:
+                return PaymentCategoryEnum::CARD;
+            case PaymentTypeEnum::MICRO_SMS:
+            case PaymentTypeEnum::DIRECT_BILL:
+                return PaymentCategoryEnum::SMS;
+            case PaymentTypeEnum::PAY_SAFE_CARD:
+                return PaymentCategoryEnum::OTHER;
+        }
+
+        throw new UnexpectedValueException();
     }
 }
