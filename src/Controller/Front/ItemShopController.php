@@ -55,11 +55,11 @@ class ItemShopController extends AbstractController
     }
 
     /**
-     * @Route(name="prepaid-buy", path="/prepaid/buy")
+     * @Route(name="prepaid-execute", path="/prepaid/excecute")
      * @throws ContentException
      * @throws ReflectionException
      */
-    public function prepaidBuy(Request $request, ItemListRepository $itemListRepository, WalletService $walletService, ExecuteItemService $executeItemService): Response
+    public function prepaidExecute(Request $request, ItemListRepository $itemListRepository, WalletService $walletService, ExecuteItemService $executeItemService): Response
     {
         /** @var ItemList $itemList */
         $itemList = $itemListRepository->find($request->request->getInt('itemListId'));
