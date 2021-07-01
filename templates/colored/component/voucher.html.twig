@@ -1,4 +1,4 @@
-<button type="button" class="gs-voucher" data-toggle="modal" data-target="#voucherModal">
+<button type="button" class="gs-redirect" data-toggle="modal" data-target="#voucherModal">
     ZREALIZUJ VOUCHER&nbsp;<i class="fas fa-ticket-alt"></i>
 </button>
 
@@ -11,7 +11,7 @@
                 </button>
                 <div class="text-white text-center voucher-container">
                     <h4 class="modal-title mb-2 font-weight-bold">ZREALIZUJ VOUCHER</h4>
-                    <form action="{{ path('paymentAccept', {paymentType: 'voucher'}) }}" method="post">
+                    <form action="{{ path('payment-accept', {paymentType: 'voucher'}) }}" method="post">
                         <div class="form-group w-100">
                             <input type="text" class="form-control" placeholder="Kod z Vouchera" name="paymentId">
                         </div>

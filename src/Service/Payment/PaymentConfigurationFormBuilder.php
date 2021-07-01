@@ -2,8 +2,9 @@
 
 namespace MNGame\Service\Payment;
 
+use ReflectionException;
+use MNGame\Enum\PaymentTypeEnum;
 use MNGame\Database\Entity\Payment;
-use MNGame\Database\Entity\ItemList;
 use MNGame\Database\Entity\Configuration;
 use MNGame\Enum\PaymentConfigurationType;
 
@@ -16,7 +17,10 @@ class PaymentConfigurationFormBuilder
         $this->uniqId = $uniqId;
     }
 
-    public function build(Payment $payment, ItemList $itemList, string $uri): array
+    /**
+     * @throws ReflectionException
+     */
+    public function build(Payment $payment, float $price, string $name, string $uri): array
     {
         /** @var Configuration $configuration */
         foreach ($payment->getConfigurations() as $configuration) {
@@ -29,13 +33,13 @@ class PaymentConfigurationFormBuilder
                     $arr[$configuration->getName()] = $configuration->getValue();
                     break;
                 case PaymentConfigurationType::URI:
-                    $arr[$configuration->getName()] = $uri . $configuration->getValue();
+                    $arr[$configuration->getName()] = $uri . ($name !== PaymentTypeEnum::create(PaymentTypeEnum::PREPAID)->getKey() ? $configuration->getValue() : 'prepaid/status');
                     break;
                 case PaymentConfigurationType::PRICE:
-                    $arr[$configuration->getName()] = (float)$itemList->getPrice();
+                    $arr[$configuration->getName()] = $price;
                     break;
                 case PaymentConfigurationType::NAME:
-                    $arr[$configuration->getName()] = (float)$itemList->getName();
+                    $arr[$configuration->getName()] = $name;
                     break;
             }
         }

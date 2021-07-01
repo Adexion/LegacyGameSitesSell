@@ -406,14 +406,15 @@ i.fa-envelope {
   width: 100%;
 }
 
-.gs-voucher {
+.gs-redirect {
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
   float: right;
   padding: 25px;
-  margin-right: 15px;
+  margin: 0 20px;
+  width: calc(100% - 40px);
   height: 50px;
 
   background: #00FF76;
@@ -517,4 +518,8 @@ p {
     max-width: 100%;
     max-height: 216px;
   }
+}
+
+em, pre {
+  white-space: pre-wrap;
 }

@@ -48,6 +48,10 @@ class AcceptPaymentService
            throw new PaymentProcessingException();
         }
 
+        if ($paymentHistory->getPaymentStatus() === PaymentStatusEnum::SUCCESS) {
+            throw new PaymentProcessingException();
+        }
+
         $paymentHistory->setPaymentType((new PaymentTypeEnum($enumValue))->getKey());
         $paymentHistory->setPaymentStatus(PaymentStatusEnum::SUCCESS);
 

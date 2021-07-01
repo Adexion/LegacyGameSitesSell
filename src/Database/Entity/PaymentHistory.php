@@ -49,8 +49,8 @@ class PaymentHistory
     private ?string $paymentStatus = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER")
-     * @ORM\JoinColumn(name="item_list_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="ItemList", fetch="EAGER",)
+     * @ORM\JoinColumn(name="item_list_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private ?ItemList $itemList = null;
 
