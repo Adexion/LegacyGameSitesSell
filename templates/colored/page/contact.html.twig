@@ -3,7 +3,7 @@
 {% block body %}
     {{ encore_entry_link_tags('navbar-colored') }}
     <div class="container-fluid">
-        <div class="row justify-content-center m-4">
+        <div class="row justify-content-center m-lg-4 m-md-0 pb-4">
             <div class="col-lg-12 mb-5 mt-5 text-center">
                 <h1>Zasady rozgrywki nas naszych serwerach</h1>
                 <h2 class="colored">Przestrzegaj zasad, dzięki temu rozgrywka będzie fair play!</h2>
@@ -14,7 +14,7 @@
                 </div>
             {% endif %}
 
-            <div class="col-md-12 col-lg-7 pr-5">
+            <div class="col-md-12 col-lg-7 pr-lg-5 pr-md-1 mb-4">
                 {{ form_start(contact_form) }}
                 {{ form_row(contact_form.name) }}
                 {{ form_row(contact_form.email) }}

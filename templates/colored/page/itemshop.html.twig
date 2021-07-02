@@ -6,7 +6,7 @@
         <div class="row justify-content-center m-4">
             <div class="col-lg-8 col-md-12 row justify-content-center font-weight-normal">
                 {% for itemList in itemLists %}
-                    <div class="gs-item">
+                    <div class="gs-item m-lg-4 mb-4">
                         <a class="gs-link" href="{{ path('item-shop-form', { itemId: itemList.id }) }}">
                             <div class="gs-item-content-shop text-center d-flex flex-column justify-content-center">
                                 <img src="{{ itemList.sliderImage }}" alt=""/>
@@ -22,42 +22,45 @@
             </div>
 
             <div class="col-lg-4 col-md-12 is-info-container">
-                <div class="is-info">
-                    <h3>Ostatnie zamówienia</h3>
-                    {% if lastBuyerList.userBought is defined %}
-                        {% set minotar = "https://minotar.net/avatar/" %}
-                        {% for key, count in lastBuyerList.userBought %}
-                            <img class="is-info-head" src="{{ minotar }}{{ key }}" alt="{{ key }}"/>
-                        {% endfor %}
-                    {% else %}
-                        <h4>Brak zamówień w tym miesiącu</h4>
-                    {% endif %}
-                </div>
-
-                <div class="is-info font-weight-normal">
-                    <h3>Cel serwera</h3>
-                    <div class="progress">
-                        {% set progress = (100 - ((global.neddedAmount - amount) / global.neddedAmount * 100)) | round(2) %}
-                        <div class="progress-bar bg-progress" style="width: {{ progress }}%"></div>
-                        <span class="progress-percentage">{{ progress }}%</span>
+                <div class="row justify-content-center">
+                    <div class="is-info">
+                        <h3>Ostatnie zamówienia</h3>
+                        {% if lastBuyerList.userBought is defined %}
+                            {% set minotar = "https://minotar.net/avatar/" %}
+                            {% for key, count in lastBuyerList.userBought %}
+                                <img class="is-info-head" src="{{ minotar }}{{ key }}" alt="{{ key }}"/>
+                            {% endfor %}
+                        {% else %}
+                            <h4>Brak zamówień w tym miesiącu</h4>
+                        {% endif %}
                     </div>
-                    <span>Na opłacenie serwera i rozwój</span>
-                </div>
 
-                <div class="is-info font-weight-normal d-inline-block">
-                    <h3>Twój portfel</h3>
-                    <p>Stan twojego konta wynosi {{ wallet.cash | format_currency('PLN') }}</p>
-                    <form action="{{ path('wallet-page') }}" method="post">
-                        <div class="form-group mt-3">
-                            <input name="price" type="number" min="1" placeholder="Podaj kwotę doładowania" class="form-control">
+                    <div class="is-info font-weight-normal">
+                        <h3>Cel serwera</h3>
+                        <div class="progress">
+                            {% set progress = (100 - ((global.neddedAmount - amount) / global.neddedAmount * 100)) | round(2) %}
+                            <div class="progress-bar bg-progress" style="width: {{ progress }}%"></div>
+                            <span class="progress-percentage">{{ progress }}%</span>
                         </div>
-                        <button type="submit" class="gs-redirect mt-3">
-                            Doładuj portfel
-                        </button>
-                    </form>
-                </div>
+                        <span>Na opłacenie serwera i rozwój</span>
+                    </div>
 
-                {% include 'colored/component/voucher.html.twig' %}
+                    <div class="is-info font-weight-normal d-inline-block">
+                        <h3>Twój portfel</h3>
+                        <p>Stan twojego konta wynosi {{ wallet.cash | format_currency('PLN') }}</p>
+                        <form action="{{ path('wallet-page') }}" method="post">
+                            <div class="form-group mt-3">
+                                <input name="price" type="number" min="1" placeholder="Podaj kwotę doładowania"
+                                       class="form-control">
+                            </div>
+                            <button type="submit" class="gs-redirect mt-3 w-100">
+                                Doładuj portfel
+                            </button>
+                        </form>
+                    </div>
+
+                    {% include 'colored/component/voucher.html.twig' %}
+                </div>
             </div>
 
             <div class="alert mt-3 bg-light font-weight-normal">

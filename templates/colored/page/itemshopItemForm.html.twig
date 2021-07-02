@@ -3,41 +3,47 @@
 {% block body %}
     {{ encore_entry_link_tags('navbar-colored') }}
     <div class="container-fluid">
-        <div class="row justify-content-center text-center flex-column m-4">
+        <div class="row justify-content-center text-center flex-column m-lg-4 m-md-0 pb-4">
             <div class="col-12 mb-5 mt-5">
                 <h1>Właśnie kupujesz: {{ itemList.name }}</h1>
                 <h2 class="colored">Wybierz formę płatności której chcesz użyć</h2>
             </div>
-            <div class="col-12 row justify-content-center font-weight-normal">
-                <div class="gs-item col-lg-7">
+            <div class="col-12 font-weight-normal">
+                <div class="row justify-content-center">
+                    <div class="gs-item col-lg-7">
 
-                    <div class="gs-item-content-shop text-center d-flex flex-column justify-content-center w-100">
-                        <img src="{{ itemList.sliderImage }}" alt=""/>
-                        <div class="mt-4">
-                            <h4 class="font-weight-bold">{{ itemList.name | upper }}</h4>
-                            {{ itemList.afterPromotionPrice | number_format(2) }} zł
-                            <div class="gs-item-desc">{{ itemList.description | raw }}</div>
+                        <div class="gs-item-content-shop text-center d-flex flex-column justify-content-center w-100">
+                            <img src="{{ itemList.sliderImage }}" alt=""/>
+                            <div class="mt-4">
+                                <h4 class="font-weight-bold">{{ itemList.name | upper }}</h4>
+                                {{ itemList.afterPromotionPrice | number_format(2) }} zł
+                                <div class="gs-item-desc">{{ itemList.description | raw }}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4 col-md-12 p-lg-5 m-4">
+                        <div class="row flex-column">
+                            {% for category, form in formList %}
+                                <h5>{{ category | trans }}</h5>
+                                {% for key, payment in form %}
+                                    {% if payment is not null %}
+                                        {{ form_start(payment) }}
+                                        <button type="submit" class="gs-redirect mb-4 w-100">
+                                            <img src="{{ asset('assets/images/payment/' ~ key ~ '.png') }}" alt=""/>
+                                        </button>
+                                        {{ form_end(payment) }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                            <form action="{{ path('prepaid-status') }}" method="post">
+                                <input type="hidden" name="itemListId" value="{{ itemList.id }}">
+                                <button class="gs-redirect mb-4 w-100" type="submit"><i class="far fa-gem"></i>&nbsp;Konto
+                                    Prepaid
+                                </button>
+                            </form>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-lg-4 gs-buttons">
-                    {% for category, form in formList %}
-                        <h5>{{ category | trans }}</h5>
-                        {% for key, payment in form %}
-                            {% if payment is not null %}
-                                {{ form_start(payment) }}
-                                <button type="submit" class="gs-redirect mb-4 w-100">
-                                    <img src="{{ asset('assets/images/payment/' ~ key ~ '.png') }}" alt=""/>
-                                </button>
-                                {{ form_end(payment) }}
-                            {% endif %}
-                        {% endfor %}
-                    {% endfor %}
-                    <form action="{{ path('prepaid-status') }}" method="post">
-                        <input type="hidden" name="itemListId" value="{{ itemList.id }}">
-                        <button class="gs-redirect mb-4 w-100" type="submit"><i class="far fa-gem"></i>&nbsp;Konto Prepaid</button>
-                    </form>
                 </div>
             </div>
         </div>
