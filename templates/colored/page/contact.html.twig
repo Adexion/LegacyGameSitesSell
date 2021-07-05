@@ -29,10 +29,10 @@
             </div>
 
             <div class="col-md-12 col-lg-4 bg-light w-100 p-4">
-                <div class="mb-2 font-weight-normal mb-5 pb-5">
+                <div class="mb-2 font-weight-normal mb-5 pb-4">
                     <h5>Dział obsługi klienta</h5>
                     {% if global.mail1 is defined %}
-                        <a href="mailto:{{ global.mail1 }}">
+                        <a href="mailto:{{ global.mail1 }}" class="pb-4 d-block">
                             <span class="d-flex align-items-center">
                                 <svg width="37" height="29" viewBox="0 0 37 29" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.91667 2.89286L15.9073 15.546C17.3392 16.9408 19.6608 16.9408 21.0927 15.546L34.0833 2.89286M3.83333 27H33.1667C34.1792 27 35 26.2005 35 25.2143V3.78571C35 2.79949 34.1792 2 33.1667 2H3.83333C2.82081 2 2 2.79949 2 3.78571V25.2143C2 26.2005 2.82081 27 3.83333 27Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 &nbsp;{{ global.mail1 }}
@@ -40,7 +40,7 @@
                         </a>
                     {% endif %}
                     {% if global.mail2 is defined %}
-                        <a href="mailto:{{ global.mail2 }}">
+                        <a href="mailto:{{ global.mail2 }}" class="pb-4 d-block">
                             <span class="d-flex align-items-center">
                                 <svg width="37" height="29" viewBox="0 0 37 29" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.91667 2.89286L15.9073 15.546C17.3392 16.9408 19.6608 16.9408 21.0927 15.546L34.0833 2.89286M3.83333 27H33.1667C34.1792 27 35 26.2005 35 25.2143V3.78571C35 2.79949 34.1792 2 33.1667 2H3.83333C2.82081 2 2 2.79949 2 3.78571V25.2143C2 26.2005 2.82081 27 3.83333 27Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                     &nbsp;{{ global.mail2 }}
@@ -48,7 +48,7 @@
                         </a>
                     {% endif %}
                     {% if global.mail3 is defined %}
-                        <a href="mailto:{{ global.mail3 }}">
+                        <a href="mailto:{{ global.mail3 }}" class="pb-4 d-block">
                             <span class="d-flex align-items-center">
                                 <svg width="37" height="29" viewBox="0 0 37 29" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.91667 2.89286L15.9073 15.546C17.3392 16.9408 19.6608 16.9408 21.0927 15.546L34.0833 2.89286M3.83333 27H33.1667C34.1792 27 35 26.2005 35 25.2143V3.78571C35 2.79949 34.1792 2 33.1667 2H3.83333C2.82081 2 2 2.79949 2 3.78571V25.2143C2 26.2005 2.82081 27 3.83333 27Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 &nbsp;{{ global.mail3 }}

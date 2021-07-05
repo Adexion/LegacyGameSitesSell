@@ -45,21 +45,25 @@
                         <span>Na opłacenie serwera i rozwój</span>
                     </div>
 
-                    <div class="is-info font-weight-normal d-inline-block">
-                        <h3>Twój portfel</h3>
-                        <p>Stan twojego konta wynosi {{ wallet.cash | format_currency('PLN') }}</p>
-                        <form action="{{ path('wallet-page') }}" method="post">
-                            <div class="form-group mt-3">
-                                <input name="price" type="number" min="1" placeholder="Podaj kwotę doładowania"
-                                       class="form-control">
-                            </div>
-                            <button type="submit" class="gs-redirect mt-3 w-100">
-                                Doładuj portfel
-                            </button>
-                        </form>
-                    </div>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <div class="is-info font-weight-normal d-inline-block">
+                            <h3>Twój portfel</h3>
+                            <p>Stan twojego konta wynosi {{ wallet.cash | format_currency('PLN') }}</p>
+                            <form action="{{ path('wallet-page') }}" method="post">
+                                <div class="form-group mt-3">
+                                    <input name="price" type="number" min="1" placeholder="Podaj kwotę doładowania"
+                                           class="form-control">
+                                </div>
+                                <button type="submit" class="gs-redirect mt-3 w-100">
+                                    Doładuj portfel
+                                </button>
+                            </form>
+                        </div>
 
-                    {% include 'colored/component/voucher.html.twig' %}
+                        {% include 'colored/component/voucher.html.twig' %}
+                    {% else %}
+
+                    {% endif %}
                 </div>
             </div>
 
