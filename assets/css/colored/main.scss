@@ -68,16 +68,9 @@ footer {
   text-shadow: 0 0 5px #CD4646;
 }
 
-.think {
-  background: url('/assets/images/thinking_guy.png') no-repeat center;
-  background-size: 353px 478px;
-  height: 478px;
-}
-
 .cool {
-  background: url('/assets/images/cool_guy.png') no-repeat center;
-  background-size: 584px 549px;
-  height: 549px;
+  display: block;
+  max-width: 100%;
 }
 
 .information {
@@ -182,46 +175,6 @@ footer {
   &--teamspeak {
     background: url("/assets/images/social.svg") -297px -1px;
     background-size: cover;
-  }
-}
-
-@media (max-width: 1920px) {
-  .container-fluid-bg, .navbar-content {
-    background-size: 1920px auto;
-  }
-}
-
-@media (min-width: 990px) {
-  .container-fluid {
-    padding-top: 106px;
-  }
-  .information .lightning {
-    margin-top: -106px;
-  }
-}
-
-@media (max-width: 991px) {
-  footer {
-    background-size: cover !important;
-
-    .information {
-      img {
-        display: none;
-      }
-    }
-  }
-
-  .navbar-content {
-    background-color: #0D0D0D;
-
-    ul {
-      display: block;
-
-      .nav-item {
-        display: inline-block;
-        padding: 0 5px;
-      }
-    }
   }
 }
 
@@ -522,4 +475,47 @@ p {
 
 em, pre {
   white-space: pre-wrap;
+}
+
+
+@media (max-width: 1920px) {
+  .container-fluid-bg, .navbar-content {
+    background-size: 1920px auto;
+  }
+}
+
+@media (min-width: 990px) {
+  .container-fluid {
+    padding-top: 106px;
+  }
+  .information .lightning {
+    margin-top: -106px;
+  }
+}
+
+@media (max-width: 991px) {
+  footer {
+    background-size: cover !important;
+
+    .information {
+      img {
+        display: none;
+      }
+    }
+  }
+
+  .navbar-content {
+    background-color: #0D0D0D !important;
+
+    ul {
+      display: block;
+
+      .nav-item {
+        width: 170px;
+        text-align: center;
+        display: inline-block;
+        padding: 0 5px;
+      }
+    }
+  }
 }
