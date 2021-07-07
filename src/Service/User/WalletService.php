@@ -2,22 +2,25 @@
 
 namespace MNGame\Service\User;
 
-use Doctrine\ORM\EntityManagerInterface;
 use MNGame\Database\Entity\User;
 use MNGame\Database\Entity\Wallet;
 use MNGame\Exception\ContentException;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class WalletService
 {
     private EntityManagerInterface $em;
     private AuthorizationCheckerInterface $authorizationChecker;
+    private string|\Stringable|UserInterface $user;
 
-    public function __construct(EntityManagerInterface $em, AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(EntityManagerInterface $em, AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage)
     {
-        $this->em = $em;
+        $this->em                   = $em;
         $this->authorizationChecker = $authorizationChecker;
+        $this->user                 = $tokenStorage->getToken()->getUser();
     }
 
     public function create(User $user): void
@@ -34,9 +37,9 @@ class WalletService
     /**
      * @throws ContentException
      */
-    public function changeCash(float $cash, UserInterface $user): float
+    public function changeCash(float $cash, ?UserInterface $user = null): float
     {
-        $wallet = $this->em->getRepository(Wallet::class)->findOneBy(['user' => $user]);
+        $wallet = $this->em->getRepository(Wallet::class)->findOneBy(['user' => $user ?: $this->user]);
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             return $wallet->getCash();
         }

@@ -4,11 +4,11 @@ namespace MNGame\Service\Payment\Client;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use MNGame\Database\Repository\SMSPriceRepository;
-use MNGame\Service\EnvironmentService;
+use MNGame\Database\Repository\PaymentHistoryRepository;
 
 interface PaymentClientInterface
 {
-    public function __construct(SMSPriceRepository $smsPriceRepository, ArrayCollection $arrayCollection, EnvironmentService $env, ?string $className = null);
+    public function __construct(SMSPriceRepository $smsPriceRepository, ArrayCollection $arrayCollection, PaymentHistoryRepository $paymentHistoryRepository);
 
-    public function executeRequest(array $data);
+    public function executeRequest(array $data): ?string;
 }

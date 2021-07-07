@@ -8,11 +8,11 @@ use Doctrine\ORM\ORMException;
 use MNGame\Enum\PaymentTypeEnum;
 use MNGame\Database\Entity\Wallet;
 use MNGame\Service\ServerProvider;
-use MNGame\Enum\PaymentStatusEnum;
 use MNGame\Database\Entity\ItemList;
 use MNGame\Exception\ContentException;
 use MNGame\Service\User\WalletService;
 use Doctrine\ORM\OptimisticLockException;
+use MNGame\Service\Payment\PaymentAcceptor;
 use Symfony\Component\HttpFoundation\Request;
 use MNGame\Service\Payment\PaymentFormFactory;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +20,6 @@ use MNGame\Exception\ItemListNotFoundException;
 use Symfony\Component\Routing\Annotation\Route;
 use MNGame\Exception\PaymentProcessingException;
 use MNGame\Service\Minecraft\ExecuteItemService;
-use MNGame\Service\Payment\AcceptPaymentService;
 use MNGame\Database\Repository\ItemListRepository;
 use MNGame\Database\Repository\PaymentHistoryRepository;
 use MNGame\Database\Repository\ItemListStatisticRepository;
@@ -45,6 +44,9 @@ class ItemShopController extends AbstractController
 
     /**
      * @Route(name="item-shop-form", path="/item/form/{itemId}")
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws ReflectionException
      */
     public function itemFormList(PaymentFormFactory $formFactory, string $itemId, ItemListRepository $itemListRepository): Response
     {
@@ -94,7 +96,7 @@ class ItemShopController extends AbstractController
     public function wallet(Request $request ,PaymentFormFactory $formFactory): Response
     {
         return $this->render('base/page/wallet.html.twig', [
-            'formList' => $formFactory->createForm('GS' . date('YmdHis'), $request->request->get('price', 1) ?: 1),
+            'formList' => $formFactory->createFormList('GS' . date('YmdHis'), $request->request->get('price', 1) ?: 1),
             'wallet'   => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
         ]);
     }
@@ -106,16 +108,10 @@ class ItemShopController extends AbstractController
      * @throws ReflectionException
      * @throws Exception
      */
-    public function prepaidStatus(Request $request, WalletService $walletService, AcceptPaymentService $acceptPaymentService): Response
+    public function prepaidStatus(Request $request, WalletService $walletService, PaymentAcceptor $paymentAcceptor): Response
     {
-        if ($request->request->get('STATUS') !== PaymentStatusEnum::SUCCESS && $request->request->get('status', PaymentStatusEnum::SUCCESS) !== PaymentStatusEnum::SUCCESS) {
-            return $this->render('base/page/payment.html.twig', [
-                'responseType' => Response::HTTP_PAYMENT_REQUIRED,
-            ]);
-        }
-
         try {
-            $paymentHistory = $acceptPaymentService->accept(PaymentTypeEnum::PREPAID, $request->request->all());
+            $paymentHistory = $paymentAcceptor->accept($request,PaymentTypeEnum::PREPAID);
         } catch (PaymentProcessingException) {
             return $this->render('base/page/payment.html.twig', [
                 'responseType' => Response::HTTP_PAYMENT_REQUIRED,
@@ -137,16 +133,10 @@ class ItemShopController extends AbstractController
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function paymentAccept(Request $request, string $paymentType, ExecuteItemService $executeItemService, WalletService $walletService, AcceptPaymentService $acceptPaymentService): Response
+    public function paymentAccept(Request $request, string $paymentType, ExecuteItemService $executeItemService, PaymentAcceptor $paymentAcceptor): Response
     {
-        if ($request->request->get('STATUS') !== PaymentStatusEnum::SUCCESS && $request->request->get('status', PaymentStatusEnum::SUCCESS) !== PaymentStatusEnum::SUCCESS) {
-            return $this->render('base/page/payment.html.twig', [
-                'responseType' => Response::HTTP_PAYMENT_REQUIRED,
-            ]);
-        }
-
         try {
-            $paymentHistory = $acceptPaymentService->accept($paymentType, $request->request->all());
+            $paymentHistory = $paymentAcceptor->accept($request, $paymentType);
         } catch (PaymentProcessingException) {
             return $this->render('base/page/payment.html.twig', [
                 'responseType' => Response::HTTP_PAYMENT_REQUIRED,

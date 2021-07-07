@@ -2,45 +2,33 @@
 
 namespace MNGame\Service\Payment\Client;
 
-use Doctrine\Common\Collections\Collection;
-use GuzzleHttp\Exception\GuzzleException;
-use MNGame\Database\Repository\SMSPriceRepository;
 use MNGame\Exception\ContentException;
+use GuzzleHttp\Exception\GuzzleException;
 use MNGame\Service\ApiClient\RestApiClient;
-use MNGame\Service\EnvironmentService;
+use MNGame\Exception\PaymentProcessingException;
 
-class HotPaySmsPaymentClient extends RestApiClient implements PaymentClientInterface
+class HotPaySmsPaymentClient extends DefaultPaymentClient implements PaymentClientInterface
 {
     private const URL = 'https://api.hotpay.pl/check_sms.php?';
-    private SMSPriceRepository $smsPriceRepository;
-    private Collection $paymentConfiguration;
-
-    public function __construct(
-        SMSPriceRepository $smsPriceRepository,
-        Collection $paymentConfiguration,
-        EnvironmentService $env,
-        ?string $className = null
-    ) {
-        parent::__construct($env, $className);
-        $this->paymentConfiguration = $paymentConfiguration;
-        $this->smsPriceRepository = $smsPriceRepository;
-    }
 
     /**
      * @throws ContentException
      * @throws GuzzleException
+     * @throws PaymentProcessingException
      */
-    public function executeRequest(array $data)
+    public function executeRequest(array $data): ?string
     {
+        $paymentId = parent::executeRequest($data);
+
         $request = [
             'secret' => $this->paymentConfiguration->get('secret'),
-            'code' => $data['paymentId'],
+            'code'   => $data['paymentId'],
         ];
 
-        $response = json_decode($this->request(RestApiClient::GET, self::URL.http_build_query($request)), true);
+        $response = json_decode($this->request(RestApiClient::GET, self::URL . http_build_query($request)), true);
         $this->handleError($response);
 
-        return $this->smsPriceRepository->findOneBy(['id' => $this->paymentConfiguration->get('secret')])->getAmount();
+        return $paymentId;
     }
 
     /**

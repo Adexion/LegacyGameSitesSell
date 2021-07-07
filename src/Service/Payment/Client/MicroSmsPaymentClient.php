@@ -3,35 +3,23 @@
 namespace MNGame\Service\Payment\Client;
 
 use MNGame\Exception\ContentException;
-use MNGame\Service\EnvironmentService;
 use GuzzleHttp\Exception\GuzzleException;
-use Doctrine\Common\Collections\Collection;
-use MNGame\Database\Repository\SMSPriceRepository;
 use MNGame\Service\ApiClient\RestApiClient;
+use MNGame\Exception\PaymentProcessingException;
 
-class MicroSmsPaymentClient extends RestApiClient implements PaymentClientInterface
+class MicroSmsPaymentClient extends DefaultPaymentClient implements PaymentClientInterface
 {
     private const URL = 'https://microsms.pl/api/v2/multi.php?';
-    private SMSPriceRepository $smsPriceRepository;
-    private Collection $paymentConfiguration;
-
-    public function __construct(
-        SMSPriceRepository $smsPriceRepository,
-        Collection $paymentConfiguration,
-        EnvironmentService $env,
-        ?string $className = null
-    ) {
-        parent::__construct($env, $className);
-        $this->paymentConfiguration = $paymentConfiguration;
-        $this->smsPriceRepository   = $smsPriceRepository;
-    }
 
     /**
      * @throws ContentException
      * @throws GuzzleException
+     * @throws PaymentProcessingException
      */
-    public function executeRequest(array $data): ?float
+    public function executeRequest(array $data): ?string
     {
+        $paymentId = parent::executeRequest($data);
+
         $request = [
             'userid'    => $this->paymentConfiguration->get('userId'),
             'serviceid' => $this->paymentConfiguration->get('serviceId'),
@@ -41,7 +29,7 @@ class MicroSmsPaymentClient extends RestApiClient implements PaymentClientInterf
         $response = json_decode($this->request(RestApiClient::GET, self::URL . http_build_query($request)), true);
         $this->handleError($response);
 
-        return $this->smsPriceRepository->findOneBy(['id' => $response['data']['number']])->getAmount();
+        return $paymentId;
     }
 
     /**

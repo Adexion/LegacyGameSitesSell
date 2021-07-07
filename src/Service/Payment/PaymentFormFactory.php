@@ -36,18 +36,23 @@ class PaymentFormFactory
         $this->paymentTypeFormFactory   = $paymentTypeFormFactory;
         $this->paymentHistoryRepository = $paymentHistoryRepository;
         $this->itemListRepository       = $itemListRepository;
-        $this->user                     = $tokenStorage->getToken()->getUser();
+        $user = $tokenStorage->getToken()->getUser();
+
+        if ($user instanceof User) {
+            $this->user = $user;
+        }
     }
 
     /**
-     * @throws OptimisticLockException
      * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws ReflectionException
      */
     public function create(string $uniqId, string $itemId = null): array
     {
         $itemList = $this->itemListRepository->find($itemId);
 
-        return $this->createForm($uniqId, $itemList->getPrice(), $itemList);
+        return $this->createFormList($uniqId, $itemList->getPrice(), $itemList);
     }
 
     /**
@@ -55,7 +60,7 @@ class PaymentFormFactory
      * @throws ORMException
      * @throws ReflectionException
      */
-    public function createForm(string $uniqId, float $price, ?ItemList $itemList = null): array
+    public function createFormList(string $uniqId, float $price, ?ItemList $itemList = null): array
     {
         $paymentHistory = new PaymentHistory();
 
@@ -67,7 +72,7 @@ class PaymentFormFactory
 
         $this->paymentHistoryRepository->insert($paymentHistory);
 
-        return $this->generateForm($uniqId, $price, $itemList
+        return $this->generate($uniqId, $price, $itemList
             ? $itemList->getName()
             : PaymentTypeEnum::create(PaymentTypeEnum::PREPAID)->getKey()
         );
@@ -76,7 +81,7 @@ class PaymentFormFactory
     /**
      * @throws ReflectionException
      */
-    private function generateForm(string $uniqId, float $price, string $name): array
+    private function generate(string $uniqId, float $price, string $name): array
     {
         foreach ($this->serverProvider->getSessionServer()->getPayments() ?? [] as $payment) {
             $formList[$this->getCategoryByPaymentName($payment->getType())][$payment->getName()]
