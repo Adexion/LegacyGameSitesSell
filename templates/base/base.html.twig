@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    {% include 'base/component/head.html.twig' %}
+    {% include 'colored/component/head.html.twig' %}
 
     {% block stylesheets %}
-        {{ encore_entry_link_tags('main-base') }}
+        {{ encore_entry_link_tags('main-colored') }}
     {% endblock %}
 </head>
 <body>
-<div id="particles-js"></div>
 
 <div id="content">
-    {% include 'base/component/nav.html.twig' %}
-    <div class="container" id="body">
-        <div class="row">
-            <div class="col-12">
-                {% block body %}{% endblock %}
+    {% include 'colored/component/nav.html.twig' %}
+    {% block body %}{% endblock %}
+</div>
+<footer class="d-flex justify-content-end">
+    <div class="col-lg-8 col-md-12 information">
+        <img src="{{ asset('/assets/images/logotype.png') }}" alt="Logotype">
+        <div class="col-lg-8 col-md-12 col-12">
+            <span>{{ global.contentPL }}</span><br/><br/>
+            <span>{{ global.contentEN }}</span>
+
+            <div class="social-wrapper d-flex row">
+                <div class="col-md-12 col-lg-7">{% include 'colored/component/social.html.twig' %}</div>
+                <p class="col-md-12 col-lg-5 underline">Powered by <a href="https://gamesites.pl/" target="_blank">gamesites.pl</a></p>
             </div>
         </div>
     </div>
-</div>
-<footer>
-    <span class="footer">© Copyright {{ "now"|date("Y") }}. All right reserved.</span>
+
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
-    <script>
-        particlesJS.load('particles-js', '/assets/particles.json', function () {});
-    </script>
 </footer>
 </body>
 </html>

@@ -1,8 +1,10 @@
-{% extends 'base/base.html.twig' %}
+{% extends 'colored/base.html.twig' %}
 
 {% block body %}
-    {% include 'base/component/progress.html.twig' %}
-    {% include 'base/component/article.html.twig' %}
-    {% include 'base/component/itemshop.html.twig' %}
-    {% include 'base/component/information.html.twig' %}
+    <div class="container-fluid container-fluid-bg">
+        {% include 'colored/component/information.html.twig' %}
+        {% include 'colored/component/whatsup.html.twig' %}
+        {% include 'colored/component/story.html.twig' %}
+        {% include 'colored/component/administration.html.twig' %}
+    </div>
 {% endblock %}

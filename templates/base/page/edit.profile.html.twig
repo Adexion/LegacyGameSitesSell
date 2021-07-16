@@ -1,45 +1,54 @@
-{% extends "base/page/user.html.twig" %}
+{% extends "colored/base.html.twig" %}
 
-{% block content %}
-    <div class="card bg-mngame">
-        <div class="card-header">
-            <h4 class="font-weight-bold">Podgląd profilu</h4>
-        </div>
-        <div class="card-body container-fluid">
-            <div class="row">
-                <div class="col-9">
-                    {{ form_start(edit_form, {action: '/user/edit',}) }}
-                    {{ form_row(edit_form.username) }}
-                    {{ form_row(edit_form.email) }}
-                    {{ form_row(edit_form.password.first) }}
-                    {{ form_row(edit_form.password.second) }}
-                    <button class="btn btn-warning w-100" type="submit">{% trans %}Update account{% endtrans %}</button>
-                    {{ form_end(edit_form) }}
-                </div>
-                <div class="col-3">
-                    <div class="user-avatar w-100">
-                        <img id="avatar" class=" w-100" alt="{{ app.user.username }}"
-                             src="https://cravatar.eu/avatar/{{ app.user.username }}.png">
-                        <script>
-                            (() => {
-                                const username = document.querySelector('#username');
-                                let avatar = document.querySelector('#avatar');
-                                let timeout;
+{% block body %}
+    {{ encore_entry_link_tags('navbar-colored') }}
+    <div class="container-fluid">
+        <div class="row justify-content-center m-4">
+            <div class="col-lg-12 mb-5 mt-5 text-center">
+                <h1 class="font-weight-bold">Podgląd profilu gracza {{ app.user.username }}</h1>
+                <h2 class="colored">Sprawdź informacje o sobie...</h2>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-7 d-flex align-items-center">
+                        <div class="gs-item w-100 h-75 mw-100">
+                            <div class="gs-item-content d-flex justify-content-center flex-column h-100">
+                                {{ form_start(edit_form, {action: '/user/edit',}) }}
+                                {{ form_row(edit_form.username) }}
+                                {{ form_row(edit_form.email) }}
+                                {{ form_row(edit_form.password.first) }}
+                                {{ form_row(edit_form.password.second) }}
+                                <button class="gs-accept w-100" type="submit">Edytuj konto</button>
+                                {{ form_end(edit_form) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="user w-100 justify-content-center d-flex">
+                            <img id="avatar" alt="{{ app.user.username }}"
+                                 src="https://minotar.net/body/{{ app.user.username }}/300.png">
+                            <script>
+                                (() => {
+                                    const username = document.querySelector('#username');
+                                    let avatar = document.querySelector('#avatar');
+                                    let timeout;
 
-                                username.addEventListener('keypress', () => {
-                                    if (timeout !== undefined) {
-                                        clearTimeout(timeout);
-                                    }
+                                    username.addEventListener('keypress', () => {
+                                        if (timeout !== undefined) {
+                                            clearTimeout(timeout);
+                                        }
 
-                                    timeout = setTimeout(() => {
-                                        avatar.src = `https://cravatar.eu/avatar/${username.value}`;
-                                    }, 1000)
-                                })
-                            })()
-                        </script>
+                                        timeout = setTimeout(() => {
+                                            avatar.src = `https://minotar.net/body/${username.value}/300.png`;
+                                        }, 1000)
+                                    })
+                                })()
+                            </script>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 {% endblock %}

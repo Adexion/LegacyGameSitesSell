@@ -1,23 +1,20 @@
-{% extends "base/base.html.twig" %}
+{% extends "colored/base.html.twig" %}
 
 {% block body %}
-    {% if message is defined %}
-        <div class="alert alert-success m-3 p-3">
-            {{ message }}
-        </div>
-    {% endif %}
-
-    <div class="card bg-mngame">
-        <div class="card-header">
-            <h4 class="font-weight-bold">Chcesz się z nami skontaktować? A może masz dla nas ważną wiadomość?</h4>
-        </div>
-        <div class="card-body">
-            <div class="dashed">
-                <p>Jeśli jesteś zarejestrowany i się zalogujesz, to wiadomość zostanie automatyczna przypisana do twojego konta. Umożliwi nam to szybki kontakt! Łatwiej dorwać ludzi na serwerze niż przez wiadomość e-mail.</p>
-                <p>Nie chcesz się logować? Nie ma problemu. Po prostu wyślij do nas wiadomość i już! Postaramy się odpowiedzieć jak najszybciej.</p>
-                <p>Pamiętaj — my także jesteśmy ludźmi. Staramy się jak najszybciej udzielić ci wsparcia!</p>
+    {{ encore_entry_link_tags('navbar-colored') }}
+    <div class="container-fluid">
+        <div class="row justify-content-center m-lg-4 m-md-0 pb-4">
+            <div class="col-lg-12 mb-5 mt-5 text-center">
+                <h1>Zasady rozgrywki nas naszych serwerach</h1>
+                <h2 class="colored">Przestrzegaj zasad, dzięki temu rozgrywka będzie fair play!</h2>
             </div>
-            <div class="mb-2">
+            {% if message is defined %}
+                <div class="alert alert-success m-3 p-3">
+                    {{ message }}
+                </div>
+            {% endif %}
+
+            <div class="col-md-12 col-lg-7 pr-lg-5 pr-md-1 mb-4">
                 {{ form_start(contact_form) }}
                 {{ form_row(contact_form.name) }}
                 {{ form_row(contact_form.email) }}
@@ -27,8 +24,26 @@
 
                 <div id="recaptcha-component"></div>
 
-                <button class="btn btn-block btn-info" type="submit">Wyślij wiadomość</button>
+                <button class="gs-submit" type="submit">WYŚLIJ</button>
                 {{ form_end(contact_form) }}
+            </div>
+
+            <div class="col-md-12 col-lg-4 bg-light w-100 p-4">
+                <div class="mb-2 font-weight-normal mb-5 pb-4">
+                    <h5>Dział obsługi klienta</h5>
+                    {% for mail in global.mail %}
+                        <a href="mailto:{{ mail }}" class="pb-4 d-block">
+                            <span class="d-flex align-items-center">
+                                <svg width="37" height="29" viewBox="0 0 37 29" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.91667 2.89286L15.9073 15.546C17.3392 16.9408 19.6608 16.9408 21.0927 15.546L34.0833 2.89286M3.83333 27H33.1667C34.1792 27 35 26.2005 35 25.2143V3.78571C35 2.79949 34.1792 2 33.1667 2H3.83333C2.82081 2 2 2.79949 2 3.78571V25.2143C2 26.2005 2.82081 27 3.83333 27Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                &nbsp;{{ mail }}
+                            </span>
+                        </a>
+                    {% endfor %}
+                </div>
+                <h4>Dane kontaktowe</h4>
+                <span class="font-weight-normal">
+                    {{ global.siteContact | raw }}
+                </span>
             </div>
         </div>
     </div>

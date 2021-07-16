@@ -1,70 +1,59 @@
 <div class="navbar-content">
-    <nav class="navbar navbar-expand-lg navbar-dark justify-content-center">
-        <div class="d-lg-none col-2">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
-                    aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-        <div class="navbar-toggler-widow col-12 col-lg-9 pr-lg-0 order-end">
-            <div class="collapse navbar-collapse" id="navbarToggler">
-                <div class="d-flex w-100">
-                    <div class="nav-icons d-none d-lg-flex col-lg-4 align-items-center">
-                        <a class="icon d-block" href="//discord.gg/cjBeqCX" target="_blank"><span class="fab fa-discord"></span></a>
-                        <a class="icon d-block" href="//www.facebook.com/MNGameSerwer/" target="_blank"><span class="fab fa-facebook"></span></a>
-                    </div>
-                    <ul class="navbar-nav pr-0 mt-2 mt-lg-0 col-lg-8 col-md-12 col-12 d-flex justify-content-center">
-                        <li class="nav-item dropdown">
-                            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link">
-                                <i class="fas fa-server"></i>Serwery
-                            </a>
-                            <ul class="collapse list-unstyled nav-item" id="homeSubmenu">
-                                {% for s in server %}
-                                    <form method="post" action="/">
-                                        <input name="serverId" type="hidden" value="{{ s.id }}"/>
-                                        <input class="bg-transparent border-0 nav-link w-100 text-center" type="submit" alt="{{ s.name }}" value="{{ s.name }}"/>
-                                    </form>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                        {% for link in module %}
-                            {% if link.route is defined %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path(link.route) }}"><i class="{{ link.icon }}"></i>{{ link.name }}</a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-10 col-lg-3 d-flex align-items-center justify-content-end">
-            <ul class="mb-0 mt-lg-0 d-flex justify-content-center">
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+                aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarToggler">
+            <div class="w-100 d-flex justify-content-between align-items-center">
+                {% if isOnline %}
+                    <span class="colored white-shadow">ONLINE</span><span
+                        class="white-shadow">{{ playerCountList }}</span>
+                {% else %}
+                    <span class="offline">OFFLINE</span>
+                {% endif %}
+                <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('user-profile') }}">Ustawiena</a>
+                        <a class="nav-link" href="{{ path('index') }}">Strona główna</a>
                     </li>
-                    {% if is_granted('ROLE_SERVER') or is_granted('ROLE_MODERATOR') %}
+                    {% for link in module %}
+                        {% if link.route is defined %}
+                            {% if link.route == 'item-shop' %}
+                                {% set class = ' shop' %}
+                            {% else %}
+                                {% set class = '' %}
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link{{ class }}" href="{{ path(link.route) }}">{{ link.name }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('panel') }}">Admin</a>
+                            <a class="nav-link" href="{{ path('user') }}">Ustawiena</a>
+                        </li>
+                        {% if is_granted('ROLE_SERVER') or is_granted('ROLE_MODERATOR') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('panel') }}">Admin</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link logout" href="{{ path('logout') }}">
+                                <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.29412 13L2.76471 13C1.79009 13 1 12.3284 1 11.5L1 2.5C1 1.67157 1.79009 1 2.76471 1L6.29412 1M16 7L5.41176 7M16 7L12.4706 10M16 7L12.4706 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                &nbsp;Wyloguj
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('login') }}">Zaloguj</a>
                         </li>
                     {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('login') }}">Zaloguj</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('register') }}">Zarejestruj</a>
-                    </li>
-                {% endif %}
-            </ul>
+                </ul>
+            </div>
         </div>
     </nav>
-
-    <div class="navbar-header">
-        <a href="/"><img src="{{ asset('assets/images/logotype.png') }}" alt="logotype"></a>
-    </div>
 </div>

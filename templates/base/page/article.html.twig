@@ -1,25 +1,36 @@
-{% extends 'base/base.html.twig' %}
+{% extends 'colored/base.html.twig' %}
 
 {% block body %}
-    <div class="card bg-mngame">
-        <div class="card-header d-flex align-items-center">
-            <img class="avatar" src="https://cravatar.eu/avatar/{{ article.author.username }}"
-                 alt="{{ article.author.username }} avatar"/>
-            <div class="d-flex flex-column">
-                <span class="font-weight-bold">{{ article.title | raw }}</span>
-                <div class="d-flex flex-row">
-                    <span class="fas fa-user">&nbsp;{{ article.author.username }}&nbsp;</span>
-                    <span class="fas fa-comment">&nbsp;{{ article.createdAt|date('d.m.Y') }}&nbsp;</span>
+    {{ encore_entry_link_tags('navbar-colored') }}
+    <div class="container-fluid">
+        <div class="row justify-content-center flex-column m-4">
+            <div class="col-lg-12 mb-5 mt-5 text-center">
+                {% if article.image is defined %}
+                    <div class="d-flex justify-content-center">
+                        <img src="{{ article.image }}"/>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="card bg-dark">
+                <div class="card-header d-flex align-items-center">
+                    <div class="d-flex flex-column ">
+                        <p class="mb-3">{{ article.title | raw }}</p>
+                        <div class="d-flex flex-row ">
+                            <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18.1875 1V6.55556M8.8125 1V6.55556M1 12.1111H26M26 12.1111V23.2222C26 24.7563 24.6009 26 22.875 26H4.125C2.39911 26 1 24.7563 1 23.2222V6.55556C1 5.02143 2.39911 3.77778 4.125 3.77778H22.875C24.6009 3.77778 26 5.02143 26 6.55556V12.1111Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>&nbsp;
+                            <p>{{ article.createdAt|date('d.m.Y') }}&nbsp;</p>
+                            <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.25 6.88235H19.75M7.25 12.7647H15.0625M1 1H26V18.6471H13.5L5.6875 26V18.6471H1V1Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>&nbsp;
+                            <p>{{ article.author.username }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body bg-light">
+                    <p class="card-text text-center">{{ article.shortText | raw }}</p>
                 </div>
             </div>
-        </div>
-        <div class="card-body">
-            {% if article.image is defined %}
-                <div class="d-flex justify-content-center">
-                    <img src="{{ article.image }}" alt="{{ article.subhead }}"/>
-                </div>
-            {% endif %}
-            <p class="card-text text-center">{{ article.text | raw }}</p>
         </div>
     </div>
 {% endblock %}

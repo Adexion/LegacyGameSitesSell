@@ -1,28 +1,22 @@
 <meta charset="UTF-8">
-<meta name="description"
-      content="Sieć serwerów Minecraft.
-          Zagraj w Minecraft na trybie survival, rp, guildwar lub minigrach.
-          W przyszłości również otworzymy inne tryby. W tym kolejne serwery na modach">
-<meta property="og:description"
-      content="Sieć serwerów Minecraft.
-          Zagraj w Minecraft na trybie survival, rp, guildwar lub minigrach.
-          W przyszłości również otworzymy inne tryby. W tym kolejne serwery na modach">
+<meta name="description" content="{{ global.content ?? null }}">
+<meta property="og:description" content="{{ global.content ?? null }}">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Content-Language" content="pl"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
 
 <meta property="fb:pages" content="230949007314398"/>
 <meta property="og:image" content="/assets/images/main.jpg"/>
-<meta property="og:image:alt" content="MNGame - Sieć serwerów Minecraft"/>
-<meta property="og:title" content="MNGame - Sieć serwerów Minecraft"/>
-<meta property="og:type" content="website"/>
-<meta property="og:site_name" content="MNGame"/>
-<meta property="og:url" content="https://mnagme.pl"/>
+<meta property="og:image:alt" content="{{ global.pageTitle ?? null }}"/>
+<meta property="og:title" content="{{ global.pageTitle ?? null }}"/>
+<meta property="og:type" content="application"/>
+<meta property="og:site_name" content="{{ global.pageTitle ?? null }}"/>
+<meta property="og:url" content="{{ app.request.schemeAndHttpHost }}"/>
 
-<meta name="keywords" content="Minecraft, Serwery, Sieć, Serwer, Server">
+<meta name="keywords" content="{{ global.keywords ?? 'Minecraft, Serwery, Sieć, Serwer, Server' }}">
 <meta name="author" content="Mateusz Poźniak ak. Adexion">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-<title>MNGame - Sieć serwerów Minecraft</title>
+<title>{{ global.pageTitle ?? null }}</title>
 
 <link rel="apple-touch-icon" sizes="57x57" href="/assets/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/assets/apple-icon-60x60.png">
