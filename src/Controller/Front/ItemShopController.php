@@ -2,27 +2,27 @@
 
 namespace MNGame\Controller\Front;
 
-use Exception;
-use ReflectionException;
-use Doctrine\ORM\ORMException;
-use MNGame\Enum\PaymentTypeEnum;
-use MNGame\Database\Entity\Wallet;
-use MNGame\Service\ServerProvider;
-use MNGame\Database\Entity\ItemList;
-use MNGame\Exception\ContentException;
-use MNGame\Service\User\WalletService;
 use Doctrine\ORM\OptimisticLockException;
-use MNGame\Service\Payment\PaymentAcceptor;
-use Symfony\Component\HttpFoundation\Request;
-use MNGame\Service\Payment\PaymentFormFactory;
-use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\ORMException;
+use Exception;
+use MNGame\Database\Entity\ItemList;
+use MNGame\Database\Entity\Wallet;
+use MNGame\Database\Repository\ItemListRepository;
+use MNGame\Database\Repository\ItemListStatisticRepository;
+use MNGame\Database\Repository\PaymentHistoryRepository;
+use MNGame\Enum\PaymentTypeEnum;
+use MNGame\Exception\ContentException;
 use MNGame\Exception\ItemListNotFoundException;
-use Symfony\Component\Routing\Annotation\Route;
 use MNGame\Exception\PaymentProcessingException;
 use MNGame\Service\Minecraft\ExecuteItemService;
-use MNGame\Database\Repository\ItemListRepository;
-use MNGame\Database\Repository\PaymentHistoryRepository;
-use MNGame\Database\Repository\ItemListStatisticRepository;
+use MNGame\Service\Payment\PaymentAcceptor;
+use MNGame\Service\Payment\PaymentFormFactory;
+use MNGame\Service\ServerProvider;
+use MNGame\Service\User\WalletService;
+use ReflectionException;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ItemShopController extends AbstractController
 {
@@ -34,11 +34,11 @@ class ItemShopController extends AbstractController
         $server = $serverProvider->getSessionServer();
 
         return $this->render('base/page/itemshop.html.twig', [
-            'serverName'    => $server->getName(),
-            'wallet'        => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
-            'amount'        => $paymentHistoryRepository->getThisMonthMoney(),
+            'serverName' => $server->getName(),
+            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+            'amount' => $paymentHistoryRepository->getThisMonthMoney(),
             'lastBuyerList' => $listStatisticRepository->getStatistic(),
-            'itemLists'     => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $server->getId()]),
+            'itemLists' => $this->getDoctrine()->getRepository(ItemList::class)->findBy(['serverId' => $server->getId()]),
         ]);
     }
 
@@ -50,39 +50,13 @@ class ItemShopController extends AbstractController
      */
     public function itemFormList(PaymentFormFactory $formFactory, string $itemId, ItemListRepository $itemListRepository): Response
     {
-        return $this->render('base/page/itemshopItemForm.html.twig', [
-            'itemList' => $itemListRepository->find($itemId),
-            'formList' => $formFactory->create('GS' . date('YmdHis') . $itemId, $itemId),
-        ]);
-    }
-
-    /**
-     * @Route(name="prepaid-execute", path="/prepaid/excecute")
-     * @throws ContentException
-     * @throws ReflectionException
-     */
-    public function prepaidExecute(Request $request, ItemListRepository $itemListRepository, WalletService $walletService, ExecuteItemService $executeItemService): Response
-    {
-        /** @var ItemList $itemList */
-        $itemList = $itemListRepository->find($request->request->getInt('itemListId'));
-
-        try {
-            $code = $executeItemService->executeItemListInstant(
-                $walletService->changeCash(0, $this->getUser()),
-                $request->request->getInt('itemListId') ?? 0,
-                $this->getUser(),
-                true
-            );
-        } catch (PaymentProcessingException) {
-            $code = Response::HTTP_PAYMENT_REQUIRED;
-        } catch (ItemListNotFoundException) {
-            $code = Response::HTTP_OK;
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('login');
         }
 
-        return $this->render('base/page/payment.html.twig', [
-            'itemList'     => $itemList,
-            'responseType' => $code,
-            'wallet'       => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+        return $this->render('base/page/itemshopItemForm.html.twig', [
+            'itemList' => $itemListRepository->find($itemId),
+            'formList' => $formFactory->create('GS'.date('YmdHis'), $itemId),
         ]);
     }
 
@@ -93,25 +67,33 @@ class ItemShopController extends AbstractController
      * @throws ORMException
      * @throws ReflectionException
      */
-    public function wallet(Request $request ,PaymentFormFactory $formFactory): Response
+    public function wallet(Request $request, PaymentFormFactory $formFactory): Response
     {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('login');
+        }
+
         return $this->render('base/page/wallet.html.twig', [
-            'formList' => $formFactory->createFormList('GS' . date('YmdHis'), $request->request->get('price', 1) ?: 1),
-            'wallet'   => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
+            'formList' => $formFactory->createFormList('GS'.date('YmdHis'), $request->request->get('price', 1) ?: 1),
+            'wallet' => $this->getDoctrine()->getRepository(Wallet::class)->findOneBy(['user' => $this->getUser()]),
         ]);
     }
 
     /**
-     * @Route(name="prepaid-status", path="/prepaid/status")
+     * @Route(name="prepaid-status", path="/prepaid/payment/{paymentType}")
      *
      * @throws ContentException
      * @throws ReflectionException
      * @throws Exception
      */
-    public function prepaidStatus(Request $request, WalletService $walletService, PaymentAcceptor $paymentAcceptor): Response
+    public function prepaidStatus(Request $request, string $paymentType, WalletService $walletService, PaymentAcceptor $paymentAcceptor): Response
     {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('login');
+        }
+
         try {
-            $paymentHistory = $paymentAcceptor->accept($request,PaymentTypeEnum::PREPAID);
+            $paymentHistory = $paymentAcceptor->accept($request, PaymentTypeEnum::getValueByCamelCaseKey(ucfirst($paymentType)));
         } catch (PaymentProcessingException) {
             return $this->render('base/page/payment.html.twig', [
                 'responseType' => Response::HTTP_PAYMENT_REQUIRED,
@@ -121,7 +103,7 @@ class ItemShopController extends AbstractController
         $walletService->changeCash($paymentHistory->getAmount(), $this->getUser());
 
         return $this->render('base/page/payment.html.twig', [
-            'responseType' => Response::HTTP_OK
+            'responseType' => Response::HTTP_OK,
         ]);
     }
 
@@ -129,14 +111,15 @@ class ItemShopController extends AbstractController
      * @Route(name="payment-accept", path="/payment/{paymentType}")
      *
      * @throws ContentException
+     * @throws ItemListNotFoundException
+     * @throws PaymentProcessingException
      * @throws ReflectionException
      * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function paymentAccept(Request $request, string $paymentType, ExecuteItemService $executeItemService, PaymentAcceptor $paymentAcceptor): Response
     {
         try {
-            $paymentHistory = $paymentAcceptor->accept($request, $paymentType);
+            $paymentHistory = $paymentAcceptor->accept($request, PaymentTypeEnum::getValueByCamelCaseKey(ucfirst($paymentType)));
         } catch (PaymentProcessingException) {
             return $this->render('base/page/payment.html.twig', [
                 'responseType' => Response::HTTP_PAYMENT_REQUIRED,
@@ -144,8 +127,8 @@ class ItemShopController extends AbstractController
         }
 
         return $this->render('base/page/payment.html.twig', [
-            'responseType' => $executeItemService->executeItem($paymentHistory->getUser(), $paymentHistory->getItemList()->getId()),
-            'itemList'     => $paymentHistory->getItemList(),
+            'responseType' => $executeItemService->executeItemListInstant($paymentHistory->getAmount(), $paymentHistory->getItemList()->getId(), $this->getUser(), PaymentTypeEnum::getValueByCamelCaseKey(ucfirst($paymentType)) === PaymentTypeEnum::PREPAID),
+            'itemList' => $paymentHistory->getItemList(),
         ]);
     }
 }

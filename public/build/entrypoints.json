@@ -29,23 +29,15 @@
         "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/main-base.e0380d69.css"
+        "/build/main-base.4e64a21c.css"
       ]
     },
-    "main-colored": {
+    "navbar-base": {
       "js": [
         "/build/runtime.d94b3b43.js"
       ],
       "css": [
-        "/build/main-colored.05945fe9.css"
-      ]
-    },
-    "navbar-colored": {
-      "js": [
-        "/build/runtime.d94b3b43.js"
-      ],
-      "css": [
-        "/build/navbar-colored.15996347.css"
+        "/build/navbar-base.575726f7.css"
       ]
     }
   }

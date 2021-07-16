@@ -2,17 +2,17 @@
 
 namespace MNGame\Security;
 
-use MNGame\Database\Repository\TokenRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use MNGame\Database\Repository\TokenRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
@@ -23,7 +23,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         $this->repository = $repository;
     }
 
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return $request->headers->has('X-AUTH-TOKEN');
     }
@@ -39,7 +39,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     {
         $username = $this->getUsernameByToken($credentials['token']);
 
-        return $userProvider->loadUserByUsername($username);
+        return $userProvider->loadUserByIdentifier($username);
     }
 
     public function checkCredentials($credentials, UserInterface $user): bool
@@ -55,7 +55,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): JsonResponse
     {
         $data = [
-            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
+            'message' => strtr($exception->getMessageKey(), $exception->getMessageData()),
         ];
 
         return new JsonResponse($data, Response::HTTP_FORBIDDEN);
@@ -63,7 +63,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function start(Request $request, AuthenticationException $authException = null): JsonResponse
     {
-        if ($authException instanceof UsernameNotFoundException || $authException instanceof BadCredentialsException) {
+        if ($authException instanceof UserNotFoundException || $authException instanceof BadCredentialsException) {
             return new JsonResponse(['error' => $authException->getMessageKey()], Response::HTTP_BAD_REQUEST);
         }
 

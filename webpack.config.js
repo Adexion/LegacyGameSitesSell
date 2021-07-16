@@ -13,8 +13,7 @@ Encore
     .addEntry('app', './assets/js/app/app.ts')
 
     .addStyleEntry('main-base', './assets/css/base/main.scss')
-    .addStyleEntry('main-colored', './assets/css/colored/main.scss')
-    .addStyleEntry('navbar-colored', './assets/css/colored/navbar.scss')
+    .addStyleEntry('navbar-base', './assets/css/base/navbar.scss')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()

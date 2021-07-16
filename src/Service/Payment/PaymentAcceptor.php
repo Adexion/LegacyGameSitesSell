@@ -49,7 +49,7 @@ class PaymentAcceptor
             ->create($payment)
             ->executeRequest($request->request->all());
 
-        $paymentHistory = $this->paymentHistoryRepository->findOneBy(['paymentId', $paymentId]);
+        $paymentHistory = $this->paymentHistoryRepository->find($paymentId);
         $this->checkAmount($payment->getConfigurations(), $paymentHistory, $request->request->all());
 
         $paymentHistory->setPaymentStatus(PaymentStatusEnum::SUCCESS);
@@ -59,7 +59,6 @@ class PaymentAcceptor
 
         return $paymentHistory;
     }
-
 
     private function isPaymentAccepted(Request $request): bool
     {
@@ -77,8 +76,12 @@ class PaymentAcceptor
             return $configuration->getType() === PaymentConfigurationType::PRICE;
         });
 
-        if ($paymentHistory->getAmount() > $data[$result->first()->getName]) {
-            $this->walletService->changeCash($data[$result->first()->getName]);
+        if (!$result->toArray()) {
+            return;
+        }
+
+        if ($paymentHistory->getAmount() > $data[$result->first()->getName ?? 'amount']) {
+            $this->walletService->changeCash($data[$result->first()->getName ?? 'amount']);
 
             throw new PaymentProcessingException();
         }

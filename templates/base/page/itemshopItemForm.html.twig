@@ -1,12 +1,12 @@
-{% extends 'colored/base.html.twig' %}
+{% extends 'base/base.html.twig' %}
 
 {% block body %}
-    {{ encore_entry_link_tags('navbar-colored') }}
+    {{ encore_entry_link_tags('navbar-base') }}
     <div class="container-fluid">
         <div class="row justify-content-center text-center flex-column m-lg-4 m-md-0 pb-4">
             <div class="col-12 mb-5 mt-5">
                 <h1>Właśnie kupujesz: {{ itemList.name }}</h1>
-                <h2 class="colored">Wybierz formę płatności której chcesz użyć</h2>
+                <h2 class="base">Wybierz formę płatności której chcesz użyć</h2>
             </div>
             <div class="col-12 font-weight-normal">
                 <div class="row justify-content-center">
@@ -36,7 +36,7 @@
                                     {% endif %}
                                 {% endfor %}
                             {% endfor %}
-                            <form action="{{ path('prepaid-status') }}" method="post">
+                            <form action="{{ path('payment-accept', {paymentType: 'prepaid'}) }}" method="post">
                                 <input type="hidden" name="itemListId" value="{{ itemList.id }}">
                                 <button class="gs-redirect mb-4 w-100" type="submit"><i class="far fa-gem"></i>&nbsp;Konto
                                     Prepaid

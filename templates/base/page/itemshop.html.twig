@@ -1,7 +1,7 @@
-{% extends 'colored/base.html.twig' %}
+{% extends 'base/base.html.twig' %}
 
 {% block body %}
-    {{ encore_entry_link_tags('navbar-colored') }}
+    {{ encore_entry_link_tags('navbar-base') }}
     <div class="container-fluid">
         <div class="row justify-content-center m-4">
             <div class="col-lg-8 col-md-12 row justify-content-center font-weight-normal">
@@ -60,7 +60,7 @@
                             </form>
                         </div>
 
-                        {% include 'colored/component/voucher.html.twig' %}
+                        {% include 'base/component/voucher.html.twig' %}
                     {% else %}
 
                     {% endif %}

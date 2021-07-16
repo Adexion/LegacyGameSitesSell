@@ -23,7 +23,7 @@ class ReCaptchaValidator
     public function validate(string $reCaptcha): array
     {
         try {
-            $reCaptchaValidator = new ReCaptcha($this->container->getParameter('google')['recaptcha']);
+            $reCaptchaValidator = new ReCaptcha($this->container->getParameter('googleRecaptcha'));
 
             $response = $reCaptchaValidator->verify($reCaptcha);
             if ($response->isSuccess()) {

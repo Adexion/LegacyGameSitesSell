@@ -2,26 +2,25 @@
 
 namespace MNGame\Controller\Front;
 
-use LogicException;
-use MNGame\Database\Entity\ResetPassword;
-use MNGame\Database\Entity\User;
-use MNGame\Database\Repository\UserRepository;
-use MNGame\Exception\ContentException;
 use MNGame\Form\LoginType;
-use MNGame\Form\RegisterType;
-use MNGame\Form\ResetPasswordType;
 use MNGame\Form\ResetType;
-use MNGame\Service\Mail\MailSenderService;
-use MNGame\Service\User\WalletService;
+use MNGame\Form\RegisterType;
+use MNGame\Database\Entity\User;
+use MNGame\Form\ResetPasswordType;
 use Symfony\Component\Form\FormError;
+use MNGame\Exception\ContentException;
+use MNGame\Service\User\WalletService;
+use MNGame\Database\Entity\ResetPassword;
+use MNGame\Service\Mail\MailSenderService;
 use Symfony\Component\HttpFoundation\Request;
+use MNGame\Database\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SecurityController extends AbstractController
 {
@@ -34,10 +33,10 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('user-profile');
         }
 
-        $error = $authenticationUtils->getLastAuthenticationError();
+        $error        = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        $form  = $this->createForm(LoginType::class);
+        $form = $this->createForm(LoginType::class);
         if ($error instanceof BadCredentialsException) {
             $form
                 ->get('_password')
@@ -45,27 +44,21 @@ class SecurityController extends AbstractController
         }
 
         return $this->render('base/page/login.html.twig', [
-            'error' => $error,
-            'last_username' => $lastUsername,
+            'error'                => $error,
+            'last_username'        => $lastUsername,
             'csrf_token_intention' => 'authenticate',
-            'target_path' => $this->generateUrl('index'),
-            'login_form' => $form->createView(),
-            'register_form' => $this->createForm(RegisterType::class)->createView()
+            'target_path'          => $this->generateUrl('index'),
+            'login_form'           => $form->createView(),
+            'register_form'        => $this->createForm(RegisterType::class)->createView(),
         ]);
     }
 
     /**
      * @Route("/register", name="register")
-     *
      * @throws ContentException
      */
-    public function register(
-        Request $request,
-        UserRepository $userRepository,
-        UserProviderInterface $userProvider,
-        WalletService $walletService,
-        UserPasswordEncoderInterface $passwordEncoder
-    ): Response {
+    public function register(Request $request, UserRepository $userRepository, UserProviderInterface $userProvider, WalletService $walletService, UserPasswordHasherInterface $passwordEncoder): Response
+    {
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('user-profile');
         }
@@ -75,25 +68,25 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
+            $user->setPassword($passwordEncoder->isPasswordValid($user, $user->getPassword()));
 
             $userRepository->registerUser($user);
             $walletService->create($user);
 
             if ($user->getReferral()) {
                 try {
-                    $referral = $userProvider->loadUserByUsername($user->getReferral());
+                    $referral = $userProvider->loadUserByIdentifier($user->getReferral());
                     $walletService->changeCash(1, $referral);
-                } catch (UsernameNotFoundException $ignored) {}
+                } catch (UserNotFoundException) {}
             }
 
             return $this->redirectToRoute('login');
         }
 
         return $this->render('base/page/login.html.twig', [
-            'login_form' => $this->createForm(LoginType::class)->createView(),
+            'login_form'    => $this->createForm(LoginType::class)->createView(),
             'register_form' => $form->createView(),
-            'site_key' => $this->getParameter('google')['siteKey']
+            'site_key'      => $this->getParameter('googleSiteKey'),
         ]);
     }
 
@@ -115,7 +108,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
             try {
-                $user = $userProvider->loadUserByUsername($form->getData()['username']);
+                $user  = $userProvider->loadUserByUsername($form->getData()['username']);
                 $token = md5(serialize($user) . date('Y-m-d H:i:s'));
 
                 $resetPassword = new ResetPassword();
@@ -126,21 +119,21 @@ class SecurityController extends AbstractController
                 $send = $service->sendEmailBySchema('1', $token, $user->getEmail());
                 $this->getDoctrine()->getManager()->persist($resetPassword);
                 $this->getDoctrine()->getManager()->flush();
-            } catch (UsernameNotFoundException $e) {
+            } catch (UserNotFoundException $e) {
                 $send = 1;
             }
         }
 
         return $this->render('base/page/forgotPassword.html.twig', [
             'send' => $send ?? false,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/reset/{token}", name="reset-password")
      */
-    public function resetToken(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token): Response
+    public function resetToken(Request $request, UserPasswordHasherInterface $passwordEncoder, string $token): Response
     {
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('user-profile');
@@ -157,7 +150,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
             $user = $form->getData();
-            $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
+            $user->setPassword($passwordEncoder->hashPassword($user, $user->getPassword()));
 
             $om = $this->getDoctrine()->getManager();
             $om->persist($user);
@@ -169,7 +162,7 @@ class SecurityController extends AbstractController
 
         return $this->render('base/page/resetPassword.html.twig', [
             'form' => $form->createView(),
-            'link' => '/reset/' . $token
+            'link' => '/reset/' . $token,
         ]);
     }
 
@@ -178,6 +171,5 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-        throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }

@@ -4,6 +4,7 @@ namespace MNGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\PercentField;
@@ -48,7 +49,9 @@ class UserItemCrudController extends AbstractRoleAccessCrudController
         if (Crud::PAGE_INDEX === $pageName || RolePredicate::isAdminRoleGranted($this->security)) {
             return [
                 TextField::new('name', 'Nazwa przedmiotu'),
-                AvatarField::new('icon', 'Ikona w EQ'),
+                ImageField::new('icon', 'Ikona')
+                    ->setUploadDir('public/assets/images')
+                    ->setBasePath('/assets/images'),
                 TextField::new('command', 'Komenda'),
                 NumberField::new('quantity', 'Ilość przedmiotów'),
                 EntityField::new('item', 'Kopia z')
@@ -63,7 +66,9 @@ class UserItemCrudController extends AbstractRoleAccessCrudController
 
         return [
             TextField::new('name', 'Nazwa przedmiotu'),
-            AvatarField::new('icon', 'Ikona w EQ'),
+            ImageField::new('icon', 'Ikona')
+                ->setUploadDir('public/assets/images')
+                ->setBasePath('/assets/images'),
             TextField::new('command', 'Komenda'),
             NumberField::new('quantity', 'Ilość przedmiotów'),
             EntityField::new('item', 'Kopia z')

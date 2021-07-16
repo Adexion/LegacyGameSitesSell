@@ -3,6 +3,8 @@
 namespace MNGame\Database\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 
@@ -41,5 +43,10 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
         $this->_em->remove($entity);
         $this->_em->flush();
+    }
+
+    public function getEntityManager(): EntityManager|EntityManagerInterface
+    {
+        return parent::getEntityManager();
     }
 }

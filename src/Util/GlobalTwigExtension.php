@@ -2,6 +2,7 @@
 
 namespace MNGame\Util;
 
+use MNGame\Service\Content\Parameter\ParameterProvider;
 use MNGame\Service\ServerProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use MNGame\Database\Entity\ModuleEnabled;
@@ -14,15 +15,17 @@ use MNGame\Service\Minecraft\ExecutionService;
 
 class GlobalTwigExtension extends AbstractExtension implements GlobalsInterface
 {
-    private EntityManagerInterface $em;
     private array $modules;
     private ?array $serverStatus;
+    private ParameterProvider $parameterProvider;
+    private EntityManagerInterface $em;
 
-    public function __construct(EntityManagerInterface $em, ModuleProvider $moduleProvider, ExecutionService $executionService)
+    public function __construct(ModuleProvider $moduleProvider, ExecutionService $executionService, ParameterProvider $parameterProvider, EntityManagerInterface $entityManager)
     {
-        $this->em = $em;
         $this->modules = $moduleProvider->getModules();
         $this->serverStatus = $executionService->getServerStatus();
+        $this->parameterProvider = $parameterProvider;
+        $this->em = $entityManager;
     }
 
     public function getGlobals(): array
@@ -31,7 +34,7 @@ class GlobalTwigExtension extends AbstractExtension implements GlobalsInterface
 
         return [
             'server' => $this->em->getRepository(Server::class)->findAll(),
-            'global' => $this->getGlobalVariables(),
+            'global' => $this->parameterProvider->getDatabaseParameters(),
             'module' => $this->modules,
             'isOnline' => (bool)$this->serverStatus,
             'playerListCount' => $this->serverStatus['players'] ?? 0,
@@ -48,15 +51,5 @@ class GlobalTwigExtension extends AbstractExtension implements GlobalsInterface
                 unset($this->modules[$moduleEnabled->getName()]);
             }
         }
-    }
-
-    private function getGlobalVariables()
-    {
-        /** @var Parameter $param */
-        foreach ($this->em->getRepository(Parameter::class)->findAll() as $param) {
-            $paramList[$param->getName()] = $param->getValue();
-        }
-
-        return $paramList ?? [];
     }
 }

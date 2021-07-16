@@ -29,6 +29,17 @@ class Parameter
      */
     private ?string $value = null;
 
+    /**
+     * @ORM\Column(type="boolean")
+     * @Assert\NotBlank()
+     */
+    private ?bool $editable = false;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    public ?int $order = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,5 +63,25 @@ class Parameter
     public function setValue($value)
     {
         $this->value = serialize($value);
+    }
+
+    public function isEditable(): ?bool
+    {
+        return $this->editable;
+    }
+
+    public function setEditable(?bool $editable)
+    {
+        $this->editable = $editable;
+    }
+
+    public function getOrder(): ?int
+    {
+        return $this->order;
+    }
+
+    public function setOrder(?int $order)
+    {
+        $this->order = $order;
     }
 }

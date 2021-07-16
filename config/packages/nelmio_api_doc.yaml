@@ -1,9 +1,13 @@
 nelmio_api_doc:
     documentation:
         info:
-            title: My App
-            description: This is an awesome app!
+            title: GameSitesApi
+            description: 'Dokumentacj aplikacji GameSites mająca na coelu udostępnienie funkcjonalności strony osobą,
+             które chca wykorzystać własny fronto do integracji z naszą plikacją. Strona ta pozwala na zapoznanie się
+             wpełni z działniem apliakcji od strony backendowej.'
             version: 1.0.0
-    areas: # to filter documented areas
+    areas:
         path_patterns:
-            - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
+            - ^/api(?!/documentation$)
+        host_patterns:
+            - ^api\.

@@ -1,7 +1,7 @@
-{% extends "colored/base.html.twig" %}
+{% extends "base/base.html.twig" %}
 
 {% block body %}
-    {{ encore_entry_link_tags('navbar-colored') }}
+    {{ encore_entry_link_tags('navbar-base') }}
     {% if code == 206 or code == 200 %}
         <div class="{% if code == 206 %}alert alert-warning{% else %}alert alert-success{% endif %}">{{ code | trans }}</div>
     {% endif %}
@@ -10,7 +10,7 @@
         <div class="row justify-content-center text-center flex-column m-4">
             <div class="col-lg-12 mb-5 mt-5">
                 <h1>Ekwipunek gracza {{ app.user.username }}</h1>
-                <h2 class="colored">Odbierz swoje przedmioty!</h2>
+                <h2 class="base">Odbierz swoje przedmioty!</h2>
             </div>
 
             {% if userItemList | length > 1 %}

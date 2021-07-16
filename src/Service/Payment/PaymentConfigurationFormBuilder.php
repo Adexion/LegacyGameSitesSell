@@ -2,11 +2,11 @@
 
 namespace MNGame\Service\Payment;
 
-use ReflectionException;
-use MNGame\Enum\PaymentTypeEnum;
-use MNGame\Database\Entity\Payment;
 use MNGame\Database\Entity\Configuration;
+use MNGame\Database\Entity\Payment;
 use MNGame\Enum\PaymentConfigurationType;
+use MNGame\Enum\PaymentTypeEnum;
+use ReflectionException;
 
 class PaymentConfigurationFormBuilder
 {
@@ -33,7 +33,9 @@ class PaymentConfigurationFormBuilder
                     $arr[$configuration->getName()] = $configuration->getValue();
                     break;
                 case PaymentConfigurationType::URI:
-                    $arr[$configuration->getName()] = $uri . ($name !== PaymentTypeEnum::create(PaymentTypeEnum::PREPAID)->getKey() ? $configuration->getValue() : 'prepaid/status');
+                    $arr[$configuration->getName()] = $uri.($name !== PaymentTypeEnum::create(PaymentTypeEnum::PREPAID)->getKey()
+                            ? $configuration->getValue()
+                            : 'prepaid/'.$configuration->getValue());
                     break;
                 case PaymentConfigurationType::PRICE:
                     $arr[$configuration->getName()] = $price;

@@ -1,13 +1,13 @@
 <div class="container">
     <div class="whats-up row text-center flex-column justify-content-center">
         <h1>Administracja na naszym serwerze</h1>
-        <h2 class="colored">Zobacz kto jest w naszej administracji!</h2>
+        <h2 class="base">Zobacz kto jest w naszej administracji!</h2>
         <div class="row w-100 mt-4">
             {% set minotar = "https://minotar.net/bust/" %}
             {% for admin in admins %}
                 <div class="gs-card col-lg-4 col-md-12">
                     <div class="gs-body d-flex align-items-center justify-content-end flex-column">
-                        <h2 class="colored pb-5">{{ admin.rank }}</h2>
+                        <h2 class="base pb-5">{{ admin.rank }}</h2>
                         <img src="{% if admin.skinUrl is not empty %}{{ admin.skinUrl }}{% else %}{{ minotar }}{{ admin.user.username }}{% endif %}" alt="skin {{ admin.user.username }}">
                     </div>
                     <h2 class="mt-5 mb-4">{{ admin.user.username }}</h2>

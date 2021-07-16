@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use MNGame\Service\ApiClient\RestApiClient;
 use MNGame\Exception\PaymentProcessingException;
 
-class HotPaySmsPaymentClient extends DefaultPaymentClient implements PaymentClientInterface
+class HotPaySmsClient extends DefaultPaymentClient implements PaymentClientInterface
 {
     private const URL = 'https://api.hotpay.pl/check_sms.php?';
 

@@ -2,13 +2,13 @@
 
 namespace MNGame\Service\User;
 
+use Doctrine\ORM\EntityManagerInterface;
 use MNGame\Database\Entity\User;
 use MNGame\Database\Entity\Wallet;
 use MNGame\Exception\ContentException;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class WalletService
 {
@@ -18,9 +18,9 @@ class WalletService
 
     public function __construct(EntityManagerInterface $em, AuthorizationCheckerInterface $authorizationChecker, TokenStorageInterface $tokenStorage)
     {
-        $this->em                   = $em;
+        $this->em = $em;
         $this->authorizationChecker = $authorizationChecker;
-        $this->user                 = $tokenStorage->getToken()->getUser();
+        $this->user = $tokenStorage->getToken()->getUser();
     }
 
     public function create(User $user): void

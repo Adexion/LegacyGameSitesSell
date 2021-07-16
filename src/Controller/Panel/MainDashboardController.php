@@ -7,8 +7,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use MNGame\Controller\Panel\Crud\AdminServerUserCrudController;
+use MNGame\Controller\Panel\Crud\ParameterCrudController;
+use MNGame\Controller\Panel\Crud\ServerCrudController;
 use MNGame\Controller\Panel\Crud\UserCrudController;
 use MNGame\Database\Entity\AdminServerUser;
+use MNGame\Database\Entity\Parameter;
+use MNGame\Database\Entity\Server;
 use MNGame\Service\Route\ModuleRouteBuilder;
 use MNGame\Database\Entity\User;
 use MNGame\Enum\RolesEnum;
@@ -40,7 +44,13 @@ trait MainDashboardController
         return array_merge($data, [
                 MenuItem::linkToCrud('Użytkownicy', 'fa fa-users', User::class)
                     ->setController(UserCrudController::class)
+                    ->setPermission(RolesEnum::ROLE_MODERATOR),
+                MenuItem::linkToCrud('Serwery', 'fa fa-server', Server::class)
+                    ->setController(ServerCrudController::class)
                     ->setPermission(RolesEnum::ROLE_SERVER),
+                MenuItem::linkToCrud('Konfiguracja', 'fa fa-cog', Parameter::class)
+                    ->setController(ParameterCrudController::class)
+                    ->setPermission(RolesEnum::ROLE_SUPER_ADMIN),
                 MenuItem::linkToCrud('Admini na stronie', 'fa fa-users-cog', AdminServerUser::class)
                     ->setController(AdminServerUserCrudController::class)
                     ->setPermission(RolesEnum::ROLE_SERVER),
@@ -60,7 +70,7 @@ trait MainDashboardController
         /** @var User $user */
         return parent::configureUserMenu($user)
             ->setName($user->getUsername())
-            ->setAvatarUrl(sprintf('https://cravatar.eu/avatar/%s/64.png', $this->getUser()->getUsername()))
+            ->setAvatarUrl(sprintf('https://cravatar.eu/avatar/%s/64.png', $this->getUser()->getUserIdentifier()))
             ->displayUserName(true)
             ->displayUserAvatar(true);
     }

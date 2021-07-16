@@ -14,13 +14,13 @@ class ServerProvider
 
     private array $serverList;
     private ?SessionInterface $session;
-    private $query;
+    private array $query;
 
     public function __construct(ParameterProvider $container, SessionInterface $session, ServerRepository $serverRepository)
     {
         $this->session = $session;
 
-        $this->query = $container->getParameter('query');
+        $this->query = [$container->getParameter('queryHost'), $container->getParameter('queryPort')];
         $this->serverList = $serverRepository->findAll();
     }
 

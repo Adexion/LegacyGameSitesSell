@@ -5,6 +5,7 @@ namespace MNGame\Controller\Panel\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use MNGame\Field\CKEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use MNGame\Database\Entity\Item;
@@ -53,7 +54,9 @@ class ItemCrudController extends AbstractRoleAccessCrudController
         if (Crud::PAGE_INDEX === $pageName || RolePredicate::isAdminRoleGranted($this->security)) {
             return [
                 TextField::new('name', 'Nazwa'),
-                AvatarField::new('icon', 'Ikona'),
+                ImageField::new('icon', 'Ikona')
+                    ->setUploadDir('public/assets/images')
+                    ->setBasePath('/assets/images'),
                 TextField::new('command', 'Komenda'),
                 $entityField->setClass(ItemList::class, 'name'),
                 $this->fieldProvider->getChoiceField('serverId', 'Serwer')
@@ -64,7 +67,9 @@ class ItemCrudController extends AbstractRoleAccessCrudController
 
         return [
             TextField::new('name', 'Nazwa'),
-            AvatarField::new('icon', 'Ikona'),
+            ImageField::new('icon', 'Ikona')
+                ->setUploadDir('public/assets/images')
+                ->setBasePath('/assets/images'),
             TextField::new('command', 'Komenda'),
             $entityField->setClass(ItemList::class, 'name'),
             $this->fieldProvider->getChoiceField('serverId', 'Serwer')

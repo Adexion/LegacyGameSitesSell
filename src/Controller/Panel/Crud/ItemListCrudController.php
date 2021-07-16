@@ -4,6 +4,7 @@ namespace MNGame\Controller\Panel\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AvatarField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\PercentField;
 use MNGame\Field\CKEditorField;
@@ -47,8 +48,12 @@ class ItemListCrudController extends AbstractRoleAccessCrudController
             return [
                 TextField::new('name', 'Nazwa'),
                 CKEditorField::new('description', 'Opis')->hideOnIndex(),
-                AvatarField::new('icon', 'Ikona'),
-                AvatarField::new('sliderImage', 'Opraz prezentacji'),
+                ImageField::new('icon', 'Ikona')
+                    ->setUploadDir('public/assets/images')
+                    ->setBasePath('/assets/images'),
+                ImageField::new('sliderImage', 'Obraz prezentacji')
+                    ->setUploadDir('public/assets/images')
+                    ->setBasePath('/assets/images'),
                 MoneyField::new('price', 'Cena')
                     ->setCurrency('PLN')
                     ->setStoredAsCents(false),
@@ -62,8 +67,12 @@ class ItemListCrudController extends AbstractRoleAccessCrudController
         return [
             TextField::new('name', 'Nazwa'),
             CKEditorField::new('description', 'Opis')->hideOnIndex(),
-            AvatarField::new('icon', 'Ikona'),
-            AvatarField::new('sliderImage', 'Opraz prezentacji'),
+            ImageField::new('icon', 'Ikona')
+                ->setUploadDir('public/assets/images')
+                ->setBasePath('/assets/images'),
+            ImageField::new('sliderImage', 'Obraz prezentacji')
+                ->setUploadDir('public/assets/images')
+                ->setBasePath('/assets/images'),
             MoneyField::new('price', 'Cena')
                 ->setCurrency('PLN')
                 ->setStoredAsCents(false),

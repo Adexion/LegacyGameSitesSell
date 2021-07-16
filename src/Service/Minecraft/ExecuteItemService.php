@@ -2,6 +2,7 @@
 
 namespace MNGame\Service\Minecraft;
 
+use Exception;
 use MNGame\Database\Entity\Item;
 use MNGame\Database\Entity\ItemList;
 use MNGame\Database\Entity\Server;
@@ -72,7 +73,7 @@ class ExecuteItemService
                 $server = $this->serverProvider->getServer($userItem->getItem()->getItemList()->getServerId());
                 $response = $this->request($userItem->getItem(), $user, $server);
 
-                if (strpos($response, $server->getPlayerNotFoundCommunicate()) !== false) {
+                if (str_contains($response, $server->getPlayerNotFoundCommunicate())) {
                     return Response::HTTP_PARTIAL_CONTENT;
                 }
 
@@ -89,7 +90,8 @@ class ExecuteItemService
      * @throws PaymentProcessingException
      * @throws ReflectionException
      */
-    public function executeItemListInstant(float $amount, int $itemListId = null, UserInterface $user = null, bool $isFromWallet = null): int {
+    public function executeItemListInstant(float $amount, int $itemListId = null, UserInterface $user = null, bool $isFromWallet = null): int
+    {
         /** @var ItemList $itemList */
         $itemList = $this->itemListRepository->find($itemListId);
         $this->handleError($amount, $itemList, $user, $isFromWallet);
@@ -100,9 +102,13 @@ class ExecuteItemService
 
         foreach ($items ?? [] as $item) {
             $server = $this->serverProvider->getServer($item->getItemList()->getServerId());
-            $response = $this->request($item, $user, $server);
+            try {
+                $response = $this->request($item, $user, $server);
+            } catch (Exception) {
+                $response = $server->getPlayerNotFoundCommunicate();
+            }
 
-            if (strpos($response, $server->getPlayerNotFoundCommunicate()) !== false) {
+            if (str_contains($response, $server->getPlayerNotFoundCommunicate())) {
                 $isSomeItemAssignedToEquipment = (bool)$this->userItemRepository->createItem($user, $item);
             }
         }
@@ -117,10 +123,10 @@ class ExecuteItemService
 
     private function isItemOnWhiteList(string $command): bool
     {
-        $executeImmediatelyCommands = $this->container->getParameter('executeImmediatelyCommands');
+        $executeImmediatelyCommands = $this->container->getParameter('executeImmediatelyCommand');
 
         foreach ($executeImmediatelyCommands as $partialCommand) {
-            if (strpos($command, $partialCommand) !== false) {
+            if (str_contains($command, $partialCommand)) {
                 return true;
             }
         }
@@ -139,7 +145,7 @@ class ExecuteItemService
         }
 
         $client = $this->clientFactory->create($server);
-        $client->sendCommand(sprintf($item->getCommand(), $user->getUsername()));
+        $client->sendCommand(sprintf($item->getCommand(), $user->getUserIdentifier()));
 
         $response = $client->getResponse();
         if (!$response) {
@@ -154,7 +160,8 @@ class ExecuteItemService
      * @throws PaymentProcessingException
      * @throws ContentException
      */
-    private function handleError(float $amount, ItemList $itemList = null, UserInterface $user = null, bool $isFromWallet = null) {
+    private function handleError(float $amount, ItemList $itemList = null, UserInterface $user = null, bool $isFromWallet = null)
+    {
         if (!$itemList && !$isFromWallet) {
             $this->walletService->changeCash($amount, $user);
 
@@ -165,10 +172,6 @@ class ExecuteItemService
 
         /** @var User|UserInterface $user */
         if ($itemList->getAfterPromotionPrice() > $amount) {
-            if (!$isFromWallet) {
-                $this->walletService->changeCash($amount, $user);
-            }
-
             throw new PaymentProcessingException();
         }
     }

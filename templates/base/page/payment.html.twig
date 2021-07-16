@@ -1,0 +1,60 @@
+{% extends 'base/base.html.twig' %}
+
+{% block body %}
+    {{ encore_entry_link_tags('navbar-base') }}
+    <div class="container-fluid">
+        <div class="row justify-content-center text-center flex-column m-4">
+            {% if responseType != 402 %}
+                {% if itemList is defined %}
+                    <div>
+                        <h4 class="font-weight-bold">Kupiono {{ itemList.name }} za {{ itemList.afterPromotionPrice }}
+                            zł</h4>
+                    </div>
+                    <div>
+                        <img src="{{ asset('assets/images/' ~ itemList.icon) }}" alt="{{ itemList.name }}" class="item-icon-payment"/>
+                        <br/>
+                        <br/>
+                        <p>Zapraszamy do zabawy z nowo zakupionym pakietem!!!</p>
+                    </div>
+                {% elseif responseType != 429 %}
+                    <div>
+                        <h4 class="font-weight-bold">Doładowałeś swoje konto!</h4>
+                    </div>
+                    <div>
+                        <span>Możesz teraz wykorzystać środki ze swojego konta prepaid!</span>
+                    </div>
+                {% endif %}
+                {% if responseType == 206 %}
+                    <div>
+                        <h4 class="font-weight-bold">Nie udało sie wypłacić wszystkich przedmiotów. Zostaną one
+                            przypisane do twojego ekwipunku</h4>
+                    </div>
+                    <div class="justify-content-center d-flex">
+                        <a href="{{ path('equipment-profile') }}" class="gs-redirect mt-3 w-50">Sprzawdź
+                            swój
+                            ekwipunek</a>
+                    </div>
+                {% elseif responseType == 429 %}
+                    <div>
+                        <h4 class="font-weight-bold">Ta płatnośc została już wykonana</h4>
+                    </div>
+                    <div class="justify-content-center d-flex">
+                        <h3>Wybrana opcja płatności została już zarejetrowana w systemie. Nie można wykonac jej
+                            ponownie!</h3>
+                        <br/>
+                        <a href="{{ path('equipment-profile') }}" class="gs-redirect mt-3 w-50">Sprzawdź
+                            swój
+                            ekwipunek</a>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div>
+                    <h4 class="font-weight-bold">Wystąpił błąd podczas kupowania przedmiotu!</h4>
+                </div>
+                <div>
+                    <p>Nie masz wystarczającej ilości środków na koncie</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

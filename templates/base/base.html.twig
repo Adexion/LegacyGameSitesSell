@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    {% include 'colored/component/head.html.twig' %}
+    {% include 'base/component/head.html.twig' %}
 
     {% block stylesheets %}
-        {{ encore_entry_link_tags('main-colored') }}
+        {{ encore_entry_link_tags('main-base') }}
     {% endblock %}
 </head>
 <body>
 
 <div id="content">
-    {% include 'colored/component/nav.html.twig' %}
+    {% include 'base/component/nav.html.twig' %}
     {% block body %}{% endblock %}
 </div>
 <footer class="d-flex justify-content-end">
@@ -21,7 +21,7 @@
             <span>{{ global.contentEN }}</span>
 
             <div class="social-wrapper d-flex row">
-                <div class="col-md-12 col-lg-7">{% include 'colored/component/social.html.twig' %}</div>
+                <div class="col-md-12 col-lg-7">{% include 'base/component/social.html.twig' %}</div>
                 <p class="col-md-12 col-lg-5 underline">Powered by <a href="https://gamesites.pl/" target="_blank">gamesites.pl</a></p>
             </div>
         </div>

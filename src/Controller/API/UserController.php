@@ -1,101 +1,85 @@
 <?php
 
-namespace MNGame\Controller\Front;
+namespace MNGame\Controller\API;
 
 use MNGame\Database\Entity\User;
 use MNGame\Database\Entity\UserItem;
-use MNGame\Database\Repository\UserRepository;
 use MNGame\Exception\ContentException;
 use MNGame\Form\UserEditType;
 use MNGame\Service\Minecraft\ExecuteItemService;
+use MNGame\Validator\FormErrorHandler;
 use ReflectionException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
     /**
-     * @Route(name="user", path="/user")
+     * @Route(name="api-edit-profile", path="/api/user", methods={"GET"})
      */
-    public function userAction(): Response
+    public function profile(): Response
     {
-        return $this->render('base/page/user.html.twig');
+        return new JsonResponse($this->getUser());
     }
 
     /**
-     * @Route(name="user-profile", path="/user/profile")
+     * @Route(name="api-edit-profile", path="/api/user/edit", methods={"PUT"})
+     *
+     * @throws ContentException
      */
-    public function userProfile(): Response
+    public function updateProfile(Request $request, UserPasswordHasherInterface $passwordEncoder, FormErrorHandler $errorHandler): Response
     {
-        return $this->render('base/page/user.profile.html.twig');
-    }
-
-    /**
-     * @Route(name="edit-profile", path="/user/edit")
-     */
-    public function updateProfile(
-        Request $request,
-        UserPasswordHasherInterface $passwordEncoder,
-        UserRepository $userRepository
-    ): Response {
         $lastPassword = $this->getUser()->getPassword();
         $form = $this->createForm(UserEditType::class, $this->getUser());
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var User $user */
-            $user = $form->getData();
-            if ($user->getPassword() !== $lastPassword) {
-                $user->setPassword($passwordEncoder->hashPassword($user, $user->getPassword()));
-            }
+        $errorHandler->handle($form);
 
-            $this->getDoctrine()->getManager()->persist($user);
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('user-profile');
+        /** @var User $user */
+        $user = $form->getData();
+        if ($user->getPassword() !== $lastPassword) {
+            $user->setPassword($passwordEncoder->hashPassword($user, $user->getPassword()));
         }
 
-        return $this->render('base/page/edit.profile.html.twig', [
-            'edit_form' => $form->createView(),
-        ]);
+        $this->getDoctrine()->getManager()->persist($user);
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 
     /**
-     * @Route(name="equipment-profile", path="/user/equipment")
+     * @Route(name="api-equipment", path="/api/user/itemlist", methods={"GET"})
      */
     public function equipmentProfile(Request $request): Response
     {
-        return $this->render('base/page/equipment.profile.html.twig', [
+        return new JsonResponse([
             'userItemList' => $this->getDoctrine()->getRepository(UserItem::class)->findBy(['user' => $this->getUser()]),
-            'code' => $request->query->getInt('code'),
-        ]);
+        ], $request->query->getInt('code'));
     }
 
     /**
-     * @Route(name="item-profile", path="/user/item")
+     * @Route(name="api-item-profile", path="/api/user/item/execute", methods={"POST"})
      *
      * @throws ContentException
      * @throws ReflectionException
      */
     public function itemExecute(Request $request, ExecuteItemService $executeItemService): Response
     {
-        return $this->redirectToRoute('equipment-profile', [
-            'code' => $executeItemService->executeItem($this->getUser(), $request->request->getInt('itemId')),
-        ]);
+        return new JsonResponse([], $executeItemService->executeItem($this->getUser(), $request->request->getInt('itemId')));
     }
 
     /**
-     * @Route(name="item-list-profile", path="/user/item/all")
+     * @Route(name="item-list-profile", path="/user/itemlist/execute", methods={"POST"})
      *
      * @throws ContentException
      * @throws ReflectionException
      */
     public function itemListExecute(Request $request, ExecuteItemService $executeItemService): Response
     {
-        return $this->redirectToRoute('equipment-profile', [
-            'code' => $executeItemService->executeItem($this->getUser()),
-        ]);
+        return new JsonResponse([], $executeItemService->executeItem($this->getUser()));
     }
 }

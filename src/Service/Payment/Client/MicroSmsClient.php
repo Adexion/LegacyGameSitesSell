@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use MNGame\Service\ApiClient\RestApiClient;
 use MNGame\Exception\PaymentProcessingException;
 
-class MicroSmsPaymentClient extends DefaultPaymentClient implements PaymentClientInterface
+class MicroSmsClient extends DefaultPaymentClient implements PaymentClientInterface
 {
     private const URL = 'https://microsms.pl/api/v2/multi.php?';
 

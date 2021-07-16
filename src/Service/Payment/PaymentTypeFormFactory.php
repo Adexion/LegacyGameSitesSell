@@ -2,16 +2,16 @@
 
 namespace MNGame\Service\Payment;
 
-use ReflectionException;
-use MNGame\Form\PaymentType;
 use MNGame\Database\Entity\Payment;
-use Symfony\Component\Form\FormView;
-use MNGame\Enum\PaymentConfigurationType;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 use MNGame\Database\Repository\ParameterRepository;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use MNGame\Enum\PaymentConfigurationType;
+use MNGame\Form\PaymentType;
+use ReflectionException;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 
 class PaymentTypeFormFactory
 {
@@ -20,7 +20,7 @@ class PaymentTypeFormFactory
 
     public function __construct(FormFactoryInterface $formFactory, ParameterRepository $parameterRepository)
     {
-        $this->formFactory         = $formFactory;
+        $this->formFactory = $formFactory;
         $this->parameterRepository = $parameterRepository;
     }
 
@@ -29,10 +29,10 @@ class PaymentTypeFormFactory
      */
     public function create(Payment $payment, float $price, string $name, string $uniqId): ?FormView
     {
-        $parameter            = $this->parameterRepository->findOneBy(['name' => 'uri']);
-        $builder              = new PaymentConfigurationFormBuilder($uniqId);
+        $parameter = $this->parameterRepository->findOneBy(['name' => 'uri']);
+        $builder = new PaymentConfigurationFormBuilder($uniqId);
         $paymentConfiguration = $builder->build($payment, $price, $name, $parameter->getValue());
-        $action               = $builder->getActionUri($payment);
+        $action = $builder->getActionUri($payment);
 
         return $this
             ->getForm($paymentConfiguration, $action)

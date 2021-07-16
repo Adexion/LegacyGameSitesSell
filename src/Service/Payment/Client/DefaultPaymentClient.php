@@ -2,35 +2,36 @@
 
 namespace MNGame\Service\Payment\Client;
 
-use MNGame\Enum\PaymentStatusEnum;
-use MNGame\Exception\ContentException;
-use MNGame\Database\Entity\Configuration;
-use MNGame\Enum\PaymentConfigurationType;
 use Doctrine\Common\Collections\Collection;
-use MNGame\Service\ApiClient\RestApiClient;
-use MNGame\Exception\PaymentProcessingException;
-use MNGame\Database\Repository\SMSPriceRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\TransactionRequiredException;
+use MNGame\Database\Entity\Configuration;
+use MNGame\Database\Entity\Item;
+use MNGame\Database\Entity\ItemList;
+use MNGame\Database\Entity\UserItem;
 use MNGame\Database\Repository\PaymentHistoryRepository;
+use MNGame\Database\Repository\SMSPriceRepository;
+use MNGame\Enum\PaymentConfigurationType;
+use MNGame\Enum\PaymentStatusEnum;
+use MNGame\Exception\PaymentProcessingException;
+use MNGame\Service\ApiClient\RestApiClient;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class DefaultPaymentClient extends RestApiClient implements PaymentClientInterface
 {
     protected Collection $paymentConfiguration;
     protected PaymentHistoryRepository $paymentHistoryRepository;
     protected SMSPriceRepository $smsPriceRepository;
+    protected TokenStorageInterface $tokenStorage;
 
-    /**
-     * DefaultPaymentClient constructor.
-     *
-     * @param  SMSPriceRepository        $smsPriceRepository
-     * @param  Collection                $paymentConfiguration
-     * @param  PaymentHistoryRepository  $paymentHistoryRepository
-     */
-    public function __construct(SMSPriceRepository $smsPriceRepository, Collection $paymentConfiguration, PaymentHistoryRepository $paymentHistoryRepository)
+    public function __construct(SMSPriceRepository $smsPriceRepository, Collection $paymentConfiguration, PaymentHistoryRepository $paymentHistoryRepository, TokenStorageInterface $tokenStorage)
     {
         parent::__construct();
-        $this->paymentConfiguration     = $paymentConfiguration;
+        $this->paymentConfiguration = $paymentConfiguration;
         $this->paymentHistoryRepository = $paymentHistoryRepository;
-        $this->smsPriceRepository       = $smsPriceRepository;
+        $this->smsPriceRepository = $smsPriceRepository;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**

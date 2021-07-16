@@ -52,7 +52,7 @@ class PaymentFormFactory
     {
         $itemList = $this->itemListRepository->find($itemId);
 
-        return $this->createFormList($uniqId, $itemList->getPrice(), $itemList);
+        return $this->createFormList($uniqId . $itemId, $itemList->getPrice(), $itemList);
     }
 
     /**

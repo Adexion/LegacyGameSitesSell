@@ -72,8 +72,8 @@ class WSClient implements ClientInterface
     private function getResponseBeautify(string $response): string
     {
         $removedFirstTag = preg_replace('/\[(.*)]\s/', '', $response);
-        $removedColoredSign = preg_replace('/§(.?)/', '', $removedFirstTag);
+        $removedbaseSign = preg_replace('/§(.?)/', '', $removedFirstTag);
 
-        return preg_replace('/([^a-zA-Z0-9\/\r\n\s])/', '', $removedColoredSign);
+        return preg_replace('/([^a-zA-Z0-9\/\r\n\s])/', '', $removedbaseSign);
     }
 }

@@ -2,41 +2,77 @@
 
 namespace MNGame\Controller\Panel\Crud;
 
+use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use MNGame\Database\Entity\Tutorial;
+use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
+use MNGame\Database\Entity\Parameter;
+use MNGame\Enum\ParameterEnum;
 use MNGame\Field\CKEditorField;
+use ReflectionException;
 
-class TutorialCrudController extends AbstractCrudController
+class ParameterCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Tutorial::class;
+        return Parameter::class;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->remove(Crud::PAGE_INDEX, Action::DELETE)
+            ->remove(Crud::PAGE_DETAIL, Action::DELETE);
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Poradnik')
-            ->setEntityLabelInPlural('Poradniki')
+            ->setEntityLabelInSingular('Konfiguracja')
+            ->setEntityLabelInPlural('Konfiguracja')
             ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
+    public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
+    {
+        return $this->get(EntityRepository::class)
+            ->createQueryBuilder($searchDto, $entityDto, $fields, $filters)
+            ->andWhere('entity.editable = true')
+            ->orderBy('entity.order, entity.name', 'ASC');
+    }
+
+    /**
+     * @throws ReflectionException
+     */
     public function configureFields(string $pageName): iterable
     {
-        if (Crud::PAGE_INDEX === $pageName) {
+        if ($pageName === Crud::PAGE_INDEX) {
             return [
-                TextField::new('question', 'Tytuł'),
-                TextareaField::new('text', 'Teskt')
+                TextField::new('name', 'Nazwa'),
+                TextField::new('value', 'Wartość'),
+            ];
+        }
+
+        if ($pageName === Crud::PAGE_EDIT) {
+            return [
+                TextField::new('name', 'Nazwa')
+                    ->setFormTypeOption('disabled','disabled'),
+                CKEditorField::new('value', 'Opis')->hideOnIndex(),
             ];
         }
 
         return [
-            TextField::new('question', 'Tytuł'),
-            CKEditorField::new('text', 'Tekst')->hideOnIndex(),
-            TextField::new('embed', 'Embed'),
+            ChoiceField::new('name', 'Nazwa')
+                ->setChoices(ParameterEnum::toArray()),
+            TextField::new('value', 'Wartość'),
         ];
     }
 }

@@ -61,8 +61,7 @@ class Server
     private ?string $userOnlineCommand = null;
 
     /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="text", nullable=true)
      */
     private ?string $image = null;
 
@@ -141,9 +140,9 @@ class Server
         return new ExecutionTypeEnum($this->executionType);
     }
 
-    public function setExecutionType(?ExecutionTypeEnum $executionType)
+    public function setExecutionType($executionType)
     {
-        $this->executionType = $executionType->getValue();
+        $this->executionType = $executionType;
     }
 
     public function getHost(): ?string

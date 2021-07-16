@@ -2,26 +2,26 @@
 
 namespace MNGame\Service\User;
 
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use MNGame\Database\Entity\Token;
 use MNGame\Database\Entity\User;
-use MNGame\Database\Repository\TokenRepository;
-use MNGame\Database\Repository\UserRepository;
-use MNGame\Exception\ContentException;
 use MNGame\Form\MojangLoginType;
+use MNGame\Database\Entity\Token;
+use MNGame\Exception\ContentException;
 use MNGame\Validator\FormErrorHandler;
-use Symfony\Component\Form\FormFactoryInterface;
+use Doctrine\ORM\OptimisticLockException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use MNGame\Database\Repository\UserRepository;
+use MNGame\Database\Repository\TokenRepository;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class LoginUserService
 {
     private UserProviderInterface $userProvider;
-    private UserPasswordEncoderInterface $passwordEncoder;
+    private UserPasswordHasherInterface $passwordEncoder;
     private FormFactoryInterface $form;
     private FormErrorHandler $formErrorHandler;
     private TokenRepository $repository;
@@ -29,18 +29,18 @@ class LoginUserService
 
     public function __construct(
         UserProviderInterface $userProvider,
-        UserPasswordEncoderInterface $passwordEncoder,
+        UserPasswordHasherInterface $passwordEncoder,
         FormFactoryInterface $form,
         FormErrorHandler $formErrorHandler,
         TokenRepository $repository,
         UserRepository $userRepository
     ) {
-        $this->userProvider = $userProvider;
-        $this->passwordEncoder = $passwordEncoder;
-        $this->form = $form;
+        $this->userProvider     = $userProvider;
+        $this->passwordEncoder  = $passwordEncoder;
+        $this->form             = $form;
         $this->formErrorHandler = $formErrorHandler;
-        $this->repository = $repository;
-        $this->userRepository = $userRepository;
+        $this->repository       = $repository;
+        $this->userRepository   = $userRepository;
     }
 
     /**
@@ -54,9 +54,8 @@ class LoginUserService
 
         /** @var User $user */
         try {
-            $user = $this->userProvider->loadUserByUsername($request->request->get('username'));
-        } catch (UsernameNotFoundException $e) {
-            $user = $this->userRepository->findOneBy(['email' => $request->request->get('username')]);
+            $user = $this->userProvider->loadUserByIdentifier($request->request->get('username'));
+        } catch (UserNotFoundException) {
         }
 
         if (empty($user) || !$this->passwordEncoder->isPasswordValid($user, $request->request->get('password'))) {

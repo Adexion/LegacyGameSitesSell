@@ -19,6 +19,11 @@ class ParameterProvider
         $this->databaseParameterArrayObject = new DatabaseParameterArrayObject();
 
         foreach ($this->parameters as $parameter) {
+            if ($this->isParameterWithSameKeyExist($parameter->getName())) {
+                $this->databaseParameterArrayObject[$parameter->name][] = $parameter->getValue();
+                continue;
+            }
+
             $this->databaseParameterArrayObject[$parameter->name] = $parameter->getValue();
         }
 
@@ -28,5 +33,22 @@ class ParameterProvider
     public function getParameter(string $name)
     {
         return $this->databaseParameterArrayObject[$name] ?? $this->container->getParameter($name);
+    }
+
+    public function getDatabaseParameters(): DatabaseParameterArrayObject
+    {
+        return $this->databaseParameterArrayObject;
+    }
+
+    private function isParameterWithSameKeyExist(string $name): bool
+    {
+        $count = 0;
+        foreach ($this->parameters as $parameter) {
+            if ($parameter->getName() === $name) {
+                $count++;
+            }
+        }
+
+        return $count > 1;
     }
 }
