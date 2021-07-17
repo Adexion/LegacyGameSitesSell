@@ -16,11 +16,19 @@ class ResetType extends AbstractType
     {
         $builder
             ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['min' => 6])
-                ]
+                'type'           => PasswordType::class,
+                'first_options'  => [
+                    'label' => false,
+                    'attr'  => [
+                        'placeholder' => 'Podaj hasło*',
+                    ],
+                ],
+                'second_options' => [
+                    'label' => false,
+                    'attr'  => [
+                        'placeholder' => 'Powtórz hasło*',
+                    ],
+                ],
             ]);
     }
 

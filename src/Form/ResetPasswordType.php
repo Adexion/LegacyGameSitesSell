@@ -23,7 +23,12 @@ class ResetPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class)
+            ->add('username', TextType::class, [
+                'label' => false,
+                'attr'  => [
+                    'placeholder' => 'Podaj nick minecraft*',
+                ],
+            ])
             ->add('reCaptcha', HiddenType::class)
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'preSubmit']);
     }
