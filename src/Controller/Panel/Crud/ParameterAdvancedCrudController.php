@@ -9,13 +9,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 use MNGame\Database\Entity\Parameter;
-use MNGame\Enum\ParameterEnum;
-use MNGame\Field\CKEditorField;
 use ReflectionException;
 
 class ParameterAdvancedCrudController extends AbstractCrudController
@@ -52,9 +48,6 @@ class ParameterAdvancedCrudController extends AbstractCrudController
         return $entity;
     }
 
-    /**
-     * @throws ReflectionException
-     */
     public function configureFields(string $pageName): iterable
     {
         if ($pageName === Crud::PAGE_INDEX) {
@@ -64,18 +57,10 @@ class ParameterAdvancedCrudController extends AbstractCrudController
             ];
         }
 
-        if ($pageName === Crud::PAGE_EDIT) {
-            return [
-                TextField::new('name', 'Nazwa')
-                    ->setFormTypeOption('disabled', 'disabled'),
-                CKEditorField::new('value', 'Opis')->hideOnIndex(),
-            ];
-        }
-
         return [
-            ChoiceField::new('name', 'Nazwa')
-                ->setChoices(ParameterEnum::toArray()),
-            EmailField::new('value', 'Wartość'),
+            TextField::new('name', 'Nazwa')
+                ->setFormTypeOption('disabled', 'disabled'),
+            TextField::new('value', 'Opis'),
         ];
     }
 }

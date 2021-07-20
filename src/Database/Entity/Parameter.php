@@ -30,13 +30,11 @@ class Parameter
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank()
      */
     private ?bool $editable = false;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank()
      */
     private ?bool $multiple = false;
 
