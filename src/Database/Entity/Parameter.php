@@ -24,8 +24,7 @@ class Parameter
     public ?string $name = null;
 
     /**
-     * @ORM\Column(type="text", name="param_value")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="text", name="param_value", nullable=true)
      */
     private ?string $value = null;
 
