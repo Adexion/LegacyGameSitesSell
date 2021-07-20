@@ -51,6 +51,16 @@ class ParameterCrudController extends AbstractCrudController
             ->orderBy('entity.order, entity.name', 'ASC');
     }
 
+    public function createEntity(string $entityFqcn): Parameter
+    {
+        $entity = new Parameter();
+        $entity->setEditable(true);
+        $entity->setMultiple(false);
+        $entity->setOrder(0);
+
+        return $entity;
+    }
+
     /**
      * @throws ReflectionException
      */
