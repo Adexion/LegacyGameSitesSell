@@ -46,6 +46,13 @@ footer {
   min-height: 100vh;
 }
 
+.ckcontent {
+  font-weight: normal;
+  .iAccept {
+    font-weight: bold;
+  }
+}
+
 .navbar-content {
   position: absolute;
   padding: 25px;
