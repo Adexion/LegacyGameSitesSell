@@ -21,6 +21,13 @@ public/build/manifest.json
 npm-debug.log
 yarn-error.log
 mysql
+/public/assets/images
+!/public/assets/images/cool_guy.png
+!/public/assets/images/footer_map.png
+!/public/assets/images/lightning.png
+!/public/assets/images/social.png
+!/public/assets/images/thinking_guy.png
+
 
 ###> symfony/framework-bundle ###
 /.env.local

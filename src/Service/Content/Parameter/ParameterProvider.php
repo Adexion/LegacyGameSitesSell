@@ -2,6 +2,7 @@
 
 namespace MNGame\Service\Content\Parameter;
 
+use MNGame\Database\Entity\SiteParameter;
 use MNGame\Database\Repository\ParameterRepository;
 use MNGame\Database\Repository\ServerRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -28,6 +29,7 @@ class ParameterProvider
         }
 
         $this->databaseParameterArrayObject['server'] = $serverRepository->findAll();
+        $this->databaseParameterArrayObject['site'] = $parameterRepository->getEntityManager()->getRepository(SiteParameter::class)->findAll()[0];
     }
 
     public function getParameter(string $name)
