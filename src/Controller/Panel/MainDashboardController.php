@@ -60,8 +60,6 @@ trait MainDashboardController
                 ->setPermission(RolesEnum::ROLE_SUPER_ADMIN),
             MenuItem::linkToCrud('SEO', 'fa fa-tools', SiteParameter::class)
                 ->setController(SiteParameterCrudController::class)
-                ->setEntityId(1)
-                ->setAction(Action::EDIT)
                 ->setPermission(RolesEnum::ROLE_SUPER_ADMIN),
             MenuItem::linkToCrud('Admini na stronie', 'fa fa-users-cog', AdminServerUser::class)
                 ->setController(AdminServerUserCrudController::class)
