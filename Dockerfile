@@ -1,6 +1,6 @@
 # ./docker/php/Dockerfile
 
-FROM php:7.4-fpm
+FROM php:8.0-fpm
 
 RUN pecl install apcu
 
@@ -22,8 +22,10 @@ RUN mkdir -p /.cache/yarn && mkdir /.yarn
 RUN chmod 777 /.cache/yarn && chmod 777 /.yarn
 
 RUN docker-php-ext-configure intl
-RUN docker-php-ext-install zip pdo pdo_mysql sockets intl
-RUN docker-php-ext-enable apcu zip pdo pdo_mysql sockets intl
+RUN docker-php-ext-install zip pdo pdo_mysql sockets intl opcache
+RUN docker-php-ext-enable apcu zip pdo pdo_mysql sockets intl opcache
+
+COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 WORKDIR /usr/src/app
 
